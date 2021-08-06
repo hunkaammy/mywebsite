@@ -1,55 +1,801 @@
+<style>
+
+div {
+        margin-bottom: 10px;
+      }
+      input[type=number] {
+       width: 50px;
+        padding: 5px;
+        border: 2px solid #cccccc;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+      }
+      input[type=number]:focus {
+        border-color: #33333;
+        width: 50px
+      }
+	  
+	   input[type=text] {
+        border-color: #33333;
+        width: 100px
+      }
+	  
+      input[type=submit] {
+        padding: 5px 15px;
+	
+        background: #99e0b2;
+        border: 0 none;
+        cursor: pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+      }
+    </style>
+
+
+
+
 <!DOCTYPE html>
 <html>
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-  <h5 class="w3-bar-item">Menu</h5>
-  <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'London')">London</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Paris')">Paris</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+<div ng-app="">
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Responsive horizontal scroll tabs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+
+
+
+
+</head>
+<body>
+
+<!-- partial:index.partial.html -->
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<div class="container">
+        <div class="row">
+            <div class="">
+                <!-- Nav tabs -->
+                <div class="card">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">home</a></li>
+                        <li role="presentation"><a href="#BLOCKS" aria-controls="profile" role="tab" data-toggle="tab">BLOCKS</a></li>
+                       
+                        <li role="presentation"><a href="#TRUCK" aria-controls="settings" role="tab" data-toggle="tab">TRUCK/DUMPER</a></li>
+                        <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">JCB</a></li>
+                        <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">KITCHEN-SET</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">TRACTOR</a></li>
+						
+						<li role="presentation"><a href="#contact" aria-controls="contact1" role="tab" data-toggle="tab">CAR/JEEP</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact2" role="tab" data-toggle="tab">PATTA-ITEMS</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact3" role="tab" data-toggle="tab">RATTLE/CHUCHU</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact4" role="tab" data-toggle="tab">MIX</a></li>
+					        <li role="presentation"><a href="#contact" aria-controls="contact5" role="tab" data-toggle="tab">BOX-ITEM</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact6" role="tab" data-toggle="tab">REMOTE-CAR</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact7" role="tab" data-toggle="tab">BATTERY-ITEMS</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact8" role="tab" data-toggle="tab">DOLLS</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact9" role="tab" data-toggle="tab">SOFT-TOYS</a></li>
+					        <li role="presentation"><a href="#contact" aria-controls="contact10" role="tab" data-toggle="tab">SPORT-ITEMS</a></li>
+					        <li role="presentation"><a href="#contact" aria-controls="contact11" role="tab" data-toggle="tab">STUDY-TABLE</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact12" role="tab" data-toggle="tab">WALKERS</a></li>
+						<li role="presentation"><a href="#contact" aria-controls="contact13" role="tab" data-toggle="tab">BIG-ITEMS</a></li>
+					        <li role="presentation"><a href="#contact" aria-controls="contact14" role="tab" data-toggle="tab">OUT</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <legend>Responsive Tabs</legend>
+							
+				
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 1</p>
+<form id="formLoc11">
+ <label></label><input type="hidden" id="nameLoc11"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
+  <input type="hidden" id="cnameLoc11"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc11"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/2.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 2</p>
+<form id="formLoc12">
+ <label></label><input type="hidden" id="nameLoc12"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/2.jpeg">
+  <input type="hidden" id="cnameLoc12"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc12"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/3.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 3</p>
+<form id="formLoc13">
+ <label></label><input type="hidden" id="nameLoc13"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/3.jpeg">
+  <input type="hidden" id="cnameLoc13"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc13"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/4.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 4</p>
+<form id="formLoc14">
+ <label></label><input type="hidden" id="nameLoc14"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/4.jpeg">
+  <input type="hidden" id="cnameLoc14"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc14"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/5.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 5</p>
+<form id="formLoc15">
+ <label></label><input type="hidden" id="nameLoc15"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/5.jpeg">
+  <input type="hidden" id="cnameLoc15"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc15"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/6.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 6</p>
+<form id="formLoc16">
+ <label></label><input type="hidden" id="nameLoc16"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/6.jpeg">
+  <input type="hidden" id="cnameLoc16"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc16"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/7.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 7</p>
+<form id="formLoc17">
+ <label></label><input type="hidden" id="nameLoc17"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/7.jpeg">
+  <input type="hidden" id="cnameLoc17"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc17"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/8.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 8</p>
+<form id="formLoc18">
+ <label></label><input type="hidden" id="nameLoc18"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/8.jpeg">
+  <input type="hidden" id="cnameLoc18"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc18"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/9.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 9</p>
+<form id="formLoc19">
+ <label></label><input type="hidden" id="nameLoc19"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/9.jpeg">
+  <input type="hidden" id="cnameLoc19"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc19"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/10.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 10</p>
+<form id="formLoc20">
+ <label></label><input type="hidden" id="nameLoc20"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/10.jpeg">
+  <input type="hidden" id="cnameLoc20"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc20"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+
+
+
+
+
+
+
+
+
+
+							
+							
+							
+                            <p>If you are on desktop Try resizing the window to mobile view to see the scroll effect</p>
+                            <p>Horizontal scrollable tabs</p>
+                            <p>Best for mobile view</p>
+                            <p>Similar to gravity MODE_SCROLLABLE in Android</p>
+
+                          </div>
+                        
+
+
+
+
+
+
+<div role="tabpanel" class="tab-pane" id="BLOCKS">
+
+
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/1.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 1</p>
+<form id="formLoc21">
+ <label></label><input type="hidden" id="nameLoc21"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/1.jpeg">
+  <input type="hidden" id="cnameLoc21"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc21"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/2.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 2</p>
+<form id="formLoc22">
+ <label></label><input type="hidden" id="nameLoc22"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/2.jpeg">
+  <input type="hidden" id="cnameLoc22"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc22"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/3.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 3</p>
+<form id="formLoc23">
+ <label></label><input type="hidden" id="nameLoc23"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/3.jpeg">
+  <input type="hidden" id="cnameLoc23"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc23"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/4.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 4</p>
+<form id="formLoc24">
+ <label></label><input type="hidden" id="nameLoc24"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/4.jpeg">
+  <input type="hidden" id="cnameLoc24"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc24"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/5.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 5</p>
+<form id="formLoc25">
+ <label></label><input type="hidden" id="nameLoc25"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/5.jpeg">
+  <input type="hidden" id="cnameLoc25"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc25"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/6.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 6</p>
+<form id="formLoc26">
+ <label></label><input type="hidden" id="nameLoc26"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/6.jpeg">
+  <input type="hidden" id="cnameLoc26"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc26"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/7.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 7</p>
+<form id="formLoc27">
+ <label></label><input type="hidden" id="nameLoc27"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/7.jpeg">
+  <input type="hidden" id="cnameLoc27"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc27"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/8.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 8</p>
+<form id="formLoc28">
+ <label></label><input type="hidden" id="nameLoc28"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/8.jpeg">
+  <input type="hidden" id="cnameLoc28"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc28"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/9.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 9</p>
+<form id="formLoc29">
+ <label></label><input type="hidden" id="nameLoc29"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/9.jpeg">
+  <input type="hidden" id="cnameLoc29"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc29"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/10.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 10</p>
+<form id="formLoc30">
+ <label></label><input type="hidden" id="nameLoc30"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/10.jpeg">
+  <input type="hidden" id="cnameLoc30"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc30"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/11.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 11</p>
+<form id="formLoc31">
+ <label></label><input type="hidden" id="nameLoc31"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/11.jpeg">
+  <input type="hidden" id="cnameLoc31"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc31"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/12.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 12</p>
+<form id="formLoc32">
+ <label></label><input type="hidden" id="nameLoc32"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/12.jpeg">
+  <input type="hidden" id="cnameLoc32"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc32"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/13.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 13</p>
+<form id="formLoc33">
+ <label></label><input type="hidden" id="nameLoc33"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/13.jpeg">
+  <input type="hidden" id="cnameLoc33"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc33"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/14.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 14</p>
+<form id="formLoc34">
+ <label></label><input type="hidden" id="nameLoc34"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/14.jpeg">
+  <input type="hidden" id="cnameLoc34"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc34"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/15.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 15</p>
+<form id="formLoc35">
+ <label></label><input type="hidden" id="nameLoc35"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/15.jpeg">
+  <input type="hidden" id="cnameLoc35"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc35"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/16.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 16</p>
+<form id="formLoc36">
+ <label></label><input type="hidden" id="nameLoc36"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/16.jpeg">
+  <input type="hidden" id="cnameLoc36"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc36"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/17.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 17</p>
+<form id="formLoc37">
+ <label></label><input type="hidden" id="nameLoc37"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/17.jpeg">
+  <input type="hidden" id="cnameLoc37"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc37"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/18.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 18</p>
+<form id="formLoc38">
+ <label></label><input type="hidden" id="nameLoc38"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/18.jpeg">
+  <input type="hidden" id="cnameLoc38"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc38"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/19.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 19</p>
+<form id="formLoc39">
+ <label></label><input type="hidden" id="nameLoc39"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/19.jpeg">
+  <input type="hidden" id="cnameLoc39"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc39"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/20.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 20</p>
+<form id="formLoc40">
+ <label></label><input type="hidden" id="nameLoc40"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/BLOCKS/20.jpeg">
+  <input type="hidden" id="cnameLoc40"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc40"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+
+
+	
+	</div>
+	
+
+
+
+
+
+
+
+
+
+                        <div role="tabpanel" class="tab-pane" id="TRUCK">
+                            <legend>Messages</legend>
+							
+				
+
+							
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/1.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 1</p>
+<form id="formLoc41">
+ <label></label><input type="hidden" id="nameLoc41"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/1.jpeg">
+  <input type="hidden" id="cnameLoc41"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc41"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/2.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 2</p>
+<form id="formLoc42">
+ <label></label><input type="hidden" id="nameLoc42"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/2.jpeg">
+  <input type="hidden" id="cnameLoc42"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc42"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/3.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 3</p>
+<form id="formLoc43">
+ <label></label><input type="hidden" id="nameLoc43"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/3.jpeg">
+  <input type="hidden" id="cnameLoc43"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc43"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/4.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 4</p>
+<form id="formLoc44">
+ <label></label><input type="hidden" id="nameLoc44"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/4.jpeg">
+  <input type="hidden" id="cnameLoc44"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc44"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/5.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 5</p>
+<form id="formLoc45">
+ <label></label><input type="hidden" id="nameLoc45"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/5.jpeg">
+  <input type="hidden" id="cnameLoc45"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc45"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/6.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 6</p>
+<form id="formLoc46">
+ <label></label><input type="hidden" id="nameLoc46"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/6.jpeg">
+  <input type="hidden" id="cnameLoc46"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc46"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/7.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 7</p>
+<form id="formLoc47">
+ <label></label><input type="hidden" id="nameLoc47"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/7.jpeg">
+  <input type="hidden" id="cnameLoc47"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc47"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/8.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 8</p>
+<form id="formLoc48">
+ <label></label><input type="hidden" id="nameLoc48"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/8.jpeg">
+  <input type="hidden" id="cnameLoc48"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc48"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/9.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 9</p>
+<form id="formLoc49">
+ <label></label><input type="hidden" id="nameLoc49"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/9.jpeg">
+  <input type="hidden" id="cnameLoc49"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc49"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/10.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 10</p>
+<form id="formLoc50">
+ <label></label><input type="hidden" id="nameLoc50"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/10.jpeg">
+  <input type="hidden" id="cnameLoc50"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc50"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/11.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 11</p>
+<form id="formLoc51">
+ <label></label><input type="hidden" id="nameLoc51"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/11.jpeg">
+  <input type="hidden" id="cnameLoc51"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc51"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/12.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 12</p>
+<form id="formLoc52">
+ <label></label><input type="hidden" id="nameLoc52"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/12.jpeg">
+  <input type="hidden" id="cnameLoc52"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc52"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/13.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 13</p>
+<form id="formLoc53">
+ <label></label><input type="hidden" id="nameLoc53"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/13.jpeg">
+  <input type="hidden" id="cnameLoc53"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc53"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/14.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 14</p>
+<form id="formLoc54">
+ <label></label><input type="hidden" id="nameLoc54"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/14.jpeg">
+  <input type="hidden" id="cnameLoc54"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc54"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/15.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 15</p>
+<form id="formLoc55">
+ <label></label><input type="hidden" id="nameLoc55"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/15.jpeg">
+  <input type="hidden" id="cnameLoc55"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc55"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/16.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 16</p>
+<form id="formLoc56">
+ <label></label><input type="hidden" id="nameLoc56"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/16.jpeg">
+  <input type="hidden" id="cnameLoc56"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc56"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/17.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 17</p>
+<form id="formLoc57">
+ <label></label><input type="hidden" id="nameLoc57"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/17.jpeg">
+  <input type="hidden" id="cnameLoc57"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc57"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/18.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 18</p>
+<form id="formLoc58">
+ <label></label><input type="hidden" id="nameLoc58"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/18.jpeg">
+  <input type="hidden" id="cnameLoc58"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc58"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/19.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 19</p>
+<form id="formLoc59">
+ <label></label><input type="hidden" id="nameLoc59"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/19.jpeg">
+  <input type="hidden" id="cnameLoc59"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc59"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/20.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 20</p>
+<form id="formLoc60">
+ <label></label><input type="hidden" id="nameLoc60"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/20.jpeg">
+  <input type="hidden" id="cnameLoc60"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc60"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/21.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 21</p>
+<form id="formLoc61">
+ <label></label><input type="hidden" id="nameLoc61"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/21.jpeg">
+  <input type="hidden" id="cnameLoc61"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc61"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form> <hr/>
+
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/22.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 22</p>
+<form id="formLoc62">
+ <label></label><input type="hidden" id="nameLoc62"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/22.jpeg">
+  <input type="hidden" id="cnameLoc62"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc62"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/23.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 23</p>
+<form id="formLoc63">
+ <label></label><input type="hidden" id="nameLoc63"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/23.jpeg">
+  <input type="hidden" id="cnameLoc63"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc63"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/24.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 24</p>
+<form id="formLoc64">
+ <label></label><input type="hidden" id="nameLoc64"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/24.jpeg">
+  <input type="hidden" id="cnameLoc64"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc64"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/25.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 25</p>
+<form id="formLoc65">
+ <label></label><input type="hidden" id="nameLoc65"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/25.jpeg">
+  <input type="hidden" id="cnameLoc65"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc65"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/26.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 26</p>
+<form id="formLoc66">
+ <label></label><input type="hidden" id="nameLoc66"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/26.jpeg">
+  <input type="hidden" id="cnameLoc66"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc66"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/27.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 27</p>
+<form id="formLoc67">
+ <label></label><input type="hidden" id="nameLoc67"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/27.jpeg">
+  <input type="hidden" id="cnameLoc67"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc67"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/28.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 28</p>
+<form id="formLoc68">
+ <label></label><input type="hidden" id="nameLoc68"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/28.jpeg">
+  <input type="hidden" id="cnameLoc68"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc68"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/29.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 29</p>
+<form id="formLoc69">
+ <label></label><input type="hidden" id="nameLoc69"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/29.jpeg">
+  <input type="hidden" id="cnameLoc69"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc69"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+<img src="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/30.jpeg"  onError="this.onerror=null;this.src='https://hunksammy.github.io/2084377289testbysam/PRODUCTS/stockout.jpg';"    width="300" height="300"><p>ITEM NO  - 30</p>
+<form id="formLoc70">
+ <label></label><input type="hidden" id="nameLoc70"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/TRUCK/30.jpeg">
+  <input type="hidden" id="cnameLoc70"class="name"  value="{{name}}">
+ <label>Qty:</label>
+<input type="number" id="descLoc70"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/></form><hr/>
+
+
 </div>
+                        
 
-<div style="margin-left:130px">
-  <div class="w3-padding">Vertical Tab Example (sidebar)</div>
+                        
+						
+						<div role="tabpanel" class="tab-pane" id="settings">
+                            <legend>Settings</legend>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
+                        <div role="tabpanel" class="tab-pane" id="about">
+                            <legend>About</legend>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
+                        <div role="tabpanel" class="tab-pane" id="contact">
+                            <legend>Contact Us</legend>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..
+							 			<!-- partial -->
+							
 
-  <div id="London" class="w3-container city" style="display:none">
-    <h2>SAMEER</h2>
-    <p>London is the capital city of England.</p>
-    <p>It is the most populous city in the United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
-  </div>
+</body>
+</html>
+							</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- partial -->
 
-  <div id="Paris" class="w3-container city" style="display:none">
-    <h2>Paris</h2>
-    <p>SAMEER is the capital of France.</p> 
-    <p>The Paris area is one of the largest population centers in Europe, with more than 12 million inhabitants.</p>
-  </div>
 
-  <div id="Tokyo" class="w3-container city" style="display:none">
-    <h2>Tokyo</h2>
-    <p>Tokyo is the capital of Japan.</p>
-    <p>It is the center of the Greater Tokyo Area, and the most populous metropolitan area in the world.</p>
-  </div>
 
-</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+</body>
+</html>
 
-<script>
-function openCity(evt, cityName) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("city");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " w3-red";
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Popup onload page</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+<style type="text/css">
+#overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #000;
+filter:alpha(opacity=70);
+-moz-opacity:0.7;
+-khtml-opacity: 0.7;
+opacity: 0.7;
+z-index: 100;
+display: none;
 }
-</script>
+.cnt223 a{
+text-decoration: none;
+}
+.popup{
+width: 100%;
+margin: 0 auto;
+display: none;
+position: fixed;
+z-index: 101;
+margin-top: -200px;
+}
+.cnt223{
 
+min-width: auto;
+width: auto;
+min-height: 100%;
+margin: 100px auto;
+background: white;
+position: relative;
+z-index: 103;
+padding: 30px 35px;
+border-radius: 5px;
+box-shadow: 0 2px 5px #000;
+bottom: 4000px;
+
+}
+.cnt223 p{
+clear: both;
+    color: #555555;
+    /* text-align: justify; */
+    font-size: 20px;
+    font-family: sans-serif;
+}
+.cnt223 p a{
+color: #d91900;
+font-weight: bold;
+}
+.cnt223 .x{
+float: right;
+height: 35px;
+left: 22px;
+position: relative;
+top: -60px;
+width: 34px;
+}
+.cnt223 .x:hover{
+cursor: pointer;
+}
+</style>
+<script type='text/javascript'>
+$(function(){
+var overlay = $('<div id="overlay"></div>');
+overlay.show();
+overlay.appendTo(document.body);
+$('.popup').show();
+$('.close').click(function(){
+$('.popup').hide();
+overlay.appendTo(document.body).remove();
+return false;
+});
+
+
+ 
+
+$('.x').click(function(){
+$('.popup').hide();
+overlay.appendTo(document.body).remove();
+return false;
+});
+});
+</script>
+<div class='popup'>
+<div class='cnt223'>
+
+
+<p>कृपया अपनी दुकान का नाम डाले.!</p>
+	
+	
+	
+	
+    
+  
+<p><input class="" type="text" ng-model="name" placeholder="your shop name"></p>
+
+	
+<a href='' class='close'>SUBMIT</a>
+</div>
+
+</body>
+</html>
+
+
+
+<br/>
+<br/>
+
+</p>
+</div>
+</div>
+<!-- partial -->
+  <!-- partial -->
+  <script  src="./HTSHOP.js"></script>
 </body>
 </html>
