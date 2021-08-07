@@ -60,6 +60,7 @@
         body {
             background: #EDECEC;
         }.nav-tabs {
+			font-size: 10px;
         display: inline-grid;
     flex-direction: row;
     flex-wrap: nowrap;
