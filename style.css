@@ -58,7 +58,7 @@
             margin-bottom: 30px;
         }
         body {
-            background: #EDECEC;
+            background: white;
         }.nav-tabs {
 		font-size: 12px;
     display: inline-grid;
@@ -128,5 +128,5 @@
             margin-bottom: 30px;
         }
         body {
-            background: #EDECEC;
+            background: white;
         }
