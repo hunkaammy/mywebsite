@@ -115,8 +115,9 @@
             padding: 15px 0;
         }
         .tab-content {
-           padding: 20px;
-           margin-left: 85px;
+           padding: 3px;
+           margin-left: 100px;
+		   border: 1px solid;
         }
 
         .nav-tabs::-webkit-scrollbar {
