@@ -69,6 +69,7 @@
     width: 99px;
     overflow-x: auto;
     border-bottom: 2px solid #DDD;
+	margin-left: -10px
     -ms-overflow-style: none;
     //: ;
     IE 10+: ;
