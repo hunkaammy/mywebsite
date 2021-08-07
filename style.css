@@ -60,18 +60,17 @@
         body {
             background: #EDECEC;
         }.nav-tabs {
-			font-size: 10px;
-        display: inline-grid;
+		font-size: 12px;
+    display: inline-grid;
     flex-direction: row;
     flex-wrap: nowrap;
     align-content: normal;
     justify-content: normal;
     align-items: flex-start;
-    width: 99px;
+    width: 110px;
     overflow-x: auto;
     border-bottom: 2px solid #DDD;
-	margin-left: -10px
-    -ms-overflow-style: none;
+    MARGIN-LEFT: -12px;
     //: ;
     IE 10+: ;
     overflow: -moz-scrollbars-none;
