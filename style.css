@@ -60,17 +60,21 @@
         body {
             background: #EDECEC;
         }.nav-tabs {
-        display: inline-flex;
+        display: inline-grid;
     flex-direction: row;
     flex-wrap: nowrap;
     align-content: normal;
     justify-content: normal;
     align-items: flex-start;
-        width: 100%;
-        overflow-x: auto;
-        border-bottom: 2px solid #DDD;
-        -ms-overflow-style: none; // IE 10+
-        overflow: -moz-scrollbars-none; // Firefox}
+    width: 18%;
+    overflow-x: auto;
+    border-bottom: 2px solid #DDD;
+    -ms-overflow-style: none;
+    //: ;
+    IE 10+: ;
+    overflow: -moz-scrollbars-none;
+    //: ;
+    Firefox: ;}
         .nav-tabs>li.active>a,
         .nav-tabs>li.active>a:focus,
         .nav-tabs>li.active>a:hover {
@@ -109,7 +113,8 @@
             padding: 15px 0;
         }
         .tab-content {
-            padding: 20px
+           padding: 20px;
+           margin-left: 125px;
         }
 
         .nav-tabs::-webkit-scrollbar {
