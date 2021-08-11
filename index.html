@@ -3,107 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <title>CodePen - Fully working Loading Page</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <style>
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700|Roboto:300,400,500,700");
-body {
-  margin: 0;
+@import url("https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Roboto:300,400,500,700");
+* {
   padding: 0;
-  overflow: hidden;
+  margin: 0;
+  outline-width: 0;
 }
-body.loaded {
+
+.body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.body.loaded {
   overflow-y: auto;
 }
 
+.centre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .overlay {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100000000;
-}
-.overlay .overlayDoor:before, .overlay .overlayDoor:after {
-  content: "";
-  position: absolute;
-  width: 50%;
-  height: 100%;
-  background: #111;
-  transition: 0.5s cubic-bezier(0.77, 0, 0.18, 1);
-  transition-delay: 0.8s;
-}
-.overlay .overlayDoor:before {
-  left: 0;
-}
-.overlay .overlayDoor:after {
-  right: 0;
-}
-.overlay.loaded .overlayDoor:before {
-  left: -50%;
-}
-.overlay.loaded .overlayDoor:after {
-  right: -50%;
-}
-.overlay.loaded .overlayContent {
-  opacity: 0;
-  margin-top: -15px;
-}
-.overlay .overlayContent {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  transition: 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+  background: #1c1c1c;
+  overflow: hidden;
+  z-index: 100000;
+  transition: 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+  -webkit-transition: 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+  opacity: 1;
+  visibility: visible;
 }
-.overlay .overlayContent .skip {
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin: 50px auto 0;
-  cursor: pointer;
-  color: #fff;
-  font-family: "Nunito";
-  font-weight: 700;
-  padding: 12px 0;
-  border: 2px solid #fff;
-  border-radius: 3px;
-  transition: 0.2s ease;
+.overlay.loaded {
+  opacity: 0;
+  visibility: hidden;
 }
-.overlay .overlayContent .skip:hover {
-  background: #ddd;
-  color: #444;
-  border-color: #ddd;
+.overlay p {
+  padding-bottom: 50px;
+  font-family: 'Roboto';
+  color: #ccc;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 
 .loader {
-  width: 128px;
-  height: 128px;
-  border: 3px solid #fff;
-  border-bottom: 3px solid transparent;
+  background: transparent;
+  width: 84px;
+  height: 84px;
+  border-top: 4px solid rgba(255, 255, 255, 0.3);
+  border-right: 4px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+  border-left: 4px solid #fff;
   border-radius: 50%;
-  position: relative;
-  -webkit-animation: spin 1s linear infinite;
-          animation: spin 1s linear infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-animation: spin 1s ease infinite;
+          animation: spin 1s ease infinite;
 }
-.loader .inner {
-  width: 64px;
-  height: 64px;
-  border: 3px solid transparent;
-  border-top: 3px solid #fff;
-  border-radius: 50%;
-  -webkit-animation: spinInner 1s linear infinite;
-          animation: spinInner 1s linear infinite;
+
+.Skip {
+  background: transparent;
+  margin-top: 45px;
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 15px 35px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+  opacity: 0.4;
+}
+.Skip:hover {
+  color: #fff;
+  opacity: 1;
 }
 
 @-webkit-keyframes spin {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0);
   }
   100% {
     transform: rotate(360deg);
@@ -112,26 +99,10 @@ body.loaded {
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0);
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spinInner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-720deg);
-  }
-}
-@keyframes spinInner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-720deg);
   }
 }
 body {
@@ -139,7 +110,7 @@ body {
 }
 
 .header {
-  background: url("https://picsum.photos/4096/2160?random=1") center/cover;
+  background: url("http://www.planwallpaper.com/static/images/HD-Wallpaper-Pictures-A71.jpg") center;
   background-size: cover;
   height: 100vh;
 }
@@ -153,8 +124,7 @@ body {
   flex-direction: column;
 }
 .header .darken h1 {
-  font-family: "Nunito";
-  font-weight: 700;
+  font-family: 'Zilla Slab';
   color: #fff;
   margin: 0 0 20px 0;
   text-align: center;
@@ -166,7 +136,7 @@ body {
 }
 .header .darken p {
   color: #fff;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-weight: 700;
   text-align: center;
   width: 500px;
@@ -174,7 +144,7 @@ body {
   line-height: 25px;
 }
 
-.contentOther {
+.content {
   background: #fff;
   width: 900px;
   margin: 0 auto;
@@ -182,13 +152,13 @@ body {
   box-sizing: border-box;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
-.contentOther .video {
+.content .video {
   height: 484px;
   width: 100%;
   border-radius: 5px;
 }
-.contentOther h1 {
-  font-family: "Roboto";
+.content h1 {
+  font-family: 'Roboto';
   margin: 0 0 10px 0;
   font-weight: 400;
 }
@@ -197,18 +167,15 @@ body {
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<!-- JQUERY and Normalize.css INSTALLED -->
-
-<div class="overlay">
-	<div class="overlayDoor"></div>
-	<div class="overlayContent">
-		<div class="loader">
-			<div class="inner"></div>
-		</div>
-		<div class="skip">आपको हिंदुस्तान टॉयज के ऑनलाइन स्टोर से जोड़ा जा रहा है <br> <br> 500 से अधिक वेरायटीज को एक ही जगह पे एकत्रित किया जा रहा है <br> <br> इस प्रोसेस मैं 30 से 35 सेकण्ड्स लग सकते है <br> <br> कृपया जुड़े रहे  </div>
-	</div>
-</div>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<body class="body">
+  <div class="overlay">
+    <p id="name">The page is loading...</p>
+    <div class="centre">
+      <div class="loader"></div>
+      <button class="Skip">Skip</button>
+    </div>
+  </div>
 
 
 
@@ -4558,25 +4525,32 @@ window.onclick = function(event) {
 
 
 <!-- partial -->
-  <script>  $(document).ready(function() {
+
+  <script>  // JQUERY
+$(function() {
 	// Users can skip the loading process if they want.
-	$('.skip').click(function() {
-		$('.overlay, body').addClass('loaded');
+	$('.Skip').click(function() {
+		$('.overlay, .body').addClass('loaded');
 	})
-	
 	// Will wait for everything on the page to load.
 	$(window).bind('load', function() {
-		$('.overlay, body').addClass('loaded');
+		$('.overlay, .body').addClass('loaded');
 		setTimeout(function() {
 			$('.overlay').css({'display':'none'})
-		}, 2000)
+		}, 1000);
 	});
-	
-	// Will remove overlay after 1min for users cannnot load properly.
+	// Will load page after 1min for users cannnot load properly
 	setTimeout(function() {
-		$('.overlay, body').addClass('loaded');
+		$('.overlay, .body').addClass('loaded');
 	}, 60000);
-})</script>
+	// Random text to keep it fresh dawg.
+	var names = ['Loading images...', 'Generating Colours...', 'Getting Fonts...', 'Testing connection...'];
+	setInterval(function() {
+	  var rand = Math.floor(Math.random() * 4);
+		$('#name').html(names[rand]);
+	}, 3500);
+	
+});</script>
 
 </body>
 </html>
