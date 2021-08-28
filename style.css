@@ -1,18 +1,17 @@
 .nav-tabs {
-
-    flex-wrap: wrap;
-		position:  fixed;
-		background:  white;
-        width: 100%;
-        overflow-x: auto;
-        border-bottom: 2px solid #DDD;
-        -ms-overflow-style: none; // IE 10+
-        overflow: -moz-scrollbars-none; // Firefox}
-        .nav-tabs>li.active>a,
-        .nav-tabs>li.active>a:focus,
-        .nav-tabs>li.active>a:hover {
-            border-width: 0;
-        }
+    position: fixed;
+    MARGIN-LEFT: -12px;
+    width: 110px;
+    top: 0px;
+    bottom: 10px;
+    overflow-y: scroll;
+    display: INLINE-GRID;
+    margin-top: 10px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    font-size: 12px;
+}
         .nav-tabs>li>a {
             border: none;
             color: #666;
