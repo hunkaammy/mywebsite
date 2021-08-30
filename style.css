@@ -59,6 +59,7 @@
         body {
             background: white;
         }.nav-tabs {
+			top: 47px;
 		font-size: 12px;
     display: inline-grid;
     flex-direction: row;
