@@ -59,8 +59,8 @@
         body {
             background: white;
         }.nav-tabs {
-			top: 47px;
-		font-size: 12px;
+    top: 26px;
+    font-size: 12px;
     display: inline-grid;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -75,7 +75,8 @@
     IE 10+: ;
     overflow: -moz-scrollbars-none;
     //: ;
-    Firefox: ;}
+    Firefox: ;
+}
         .nav-tabs>li.active>a,
         .nav-tabs>li.active>a:focus,
         .nav-tabs>li.active>a:hover {
@@ -114,10 +115,11 @@
             padding: 15px 0;
         }
         .tab-content {
-           padding: 3px;
-           margin-left: 100px;
-		   border: 1px solid;
-        }
+    margin-top: 23px;
+    padding: 3px;
+    margin-left: 100px;
+    border: 1px solid;
+}
 
         .nav-tabs::-webkit-scrollbar {
             display: none; // Safari and Chrome
