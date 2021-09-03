@@ -1,4 +1,51 @@
 <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {margin:0;}
+
+.navtop {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+text-align: -webkit-center;
+padding: 8px;
+}
+
+.navbar a {
+  float: none;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+</style>
+</head>
+<body>
+
+<div class="navtop">
+  QTY 	&nbsp;	 डालने के  बाद	&nbsp; SEND 	&nbsp;  बटन दबाये 
+  </div>
+
+
+<!DOCTYPE html>
 <html lang="en" >
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -240,8 +287,8 @@ div {
 	  
       input[type=submit] {
         padding: 5px 15px;
-	width:65px;
-        background: lightgrey;
+	width:90px;
+        background: #99e0b2;;
         border: 0 none;
         cursor: pointer;
         -webkit-border-radius: 5px;
@@ -6149,59 +6196,6 @@ div.fixed {
 
 
 
-<div class="fixed">
-
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">CLICK TO COMPLETE YOUR ORDER</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-    
-      <h2>THANKYOU </h2>
-    </div>
-    <div class="modal-body">
-      <p>Your order has been recived..!!</p>
-      <p>To make new order <a href="https://hunkaammy.github.io/mywebsite/index" > click here..</a></p>
-    </div>
-    <div class="modal-footer">
-      <h3>HINDUSTAN TOYS</h3>
-    </div>
-  </div>
-
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-   ;
-  }
-}
-</script>
 
 
 <!-- partial -->
