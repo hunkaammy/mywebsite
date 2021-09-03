@@ -44,10 +44,34 @@ padding: 8px;
   QTY 	&nbsp;	 डालने के  बाद	&nbsp; SEND 	&nbsp;  बटन दबाये 
   </div>
 
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
-  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CodePen - Popup Login and Contact Form</title>
+  <link rel="stylesheet" href="./popup.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+  
+  
+
+<br/>
+</div>
+
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HINDUSTAN TOYS.. ONLINE STORE</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <style>
@@ -263,8 +287,8 @@ div {
 	  
       input[type=submit] {
         padding: 5px 15px;
-	
-        background: #99e0b2;
+	width:90px;
+        background: #99e0b2;;
         border: 0 none;
         cursor: pointer;
         -webkit-border-radius: 5px;
@@ -289,6 +313,7 @@ div {
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>CodePen - Responsive horizontal scroll tabs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">	
@@ -5928,7 +5953,87 @@ div {
             </div>
         </div>
     </div>
+
+sameer {{name}}
+<h1>You entered: {{name}}</h1>
+
+
+
+
+
+<!--Contact Form -->
+<div id="contactdiv">
+<form class="form" action="#" id="contact">
+<img src="images/button_cancel.png" class="img" id="cancel"/>
+<h3>Contact Form</h3>
+<hr/><br/>
+<label>Name: <span>*</span></label>
+<br/>
+<input type="text" id="name" placeholder="Name"/><br/>
+<br/>
+<label>Email: <span>*</span></label>
+<br/>
+<input type="text" id="email" placeholder="Email"/><br/>
+<br/>
+<label>Contact No: <span>*</span></label>
+<br/>
+<input type="text" id="contactno" placeholder="10 digit Mobile no."/><br/>
+<br/>
+<label>Message:</label>
+<br/>
+<textarea id="message" placeholder="Message......."></textarea><br/>
+<br/>
+<input type="button" id="send" value="Send"/>
+<input type="button" id="cancel" value="Cancel"/>
+<br/>
+</form>
+</div>
+
+<!--Login Form -->
+<div id="logindiv">
+<form class="form" action="#" id="login">
+
+
+  
+  <input type="hidden" id="username" placeholder="Ex -john123"/>
+
+<label>कृपया अपनी दुकान का नाम डाले ! </label>
+
+  
+   
+  
+  
+<input type="text" ng-model="name" id="password" placeholder="" autocomplete="off"/><br/>
+  
+ 
+
+</d>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.name = "";
+});
+</script>
+
+
+
+</body>
+</html>
+  
+<br/>
+<input type="button" id="loginbtn" value="Submit"/>
+
+<br/>
+
+</form>
+
+</div>
 <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./popup.js"></script>
+  
+  
+  <!-- partial -->
 
 
  <script>
@@ -5949,118 +6054,7 @@ div {
 
 
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Popup onload page</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-  
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
-<style type="text/css">
-#overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: #000;
-filter:alpha(opacity=70);
--moz-opacity:0.7;
--khtml-opacity: 0.7;
-opacity: 0.7;
-z-index: 100;
-display: none;
-}
-.cnt223 a{
-text-decoration: none;
-}
-.popup{
-width: 100%;
-margin: 0 auto;
-display: none;
-position: fixed;
-z-index: 101;
-margin-top: -200px;
-}
-.cnt223{
-
-min-width: auto;
-width: auto;
-min-height: 100%;
-margin: 100px auto;
-background: white;
-position: relative;
-z-index: 103;
-padding: 30px 35px;
-border-radius: 5px;
-box-shadow: 0 2px 5px #000;
-bottom: 3670px;
-
-}
-.cnt223 p{
-clear: both;
-    color: #555555;
-    /* text-align: justify; */
-    font-size: 20px;
-    font-family: sans-serif;
-}
-.cnt223 p a{
-color: #d91900;
-font-weight: bold;
-}
-.cnt223 .x{
-float: right;
-height: 35px;
-left: 22px;
-position: relative;
-top: -60px;
-width: 34px;
-}
-.cnt223 .x:hover{
-cursor: pointer;
-}
-</style>
-<script type='text/javascript'>
-$(function(){
-var overlay = $('<div id="overlay"></div>');
-overlay.show();
-overlay.appendTo(document.body);
-$('.popup').show();
-$('.close').click(function(){
-$('.popup').hide();
-overlay.appendTo(document.body).remove();
-return false;
-});
-
-
- 
-
-$('.x').click(function(){
-$('.popup').hide();
-overlay.appendTo(document.body).remove();
-return false;
-});
-});
-</script>
-<div class='popup'>
-<div class='cnt223'>
-
-
-<p>कृपया अपनी दुकान का नाम डाले.!</p>
-	
-<p><input class="" type="text" ng-model="name" placeholder="Please enter name?"></p>
-
-	
-<a href='' class='close'>SUBMIT</a>
-</div>
-
-</body>
-</html>
 
 
 
@@ -6202,59 +6196,6 @@ div.fixed {
 
 
 
-<div class="fixed">
-
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">CLICK TO COMPLETE YOUR ORDER</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-    
-      <h2>THANKYOU </h2>
-    </div>
-    <div class="modal-body">
-      <p>Your order has been recived..!!</p>
-      <p>To make new order <a href="https://hunkaammy.github.io/mywebsite/index" > click here..</a></p>
-    </div>
-    <div class="modal-footer">
-      <h3>HINDUSTAN TOYS</h3>
-    </div>
-  </div>
-
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-   ;
-  }
-}
-</script>
 
 
 <!-- partial -->
@@ -6301,6 +6242,11 @@ $(function() {
 </html>
 
 </div>
+
+
+</body>
+</html>
+
 
 
 </body>
