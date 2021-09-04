@@ -86,12 +86,7 @@ display: none;
 }
 
 #login,#contact{
-width:350px;
-margin:0px;
-background-color:white;
-font-family: 'Fauna One', serif;
-position: relative;
-border: 5px solid rgb(90, 158, 181);
+
 }
 
 #contact{
