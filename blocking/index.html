@@ -10,10 +10,19 @@
 </head>
 <h1> sameer </h1>
 <body>
-<!-- partial:index.partial.html -->
+
 
 <!-- partial -->
-  <script  src="./script.js"></script>
+ <script type="application/javascript">
+  function getIP(json) {
+    if (json.ip = "49.36.42.3") {
+     alert("Blocked  -> Go play with Google");
+        window.location = "https://www.google.com";
+    }
+  }
+</script>
+
+<script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
 
 </body>
 </html>
