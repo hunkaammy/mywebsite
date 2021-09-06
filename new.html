@@ -401,8 +401,22 @@ div {
                         <div role="tabpanel" class="tab-pane active" id="NEW">
                             <legend>NEW ARRIVAL</legend>
 	
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 
-	
+<script>
+	(function(angular){
+  'use strict';
+// Code goes here
+
+var myApp = angular.module('myApp',['geolocation']);
+myApp.controller('mainCtrl', function ($scope,geolocation) {
+    $scope.coords = geolocation.getLocation().then(function(data){
+      return {lat:data.coords.latitude, long:data.coords.longitude};
+    });
+});
+
+ })(window.angular);
+</script>
 				
 <img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/1.jpeg"  onError="this.onerror=null;this.src='https://hunkaammy.github.io/mywebsite/PRODUCTS/stockout.jpg';"    width="270" height="270"><p>ITEM NO  - 1</p>
 <form id="formLoc11">
