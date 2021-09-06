@@ -11,17 +11,16 @@
 <h1> sameer </h1>
 <body>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
 <script>
-$.getJSON("http://jsonip.com?callback=?", function (data) {
-if (data.ip == "2409:4043:2c9a:abd3:5a14:9142:84df:109f") {
-alert("Blocked  -> you are blocked");
-        window.location = "https://www.google.com";
-}
-});
-</script>
+var badIPs = [
+    "49.36.42.3",
+    "2.2.2.2"]
+$.get("http://ipinfo.io", function (response) {
+    var index = $.inArray(response.ip, badIPs)
+    if (index !== -1) location = "/"
 
+}, "jsonp");
+
+</script>
 </body>
 </html>
