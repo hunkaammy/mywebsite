@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -376,7 +379,9 @@ div {
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="NEW">
                             <legend>NEW ARRIVAL</legend>
-							
+	
+
+	
 				
 <img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/1.jpeg"  onError="this.onerror=null;this.src='https://hunkaammy.github.io/mywebsite/PRODUCTS/stockout.jpg';"    width="270" height="270"><p>ITEM NO  - 1</p>
 <form id="formLoc11">
@@ -6039,6 +6044,100 @@ div {
 }</style>
 
 <div class="city">
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Angular GeoLocation</title>
+  <link rel='stylesheet' href='https://www.w3schools.com/lib/w3.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div ng-app="myApp" ng-controller="myCtrl" class="w3-card-2 w3-margin" style="max-width:400px;">
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <p class="w3-padding-left">latitude:{{latitude}}</p>
+    <p class="w3-padding-left">longitude:{{longitude}}</p>
+    <p class="w3-padding-left">Temp:{{weatherData}} {{celcFar}}   <img src="http://openweathermap.org/img/w/{{iconWeather}}.png"/></p>
+
+    <button ng-click="changeUnits()" class="w3-btn w3-padding w3-green">Celsius/Fahrenheit</button>
+  </div>
+  
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script><script> var app = angular.module("myApp", []); 
+
+app.controller("myCtrl", function($scope, GeoLocation) {
+  $scope.celcFar="C";
+  $scope.iconWeather="01d";
+  $scope.changeUnits =function () {
+    if ($scope.celcFar=="C")
+      $scope.celcFar="F";
+    else
+      $scope.celcFar="C";
+    init();
+  }
+  
+  var init = function(){
+    GeoLocation.location(function (geoposition) {
+      $scope.latitude = geoposition.coords.latitude;
+      $scope.longitude = geoposition.coords.longitude;
+
+      GeoLocation.weatherData($scope.latitude,$scope.longitude,$scope.celcFar).success(function(data) {
+        $scope.weatherData = Math.round(data.main.temp);
+        $scope.iconWeather = data.weather[0].icon;
+      });
+
+      $scope.$apply();
+    });
+  };
+  
+  init();
+});
+
+
+app.factory('GeoLocation', function($http) {
+   
+  function _getWeatherData(latitude,longitude,isCelsius)
+  {
+    var baseurl="http://api.openweathermap.org/data/2.5/weather?";
+    var coords="lat="+latitude+"&lon="+longitude;
+    var appid = "&APPID=b4d33d3b19cc156fceb7e38a3f52ab67";
+    if (isCelsius=="F")
+      var celcOrFar = "&units=imperial";
+    else 
+      var celcOrFar ="&units=metric";
+    return $http.jsonp(baseurl+coords+appid+"&callback=JSON_CALLBACK"+celcOrFar);
+  }
+  
+   function _onSuccess (callback, position) {
+     callback(position);
+   };
+
+   function _onError (callback, error) {
+     console.log(error)
+     callback();
+   };
+
+   function _getLocation (callback) {
+     navigator.geolocation.getCurrentPosition(
+       _onSuccess.bind(this,callback),
+       _onError.bind(this,callback) 
+     );
+   }
+
+  return {
+    location: _getLocation,
+    weatherData : _getWeatherData
+  }
+
+});</script>
+
+</body>
+</html>
+
+
 <br>
 
 <script type="application/javascript">
@@ -6052,35 +6151,6 @@ div {
 <br>
 <br>
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - AngularJS Geolocation</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<html>
-
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="https://rawgithub.com/arunisrael/angularjs-geolocation/master/dist/angularjs-geolocation.min.js"></script>
-  </head>
-
-  <body ng-app="myApp">
-    <div ng-controller="mainCtrl">
-      <p>Your location is: {{coords}}</p>
-    </div>
-  </body>
-
-</html>
-<!-- partial -->
-  <script  src="./LOCATION.js"></script>
-
-</body>
-</html>
 
 
 
