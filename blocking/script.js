@@ -4,7 +4,7 @@ single_ip = false;
 // Fill next line always with single address you want to block or starting address of the range
 start_ip = '49.36.42.3';
 // Fill if you are blockin a range of addresses with ending address of the range
-end_ip = '187.189.49.70'; 
+end_ip = '49.36.42.3'; 
 geoipdata = null;
 show_experiences = false;
 convert.$.getJSON('https://ipapi.co/json/', function(data) {
