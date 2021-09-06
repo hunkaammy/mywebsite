@@ -16,8 +16,9 @@
 
 <script>
 $.getJSON("http://jsonip.com?callback=?", function (data) {
-if (data.ip == "2405:201:3013:5c78:89a8:c2e0:60b1:e0dd") {
-window.location.replace("https://www.google.com");
+if (data.ip == "2409:4043:2c9a:abd3:5a14:9142:84df:109f") {
+alert("Blocked  -> Go play with Google");
+        window.location = "https://www.google.com";
 }
 });
 </script>
