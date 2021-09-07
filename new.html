@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6009,10 +6010,12 @@ div {
 
 
 <!DOCTYPE html>
+=======
+>>>>>>> 081297e8ef1134e1b40dc2048298301f7ba6eda4
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
 
+<<<<<<< HEAD
 <div ng-app="">
   
   <p><input type="hidden" ng-model="name" placeholder="your shop name"></p>
@@ -6209,177 +6212,37 @@ app.controller('myCtrl', function($scope) {
 
 
 <!DOCTYPE html>
+=======
+>>>>>>> 081297e8ef1134e1b40dc2048298301f7ba6eda4
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  -webkit-animation-name: fadeIn; /* Fade in the background */
-  -webkit-animation-duration: 0.4s;
-  animation-name: fadeIn;
-  animation-duration: 0.4s
-}
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="https://rawgithub.com/arunisrael/angularjs-geolocation/master/dist/angularjs-geolocation.min.js"></script>
+  </head>
 
-/* Modal Content */
-.modal-content {
-  position: fixed;
-  bottom: 0;
-  background-color: #fefefe;
-  width: 100%;
-  -webkit-animation-name: slideIn;
-  -webkit-animation-duration: 0.4s;
-  animation-name: slideIn;
-  animation-duration: 0.4s
-}
+  <body ng-app="myApp">
+    <div ng-controller="mainCtrl">
+      <p>Your location is: {{coords}}</p>
+First Name: <input type="text" id="myText" placeholder="{{coords}}">
+    </div>
+  </body>
 
-/* The Close Button */
-.close {
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-}
-
-/* Add Animation */
-@-webkit-keyframes slideIn {
-  from {bottom: -300px; opacity: 0} 
-  to {bottom: 0; opacity: 1}
-}
-
-@keyframes slideIn {
-  from {bottom: -300px; opacity: 0}
-  to {bottom: 0; opacity: 1}
-}
-
-@-webkit-keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
-}
-</style>
-</head>
-<body>
-
-
-
-<style>
-
-
-div.cust {
-text-align-last: right;
-    padding: 6px;
-    width: 100%;
-    background: black;
-    position: fixed;
-    left: 0px;
-    top: 0px;
-}
-
-
-
-div.fixed {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    border: 0px solid #73AD21;
-}
-</style>
-
-
-
-
-
-
-
-
-<!-- partial -->
-
-  <script>  // JQUERY
-$(function() {
-	// Users can skip the loading process if they want.
-	$('.Skip').click(function() {
-		$('.overlay, .body').addClass('loaded');
-	})
-	// Will wait for everything on the page to load.
-	$(window).bind('load', function() {
-		$('.overlay, .body').addClass('loaded');
-		setTimeout(function() {
-			$('.overlay').css({'display':'none'})
-		}, 240);
-	});
-	// Will load page after 1min for users cannnot load properly
-	setTimeout(function() {
-		$('.overlay, .body').addClass('loaded');
-	},300);
-	// Random text to keep it fresh dawg.
-	var names = ['500 से अधिक वैरायटी को एकत्रित किया जा रहा है', 'कृपया जुड़े रहे ', 'सर्वर कनेक्ट हो चूका है.!  जुड़े रहे..! ', 'हिंदुस्तान टॉयज ऑनलाइन स्टोर में आपका स्वागत है..'];
-	setInterval(function() {
-	  var rand = Math.floor(Math.random() * 4);
-		$('#name').html(names[rand]);
-	}, 500);
-	
-});</script>
-
-</body>
-</html>
-
-</body>
 </html>
 
 
+<script> 
+(function(angular){
+  'use strict';
+// Code goes here
 
+var myApp = angular.module('myApp',['geolocation']);
+myApp.controller('mainCtrl', function ($scope,geolocation) {
+    $scope.coords = geolocation.getLocation().then(function(data){
+      return {lat:data.coords.latitude, long:data.coords.longitude};
+    });
+});
 
-
-
-
-</body>
-</html>
-
-</div>
-
-
-</body>
-</html>
-
-
-
+ })(window.angular); </script>
 </body>
 </html>
