@@ -42,21 +42,30 @@
 
 
 
+ 
 
 
 
+
+
+<div id="logindiv">
 <div class="box box-flex">
-<form id="formLoc001">
+<form class="form" id="formLoc001">
+<h3>Login Form</h3>
+<hr/>
 
 
-
- <label></label><input type="hidden" id="nameLoc001"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
+<label></label><input type="hidden" id="nameLoc001"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
   <input type="hidden" id="cnameLoc001"class="name"  value="{{name}}">
  <label>Qty:</label>
 <input type="text" id="descLoc001"   required>
 <input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+<!-- partial -->
+  <script  src="./login.js"></script>
 
-
+</body>
+</html>
   
 <input type="text" id="username" placeholder="{{coords}}"/><br/>
 <input type="text" ng-model="name" id="password" placeholder="*********"/><br/>
@@ -64,12 +73,8 @@
 <br/>
 
 </form></div>
-	<!-- partial -->
-  <script  src="./login.js"></script>
-
-</body>
-</html>
-	
+		
+		
 
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./popup.js"></script>
