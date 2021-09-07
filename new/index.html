@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - AngularJS Geolocation</title>
+   <link rel="stylesheet" href="./popup.css">
+  </head>
+
+
+<body ng-app="myApp">
+<div ng-controller="mainCtrl">
+<p>Your location is: {{coords}}
+
+
+
+
+<!--Login Form -->
+<div id="logindiv">
+<form class="form" action="#" id="login">
+<h3>Login Form</h3>
+<hr/>
+  
+<input type="text" id="username" placeholder="{{coords}}"/><br/>
+<input type="text" ng-model="name" id="password" placeholder="*********"/><br/>
+<input type="button" id="loginbtn" value="Login"/>
+<br/>
+
+</form></div>
+
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./popup.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="https://rawgithub.com/arunisrael/angularjs-geolocation/master/dist/angularjs-geolocation.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script  src="./location.js"></script>
+</p> </div>
+
+</body>
+</html>
+
+
+
+
