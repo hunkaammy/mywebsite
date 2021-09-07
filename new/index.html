@@ -40,9 +40,21 @@
 
 
 
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
 
+<div ng-app="">
+ 
+<p>Input something in the input box:</p>
+<p>Name : <input type="text" ng-model="name" value="{{coords}}"></p>
+<h1>Hello {{name}}</h1>
 
+</div>
 
+</body>
+</html>
 
 
  
@@ -58,28 +70,24 @@
 <hr/>
 
 
-
-
-
-  <input type="text" id="cnameLoc001"class="name"  value="cname">
+<label></label><input type="text" id="nameLoc001"class="name"  value="{{coords}}">
+  <input type="text" id="cnameLoc001"class="name"  value="{{name}}">
  <label>Qty:</label>
 <input type="text" id="descLoc001"   required>
-
-
-  
-<input type="text" id="nameLoc001" class="name"  value="{{coords}}"/><br/>
-
 <input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="SEND"/>
-<input type="button"  value="Login"/>
-<br/>
-
 </form>
-<input type="text"  id="password" placeholder="*********"/><br/>
 <!-- partial -->
   <script  src="./login.js"></script>
 
 </body>
-</html></div>
+</html>
+  
+<input type="text" id="username" placeholder="{{coords}}"/><br/>
+<input type="text" ng-model="name" id="password" placeholder="*********"/><br/>
+<input type="button"  value="Login"/>
+<br/>
+
+</form></div>
 		
 		
 
@@ -94,9 +102,6 @@
 </body>
 </html>
 
-</div>
 
-</body>
-</html>
 
 
