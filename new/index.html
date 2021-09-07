@@ -70,11 +70,11 @@
 <hr/>
 
 
-<label></label><input type="text" id="nameLoc001"class="name"  value="{{coords}}">
-  <input type="text" id="cnameLoc001"class="name"  value="{{name}}">
+<label></label><input type="hidden"  id="nameLoc001"class="name"  value="sameer">
+  <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="please enter your shop name">
  <label>Qty:</label>
-<input type="text" id="descLoc001"   required>
-<input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="SEND"/>
+<input type="text" id="descLoc001"   value="{{coords}}">
+<input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="{{name}}"/>
 </form>
 <!-- partial -->
   <script  src="./login.js"></script>
@@ -83,7 +83,7 @@
 </html>
   
 <input type="text" id="username" placeholder="{{coords}}"/><br/>
-<input type="text" ng-model="name" id="password" placeholder="*********"/><br/>
+<input type="text"  id="password" value="{{name}}"/><br/>
 <input type="button"  value="Login"/>
 <br/>
 
