@@ -27,15 +27,15 @@
 
   <body ng-app="myApp">
     <div ng-controller="mainCtrl">
-      <p>Your location is: {{coords}}</p>
-First Name: <input type="text" id="myText" placeholder="{{coords}}">
+    
 
 
-<h2>New Location</h2>
+
+
 <div class="box box-flex">
 <form id="formLoc11">
  <label></label><input type="text" id="nameLoc11"class="name"  value="{{coords}}">
-  <input type="hidden" id="cnameLoc11"class="name"  value="{{name}}">
+  <input type="hidden" id="cnameLoc11"class="name"  value="{{name}}">  <br>
  <label>Qty:</label>
 <input type="text" id="descLoc11" value="{{coords}}"   required>
 <input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
