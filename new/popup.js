@@ -1,49 +1,25 @@
-$(document).ready(function() {
-setTimeout(popup, );
-function popup() {
-$("#logindiv").css("display", "block");
-}
-$("#login #cancel").click(function() {
-$(this).parent().parent().hide();
-});
-$("#onclick").click(function() {
-$("#contactdiv").css("display", "block");
-});
-$("#contact #cancel").click(function() {
-$(this).parent().parent().hide();
-});
-// Contact form popup send-button click event.
-$("#send").click(function() {
-var name = $("#name").val();
-var email = $("#email").val();
-var contact = $("#contactno").val();
-var message = $("#message").val();
-if (name == "" || email == "" || contactno == "" || message == ""){
-alert("Please Fill All Fields");
-}else{
-if (validateEmail(email)) {
-$("#contactdiv").css("display", "none");
-}else {
-alert('Invalid Email Address');
-}
-function validateEmail(email) {
-var filter = /^[w-.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
-if (filter.test(email)) {
-return true;
-}else {
-return false;
-}
-}
-}
-});
-// Login form popup login-button click event.
-$("#loginbtn").click(function() {
-var name = $("#username").val();
-var password = $("#password").val();
-if (username == "" || password == ""){
-alert("Username or Password was Wrong");
-}else{
-$("#logindiv").css("display", "none");
-}
-});
+ // JQUERY
+$(function() {
+	// Users can skip the loading process if they want.
+	$('.Skip').click(function() {
+		$('.overlay, .body').addClass('loaded');
+	})
+	// Will wait for everything on the page to load.
+	$(window).bind('load', function() {
+		$('.overlay, .body').addClass('loaded');
+		setTimeout(function() {
+			$('.overlay').css({'display':'none'})
+		}, 240);
+	});
+	// Will load page after 1min for users cannnot load properly
+	setTimeout(function() {
+		$('.overlay, .body').addClass('loaded');
+	},300);
+	// Random text to keep it fresh dawg.
+	var names = ['500 से अधिक वैरायटी को एकत्रित किया जा रहा है', 'कृपया जुड़े रहे ', 'सर्वर कनेक्ट हो चूका है.!  जुड़े रहे..! ', 'हिंदुस्तान टॉयज ऑनलाइन स्टोर में आपका स्वागत है..'];
+	setInterval(function() {
+	  var rand = Math.floor(Math.random() * 4);
+		$('#name').html(names[rand]);
+	}, 500);
+	
 });
