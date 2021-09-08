@@ -1,10 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Fauna+One|Muli);
 #mainform{
-width:960px;
-margin:20px auto;
-padding-top:20px;
-font-family: 'Fauna One', serif;
-display:block;
+
 }
 h2{
 margin-left: 65px;
@@ -33,15 +29,15 @@ text-shadow:1px 0px 3px gray;
 #popup{
 padding-top:80px;
 }
-.form {
-    border-radius: 2px;
-    padding: 0px 65px;
-    box-shadow: 0 0 15px;
-    font-size: 14px;
-    font-weight: bold;
-    width: 350px;
-    margin: 20px 250px 0 35px;
-    float: left;
+.form{
+border-radius:2px;
+padding:20px 30px;
+box-shadow:0 0 15px;
+font-size:14px;
+font-weight:bold;
+width:350px;
+margin:20px 250px 0 35px;
+float:left;
 }
 input{
 width:100%;
@@ -79,22 +75,18 @@ background: #000;
 display: none;
 }
 #logindiv{
-position: fixed;
+
+position: absolute;
 top: 0px;
 left: 0px;
-height: 1000%;
+height: 10000%;
 width: 100%;
 background: #000;
 display: none;
 }
 
 #login,#contact{
-width:350px;
-margin:0px;
-background-color:white;
-font-family: 'Fauna One', serif;
-position: relative;
-border: 5px solid rgb(90, 158, 181);
+
 }
 
 #contact{
@@ -104,8 +96,9 @@ margin-left:-210px;
 margin-top:-255px;
 }
 #login{
-left: 50%;
-top: 50%;
-margin-left:-210px;
+top: 300px;
+left: 54%;
+margin-left:-190px;
+
 margin-top:-158px;
 }

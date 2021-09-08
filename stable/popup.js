@@ -41,7 +41,7 @@ $("#loginbtn").click(function() {
 var name = $("#username").val();
 var password = $("#password").val();
 if (username == "" || password == ""){
-alert("Username or Password was Wrong");
+alert("कृपया अपनी दुकान का नाम डाले !");
 }else{
 $("#logindiv").css("display", "none");
 }
