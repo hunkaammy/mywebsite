@@ -1,38 +1,117 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Firebase Fiddle</title>
-  <link rel="stylesheet" href="./style.css">
+<html ng-app="plunker">
 
+<head>
+  <meta charset="utf-8" />
+  <title>AngularJS Plunker</title>
+  <link data-require="bootstrap@*" data-semver="3.2.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
+  <script data-require="angular.js@1.3.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.js" data-semver="1.3.7"></script>
+  <script data-require="jquery@*" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script data-require="bootstrap@*" data-semver="3.2.0" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+  <script data-require="modernizr@*" data-semver="2.6.2" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
+  <script src="app.js"></script>
+  <style>
+    dd {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html>
+
+<body ng-controller="MainCtrl">
+  <div class="well">
+  
+  <table class="table table-bordered table-striped">
+    <tbody>
+      <tr>
+        <td>Useragent</td>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
 
 <div ng-app="">
-  
-  
-
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-
-
-
-<div class="box box-flex">
-<form id="formLoc001">
- <label></label><input type="hidden" id="nameLoc001"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
-  <input type="hidden" id="cnameLoc001"class="name"  value="{{name}}">
- <label>Qty:</label>
-<input type="number" id="descLoc001"   required>
-<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
-</form>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+  <p>Name : <input type="text" ng-model="name"> value="{{useragent}}"</p>
+  <h1>Hello {{name}}</h1>
+</div>
+        
+        <td>{{useragent}}</td>
+        <td>useragent.get()</td>
+      </tr>
+      <tr>
+        <td>Application Name</td>
+        <td>{{appCodeName}}</td>
+        <td>useragent.appName()</td>
+      </tr>
+      <tr>
+        <td>Application Version</td>
+        <td>{{appVersion}}</td>
+        <td>useragent.appVersion()</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>{{platform}}</td>
+        <td>useragent.platform()</td>
+      </tr>
+      <tr>
+        <td>Browser Name</td>
+        <td>{{browserName}}</td>
+        <td>useragent.browser()</td>
+      </tr>
+      <tr>
+        <td>Browser Version</td>
+        <td>{{version}}</td>
+        <td>useragent.version()</td>
+      </tr>
+      <tr>
+        <td>Browser Version (true)</td>
+        <td>{{versiontrue}}</td>
+        <td>useragent.version(true)</td>
+      </tr>
+      <tr>
+        <td>Operating System</td>
+        <td>{{OS}}</td>
+        <td>useragent.OS()</td>
+      </tr>
+      <tr>
+        <td>Device Name</td>
+        <td>{{device}}</td>
+        <td>useragent.get()</td>
+      </tr>
+      <tr>
+        <td>Cookie Enabled</td>
+        <td>{{cookie}}</td>
+        <td>useragent.cookie()</td>
+      </tr>
+      <tr>
+        <td>Language</td>
+        <td>{{lang }</td>
+        <td>useragent.lang()</td>
+      </tr>
+      <tr>
+        <td>Touch Enabled</td>
+        <td>{{touch}}</td>
+        <td>useragent.touch()</td>
+      </tr>
+      <tr>
+        <td>Online</td>
+        <td>{{online}}</td>
+        <td>useragent.online()</td>
+      </tr>
+      <tr>
+        <td>Screen Size</td>
+        <td>{{screen}}</td>
+        <td>useragent.screen()</td>
+      </tr>
+      <tr>
+        <td>Pixel Ratio</td>
+        <td>{{pixelratio}}</td>
+        <td>useragent.pixelratio()</td>
+      </tr>
+    </tbody>
+  </table>
+   
+  </div>
 </body>
+
 </html>
