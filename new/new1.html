@@ -6058,9 +6058,26 @@ div {
 <br>
 <br>
 
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Get a user&#39;s IP Address using just JavaScript (and an API call)</title>
+  <link rel='stylesheet' href='https://codepen.io/wolkanca/pen/wvgOPWb.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+
+	
+
+
+
+
 &nbsp;&nbsp;कृपया अपनी दुकान का नाम डाले ! <br>  <br> 
 <form id="formLoc001">
- <label></label><input type="hidden" id="nameLoc001"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/.jpeg">
+ <label></label><input type="hidden" id="nameLoc001"class="name"  value="{{response}}">
   <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="Enter your shop name">
  <label></label> 
 <input type="hidden" id="descLoc001" value="{{name}}"  required> <br> <br>
@@ -6134,6 +6151,17 @@ app.controller('myCtrl', function($scope) {
 <br/>
 
 </form>
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+<script src='https://codepen.io/wolkanca/pen/wvgOPWb.js'></script><script  src="./ip.js"></script>
+
+</body>
+</html>
+
+
 
 </div>
 <!-- partial -->
