@@ -33,15 +33,15 @@ text-shadow:1px 0px 3px gray;
 #popup{
 padding-top:80px;
 }
-.form{
-border-radius:2px;
-padding:20px 100px;
-box-shadow:0 0 15px;
-font-size:14px;
-font-weight:bold;
-width:350px;
-margin:20px 250px 0 35px;
-float:left;
+.form {
+    border-radius: 2px;
+    padding: 0px 65px;
+    box-shadow: 0 0 15px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 350px;
+    margin: 20px 250px 0 35px;
+    float: left;
 }
 input{
 width:100%;
@@ -79,7 +79,7 @@ background: #000;
 display: none;
 }
 #logindiv{
-position: absolute;
+position: fixed;
 top: 0px;
 left: 0px;
 height: 100%;
