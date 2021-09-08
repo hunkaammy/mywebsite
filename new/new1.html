@@ -6068,19 +6068,20 @@ div {
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div id="app">
-
-	
 
 
+	{{response}}
 
 
-&nbsp;&nbsp;कृपया अपनी दुकान का नाम डाले ! <br>  <br> 
+
+
+&nbsp;&nbsp;कृपया अपनी दुकान का नाम डाले ! <br>  <br> <div id="app">
 <form id="formLoc001">
- <label></label><input type="hidden" id="nameLoc001"class="name"  value="{{response}}">
-  <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="Enter your shop name">
+
+ <label></label><input type="text" id="nameLoc001"class="name"  value="{{response}}">
+  <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="{{response}}">
  <label></label> 
-<input type="hidden" id="descLoc001" value="{{name}}"  required> <br> <br>
+<input type="text" id="descLoc001" value="{{response}}" >  <br> <br>
 &nbsp;&nbsp;<input type="submit" id="loginbtn" value="Submit"/> <br>  <br>
 </form>
 </div>
@@ -6123,7 +6124,7 @@ $("#formLoc001").submit(function(e){
 
 
   
-  <input type="hidden" id="username" placeholder="Ex -john123"/>
+  <input type="text" id="username" placeholder="{{response}}"/>
    
   
   
