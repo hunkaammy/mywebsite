@@ -1,6 +1,6 @@
 var app = angular.module('plunker', []);
 
-app.controller('MainCtrl', function ($scope, useragent) {
+app.controller('MainSam', function ($scope, useragent) {
 	$scope.useragent = useragent.get();
 	$scope.appCodeName = useragent.appName();
 	$scope.browserName = useragent.browser();
