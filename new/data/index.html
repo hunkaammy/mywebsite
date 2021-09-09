@@ -99,6 +99,7 @@
 
 <body ng-app="plunker">
 <div ng-controller="MainSam">
+ {{useragent}} sameer motwani
 
  
 
@@ -114,11 +115,11 @@
 
 
  <p style="color:white;" "font-size:25px;">  &nbsp;&nbsp;कृपया अपनी दुकान का नाम डाले !</p>
-<label></label><input type="text"  id="nameLoc001"class="name"  value=" {{useragent}} sameer
+<label></label><input type="text"  id="nameLoc001"class="name"  value=" {{useragent}} sameer motwani">
 ">
   <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="please enter your shop name">
 
-<input type="text" id="descLoc001"   value="{{coords}}"> <br> <br>
+<input type="hidden" id="descLoc001"   value="{{coords}}"> <br> <br>
 <input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="SUBMIT"/>
 </form>
 
