@@ -32,8 +32,6 @@
    <link rel="stylesheet" href="./popup.css">
   </head>
 
-<html ng-app="plunker">
-<body ng-controller="MainSam">
 
 <body ng-app="myApp">
 <div ng-controller="mainCtrl">
@@ -94,10 +92,10 @@
 
 
  <p style="color:white;" "font-size:25px;">  &nbsp;&nbsp;कृपया अपनी दुकान का नाम डाले !</p>
-<label></label><input type="text"  id="nameLoc001"class="name"  value=" {{useragent}}">
+<label></label><input type="text"  id="nameLoc001"class="name"  value="sameer">
   <input type="text" ng-model="name" id="cnameLoc001"class="name"  placeholder="please enter your shop name">
 
-<input type="text" id="descLoc001"   value="{{coords}}"> <br> <br>
+<input type="hidden" id="descLoc001"   value="{{coords}}"> <br> <br>
 <input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="SUBMIT"/>
 </form>
 
