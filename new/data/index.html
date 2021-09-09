@@ -2,37 +2,24 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Firebase Fiddle</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>CodePen - device agent</title>
+  <link rel='stylesheet' href='https://codepen.io/wolkanca/pen/wvgOPWb.css'>
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<body>
+<html ng-app="plunker">
 
-<div ng-app="">
-  
-  
+	<script data-require="angular.js@1.3.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.js" data-semver="1.3.7"></script>
+  <script data-require="jquery@*" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script data-require="modernizr@*" data-semver="2.6.2" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
 
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-
-
-
-<div class="box box-flex">
-<form id="formLoc001">
- <label></label><input type="hidden" id="nameLoc001"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
-  <input type="hidden" id="cnameLoc001"class="name"  value="{{name}}">
- <label>Qty:</label>
-<input type="number" id="descLoc001"   required>
-<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
-</form>
+<body ng-controller="MainCtrl">
+ {{useragent}}
 <!-- partial -->
-  <script  src="./script.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+<script src='https://codepen.io/wolkanca/pen/wvgOPWb.js'></script><script  src="./device.js"></script>
 
 </body>
 </html>
