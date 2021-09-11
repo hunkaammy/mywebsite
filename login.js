@@ -1,6 +1,6 @@
 var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
 
-var locRef = root.child('location');
+var locRef = root.child('names');
 locRef.on('child_added', function(snap){
   var locVal = snap.val();
   $('#locList').append(
