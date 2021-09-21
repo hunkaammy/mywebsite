@@ -38,7 +38,7 @@ return false;
 });
 // Login form popup login-button click event.
 $("#loginbtn").click(function() {
-var name = $("#username").val();
+var username = $("#username").val();
 var password = $("#password").val();
 if (username == "" || password == ""){
 alert("Username or Password was Wrong");
