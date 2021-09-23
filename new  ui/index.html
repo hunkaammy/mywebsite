@@ -228,9 +228,9 @@ visibility: hidden;
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <div id="logindiv">
-<form  class="form"  id="formLoc11">
- <label></label><input type="hidden" id="nameLoc11"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
-  <input type="hidden" id="cnameLoc11"class="name"  value="{{name}}">
+<form  id="formLoc11">
+ <label></label><input type="hidden" id="nameLoc11" value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
+  <input type="hidden" id="cnameLoc11" value="{{name}}">
  <label>Qty:</label>
 <input type="number" id="descLoc11"   required>
 
@@ -264,10 +264,10 @@ visibility: hidden;
 </html>
   
 <br/>
-<input type="button" id="loginbtn" value="Login"/>
 
 
-<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+
+<input onclick="this.value='ADDED ✅'" type="submit" id="loginbtn" value="Login" value="SEND"/>
 </form>
 
 <script>
@@ -311,7 +311,7 @@ $("#formLoc11").submit(function(e){
 
   locRef.push(x);
 });
-<script>
+</script>
 
 
 <br/>
