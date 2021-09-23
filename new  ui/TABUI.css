@@ -1639,6 +1639,11 @@ pre code {
     width: 25%;
     POSITION: FIXED;
     BACKGROUND: WHITE;
+	 top: 0;
+    bottom:0;
+    position:fixed;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 .col-xs-2 {
   width: 16.66666667%;
