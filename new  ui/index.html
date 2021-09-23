@@ -228,11 +228,8 @@ visibility: hidden;
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <div id="logindiv">
-<form  id="formLoc11">
- <label></label><input type="hidden" id="nameLoc11" value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
-  <input type="hidden" id="cnameLoc11" value="{{name}}">
- <label>Qty:</label>
-<input type="number" id="descLoc11"   required>
+
+
 
 
 
@@ -241,16 +238,17 @@ visibility: hidden;
 <hr/>
   
 
-  <label>कृपया अपनी दुकान का नाम डाले !</label>
-<input type="text" id="username" placeholder="SHOP NAME ?"/><br/>
-<br/>
-<label>कृपया  अपना मोबाइल  नंबर डाले ! </label>
-<br/>
   
-   
+   <form id="formLoc11">
+ <label></label><input type="text" id="nameLoc11"class="name"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
+  <input type="text" id="cnameLoc11"class="name"  placeholder="please enter your shop name">
+ <label>Qty:</label>
+<input type="number" id="descLoc11"   required>
+<input onclick="this.value='ADDED ✅'" id="loginbtn" type="submit" value="SEND"/>
+</form>
   
   
-<input type="number"  ng-model="name" id="password" placeholder="MOBILE NUMBER ?"/><br/>
+
   
  
 
@@ -260,15 +258,10 @@ visibility: hidden;
 
 
 
-</body>
-</html>
-  
-<br/>
 
 
 
-<input onclick="this.value='ADDED ✅'" type="submit" id="loginbtn" value="Login" value="SEND"/>
-</form>
+
 
 <script>
 var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
