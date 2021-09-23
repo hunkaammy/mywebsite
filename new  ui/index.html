@@ -43,27 +43,134 @@
           <div class="tab-content">
             <div class="tab-pane active" id="home-v">   <h1>NEW ARRIVAL</h1>
 
+<!DOCTYPE html>
+<html>
 
+<head lang="en">
+<meta charset="UTF-8" />
+<title>
+Async loading, multiple instances - Lazyload demos
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+ul,
+li {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
 
+a,
+img {
+display: block;
+}
 
+img {
+border: 0;
+width: 500px;
+/*        height: 280px;        */
+height: auto;
+}
 
-<!-- partial:index.partial.html -->
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/1.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/2.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/3.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/4.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/5.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/6.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/7.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/8.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/9.jpeg" loading="lazy" width="255" height="255">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/10.jpeg" loading="lazy" width="255" height="255">
+img:not([src]) {
+visibility: hidden;
+}
 
-<!-- partial -->
-  <script  src="./LAZYLOAD.js"></script>
+/* Fixes Firefox anomaly during image load */
+@-moz-document url-prefix() {
+img:-moz-loading {
+visibility: hidden;
+}
+}
+</style>
+</head>
 
+<body>
+<h1>Async loading, multiple instances demo</h1>
+<p>Lazy image with low quality placeholder</p>
+<ul>
+
+<!-- Lazy load below the fold  -->
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/1.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/1.jpeg" width="255" height="255" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/2.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/2.jpeg" width="255" height="255" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/3.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/3.jpeg" width="500" height="313" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/4.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/4.jpeg" width="500" height="354" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/5.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/5.jpeg" width="500" height="333" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/6.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/6.jpeg" width="500" height="332" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/7.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/7.jpeg" width="500" height="333" />
+</li>
+
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/8.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEWARRIVAL/8.jpeg" width="500" height="294" />
+</li>
+
+</ul>
+
+<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+<script>
+function logElementEvent(eventName, element) {
+console.log(Date.now(), eventName, element.getAttribute("data-src"));
+}
+var callback_enter = function(element) {
+logElementEvent("🔑 ENTERED", element);
+};
+var callback_exit = function(element) {
+logElementEvent("🚪 EXITED", element);
+};
+var callback_loading = function(element) {
+logElementEvent("⌚ LOADING", element);
+};
+var callback_loaded = function(element) {
+logElementEvent("👍 LOADED", element);
+};
+var callback_error = function(element) {
+logElementEvent("💀 ERROR", element);
+element.src =
+"https://via.placeholder.com/440x560/?text=Error+Placeholder";
+};
+var callback_finish = function() {
+logElementEvent("✔️ FINISHED", document.documentElement);
+};
+var callback_cancel = function(element) {
+logElementEvent("🔥 CANCEL", element);
+};
+window.lazyLoadOptions = {
+threshold: 0,
+// Assign the callbacks defined above
+callback_enter: callback_enter,
+callback_exit: callback_exit,
+callback_cancel: callback_cancel,
+callback_loading: callback_loading,
+callback_loaded: callback_loaded,
+callback_error: callback_error,
+callback_finish: callback_finish
+};
+window.addEventListener(
+"LazyLoad::Initialized",
+function(e) {
+console.log(e.detail.instance);
+},
+false
+);
+</script>
 </body>
+
 </html>
+
+
+
+
 </div>
 
             <div class="tab-pane" id="profile-v">Profile Tab.</div>
