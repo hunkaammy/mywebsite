@@ -38,7 +38,7 @@ return false;
 });
 // Login form popup login-button click event.
 $("#loginbtn").click(function() {
-var cnameLoc11 = $("#cname11").val();
+var cnameLoc11 = $("#cnameLoc11").val();
 var descLoc11 = $("#descLoc11").val();
 if (cnameLoc11 == "" || descLoc11 == ""){
 alert("Username or Password was Wrong");
