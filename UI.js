@@ -39,9 +39,9 @@ return false;
 // Login form popup login-button click event.
 $("#loginbtn").click(function() {
 var cnameLoc11 = $("#cnameLoc11").val();
-var descLoc11 = $("#descLoc11").val();
+var descLoc11 = $("#desc11").val();
 if (cnameLoc11 == "" || descLoc11 == ""){
-alert("PLEASE ENTER VALID SHOP NAME AND MOBILE NUMBER");
+alert("PLEASE ENTER VALID SHOP NAME");
 }else{
 $("#logindiv").css("display", "none");
 }
