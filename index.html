@@ -1,3 +1,45 @@
+<style>
+.body,
+.wrapper {
+  /* Break the flow */
+  position: absolute;
+  top: 0px;
+
+  /* Give them all the available space */
+  width: 100%;
+  height: 100%;
+
+  /* Remove the margins if any */
+  margin: 0;
+
+  /* Allow them to scroll down the document */
+  overflow-y: hidden;
+}
+
+.body {
+  /* Sending body at the bottom of the stack */
+  z-index: 1;
+}
+
+.wrapper {
+  /* Making the wrapper stack above the body */
+  z-index: 2;
+}
+</style>
+
+<!doctype html>
+<html>
+<head>
+  <!-- Put the above styles here -->
+</head>
+<body class="body">
+  <div class="wrapper">
+    <!-- Put the page contents here -->
+ 
+
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
 
@@ -13165,21 +13207,24 @@ visibility: hidden;
 </style>
 
 <style>
-  .mainform {
-  font-family: verdana;
-  font-size: 20px;
+.mainlogin {
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>
-<div style="mainform" >
+<div style="mainlogin" >
    <form id="formLoc11">
-<label>please enter your shop name</label>
+<label>please enter your shop name.</label>
 <input type="hidden" id="nameLoc11"  class="inputlogin"  value="https://hunksammy.github.io/2084377289testbysam/PRODUCTS/NEWARRIVAL/1.jpeg">
   <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
 
-<br> <br> 
+<br> 
  
- <label>please enter your mobile number</label>
+ <label>please enter your mobile number.</label>
 <input type="number" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
+<br>
 <input type="submit" id="loginbtn"   class="buttonlogin" value="LOGIN"/>
 </form>
   </div>
@@ -13259,4 +13304,6 @@ $("#formLoc11").submit(function(e){
 
 
 
-          
+           </div>
+</body>
+</html>
