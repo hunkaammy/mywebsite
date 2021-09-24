@@ -41,7 +41,7 @@ $("#loginbtn").click(function() {
 var cnameLoc11 = $("#cnameLoc11").val();
 var descLoc11 = $("#descLoc11").val();
 if (cnameLoc11 == "" || descLoc11 == ""){
-alert("Username or Password was Wrong");
+alert("PLEASE ENTER VALID SHOP NAME AND MOBILE NUMBER");
 }else{
 $("#logindiv").css("display", "none");
 }
