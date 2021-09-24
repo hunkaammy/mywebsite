@@ -44,8 +44,8 @@
         <div class="col-xs-3"> <!-- required for floating -->
           <!-- Nav tabs -->
           <ul class="nav nav-tabs tabs-left sideways">
-            <li class="active"><a href="#home-v" data-toggle="tab">NEW ARRIVAL</a></li>
-            <li><a href="#profile-v" data-toggle="tab">FANCY ITEMS</a></li>
+            <li class="active"><a href="#home-v" onclick="scrollToTop()" data-toggle="tab">NEW ARRIVAL</a></li>
+            <li><a href="#profile-v" onclick="scrollToTop()" data-toggle="tab">FANCY ITEMS</a></li>
             <li><a href="#messages-v" data-toggle="tab">JCB</a></li>
             <li><a href="#settings-v" data-toggle="tab">TRUCK DUMPER</a></li>
 			<li><a href="#settings-" data-toggle="tab">TRACTOR</a></li>
@@ -68,6 +68,11 @@
         </div>
 		
 		
+		 <script>
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+    </script>	
 		
 		<style>
 ul,
