@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Popup on page load (use lightcase)</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/css/lightcase.css'>
-  
+
 
 
 
@@ -13321,16 +13315,57 @@ $(document).ready(function(){
 </script>
 
 
+<style>
+#popup {
+    display:none;
+    position:absolute;
+    margin:0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 50px 2px #000;
+}
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
+.panel {
+    margin-bottom: 20px;
+    width: 90%;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+</style>
 
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/js/lightcase.js'></script><script  src="./POPUP.js"></script>
+ <div id="popup" class="popup panel panel-primary">
+      
+     
+      
+        <!-- and here comes the image -->
+        <img src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage_2x.png" alt="popup">
+            
+            <!-- Now this is the button which closes the popup-->
+        <div class="panel-footer">
+            <button id="close" class="btn btn-lg btn-primary">Close button</button>
+        </div>
 
-</body>
-</html>
+            
+            <!-- and finally we close the POPUP FRAME-->
+            <!-- everything on it will show up within the popup so you can add more things not just an image -->
+    </div>
 
+
+<script>
+//with this first line we're saying: "when the page loads (document is ready) run the following script"
+$(document).ready(function () {
+    //select the POPUP FRAME and show it
+    $("#popup").hide().fadeIn(1000);
+
+    //close the POPUP if the button with id="close" is clicked
+    $("#close").on("click", function (e) {
+        e.preventDefault();
+        $("#popup").fadeOut(1000);
+    });
+});
+</script>
           
