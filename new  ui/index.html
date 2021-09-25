@@ -1,4 +1,10 @@
-
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Popup on page load (use lightcase)</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/css/lightcase.css'>
+  
 
 
 
@@ -13292,7 +13298,39 @@ $("#formLoc11").submit(function(e){
 
 
 
+<script>
+$(document).ready(function(){
+  var imgURLs = [
+    'https://www.google.com.ua/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png',
+     "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+  ];
+  var randomIndex = Math.floor(Math.random() * imgURLs.length);
+  var imgURL = imgURLs[randomIndex];
+
+  
+  
+  setTimeout(function(){
+      lightcase.start({
+        href: imgURL,
+        // more options like width, height, etc.
+      });
+   },1000); // 1000 to load it after 1 second from page load
+  
+});
+
+</script>
 
 
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lightcase/2.5.0/js/lightcase.js'></script><script  src="./POPUP.js"></script>
+
+</body>
+</html>
 
           
