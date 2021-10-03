@@ -3973,7 +3973,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     font-size: 11px;
     position: relative;
     display: block;
-    padding: 7px 2px;
+    padding: 7px 3px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
