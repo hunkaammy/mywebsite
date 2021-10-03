@@ -3970,10 +3970,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
 }
 .nav > li > a {
-    font-size: 11px;
+    font-size: 12px;
     position: relative;
     display: block;
     padding: 7px 3px;
+    WIDTH: 100px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
