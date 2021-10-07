@@ -30,74 +30,33 @@
 
 
 
+<!DOCTYPE html>
+<html>
+<head>
+
 <style>
+body10 {
+  font-family: "Sofia", sans-serif;
+  font-size: 30px;
+}
 
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+.font-effect-emboss1 {
+    text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;
+    color: #ddd;
+	text-align: end;
+    font-size: 35px;
+}
+</style>
+</head>
 <body>
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: "Poppins", sans-serif;
-}
-
-body {
-	display: flex;
-	min-height: 100vh;
-	background: white;
-	align-items: center;
-	justify-content: center;
-}
-
-h2  {
-    color: #100f10;
-    font-size: 10vw;
-    position: relative;
-    text-transform: uppercase;
-    -webkit-text-stroke: 0.3vw #f7f7fe;
-    ali: -webkit-right;
-	text-align: right;
-}
-
-h2::before {
-	top: 0;
-	left: 0;
-	width: 0;
-	height: 100%;
-	color: #37b9f1;
-	background:white;
-	overflow: hidden;
-	position: absolute;
-	content: attr(data-text);
-	border-right: 2px solid #37b9f1;
-	-webkit-text-stroke: 0vw #f7f7fe;
-	animation: animate 6s linear infinite;
-}
-
-@keyframes animate {
-	0%,
-	10%,
-	100% {
-		width: 0;
-	}
-
-	70%,
-	90% {
-		width: 100%;
-	}
-}
-
-</style>
+<h1 class="font-effect-emboss1">Hindustan toys</h1>
 
 
-<h2 data-text="HINDUSTAN TOYS..">HINDUSTAN TOYS...</h2>
+</body>
+</html>
+
 
 
 
