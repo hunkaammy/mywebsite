@@ -1,3 +1,7 @@
+
+
+
+
 <style>
 media print {
   .no-print {
@@ -200,84 +204,6 @@ visibility: hidden;
  <div class="containerlazy">
  
  
- 
- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-<div class="container">
-  <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
- <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<h2>Locations</h2>
-<ul id="locaList">
-</ul>
-
-<h2>New Location</h2>
-<form id="formLoc">
-  <label>Name:</label><input type="text" id="nameLoc" />
-  <label>Desc:</label><input type="text" id="descLoc" />
-  <input type="submit" value="send it" name="submitLoc"/>
-</form>
-
-<div id="test">blah<div>
-<script> var root = new Firebase('https://blinding-fire-1317.firebaseio.com/');
-
-var locRef = root.child('location');
-locRef.on('child_added', function(snap){
-  var locVal = snap.val();
-  $('#locaList').append(
-  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
-  );
-});
-
-
-$("#formLoc").submit(function(e){
-  e.preventDefault();
-  var x = {
-    name:$('#nameLoc').val(),
-    desc:$('#descLoc').val()
-  }; 
-  locRef.push(x);
-});
-
-</script>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-
-</body>
-</html>
 
  
  
@@ -17486,4 +17412,82 @@ $("#formLoc11").submit(function(e){
 
 
 
+ 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+ <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<h2>Locations</h2>
+<ul id="locaList">
+</ul>
+
+<h2>New Location</h2>
+<form id="formLoc">
+  <label>Name:</label><input type="text" id="nameLoc" />
+  <label>Desc:</label><input type="text" id="descLoc" />
+  <input type="submit" value="send it" name="submitLoc"/>
+</form>
+
+<div id="test">blah<div>
+<script> var root = new Firebase('https://blinding-fire-1317.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locaList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+$("#formLoc").submit(function(e){
+  e.preventDefault();
+  var x = {
+    name:$('#nameLoc').val(),
+    desc:$('#descLoc').val()
+  }; 
+  locRef.push(x);
+});
+
+</script>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+</body>
+</html>
           
