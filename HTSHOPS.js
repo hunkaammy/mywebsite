@@ -3,7 +3,7 @@ var root = new Firebase('https://notes-12519-default-rtdb.firebaseio./');
 var locRef = root.child('location');
 locRef.on('child_added', function(snap){
   var locVal = snap.val();
-  $('#locAList').append(
+  $('#locaList').append(
   	"<li>"+locVal.name+" "+locVal.desc+"</li>"
   );
 });
