@@ -1,4 +1,3 @@
-var root = new Firebase('https://blinding-fire-1317.firebaseio.com/');
 var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
 
 var locRef = root.child('location');
