@@ -1,0 +1,718 @@
+
+
+
+
+
+
+
+
+<div ng-app="">
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>HINDUSTAN  TOYS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="stylesheet" href="./UI.css">
+         <link rel="stylesheet" href="./TABS.css">
+         <link rel="stylesheet" href="./TABUI.css">
+
+<link rel="stylesheet" href="./LAZYLOAD.css">
+
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+
+<style>
+body10 {
+  font-family: "Sofia", sans-serif;
+  font-size: 30px;
+}
+
+.font-effect-emboss1 {
+    font-family: "Sofia", sans-serif;
+    text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;
+    color: black;
+    text-align: left;
+    mar: 1;
+    font-size: 35px;
+    background: BLACK;
+    position: fixed;
+    COLOR: WHITE;
+    margin-left: 88px;
+    HEIGHT: 45PX;
+    margin-top: 0px;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<h1 class="font-effect-emboss1">&nbsp;&nbsp;&nbsp;Hindustan toys</h1>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+<div  class="col-sm-6">
+    
+     
+        <div class="col-xs-3"> <!-- required for floating -->
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs tabs-left sideways">
+            <li class="active"><a href="#home-v" onclick="scrollToTop()" data-toggle="tab">NEW ARRIVAL</a></li>
+			 <li><a href="#PALNA" onclick="scrollToTop()" data-toggle="tab">PAGDI </a></li>
+			 <li><a href="#RACKET" onclick="scrollToTop()" data-toggle="tab">VAR VADHU MALA </a></li>
+			 <li><a href="#JCB" onclick="scrollToTop()" data-toggle="tab">RESHAM MALA </a></li>
+			  <li><a href="#TRUCK-DUMPER" onclick="scrollToTop()" data-toggle="tab">DULHAN MUKUT</a></li>
+			  <li><a href="#TRACTOR" onclick="scrollToTop()" data-toggle="tab">PAN MOTI MALA</a></li>
+			  	<li><a href="#CAR-JEEP" onclick="scrollToTop()" data-toggle="tab">KATTAR</a></li>
+							<li><a href="#KITCHEN-SET" onclick="scrollToTop()" data-toggle="tab">KALGI</a></li>
+						
+          </ul>
+        </div>
+		
+		
+		 <script>
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+    </script>	
+		
+		<style>
+ul,
+li {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+a,
+img {
+display: block;
+}
+
+img {
+border: 0;
+width: 250px;
+/*        height: 250px;        */
+height: auto;
+}
+
+img:not([src]) {
+visibility: hidden;
+}
+
+/* Fixes Firefox anomaly during image load */
+@-moz-document url-prefix() {
+img:-moz-loading {
+visibility: hidden;
+}
+}
+</style>
+
+
+<style>
+.cardlazy {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 145%;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.containerlazy {
+  padding: 2px 16px;
+}
+</style>
+		
+		
+
+
+ 
+
+
+
+
+
+
+<div class="col-xs-9">
+<div class="tab-content">
+<div class="tab-pane active" id="home-v">   
+<ul>
+
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+ <h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 1</p>
+<form id="formLoc21">
+<label></label><input type="hidden" id="nameLoc21"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg">
+<input type="hidden" id="cnameLoc21"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc21"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/2.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/2.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 2</p>
+<form id="formLoc22">
+<label></label><input type="hidden" id="nameLoc22"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/2.jpeg">
+<input type="hidden" id="cnameLoc22"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc22"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/3.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/3.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 3</p>
+<form id="formLoc23">
+<label></label><input type="hidden" id="nameLoc23"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/3.jpeg">
+<input type="hidden" id="cnameLoc23"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc23"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/4.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/4.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 4</p>
+<form id="formLoc24">
+<label></label><input type="hidden" id="nameLoc24"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/4.jpeg">
+<input type="hidden" id="cnameLoc24"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc24"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/5.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/5.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 5</p>
+<form id="formLoc25">
+<label></label><input type="hidden" id="nameLoc25"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/5.jpeg">
+<input type="hidden" id="cnameLoc25"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc25"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/6.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/6.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 6</p>
+<form id="formLoc26">
+<label></label><input type="hidden" id="nameLoc26"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/6.jpeg">
+<input type="hidden" id="cnameLoc26"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc26"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/7.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/7.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 7</p>
+<form id="formLoc27">
+<label></label><input type="hidden" id="nameLoc27"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/7.jpeg">
+<input type="hidden" id="cnameLoc27"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc27"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/8.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/8.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 8</p>
+<form id="formLoc28">
+<label></label><input type="hidden" id="nameLoc28"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/8.jpeg">
+<input type="hidden" id="cnameLoc28"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc28"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/9.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/9.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 9</p>
+<form id="formLoc29">
+<label></label><input type="hidden" id="nameLoc29"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/9.jpeg">
+<input type="hidden" id="cnameLoc29"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc29"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/10.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/10.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 10</p>
+<form id="formLoc30">
+<label></label><input type="hidden" id="nameLoc30"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/10.jpeg">
+<input type="hidden" id="cnameLoc30"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc30"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/11.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/11.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 11</p>
+<form id="formLoc31">
+<label></label><input type="hidden" id="nameLoc31"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/11.jpeg">
+<input type="hidden" id="cnameLoc31"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc31"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/12.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/12.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 12</p>
+<form id="formLoc32">
+<label></label><input type="hidden" id="nameLoc32"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/12.jpeg">
+<input type="hidden" id="cnameLoc32"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc32"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/13.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/13.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 13</p>
+<form id="formLoc33">
+<label></label><input type="hidden" id="nameLoc33"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/13.jpeg">
+<input type="hidden" id="cnameLoc33"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc33"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/14.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/14.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 14</p>
+<form id="formLoc34">
+<label></label><input type="hidden" id="nameLoc34"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/14.jpeg">
+<input type="hidden" id="cnameLoc34"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc34"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/15.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/15.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 15</p>
+<form id="formLoc35">
+<label></label><input type="hidden" id="nameLoc35"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/15.jpeg">
+<input type="hidden" id="cnameLoc35"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc35"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/16.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/16.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 16</p>
+<form id="formLoc36">
+<label></label><input type="hidden" id="nameLoc36"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/16.jpeg">
+<input type="hidden" id="cnameLoc36"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc36"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/17.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/17.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 17</p>
+<form id="formLoc37">
+<label></label><input type="hidden" id="nameLoc37"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/17.jpeg">
+<input type="hidden" id="cnameLoc37"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc37"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/18.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/18.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 18</p>
+<form id="formLoc38">
+<label></label><input type="hidden" id="nameLoc38"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/18.jpeg">
+<input type="hidden" id="cnameLoc38"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc38"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/19.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/19.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 19</p>
+<form id="formLoc39">
+<label></label><input type="hidden" id="nameLoc39"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/19.jpeg">
+<input type="hidden" id="cnameLoc39"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc39"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+<div class="cardlazy">
+<li><img alt="A lazy image" class="lazy" src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/20.jpeg" data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/20.jpeg" width="155" height="155" /> <br> </hr>
+ <div class="containerlazy">
+<h4><b>NEW ARRIVAL</b></h4>
+<p>ITEM NO- 20</p>
+<form id="formLoc40">
+<label></label><input type="hidden" id="nameLoc40"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/20.jpeg">
+<input type="hidden" id="cnameLoc40"class="name"  value="{{name}}">
+<label>Qty:</label>
+<input type="number" id="descLoc40"   required>
+<input onclick="this.value='ADDED ✅'" type="submit" value="SEND"/>
+</form>
+</div>
+</div>
+</li>
+
+</div>
+
+<!--END OF NEW ARRIVAL -->
+
+
+
+
+
+			
+			
+			
+			
+			
+			
+          </div>
+        </div>
+		</ul>
+			
+		<script  src="./LAZYLOAD.js"></script>
+		
+		
+
+</head>
+<body>
+
+
+
+
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+<script  src="./HTSHOP.js"></script>
+        <div class="clearfix"></div>
+
+      </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--Login Form -->
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<div id="logindiv">
+
+
+
+
+
+
+
+<hr/>
+  
+<style>
+.inputlogin {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+</style>
+
+<style>
+.mainlogin {
+    margin-left: 20px;
+    position: fixed;
+}
+</style>
+<div class="mainlogin" >
+   <form id="formLoc11">
+<label>कृपया अपनी दुकान का नाम लिखे  !</label>
+<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
+  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
+
+ 
+ <label></label>
+<input type="hidden" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
+<br>
+<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
+</form>
+  </div>
+  
+  <br> <br>
+  
+
+
+
+
+
+
+
+ 
+
+
+<script>
+var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#formLoc11").submit(function(e){
+  e.preventDefault();
+  var x = {
+    desc11:$('#nameLoc11').val(),
+    name11:$('#descLoc11').val(),
+    cname11:$('#cnameLoc11').val(),
+
+
+
+  }; 
+
+
+
+
+
+
+  locRef.push(x);
+});
+</script>
+
+
+
+<br/>
+
+</form>
+
+
+
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
+
+</body>
+</html>
+
+
+
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar1 {
+  overflow: hidden;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar a .navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 2px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+  background: black
+  color: white;
+}
+
+.navbar1 a.active {
+  background-color: black;
+  color: white;
+}
+
+.main {
+  padding: 16px;
+  margin-bottom: 30px;
+}
+</style>
+
+
+<div class="navbar1">
+  <a href="#home" class="active"> &nbsp;&nbsp; LAST UPDATE ON - &nbsp;&nbsp;   26-10-21 12:15 PM</a>
+ 
+</div>
+
+

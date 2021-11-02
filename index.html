@@ -87,7 +87,6 @@ body10 {
           <!-- Nav tabs -->
           <ul class="nav nav-tabs tabs-left sideways">
             <li class="active"><a href="#home-v" onclick="scrollToTop()" data-toggle="tab">NEW ARRIVAL</a></li>
-			<li><a href="#SHAADIITEMS" onclick="scrollToTop()" data-toggle="tab">SHAADI ITEMS </a></li>
 			 <li><a href="#PALNA" onclick="scrollToTop()" data-toggle="tab">PALNA </a></li>
 			 <li><a href="#RACKET" onclick="scrollToTop()" data-toggle="tab">RACKET </a></li>
 			 <li><a href="#JCB" onclick="scrollToTop()" data-toggle="tab">JCB </a></li>
@@ -521,77 +520,6 @@ visibility: hidden;
 </div>
 
 <!--END OF NEW ARRIVAL -->
-
-
-<div class="tab-pane" id="SHAADIITEMS">
-
-<style> .tab-cl {
-    background-color: #0B0F24;
-    color: #fff;
-}
-.tab-cl:focus {
-    background-color: #202848;
-    color: #fff;
-}
-.tab-cl:hover {
-    background-color: #202848;
-    color: #fff;
-} </style>
-
-
-
-<!--Designed for use on Searchthat.net/-->
-
-<!-- Master Search Tab Column Start-->
-<div class="tab-body-column">
-
-<!-- Master Search Top Tabs Start-->
-	<div class="tab-button-header">  <br> <br> <br>
-		<button href="javascript:void(0)" onclick="tablc(event, 'Tab_Bar');" id="tab_focus" class="tab-cl">PAGDI</button>
-		<button href="javascript:void(0)" onclick="tablc(event, 'Tab_Engines');" id="tab_focus" class="tab-cl">VAR VADHU MALA</button>
-		<button href="javascript:void(0)" onclick="tablc(event, 'Tab_Places');" id="tab_focus" class="tab-cl">RESHAM MALA</button>
-		<button href="javascript:void(0)" onclick="tablc(event, 'Tab_Info');" id="tab_focus" class="tab-cl">DULHAN MUKUT</button>
-	</div>
-<!-- Master Search Top Tabs End-->
-
-
-<!-- Master Search Body Container Start-->
-	<div class="tab-body-container">
-
-<!--Tab 1 Conatiner Start-->
-		<div id="Tab_Bar" class="tablinks" style="display:block">DEMO 1</div>
-<!--Tab 1 Conatiner End-->
-
-<!--Tab 2 Conatiner Start-->
-		<div id="Tab_Engines" class="tablinks" style="display:none">DEMO 2</div>
-<!--Tab 2 Conatiner End-->
-		
-<!--Tab 3 Conatiner Start-->
-		<div id="Tab_Places" class="tablinks" style="display:none">DEMO 3</div>
-<!--Tab 3 Conatiner End-->
-
-<!--Tab 4 Conatiner Start-->
-		<div id="Tab_Info" class="tablinks" style="display:none">DEMO 4</div>
-<!--Tab 4 Conatiner End-->
-
-</div>
-<!-- Master Search Body Container End-->
-
-</div>
-<!-- Master Search Tab Column End-->
-
-
-<script>
-//Master Search Tab Function
-function tablc(e, t) {
-    for (var n = document.getElementsByClassName("tablinks"), l = 0; l < n.length; l++) n[l].style.display = "none";
-    document.getElementById(t).style.display = "block";
-}
-//Tab Search Bar Button Focus
-document.getElementById("tab_focus").focus();
-</script>
-
-</div>
 
 
 
