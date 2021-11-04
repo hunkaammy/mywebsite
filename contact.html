@@ -52,5 +52,38 @@
   </div>
   </div>
 
+
+
+<style>
+body{
+   padding: 20px;
+}
+
+img {
+   width: 80px;
+   margin-bottom: 20px;
+}
+</style>
+
+<img id=image src="https://humoropedia.com/wp-content/uploads/2014/08/monkey-awesome-photo.jpg" alt="">
+<br>
+<a id=waButton class="btn btn-success" href="">share image with whatsapp</a>
+
+<script> const button = document.getElementById('waButton');
+let image = document.getElementById('image');
+let imageURL = image.src;
+
+// let sharehref = `whatsapp://send?text=${encodeURIComponent(imageSrc)}`;
+
+button.setAttribute('href', 'whatsapp://send?text='+encodeURIComponent(imageURL));
+
+//button.setAttribute('href', sharehref);
+//console.log(button); </script>
+
+
+
+
+
+
   </body>
 </html>
