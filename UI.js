@@ -1,5 +1,5 @@
 $(document).ready(function() {
-setTimeout(popup, );
+setTimeout(popup, 3000);
 function popup() {
 $("#logindiv").css("display", "block");
 }
@@ -27,7 +27,7 @@ $("#contactdiv").css("display", "none");
 alert('Invalid Email Address');
 }
 function validateEmail(email) {
-var filter = /^[w-.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
+var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
 if (filter.test(email)) {
 return true;
 }else {
@@ -39,9 +39,9 @@ return false;
 // Login form popup login-button click event.
 $("#loginbtn").click(function() {
 var cnameLoc11 = $("#cnameLoc11").val();
-var descLoc11 = $("#desc11").val();
+var desLoc11 = $("#desc11").val();
 if (cnameLoc11 == "" || descLoc11 == ""){
-alert("PLEASE ENTER VALID SHOP NAME");
+alert("Please Enter Valid Shop Name");
 }else{
 $("#logindiv").css("display", "none");
 }
