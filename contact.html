@@ -33,7 +33,8 @@
   <body ng-app="app" ng-controller="appCtrl"   >
 
  <input type="text" ng-model="app.cname11" placeholder="Nombre"/>
- <input type="text" ng-model="app.desc11" placeholder="Apellidos"/>   
+ <input type="hidden" ng-model="app.desc11" placeholder="Apellidos"/>   
+  <input type="text" ng-model="app.name11" placeholder="QTY"/>   
  
  
  
@@ -45,9 +46,9 @@
       <tbody> 
         <tr ng-repeat="value in DB">
 		<hr/>
-          <td> {{value.cname11}} <hr> </td>
+          <td> {{value.cname11}}  </td>
           <td><img src="{{value.desc11}}" alt="Girl in a jacket" width="250" height="250">  <hr>  </td>  
-          <td>{{value.name11}}  <hr> </td>
+          <td>{{value.name11}}   </td>
           <td>{{value.edad}}</td>
 		  
           <td>
