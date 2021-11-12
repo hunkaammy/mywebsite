@@ -1059,7 +1059,7 @@ th {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-      background: white;
+    
 }
 *:before,
 *:after {
@@ -1575,7 +1575,7 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  BACKGROUND: BLACK;
+    float: right;
 }
 @media (min-width: 768px) {
   .container {
@@ -3236,9 +3236,11 @@ fieldset[disabled] .btn-success.focus {
   border-color: #1b6d85;
 }
 .btn-info:hover {
-  color: #fff;
-  background-color: #31b0d5;
-  border-color: #269abc;
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+    float: right;
+    margin-right: 10px;
 }
 .btn-info:active,
 .btn-info.active,
