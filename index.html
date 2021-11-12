@@ -18023,12 +18023,41 @@ body {
 </head>
 <body>
 
-<h2>My Customers</h2>
+<h2>Your Order</h2>
 
 <input type="hidden" id="myInput"  value="{{name}}" title="Type in a name">
 
-<button onclick="myFunction()">Click me</button>
+<style>
+.container{
+padding-top:50px;
+}
+</style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="container">
+<div class="col text-center">
+
+ 
+<button id="click" class="btn btn-danger" onclick="myFunction()">CLICK TO SEE YOUR ORDER</button>
+ </div>
+   </div>
+   
+   <script>
+   $(document).ready(function(){
+ $('#click').click(function(){
+        
+    });
+  // set time out 2 sec
+     setTimeout(function(){
+        $('#click').trigger('click');
+    }, 2000);
+});
+
+
+
+
+</script>
+   
 <table id="myTable">
   <tr class="header">
     <th style="width:10%;">Name</th>
@@ -18059,6 +18088,10 @@ body {
 
    
 </table>
+
+
+
+
 
 <script>
 function myFunction() {
