@@ -74,7 +74,7 @@
 }
 
 #myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
+  background-color: white;
 }
 </style>
 </head>
@@ -93,16 +93,16 @@
     <th style="width:10%;">Qty</th>
   </tr>
   <tr>
-  
-  <tr>
-  
-  <td><p style="color:red;">I am red</p></td>
-  
-        </tr>
+        <tr class="item" ng-repeat="value in DB">
+
+          <td<p style="color:white;">I am red</p></td>
+          <td><img src="https://cdn.wallpapersafari.com/99/33/Q3KMNv.png" alt="items" width="200" height="10000">
+</td>
+          <td></td>  </tr>
+		  
+		  
        
         <tr class="item" ng-repeat="value in DB">
-		
-		  <td><p style="color:red;">I am red</p></td>
 
           <td>{{value.cname11}}</td>
           <td><img src="{{value.desc11}}" alt="items" width="200" height="200">
