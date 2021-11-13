@@ -17851,10 +17851,12 @@ float:  right;
 }
 
 #myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
+    border-collapse: collapse;
+ 
+    border: 1px
+ solid #ddd;
+    font-size: 18px;
+    width: 10px;
 }
 
 #myTable th, #myTable td {
@@ -17919,23 +17921,20 @@ padding-top:8px;
 </style>
    
 <table id="myTable">
-  <tr class="header">
-    <th style="width:1%;">Name</th>
-    <th style="width:1%;">Item</th>
-    <th style="width:1%;">Qty</th>
-  </tr>
+ 
   
 		  
 		  
        
         <tr class="item" ng-repeat="value in DB">
 
-          <td>{{value.cname11}}</td>
-          <td> <div class="cardlazyorder">  <img src="{{value.desc11}}" alt="items" width="45" height="45"> </div>
+          <td>
+		  <div style="font-size:0vw">{{value.cname11}}</div></td> 
+          <td>  <img src="{{value.desc11}}" alt="items" width="45" height="45"> 
 		  
 		  
 		  
-</td>
+</td> <br>
           <td>{{value.name11}}</td>  </tr>
           
       
