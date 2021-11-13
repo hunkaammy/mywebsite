@@ -17745,160 +17745,9 @@ visibility: hidden;
 		<script  src="./LAZYLOAD.js"></script>
 		
 		
-
-</head>
-<body>
-
-
-
-
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
-<script  src="./HTSHOP.js"></script>
-        <div class="clearfix"></div>
-
-      </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-</body>
-</html>
-
-
-
-
-
-
-
-<!--Login Form -->
-
-
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-
-
-
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<div id="logindiv">
-
-
-
-
-
-
-
-<hr/>
-  
-<style>
-.inputlogin {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-</style>
-
-<style>
-.mainlogin {
-    margin-left: 20px;
-    position: fixed;
-}
-</style>
-<div class="mainlogin" >
-   <form id="formLoc11">
-<label>कृपया अपनी दुकान का नाम लिखे  !</label>
-<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
-  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
-
- 
- <label></label>
-<input type="hidden" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
-<br>
-<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
-</form>
-  </div>
-  
-  <br> <br>
-  
-
-
-
-
-
-
-
- 
-
-
-<script>
-var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
-
-var locRef = root.child('location');
-locRef.on('child_added', function(snap){
-  var locVal = snap.val();
-  $('#locList').append(
-  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
-  );
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-$("#formLoc11").submit(function(e){
-  e.preventDefault();
-  var x = {
-    desc11:$('#nameLoc11').val(),
-    name11:$('#descLoc11').val(),
-    cname11:$('#cnameLoc11').val(),
-
-
-
-  }; 
-
-
-
-
-
-
-  locRef.push(x);
-});
-</script>
-
-
-
-<br/>
-
-</form>
-
-
-
-
-</div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
-
-</body>
-</html>
-
-
-
+		
+		
+		
 
 <style>
 body {
@@ -18296,6 +18145,162 @@ function myFunction() {
   </div>
   
 </div>
+		
+		
+
+</head>
+<body>
+
+
+
+
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+<script  src="./HTSHOP.js"></script>
+        <div class="clearfix"></div>
+
+      </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--Login Form -->
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<div id="logindiv">
+
+
+
+
+
+
+
+<hr/>
+  
+<style>
+.inputlogin {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+</style>
+
+<style>
+.mainlogin {
+    margin-left: 20px;
+    position: fixed;
+}
+</style>
+<div class="mainlogin" >
+   <form id="formLoc11">
+<label>कृपया अपनी दुकान का नाम लिखे  !</label>
+<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
+  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
+
+ 
+ <label></label>
+<input type="hidden" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
+<br>
+<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
+</form>
+  </div>
+  
+  <br> <br>
+  
+
+
+
+
+
+
+
+ 
+
+
+<script>
+var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#formLoc11").submit(function(e){
+  e.preventDefault();
+  var x = {
+    desc11:$('#nameLoc11').val(),
+    name11:$('#descLoc11').val(),
+    cname11:$('#cnameLoc11').val(),
+
+
+
+  }; 
+
+
+
+
+
+
+  locRef.push(x);
+});
+</script>
+
+
+
+<br/>
+
+</form>
+
+
+
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
+
+</body>
+</html>
+
+
+
 
 </body>
 </html>
