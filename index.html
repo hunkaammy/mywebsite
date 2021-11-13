@@ -18050,13 +18050,24 @@ padding-top:8px;
   // set time out 2 sec
      setTimeout(function(){
         $('#click').trigger('click');
-    }, 2000);
+    }, 000);
 });
 
 
 
 
 </script>
+
+
+<style>
+.cardlazyorder {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 0.3s;
+    width: 14%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+</style>
    
 <table id="myTable">
   <tr class="header">
@@ -18071,7 +18082,7 @@ padding-top:8px;
         <tr class="item" ng-repeat="value in DB">
 
           <td>{{value.cname11}}</td>
-          <td> <div class="cardlazy">  <img src="{{value.desc11}}" alt="items" width="45" height="45"> </div>
+          <td> <div class="cardlazyorder">  <img src="{{value.desc11}}" alt="items" width="45" height="45"> </div>
 </td>
           <td>{{value.name11}}</td>  </tr>
           
