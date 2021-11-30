@@ -1,4 +1,4 @@
-var element = document.getElementById("id01");element.innerHTML = "ACTIVE CASE- 	313	&nbsp;&nbsp;			&nbsp;&nbsp;RECOVERD -	16					";					
+var element = document.getElementById("id01");element.innerHTML = "LAST UPDATE- 	29-11-21										";					
 																
 																
 																
@@ -65,7 +65,7 @@ var myApp = angular.module('myApp', ['ngRoute'])
 																
 																
 																
-{id: 1, name: '	29-11-21', total: '  (	313	)', 													
+{id: 1, name: '	29-11-21', total: '  (	318	)', 													
 customer1: '	DURG	', toys1: 'POSITIVE:-		1	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	50	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		0	', amount2: 'RECOVERED-	1	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	11	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	1	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	3	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
@@ -94,6 +94,7 @@ customer25: '	SUKMA	', toys25: 'POSITIVE:-		0	', amount25: 'RECOVERED-	0	', GIFT
 customer26: '	KANKER	', toys26: 'POSITIVE:-		0	', amount26: 'RECOVERED-	0	', GIFTS26: 'DEATH:-	0	', amountg26: 'ACTIVE-	2	', bags26: 'BAGS:-	', amountb10: '		',  urlb10: '		',
 customer27: '	NARAYANPUR	', toys27: 'POSITIVE:-		0	', amount27: 'RECOVERED-	0	', GIFTS27: 'DEATH:-	0	', amountg27: 'ACTIVE-	0	', bags27: 'BAGS:-	', amountb10: '		',  urlb10: '		',
 customer28: '	BIJAPUR	', toys28: 'POSITIVE:-		0	', amount28: 'RECOVERED-	0	', GIFTS28: 'DEATH:-	0	', amountg28: 'ACTIVE-	1	', bags28: 'BAGS:-	', amountb10: '		',  urlb10: '		',
+customer29: '	OTHER STATES	', toys29: 'POSITIVE:-		0	', amount29: 'RECOVERED-	0	', GIFTS29: 'DEATH:-	0	', amountg29: 'ACTIVE-	5	', bags29: 'BAGS:-	', amountb29: '		',  urlb29: '		',
 																},
 																
 {id: 1, name: '	28-11-21', total: '  (	325	)', 													
