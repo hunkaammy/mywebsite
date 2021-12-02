@@ -103,7 +103,7 @@ var myApp = angular.module('myApp', ['ngRoute'])
 																
 																
 																
-{id: 1, name: '	01-12-21', total: '  (	316	)', 													
+{id: 1, name: '	01-12-21', total: '  	316	',positive:' 	20	',recoverd:' 	23	',death:' 	0	',active:' 	316		',				
 customer1: '	DURG	', toys1: 'POSITIVE:-		3	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	46	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		2	', amount2: 'RECOVERED-	4	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	10	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	0	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	3	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
@@ -138,7 +138,7 @@ customer29: '	OTHER STATES	', toys29: 'POSITIVE:-		0	', amount29: 'RECOVERED-	0	
 																
 																
 																
-{id: 1, name: '	30-11-21', total: '  (	318	)', 													
+{id: 1, name: '	30-11-21', total: '  	318	',positive:' 	34	',recoverd:' 	31	',death:' 	0	',active:' 	318		',				
 customer1: '	DURG	', toys1: 'POSITIVE:-		3	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	48	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		0	', amount2: 'RECOVERED-	0	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	11	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	0	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	3	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
@@ -172,7 +172,7 @@ customer29: '	OTHER STATES	', toys29: 'POSITIVE:-		0	', amount29: 'RECOVERED-	0	
 																
 																
 																
-{id: 1, name: '	29-11-21', total: '  (	318	)', 													
+{id: 1, name: '	29-11-21', total: '  	318	',positive:' 	16	',recoverd:' 	28	',death:' 	0	',active:' 	318		',				
 customer1: '	DURG	', toys1: 'POSITIVE:-		1	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	50	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		0	', amount2: 'RECOVERED-	1	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	11	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	1	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	3	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
@@ -204,7 +204,7 @@ customer28: '	BIJAPUR	', toys28: 'POSITIVE:-		0	', amount28: 'RECOVERED-	0	', GI
 customer29: '	OTHER STATES	', toys29: 'POSITIVE:-		0	', amount29: 'RECOVERED-	0	', GIFTS29: 'DEATH:-	0	', amountg29: 'ACTIVE-	5	', bags29: 'BAGS:-	', amountb29: '		',  urlb29: '		',
 																},
 																
-{id: 1, name: '	28-11-21', total: '  (	325	)', 													
+{id: 1, name: '	28-11-21', total: '  	325	',positive:' 	30	',recoverd:' 	22	',death:' 	0	',active:' 	325		',				
 customer1: '	DURG	', toys1: 'POSITIVE:-		7	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	54	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		0	', amount2: 'RECOVERED-	0	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	12	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		1	', amount3: 'RECOVERED-	1	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	4	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
@@ -263,7 +263,7 @@ customer28: '	BIJAPUR	', toys28: 'POSITIVE:-		0	', amount28: 'RECOVERED-	0	', GI
 																
 																
 																
-{id: 1, name: '	27-11-21', total: '  (	323	)', 													
+{id: 1, name: '	27-11-21', total: '  	323	',positive:' 	27	',recoverd:' 	18	',death:' 	0	',active:' 	323		',				
 customer1: '	DURG	', toys1: 'POSITIVE:-		3	', amount1: 'RECOVERED-	2	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	52	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		2	', amount2: 'RECOVERED-	0	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	12	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	0	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	4	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
