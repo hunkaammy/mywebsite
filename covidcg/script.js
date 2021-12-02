@@ -1,4 +1,5 @@
-var element = document.getElementById("id01");element.innerHTML = "LAST UPDATE- 	01-12-21										";					
+var element = document.getElementById("id01");element.innerHTML = "LAST UPDATE- 	01-12-21										";
+					
 																
 																
 																
@@ -72,6 +73,7 @@ var myApp = angular.module('myApp', ['ngRoute'])
 																
 																
 																
+														
 																
 																
 																
@@ -85,6 +87,9 @@ var myApp = angular.module('myApp', ['ngRoute'])
 																
 																
 																
+
+																
+											
 																
 																
 																
@@ -97,9 +102,7 @@ var myApp = angular.module('myApp', ['ngRoute'])
 																
 																
 																
-																
-																
-																
+															
 																
 																
 																
