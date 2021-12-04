@@ -142,6 +142,8 @@ customer27: '	NARAYANPUR	', toys27: 'POSITIVE:-		0	', amount27: 'RECOVERED-	0	',
 customer28: '	BIJAPUR	', toys28: 'POSITIVE:-		0	', amount28: 'RECOVERED-	0	', GIFTS28: 'DEATH:-	0	', amountg28: 'ACTIVE-	2	', bags28: 'BAGS:-	', amountb10: '		',  urlb10: '		',
 customer29: '	OTHER STATES	', toys29: 'POSITIVE:-		0	', amount29: 'RECOVERED-	0	', GIFTS29: 'DEATH:-	0	', amountg29: 'ACTIVE-	3	', bags29: 'BAGS:-	', amountb29: '		',  urlb29: '		',
 																},
+																
+{id: 1, name: '	02-12-21', total: '  	327	',positive:' 	37	',recoverd:' 	25	',death:' 	0	',active:' 	327		',	
 customer1: '	DURG	', toys1: 'POSITIVE:-		8	', amount1: 'RECOVERED-	5	', GIFTS1: 'DEATH:-	0	', amountg1: 'ACTIVE-	49	', bags1: 'BAGS:-	', amountb1: '		',  urlb1: '		',
 customer2: '	RAJNANDGAON	', toys2: 'POSITIVE:-		5	', amount2: 'RECOVERED-	5	', GIFTS2: 'DEATH:-	0	', amountg2: ' ACTIVE-	10	', bags2: 'BAGS:-	', amountb2: '		',  urlb2: '		',
 customer3: '	BALOD	', toys3: 'POSITIVE:-		0	', amount3: 'RECOVERED-	2	', GIFTS3: 'DEATH:-	0	', amountg3: ' ACTIVE-	1	', bags3: 'BAGS:-	', amountb3: '		',  urlb3: '		',
