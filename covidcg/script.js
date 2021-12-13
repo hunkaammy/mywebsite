@@ -1,4 +1,4 @@
-var element = document.getElementById("id01");element.innerHTML = "LAST UPDATE- 	03-12-21										";					
+var element = document.getElementById("id01");element.innerHTML = "COVID-19 CG										";					
 																
 																
 																
