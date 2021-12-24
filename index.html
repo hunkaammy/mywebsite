@@ -18,7 +18,7 @@ p.naslov-text {
     font-family: Aramis;
 }
 
- </style
+  </style
 
 
 
@@ -17954,6 +17954,14 @@ padding-top:8px;
     margin-top: 40px;
 }
 </style>
+
+
+<style>.imgorder {
+    float: left;
+    width:  100px;
+    height: 100px;
+    background-size: cover;
+}  </style>
    
 <table id="myTable">
  
@@ -17965,8 +17973,10 @@ padding-top:8px;
 
           <td>
 		  <div style="font-size:0vw">{{value.cname11}}</div></td> 
-          <td>  <img src="{{value.desc11}}" alt="items" width="45" height="45"> 
 		  
+		   <td>  <div class="imgorder" style="background-image:url('{{value.desc11}}');"></div>
+		  
+    
 		  
 		  
 		  
