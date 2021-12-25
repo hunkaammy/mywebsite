@@ -18356,4 +18356,32 @@ $("#formLoc10").submit(function(e){
  
 </div>
 
+<style>
+div{
+  margin:auto;
+  width:400px;
+  border:1px solid black;
+}
+h1{
+  text-align:center;
+}
+a{
+  text-decoration:none;
+}
+p{
+  text-align:center;
+}
+</style>
+
+<div>
+<h1><a href="http://www.GOOGLE.com" rel="index,follow">HINDUSTAN TOYS</a></h1>
+  <p>BILASPUR (C.G)</p>
+</div>
+
+
+<script> history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+	</script>
 
