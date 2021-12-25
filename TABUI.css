@@ -1570,14 +1570,10 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-.container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 37px;
-    padding-right: 6px;
+.container  {
+    padding-left: 48px;
     float: right;
-    height: 109px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 @media (min-width: 768px) {
   .container {
