@@ -1097,8 +1097,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+ 
 }
 figure {
   margin: 0;
@@ -3237,15 +3236,15 @@ fieldset[disabled] .btn-success.focus {
     color: #fff;
     background-color: black;
     border-color: black;
-    float: right;
+    float: center;
     margin-right: 10px;
 }
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
   color: #fff;
-  background-color: #31b0d5;
-  border-color: #269abc;
+  background-color: black;
+  border-color: black;
 }
 .btn-info:active:hover,
 .btn-info.active:hover,
@@ -3257,8 +3256,8 @@ fieldset[disabled] .btn-success.focus {
 .btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
   color: #fff;
-  background-color: #269abc;
-  border-color: #1b6d85;
+  background-color: black;
+  border-color: black;
 }
 .btn-info:active,
 .btn-info.active,
