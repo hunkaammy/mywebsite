@@ -1,81 +1,25 @@
-const template = document.createElement('template');
+// Get the modal
+var ebModal = document.getElementById('mySizeChartModal');
 
-template.innerHTML = `
-        <style>
-            .modal{
-                justify-content: center;
-                align-items: center;
-                position: fixed;
-                display: none;
-                inset: 0;
-            }
+// Get the button that opens the modal
+var ebBtn = document.getElementById("mySizeChart");
 
-            .modal::before{
-                background-color: rgba(0,0,0,0.8);
-                position: fixed;
-                content: "";
-                inset: 0;
-            }
+// Get the <span> element that closes the modal
+var ebSpan = document.getElementsByClassName("ebcf_close")[0];
 
-            .modal .modal_content {
-                background-color: var(--col_1);
-                position: relative;
-                border-radius: 4px;
-                max-width: 500px;
-                padding: 40px;
-                color: #333;
-            }
-
-            .modal[open]{
-                display: flex;
-            }
-
-            .modal_content > button{
-                all: unset;
-                background-color: hsl(240, 74%, 63%);
-                position: absolute;
-                border-radius: 4px;
-                text-align: center;
-                font-size: 1.9 rem;
-                padding: 5px 15px;
-                cursor: pointer;
-                color: white;
-                right: 10px;
-                top: 10px;
-            }
-
-            .modal_content > button:hover{
-                background-color: hsl(0, 0%, 20%);
-            }
-        </style>
-
-        <div class="modal">
-            <div class="modal_content">
-            <div class="content"></div>
-            <button type="button">Close</button>
-            </div>
-        </div>
-    `;
-
-class ModalDialog extends HTMLElement {
-
-    constructor() {
-        super();
-
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.shadowRoot.querySelector(".content").innerHTML = this.innerHTML;
-        this.shadowRoot.querySelector(".modal_content > button").onclick = () => this.close_modal();
-    }
-
-    close_modal () {
-        this.shadowRoot.querySelector('.modal').removeAttribute('open');
-    }
+// When the user clicks the button, open the modal 
+ebBtn.onclick = function() {
+    ebModal.style.display = "block";
 }
 
-window.customElements.define('modal-dialog', ModalDialog);
+// When the user clicks on <span> (x), close the modal
+ebSpan.onclick = function() {
+    ebModal.style.display = "none";
+}
 
-window.show_modal = () => {
-    "use strict";
-    document.querySelector("modal-dialog").shadowRoot.querySelector('.modal').setAttribute('open', 'open');
-};
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == ebModal) {
+        ebModal.style.display = "none";
+    }
+}
