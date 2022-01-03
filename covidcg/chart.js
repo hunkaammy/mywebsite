@@ -6,30 +6,36 @@ let revChart = new Chart(ctx, {
   type: "line",
   data: {
     labels: [
-      "Sept 1",
-      "Sept 3",
-      "Sept 6",
-      "Sept 9",
-      "Sept 12",
-      "Sept 15",
-      "Sept 18",
-      "Sept 21",
-      "Sept 24",
-      "Sept 27",
-      "Sept 30"
+	"dec 24",
+      "dec 25",
+      "dec 26",
+      "dec 27",
+      "dec 28",
+      "dec 29",
+      "dec 30",
+      "dec 31",
+      "jan 01",
+      "jan 02"
+     
     ],
     datasets: [
       {
-        label: "Views",
-        borderColor: "green",
+        label: "positive",
+        borderColor: "red",
         backgroundColor: "rgba(235, 247, 245, 0.5)",
-        data: [0, 30, 60, 25, 60, 25, 50, 10, 50, 90, 120]
+        data: [23, 37, 46, 39 , 69, 106, 150, 190, 279, 290]
       },
       {
-        label: "Watch time",
-        borderColor: "blue",
+        label: "recovered",
+        borderColor: "green",
         backgroundColor: "rgba(233, 238, 253, 0.5)",
-        data: [0, 60, 25, 100, 20, 75, 30, 55, 20, 60, 20]
+        data: [28, 20, 29, 33, 19, 36, 16, 18, 30, 34]
+      },
+	   {
+        label: "death",
+        borderColor: "black",
+        backgroundColor: "rgba(233, 238, 253, 0.5)",
+        data: [1, 0, 0, 1, 2, 0, 0, 0, 1, 0]
       }
     ]
   },
