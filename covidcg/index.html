@@ -51,14 +51,11 @@
 <body>
 <style>
 .header {
-    position: fixed;
-    width: 100%;
-    font-size: 18px;
-    background-color: black;
-    color: white;
-    text-align: center; 
-	z-index: 1;
-}
+  font-size: 18px;
+  background-color:black;
+  color:white;
+  text-align: center;
+  }
   
   
   HTML CSSResult Skip Results Iframe
@@ -102,13 +99,10 @@ Resources1× 0.5× 0.25×Rerun
 <head>
 <style>
 .grid-container {
-    z-index: 1;
-    position: fixed;
-    width: 100%;
     display: grid;
+    
     grid-gap: 10px;
-    margin-top: -13;
-    background: white;
+    padding: 10px;
 }
 
 .grid-container > div  {
@@ -125,7 +119,7 @@ Resources1× 0.5× 0.25×Rerun
 </head>
 <body>
 
-<br> <br> 
+
 
 <div class="grid-container">
   
@@ -135,16 +129,16 @@ Resources1× 0.5× 0.25×Rerun
   <div class="item1">ACTIVE <br> 1273</div>
 
 
- <p style="color:black;     margin-left: 0px; float: center; font-size: 9px;"><b>  (Last Update:  02-01-22 8:57pm)</b></p>
-</div>
 
+</div>
+ <p style="color:black;     margin-left: 0px; float: center; font-size: 9px;"><b>(Last Update:  02-01-22 8:57pm)</b></p>
 <hr/>
 
 </body>
 </html>
 
 
-<br> <br> <br>
+
 
 
 <!DOCTYPE html>
@@ -669,16 +663,9 @@ h2 {
 
 
 
-   <span style="color: red;
-    font-weight: bold;
-    font-size: 9;
-    background-color: white;
-    margin-top: -1px;
-    width: 100%;
-    text-align: right;
-    margin-left: 0px;
-    HEIGHT: 22PX;
- " >    Positive:  {{currentContact.positive}} &nbsp; &nbsp;  Recovered: {{currentContact.recoverd}} &nbsp;&nbsp;   Death: {{currentContact.death}} &nbsp; &nbsp;  Active: {{currentContact.total}} </span> <br>
+   <span style="color:red;font-weight:bold;font-size: 90%;    position: fixed; background-color: white;margin-top: -1px;
+    width: 100%; text-align: left; margin-left: -130px;     HEIGHT: 22PX;
+ " >    Positive:  {{currentContact.positive}} &nbsp; &nbsp;  Recovered: {{currentContact.recoverd}} &nbsp;&nbsp;   Death: {{currentContact.death}} &nbsp; &nbsp;  Active: {{currentContact.total}} </span>
 	   
         <p><b> <h1> {{currentContact.customer1}} </h1> {{currentContact.toys1}} 
 		{{currentContact.url1}} <br>{{currentContact.amount1}}</a> 
