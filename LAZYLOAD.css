@@ -1,9 +1,8 @@
 img {
-  display: block;
-  margin: 10px auto;
- 
-  transform: scale(1.2);
-  transition: all 0.25s;
+    display: block;
+    margin: 4px auto;
+    transform: scale(1.2);
+    transition: all 0.25s;
 }
 img.loaded {
   opacity: 1;
