@@ -9,15 +9,6 @@ locRef.on('child_added', function(snap){
 });
 
 
-$("#formLoc").submit(function(e){
-  e.preventDefault();
-  var x = {
-    name:$('#nameLoc').val(),
-    desc:$('#descLoc').val()
-  }; 
-  locRef.push(x);
-});
-
 $("#formLoc440").submit(function(e){
   e.preventDefault();
   var x = {
@@ -3396,4 +3387,3 @@ $("#formLoc600").submit(function(e){
 
   locRef.push(x);
 });
-
