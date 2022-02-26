@@ -983,7 +983,7 @@ th {
 .glyphicon-menu-hamburger:before {
   content: "\e236";
 }
-.glyphicon-modal-window:before {
+.glyphicon-modaldirect-window:before {
   content: "\e237";
 }
 .glyphicon-oil:before {
@@ -5850,10 +5850,10 @@ button.close {
   border: 0;
   -webkit-appearance: none;
 }
-.modal-open {
+.modaldirect-open {
   overflow: hidden;
 }
-.modal {
+.modaldirect {
   display: none;
   overflow: hidden;
   position: fixed;
@@ -5865,7 +5865,7 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0;
 }
-.modal.fade .modal-dialog {
+.modaldirect.fade .modaldirect-dialog {
   -webkit-transform: translate(0, -25%);
   -ms-transform: translate(0, -25%);
   -o-transform: translate(0, -25%);
@@ -5875,22 +5875,22 @@ button.close {
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
-.modal.in .modal-dialog {
+.modaldirect.in .modaldirect-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-.modal-open .modal {
+.modaldirect-open .modaldirect {
   overflow-x: hidden;
   overflow-y: auto;
 }
-.modal-dialog {
+.modaldirect-dialog {
   position: relative;
   width: auto;
   margin: 10px;
 }
-.modal-content {
+.modaldirect-content {
 
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -5901,7 +5901,7 @@ button.close {
     HEIGHT: 100%;
 
 }
-.modal-backdrop {
+.modaldirect-backdrop {
   position: ;
   top: ;
   right: ;
@@ -5910,45 +5910,45 @@ button.close {
   z-index: ;
   background-color: ;
 }
-.modal-backdrop.fade {
+.modaldirect-backdrop.fade {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.modal-backdrop.in {
+.modaldirect-backdrop.in {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-.modal-header {
+.modaldirect-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
 }
-.modal-header .close {
+.modaldirect-header .close {
   margin-top: -2px;
 }
-.modal-title {
+.modaldirect-title {
   margin: 0;
   line-height: 1.42857143;
 }
-.modal-body {
+.modaldirect-body {
     position: relative;
     text-align: -webkit-center;
 }
-.modal-footer {
+.modaldirect-footer {
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
-.modal-footer .btn + .btn {
+.modaldirect-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-.modal-footer .btn-group .btn + .btn {
+.modaldirect-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-.modal-footer .btn-block + .btn-block {
+.modaldirect-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-.modal-scrollbar-measure {
+.modaldirect-scrollbar-measure {
   position: absolute;
   top: -9999px;
   width: 50px;
@@ -5956,16 +5956,16 @@ button.close {
   overflow: scroll;
 }
 
-  .modal-content {
+  .modaldirect-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
-  .modal-sm {
+  .modaldirect-sm {
     width: 300px;
   }
 }
 @media (min-width: 992px) {
-  .modal-lg {
+  .modaldirect-lg {
     width: 900px;
   }
 }
@@ -6466,10 +6466,10 @@ button.close {
 .pager:after,
 .panel-body:before,
 .panel-body:after,
-.modal-header:before,
-.modal-header:after,
-.modal-footer:before,
-.modal-footer:after {
+.modaldirect-header:before,
+.modaldirect-header:after,
+.modaldirect-footer:before,
+.modaldirect-footer:after {
   content: " ";
   display: table;
 }
@@ -6487,8 +6487,8 @@ button.close {
 .navbar-collapse:after,
 .pager:after,
 .panel-body:after,
-.modal-header:after,
-.modal-footer:after {
+.modaldirect-header:after,
+.modaldirect-footer:after {
   clear: both;
 }
 .center-block {
