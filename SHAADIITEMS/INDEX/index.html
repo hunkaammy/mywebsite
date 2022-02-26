@@ -124,6 +124,52 @@ body10 {
 <body>
 
 
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+.top-container {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 10px 16px;
+  background: #555;
+  color: #f1f1f1;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+</style>
+</head>
+<body>
+
+<div class="top-container">
+  <h1>HINDUSTAN TOYS</h1>
+  <p>Thankyou For Choosing US..</p>
+</div>
+
+<div class="header" id="myHeader">
+
+
+
+
 Select Category: 
 <select id="search-select">
   <option value="Paris">PAGDI</option>
@@ -137,7 +183,7 @@ Select Category:
 <hr>
 
 
-
+</div>
 		 <script>
         function scrollToTop() {
             window.scrollTo(0, 0);
@@ -866,6 +912,27 @@ $("#formLoc10").submit(function(e){
 
 
 		
+		
+		</div>
+
+<script>
+window.onscroll = function() {myFunctionS()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunctionS() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+
+</body>
+</html>
+
 		
 		
 		
