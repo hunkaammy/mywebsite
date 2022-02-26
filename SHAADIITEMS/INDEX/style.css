@@ -1,0 +1,12 @@
+.dropdown-content-bond{
+  display: none;
+}
+body{
+  padding: 10px;
+}
+
+.dropdown-content-bond{
+  padding: 20px;
+  background: lightgray;
+  font-size: 2em;
+}
