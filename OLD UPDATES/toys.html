@@ -12,20 +12,20 @@
 
 <div class="container">
   <h2>Modal Example</h2>
-  <!-- Trigger the modaldirect with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modaldirect" data-target="#myModal">Open Modal</button>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
   <!-- Modal -->
-  <div class="modaldirect fade" id="myModal" role="dialog">
-    <div class="modaldirect-dialog">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
     
       <!-- Modal content-->
-      <div class="modaldirect-content">
-        <div class="modaldirect-header">
-          <button type="button" class="close" data-dismiss="modaldirect">&times;</button>
-          <h4 class="modaldirect-title">Modal Header</h4>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
         </div>
-        <div class="modaldirect-body">
+        <div class="modal-body">
         <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -74,7 +74,7 @@
 }
 
 #myTable tr.header, #myTable tr:hover {
-  background-color: white;
+  background-color: #f1f1f1;
 }
 </style>
 </head>
@@ -93,16 +93,16 @@
     <th style="width:10%;">Qty</th>
   </tr>
   <tr>
-        <tr class="item" ng-repeat="value in DB">
-
-          <td<p style="color:white;">I am red</p></td>
-          <td><img src="https://cdn.wallpapersafari.com/99/33/Q3KMNv.png" alt="items" width="200" height="10000">
-</td>
-          <td></td>  </tr>
-		  
-		  
+  
+  <tr>
+  
+  <td><p style="color:red;">I am red</p></td>
+  
+        </tr>
        
         <tr class="item" ng-repeat="value in DB">
+		
+		  <td><p style="color:red;">I am red</p></td>
 
           <td>{{value.cname11}}</td>
           <td><img src="{{value.desc11}}" alt="items" width="200" height="200">
@@ -306,8 +306,8 @@ function myFunction() {
 </html>
 
         </div>
-        <div class="modaldirect-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modaldirect">Close</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
       

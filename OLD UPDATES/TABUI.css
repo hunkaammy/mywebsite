@@ -111,7 +111,7 @@ input,
 optgroup,
 select,
 textarea {
-
+  color: inherit;
   font: inherit;
   margin: 0;
 }
@@ -983,7 +983,7 @@ th {
 .glyphicon-menu-hamburger:before {
   content: "\e236";
 }
-.glyphicon-modaldirect-window:before {
+.glyphicon-modal-window:before {
   content: "\e237";
 }
 .glyphicon-oil:before {
@@ -3431,7 +3431,7 @@ fieldset[disabled] .btn-link:focus {
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px; 
-
+    margin-left: 238px;
 }
 .btn-sm,
 .btn-group-sm > .btn {
@@ -5850,10 +5850,10 @@ button.close {
   border: 0;
   -webkit-appearance: none;
 }
-.modaldirect-open {
+.modal-open {
   overflow: hidden;
 }
-.modaldirect {
+.modal {
   display: none;
   overflow: hidden;
   position: fixed;
@@ -5865,7 +5865,7 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0;
 }
-.modaldirect.fade .modaldirect-dialog {
+.modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
   -ms-transform: translate(0, -25%);
   -o-transform: translate(0, -25%);
@@ -5875,22 +5875,22 @@ button.close {
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
-.modaldirect.in .modaldirect-dialog {
+.modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-.modaldirect-open .modaldirect {
+.modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
-.modaldirect-dialog {
+.modal-dialog {
   position: relative;
   width: auto;
   margin: 10px;
 }
-.modaldirect-content {
+.modal-content {
 
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -5901,7 +5901,7 @@ button.close {
     HEIGHT: 100%;
 
 }
-.modaldirect-backdrop {
+.modal-backdrop {
   position: ;
   top: ;
   right: ;
@@ -5910,45 +5910,45 @@ button.close {
   z-index: ;
   background-color: ;
 }
-.modaldirect-backdrop.fade {
+.modal-backdrop.fade {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.modaldirect-backdrop.in {
+.modal-backdrop.in {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-.modaldirect-header {
+.modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
 }
-.modaldirect-header .close {
+.modal-header .close {
   margin-top: -2px;
 }
-.modaldirect-title {
+.modal-title {
   margin: 0;
   line-height: 1.42857143;
 }
-.modaldirect-body {
+.modal-body {
     position: relative;
     text-align: -webkit-center;
 }
-.modaldirect-footer {
+.modal-footer {
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
-.modaldirect-footer .btn + .btn {
+.modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-.modaldirect-footer .btn-group .btn + .btn {
+.modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-.modaldirect-footer .btn-block + .btn-block {
+.modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-.modaldirect-scrollbar-measure {
+.modal-scrollbar-measure {
   position: absolute;
   top: -9999px;
   width: 50px;
@@ -5956,16 +5956,16 @@ button.close {
   overflow: scroll;
 }
 
-  .modaldirect-content {
+  .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
-  .modaldirect-sm {
+  .modal-sm {
     width: 300px;
   }
 }
 @media (min-width: 992px) {
-  .modaldirect-lg {
+  .modal-lg {
     width: 900px;
   }
 }
@@ -6466,10 +6466,10 @@ button.close {
 .pager:after,
 .panel-body:before,
 .panel-body:after,
-.modaldirect-header:before,
-.modaldirect-header:after,
-.modaldirect-footer:before,
-.modaldirect-footer:after {
+.modal-header:before,
+.modal-header:after,
+.modal-footer:before,
+.modal-footer:after {
   content: " ";
   display: table;
 }
@@ -6487,8 +6487,8 @@ button.close {
 .navbar-collapse:after,
 .pager:after,
 .panel-body:after,
-.modaldirect-header:after,
-.modaldirect-footer:after {
+.modal-header:after,
+.modal-footer:after {
   clear: both;
 }
 .center-block {
