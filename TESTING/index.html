@@ -1,61 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Twitter Mockup</title>
+  <link rel="stylesheet" href="./style.css">
 
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<nav>
+  <img src="https://www.acefrontend.com/c/critter/critter-logo.svg" />
+  <h1>Critter</h1>
+</nav>
+<main id="creets">
 
-
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
-
-
-<h1>Loading Fetch</h1>
-    <div class="container">  
-</div>
-
-
-
+</main>
 
 <script>
-//Variables
-const container = document.querySelector('.container');
+    
+    let apiLink = "https://www.acefrontend.com/c/critter/feed.json";
+let parentEl = document.getElementById("creets");
+let xml = new XMLHttpRequest();
+xml.open("GET", apiLink);
 
-//Fetch
-const fetchinfo = 'https://picsum.photos/v2/list?page=2&limit=5'
-fetch(fetchinfo)
-    .then(response => response.json())
-    .then(data => showHtml(data))
-    // .then (data => console.log(data))
+xml.send();
 
-//Function
-function showHtml(infoapi) {
-    infoapi.forEach(element => {
-        const {author, download_url} = element;
-        console.log(author);
-        container.innerHTML += `
-            <div class="box">
-            <a href="${download_url}" target="_blank" class="image"><img src="${download_url}"></a>
-            <p class="author">${author}</p>
-            
-            <h2>New Location</h2>
+xml.onload = function() {
+    let jsonData = JSON.parse(this.responseText);
+    let datas = "";
+    
+    jsonData["feed"].forEach(data => {
+        
+        let date = data.created_at.split(" ");
+        
+        datas += `<div class="card">
+                    <div class="card-img">
+                        <img src="${data.user.avatar}" alt="">
+                        
+                        <h2>New Location</h2>
 <form id="formLoc">
-  <label>Name:</label><input type="text" id="nameLoc" />
+  <label>Name:</label><input type="text" id="nameLoc" value="${data.user.username}" />
   <label>Desc:</label><input type="text" id="descLoc" />
   <input type="submit" value="send it" name="submitLoc"/>
 </form>
 
-            
-            </div>
-            
-            
-            
-            
-            
-            
-        `
-    });
+
+                        
+                        
+                    </div>
+                  <div class="card-content">
+                      <p class="card-title">@${data.user.username}<span class="card-date"> . ${date[1]} ${date[2]}</span></p>
+                      <p class="card-paragrah">${data.text}</p>
+                      <p class="card-likes">Likes: <span class="likes-count">${data.likes}</span></p>
+                      
+                      
+                      
+                      
+                      
+                  </div>
+                  
+                  
+                  
+                </div>`;    
+    })
     
+    parentEl.innerHTML = datas;
 }
-  
+
+
 </script>
 
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- partial -->
+  <script  src="./script.js"></script>
 
-
-
+</body>
+</html>

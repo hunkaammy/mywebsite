@@ -1,33 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 16px;
-    color: #585858;
+  background-color: #C5C1B6;
+  font-family: system-ui, sans-serif;
 }
-.container {
-    max-width: 100%;
-    margin: auto;
-    padding-top: 20px;
-    display: flex;
-    justify-content: space-around;
+body nav {
+  width: 100%;
+  height: auto;
+  display: flex;
+  column-gap: 10px;
+  background: #88a489;
+  padding: 15px 20px;
+  color: white;
 }
-.box {
+body main .card {
+  width: 600px;
+  height: auto;
+  background: white;
+  display: flex;
+  column-gap: 15px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0px 1px 2px 0px gray;
+  overflow: hidden;
+}
+body main .card .card-img {
   width: 20%;
 }
-.image {
-  display: block;
-  overflow: hidden;
-  height: 200px;
+body main .card .card-img img {
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.image img {
-  max-width:100%;
-  transition: all .3s ease;
+body main .card .card-content {
+  width: calc(80% - 15px);
 }
-.image img:hover{
-  transform: scale(1.5);
+body main .card .card-content .card-title {
+  font-size: 16px;
+  font-weight: 500;
 }
-.author {
-  display: block;
-  font-weight: bold;
+body main .card .card-content .card-title span {
+  color: #80808085;
+}
+body main .card .card-content .card-paragrah {
+  font-size: 14px;
+  margin: 8px 0px;
+}
+body main .card .card-content .card-likes {
+  font-size: 12px;
+  color: #80808085;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 700px) {
+  body main .card {
+    width: 80%;
+    flex-direction: column;
+  }
+  body main .card .card-img {
+    width: 100%;
+  }
+  body main .card .card-img img {
+    width: 25%;
+  }
+  body main .card .card-content {
+    width: 100%;
+  }
 }
