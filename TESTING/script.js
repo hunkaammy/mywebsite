@@ -17,3 +17,4 @@ $("#formLoc").submit(function(e){
   }; 
   locRef.push(x);
 });
+
