@@ -2,107 +2,66 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - A Pen by hunksammy</title>
+  <title>CodePen - Loading gallery fetch API</title>
   <link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <link rel="stylesheet" href="app.css" />
-      
-    
-    </head>
-    <body>
-        <div class="container">
-            <h1>&#x2728;Harry Potter Characters &#x2728;</h1>
-            <div id="searchWrapper">
-                <input
-                    type="text"
-                    name="searchBar"
-                    id="searchBar"
-                    placeholder="search for a character"
-                />
-              
-              
-            </div>
-            <ul id="charactersList"></ul>
-        </div>
-        <script src="app.js"></script>
-    </body>
-</html>
-
-
-
-       <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 
+
+<h1>Loading Fetch</h1>
+    <div class="container">  
+</div>
+
+
+
+
 <script>
-  const charactersList = document.getElementById('charactersList');
-const searchBar = document.getElementById('searchBar');
-let hpCharacters = [];
+//Variables
+const container = document.querySelector('.container');
 
-searchBar.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase();
+//Fetch
+const fetchinfo = 'https://picsum.photos/v2/list?page=2&limit=5'
+fetch(fetchinfo)
+    .then(response => response.json())
+    .then(data => showHtml(data))
+    // .then (data => console.log(data))
 
-    const filteredCharacters = hpCharacters.filter((character) => {
-        return (
-            character.name.toLowerCase().includes(searchString) ||
-            character.house.toLowerCase().includes(searchString)
-        );
-    });
-    displayCharacters(filteredCharacters);
-});
-
-const loadCharacters = async () => {
-    try {
-        const res = await fetch('https://hp-api.herokuapp.com/api/characters');
-        hpCharacters = await res.json();
-        displayCharacters(hpCharacters);
-    } catch (err) {
-        console.error(err);
-    }
-};
-
-const displayCharacters = (characters) => {
-    const htmlString = characters
-        .map((character) => {
-            return `
-            <li class="character">
+//Function
+function showHtml(infoapi) {
+    infoapi.forEach(element => {
+        const {author, download_url} = element;
+        console.log(author);
+        container.innerHTML += `
+            <div class="box">
+            <a href="${download_url}" target="_blank" class="image"><img src="${download_url}"></a>
+            <p class="author">${author}</p>
             
-            <form id="formLoc">
-                <h2>${character.name}</h2>
-                <p>House: ${character.house}</p>
-                <img src="${character.image}"></img>
-                
-  <input type="text" id="nameLoc" value="${character.image}" />
-  <input type="text" id="descLoc" />
+            <h2>New Location</h2>
+<form id="formLoc">
+  <label>Name:</label><input type="text" id="nameLoc" />
+  <label>Desc:</label><input type="text" id="descLoc" />
   <input type="submit" value="send it" name="submitLoc"/>
 </form>
 
-              </li>   
-                
-                
-                
-                
-           
-        `;
-        })
-        .join('');
-    charactersList.innerHTML = htmlString;
-};
-
-loadCharacters();
+            
+            </div>
+            
+            
+            
+            
+            
+            
+        `
+    });
+    
+}
+  
 </script>
-
-<script>
 <!-- partial -->
   <script  src="./script.js"></script>
 
