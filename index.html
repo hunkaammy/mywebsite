@@ -369,6 +369,7 @@ visibility: hidden;
 </style>
 
 
+<div id="toast"><div id="desc">Item Added...</div></div>
 
 
 
@@ -398,16 +399,9 @@ visibility: hidden;
 </div>
 </li>
 
-<div id="toast"><div id="desc">Item Added...</div></div>
 
 
-<script>
-launch_notification = () =>{
-  let notification = document.getElementById("toast")
-          notification.className = "show";
-          setTimeout(() => { notification.className = notification.className.replace("show", ""); }, 2000);
-}
-</script>
+
 
 
 <div class="cardlazy">
@@ -18051,6 +18045,13 @@ launch_notification = () =>{
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js'></script><script  src="./script.js"></script>
 
+<script>
+launch_notification = () =>{
+  let notification = document.getElementById("toast")
+          notification.className = "show";
+          setTimeout(() => { notification.className = notification.className.replace("show", ""); }, 2000);
+}
+</script>
 
 
 			</div>
