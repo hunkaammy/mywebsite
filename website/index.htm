@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" type="text/css" href="a_data/normalize.css">
   <link rel="stylesheet" type="text/css" href="a_data/result-light.css">
+  <link rel="stylesheet" href="./lazyload.css">
 
   <style id="compiled-css" type="text/css">
       
@@ -27,14 +28,27 @@
 
 </head>
 <body>
-    <script>
+    
 
-</script>
+
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+
+	
+	
+
+<!-- partial -->
+ 
 
 <div class="userFeatureProductImage">
-<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/0.jpeg">
+<img data-src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg" class="lazyload" alt="random dummy image" />
+
 <form id="formLoc21">
-<label></label><input type="hidden" id="nameLoc21"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg">
+<label></label><input type="hidden" id="nameLoc21"class="name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/0.jpeg">
 <input type="hidden" id="cnameLoc21"class="name"  value="{{name}}">
 <label>Qty:</label>
 <input type="number" id="descLoc21"   required>
@@ -61,6 +75,8 @@
     <img src="a_data/Crystal_Clear_mimetype_image.png">
 </div> 
 
+
+ <script  src="./lazyload.js"></script>
 <script  src="./HTSHOP.js"></script>
     <script type="text/javascript">//<![CDATA[
 
