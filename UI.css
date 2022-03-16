@@ -79,9 +79,10 @@ background: #000;
 display: none;
 }
 #logindiv{
+	Z-INDEX: 10;
     position: fixed;
     top: 0px;
-    left: 0px;
+    left: 93px;
     height: 100%;
     width: 100%;
     background: white;

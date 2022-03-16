@@ -1,6 +1,8 @@
 *, html, body, button, input, textarea, select {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+  
+
 
 a {
   color: #39464E;
@@ -23,7 +25,10 @@ table {
   border-spacing: 0; }
 
 fieldset, img {
-  border: 0; }
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;}
 
 address, caption, cite, code, dfn, em, strong, th, var {
   font-style: normal;
