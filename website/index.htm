@@ -53,6 +53,64 @@
 <body>
 <!-- partial:index.partial.html -->
 
+<style>
+#toast {
+  visibility: hidden;
+  height: 50px;
+  width: fit-content;
+  margin: auto;
+  background-color: green;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 30px;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+#toast #desc {
+  color: #fff;
+  padding: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#toast.show {
+  visibility: visible;
+  animation: fadein 1s, fadeout 1s 3s;
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 30px;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
+  }
+}
+
+</style>
+
+
+<div id="toast"><div id="desc">Item Added...</div></div>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
@@ -61,7 +119,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
               <div class="list-group">
                 <a href="#" class="list-group-item active text-center">
-                  <h4 class="glyphicon glyphicon-plane"></h4><br/>New Arrival
+                  <h4 class=""></h4><br/>New Arrival
                 </a>
                 <a href="#" class="list-group-item text-center">
                   <h4 class="glyphicon glyphicon-road"></h4><br/>Train
@@ -151,8 +209,14 @@
   <script  src="./tabui.js"></script>
  
  
- 
-
+ <!-- notification -->
+<script>
+launch_notification = () =>{
+  let notification = document.getElementById("toast")
+          notification.className = "show";
+          setTimeout(() => { notification.className = notification.className.replace("show", ""); }, 2000);
+}
+</script>
 
 
 
