@@ -6,8 +6,8 @@ div.bhoechie-tab-container{
   border-radius: 4px;
   -moz-border-radius: 4px;
   border:1px solid #ddd;
-  margin-top: 20px;
-  margin-left: 50px;
+  margin-top: 0px;
+  margin-left: 0px;
   -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -60,8 +60,8 @@ div.bhoechie-tab-menu div.list-group>a.active:after{
 div.bhoechie-tab-content{
   background-color: #ffffff;
   /* border: 1px solid #eeeeee; */
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 0px;
+  padding-top: 0px;
 }
 
 div.bhoechie-tab div.bhoechie-tab-content:not(.active){
