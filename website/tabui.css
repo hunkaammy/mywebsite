@@ -21,9 +21,13 @@ div.bhoechie-tab-menu{
   padding-bottom: 0;
 }
 div.bhoechie-tab-menu div.list-group{
-  margin-bottom: 0;
-  position: fixed;
-  width:100px;
+   {
+    margin-bottom: 0;
+    position: fixed;
+    width: 100px;
+    HEIGHT: 100%;
+    OVERFLOW: auto;
+}
 }
 div.bhoechie-tab-menu div.list-group>a{
   margin-bottom: 0;
@@ -64,7 +68,7 @@ div.bhoechie-tab-content{
     /* border: 1px solid #eeeeee; */
     padding-left: 0px;
     padding-top: 0px;
-
++-
     overflow: hidden;
 }
 
