@@ -16,9 +16,12 @@ div.bhoechie-tab-container{
   filter: alpha(opacity=97);
 }
 div.bhoechie-tab-menu{
-  padding-right: 0;
-  padding-left: 0;
-  padding-bottom: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+    position: fixed;
+    overflow: auto;
+    height: 100%;
 }
 div.bhoechie-tab-menu div.list-group{
    {
@@ -67,8 +70,8 @@ div.bhoechie-tab-content{
     background-color: #ffffff;
     /* border: 1px solid #eeeeee; */
     padding-left: 0px;
-    padding-top: 0px;
-+-
+    margin-top: -760%;
+    margin: 0px;
     overflow: hidden;
 }
 
