@@ -55,7 +55,32 @@ body {
   <text y="-15px" x="13px" fill="grey"></text>
 </svg>
 <!-- partial -->
-  <script  src="./TIMER.js"></script>
+  <script> timer();
+
+document.getElementById("bb").addEventListener("click", timer);
+
+function timer() {
+  var sec = 32;
+
+  function updateSec() {
+    sec--;
+    if (sec < 10) {
+      document.querySelector("text").innerHTML = `&nbsp${sec}`;
+    } else {
+      document.querySelector("text").innerHTML = sec;
+    }
+    if (sec === 0) {
+      stopTimer();
+    }
+  }
+  updateSec();
+
+  var interval = setInterval(updateSec, 1000);
+
+  function stopTimer() {
+    clearInterval(interval);
+  }
+}</script>
 
       <div class="progress"></div>
 	
