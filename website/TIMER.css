@@ -1,0 +1,28 @@
+text {
+    transform: rotate(90deg);
+  }
+
+
+
+
+
+  svg {
+    align-self: center;
+    height: 40vh;
+    width: 40vh;
+    transform: rotate(-90deg);
+  }
+
+
+  circle {
+    animation: spin 60s linear forwards;
+  }
+
+  @keyframes spin {
+    0% {
+      stroke-dashoffset: 126;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
