@@ -2,28 +2,33 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Current date and time</title>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.1/css/all.css'>
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css'><link rel="stylesheet" href="./style.css">
+  <title>CodePen - Native lazy loading with a touch of JS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<body ng-app="myApp">
-  <div class="container pt-1">
-    <div ng-controller="mainController as mainCtrl">
-      <h1>     
-        {{mainCtrl.myDate.getDate()}}/{{mainCtrl.toTwoDigits(mainCtrl.myDate.getMonth()+1)}}/{{mainCtrl.myDate.getFullYear()}}, 
-        {{mainCtrl.myDate.getHours()}}:{{mainCtrl.toTwoDigits(mainCtrl.myDate.getMinutes())}}:{{mainCtrl.toTwoDigits(mainCtrl.myDate.getSeconds())}}
-      <h1>
-    </div>
-  </div>
-</body>
+<img src="https://picsum.photos/id/237/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/1000/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/238/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/1015/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/79/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/133/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/239/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/112/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/47/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/237/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/1000/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/238/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/1015/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/79/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/133/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/239/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/112/400/400" loading="lazy" width="400" height="400">
+<img src="https://picsum.photos/id/47/400/400" loading="lazy" width="400" height="400">
 <!-- partial -->
-  <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js'></script><script  src="./DATETIME.js"></script>
+  <script  src="./script.js"></script>
 
 </body>
 </html>
