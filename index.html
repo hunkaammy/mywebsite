@@ -2,9 +2,18 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodePen - Native lazy loading with a touch of JS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" href="./mainlazy.css">
+   <link rel="stylesheet" href="./UI.css">
+<link rel="stylesheet" href="./LAZYLOAD.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
 
 
 
@@ -15,34 +24,157 @@
 
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  background-color: lightgreen;
-}
 
-@media only screen and (max-width: 600px) {
-  body {
-    background-color: lightblue;
-  }
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+
+        <div class="clearfix"></div>
+
+      </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--Login Form -->
+
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+
+
+<div id="logindiv">
+
+
+
+
+
+
+
+<hr/>
+  
+<style>
+.inputlogin {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>
 
-
-
 <style>
-body {
-  margin: 0;
+.mainlogin {
+    margin-left: 20px;
+    position: fixed;
 }
-
-
 </style>
+<div class="mainlogin" >
+   <form id="formLoc11">
+<label>कृपया अपनी दुकान का नाम लिखे  !</label>
+<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
+  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
+
+ 
+ <label></label>
+<input type="hidden" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
+<br>
+<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
+</form>
+  </div>
+  
+  <br> <br>
+  
 
 
 
-<div>
+
+
+
+
+ 
+
+
+<script>
+var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#formLoc10").submit(function(e){
+  e.preventDefault();
+  var x = {
+    desc11:$('#nameLoc10').val(),
+    name11:$('#descLoc10').val(),
+    cname11:$('#cnameLoc10').val(),
+
+
+
+  }; 
+
+
+
+
+
+
+  locRef.push(x);
+});
+</script>
+
+
+
+<br/>
+
+</form>
+
+
+
 
 </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
 
 
 <script> history.pushState(null, null, location.href);
@@ -65,6 +197,12 @@ body {
     width:100%;
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
 p.naslov-text {
     font-size:40px;
     color:#634ea9;
@@ -84,62 +222,11 @@ p.naslov-text {
 
 
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-<meta charset="UTF-8">
-<title>HINDUSTAN  TOYS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-         <link rel="stylesheet" href="./UI.css">
-         <link rel="stylesheet" href="./TABS.css">
-         <link rel="stylesheet" href="./TABUI.css">
-
-<link rel="stylesheet" href="./LAZYLOAD.css">
+      
 
 </head>
 <body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-
-
-
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
-
-<style>
-body10 {
-  font-family: "Sofia", sans-serif;
-  font-size: 30px;
-}
-
-.font-effect-emboss1 {
-    font-family: "Sofia", sans-serif;
-    text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;
-    color: black;
-    text-align: left;
-    mar: 1;
-    font-size: 35px;
-    background: BLACK;
-    position: fixed;
-    COLOR: WHITE;
-    margin-left: 88px;
-    HEIGHT: 45PX;
-    margin-top: 0px;
-    width: 100%;
-}
-</style>
-</head>
-<body>
 
 
 
@@ -147,18 +234,17 @@ body10 {
 
 
 
-<!DOCTYPE html>
-<html><head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title></title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="googlebot" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <script type="text/javascript" src="a_data/jquery-1.js"></script>
-  <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+
+
+
+
+
+
+
+ 
+
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   
 
@@ -167,7 +253,7 @@ body10 {
   <link rel="stylesheet" type="text/css" href="a_data/result-light.css">
   <link rel="stylesheet" href="./tabui.css">
    <link rel="stylesheet" href="./tabuibs.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
   <style id="compiled-css" type="text/css">
@@ -175,7 +261,6 @@ body10 {
     /* EOS */
   </style>
 
-  <script id="insert"></script>
 
 
 </head>
@@ -51642,150 +51727,6 @@ function myFunction() {
 
 
 
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
-
-        <div class="clearfix"></div>
-
-      </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-</body>
-</html>
-
-
-
-
-
-
-
-<!--Login Form -->
-
-
-
-
-
-
-
-
-
-
-
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-
-
-<div id="logindiv">
-
-
-
-
-
-
-
-<hr/>
-  
-<style>
-.inputlogin {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-</style>
-
-<style>
-.mainlogin {
-    margin-left: 20px;
-    position: fixed;
-}
-</style>
-<div class="mainlogin" >
-   <form id="formLoc11">
-<label>कृपया अपनी दुकान का नाम लिखे  !</label>
-<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
-  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
-
- 
- <label></label>
-<input type="hidden" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
-<br>
-<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
-</form>
-  </div>
-  
-  <br> <br>
-  
-
-
-
-
-
-
-
- 
-
-
-<script>
-var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
-
-var locRef = root.child('location');
-locRef.on('child_added', function(snap){
-  var locVal = snap.val();
-  $('#locList').append(
-  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
-  );
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-$("#formLoc10").submit(function(e){
-  e.preventDefault();
-  var x = {
-    desc11:$('#nameLoc10').val(),
-    name11:$('#descLoc10').val(),
-    cname11:$('#cnameLoc10').val(),
-
-
-
-  }; 
-
-
-
-
-
-
-  locRef.push(x);
-});
-</script>
-
-
-
-<br/>
-
-</form>
-
-
-
-
-</div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
-
-</body>
-</html>
 
 
 
