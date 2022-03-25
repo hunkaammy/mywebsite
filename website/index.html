@@ -11,9 +11,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
 
 
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
 
 
 
@@ -28,14 +28,14 @@
 
 
 
-<script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+
 
         <div class="clearfix"></div>
 
       </div>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
 </body>
 </html>
 
@@ -165,11 +165,49 @@ $("#formLoc10").submit(function(e){
 
 </div>
 <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./UI.js"></script>
+  <script  src="./UI.js"></script>
 
 </body>
 </html>
 
+
+
+  </body>
+</html>
+<!-- partial -->
+  <script>  angular.module('app',["firebase" ])
+.controller('appCtrl',function($scope,$firebase){
+  
+  
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+        var sync = $firebase(ref);
+
+
+  $scope.DB = sync.$asArray();
+  
+  $scope.titulo='Demo Angular';
+  $scope.generos=['Femenino','Masculino']
+ 
+  
+  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  
+  $scope.add=function(){
+    $scope.DB.$add($scope.app);
+    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  }
+  
+  $scope.edit=function(value){
+    $scope.app=value
+  }
+  $scope.delete=function(item){
+    $scope.DB.$remove(item)
+  }
+  
+  
+ 
+})</script>
 
 
 
@@ -245,7 +283,7 @@ p.naslov-text {
 
  
 
-  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
   
 
 
@@ -51347,14 +51385,9 @@ float:  right;
 
 
 <div class="navbar1">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -51449,7 +51482,7 @@ padding-top:8px;
 }
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <div class="container">
 <div class="col text-center">
 
@@ -51567,7 +51600,7 @@ function myFunction() {
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<script src="https://www.w3schools.com/lib/w3.js"></script>
+
 <html>
   <head>
 
@@ -51584,46 +51617,13 @@ function myFunction() {
 
  
 
- <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+
 <!-- AngularFire -->
-<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
+
   </body>
 </html>
 <!-- partial -->
-  <script>  angular.module('app',["firebase" ])
-.controller('appCtrl',function($scope,$firebase){
-  
-  
-  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
-        var sync = $firebase(ref);
-
-
-  $scope.DB = sync.$asArray();
-  
-  $scope.titulo='Demo Angular';
-  $scope.generos=['Femenino','Masculino']
  
-  
-  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  
-  $scope.add=function(){
-    $scope.DB.$add($scope.app);
-    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  }
-  
-  $scope.edit=function(value){
-    $scope.app=value
-  }
-  $scope.delete=function(item){
-    $scope.DB.$remove(item)
-  }
-  
-  
- 
-})</script>
-
 </body>
 </html>
 
@@ -51640,7 +51640,7 @@ function myFunction() {
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<script src="https://www.w3schools.com/lib/w3.js"></script>
+
 <html>
   <head>
 
@@ -51658,45 +51658,10 @@ function myFunction() {
  
     
 
- <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+
 <!-- AngularFire -->
-<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
-  </body>
-</html>
-<!-- partial -->
-  <script>  angular.module('app',["firebase" ])
-.controller('appCtrl',function($scope,$firebase){
-  
-  
-  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
-        var sync = $firebase(ref);
 
 
-  $scope.DB = sync.$asArray();
-  
-  $scope.titulo='Demo Angular';
-  $scope.generos=['Femenino','Masculino']
- 
-  
-  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  
-  $scope.add=function(){
-    $scope.DB.$add($scope.app);
-    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  }
-  
-  $scope.edit=function(value){
-    $scope.app=value
-  }
-  $scope.delete=function(item){
-    $scope.DB.$remove(item)
-  }
-  
-  
- 
-})</script>
 
 </body>
 </html>
