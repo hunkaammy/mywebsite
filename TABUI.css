@@ -22,6 +22,7 @@ div.bhoechie-tab-menu{
     position: fixed;
     overflow: auto;
     height: 100%;
+	    WIDTH: 75PX;
 }
 div.bhoechie-tab-menu div.list-group{
    {
