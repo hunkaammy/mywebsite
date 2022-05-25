@@ -1,0 +1,4 @@
+#EXTM3U
+#EXTINF:60,index_9.m3u8
+#EXTVLCOPT:network-caching=1000
+https://pl-indiatvnews.akamaized.net/out/v1/8fe71f599a3a4092970bf21a66e770d8/index_9.m3u8
