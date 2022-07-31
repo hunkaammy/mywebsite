@@ -12,5 +12,5 @@ function add(){
   var two = Number(numTwo.value) || 0;
   var three = Number(numThree.value) || 0;
   var sum = Number(one*two+three);
-  addSum.innerHTML = "Your sum is: " + sum;
+  addSum.innerHTML = "PRODUCT PRICE: " + sum + " Rs. ";
 }
