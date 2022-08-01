@@ -29,6 +29,24 @@ body{
 
 }
 
+.totalbalance {
+    position: fixed;
+    background: black;
+    width: 100%;
+    z-index: 1;
+    margin-top: -80px;
+}
+
+.batteries {
+    position: fixed;
+    background: black;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    height: 40px;
+    align-content: center;
+}
+
 .container h1, .container span{
   font-family:"Pt Sans", helvetica, sans-serif;
 }
@@ -110,6 +128,12 @@ input[type="button"]{
   cursor:pointer;
 }
 
+label {
+    cursor: default;
+	color:white;
+}
+
+
 p {
     /* display: block; */
     /* margin-block-start: 1em; */
@@ -128,7 +152,7 @@ select {
   height:34px;
   vertical-align:middle;
   position:relative;
-  bottom:14px;
+  bottom:0px;
   right:9px;
   border-radius:22px;
 
@@ -159,15 +183,15 @@ select {
   
   <div class="container">
 
-    
-    <br> <b> <h1 id="add-sumtotal"></h1> </b> <br>
+    <div  class="totalbalance">
+    <br> <b> <h1 id="add-sumtotal"></h1> </b> <br> </div>
     
   
   <form action="" id="join-us">
     <div class="fields">
       
-       
-             <select name="cars" id="num-one100">
+   <div  class="batteries">    
+            <label>  ADD BATTERIES </label> &nbsp; &nbsp; <select name="cars" id="num-one100">
   <option value="0">0</option>
   <option value="7">1</option>
   <option value="14">2</option>
@@ -191,6 +215,7 @@ select {
   <option value="140">20</option>
 </select>  
     
+    </div>
        <p id="add-sum100"></p>
     
         <hr> <br> <br>
