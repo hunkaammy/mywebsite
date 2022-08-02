@@ -216,6 +216,7 @@ select {
   <option value="140">20</option>
 </select>  
     
+	<button>RESET</button>
     </div>
        <p id="add-sum100"></p>
     
@@ -344,7 +345,17 @@ select {
    
   </form>
   
-  
+  <script>
+  document.addEventListener('submit', function (event) {
+
+	// Prevent default form submit
+	event.preventDefault();
+
+	// Clear the form fields
+	event.target.reset();
+
+});
+  </script>
   
   
   
