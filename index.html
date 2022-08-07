@@ -617,20 +617,10 @@ p.naslov-text {
 <input type="hidden" id="cnameLoc21"class="name"  value="{{name}}">
 <div class="cardbutton" <p>ITEM -1</P>
 <label>Qty:</label>
-<input type="number" id="descLoc21" onchange="doSubmit()">  required>
-
+<input type="number" id="descLoc21"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
 </form></div>
 </div> 
-
-
-<script>
-function doSubmit(){
-  if(...) // your condition to do submit 
-  {
-    this.form.submit();
-  }
-}
-</script>
 
 
 <div class="userFeatureProductImage"><div class="card">
