@@ -19,6 +19,7 @@ var numOne17 = document.getElementById("num-one17");
 var numOne18 = document.getElementById("num-one18");
 var numOne19 = document.getElementById("num-one19");
 var numOne20 = document.getElementById("num-one20");
+var numOne21 = document.getElementById("num-one21");
 var numOne100 = document.getElementById("num-one100");
 var addSum = document. getElementById("add-sum");
 var addSum1 = document. getElementById("add-sum1");
@@ -41,6 +42,7 @@ var addSum17 = document. getElementById("add-sum17");
 var addSum18 = document. getElementById("add-sum18");
 var addSum19 = document. getElementById("add-sum19");
 var addSum20 = document. getElementById("add-sum20");
+var addSum21 = document. getElementById("add-sum21");
 var addSum100 = document. getElementById("add-sum100");
 var addSumtotal = document. getElementById("add-sumtotal");
 
@@ -65,6 +67,7 @@ numOne17.addEventListener("input", add);
 numOne18.addEventListener("input", add);
 numOne19.addEventListener("input", add);
 numOne20.addEventListener("input", add);
+numOne21.addEventListener("input", add);
 numOne100.addEventListener("input", add);
 
 function add(){
@@ -89,6 +92,7 @@ function add(){
   var one18 = Number(numOne18.value) || 0;
   var one19 = Number(numOne19.value) || 0;
   var one20 = Number(numOne20.value) || 0;
+  var one21 = Number(numOne21.value) || 0;
   var one100 = Number(numOne100.value) || 0;
   var sum = Number(one*0.60);
   var sum1 = Number(one1*0.60);
@@ -111,8 +115,9 @@ function add(){
   var sum18 = Number(one18*0.60);
   var sum19 = Number(one19*0.60);
   var sum20 = Number(one20*0.60);
+  var sum21 = Number(one21*1);
   var sum100 = Number(one100);
-  var sumtotal = Number(sum100+sum+sum1+sum2+sum3+sum4+sum5+sum6+sum7+sum8+sum9+sum10+sum11+sum12+sum13+sum14+sum15+sum16+sum17+sum18+sum19+sum20);
+  var sumtotal = Number(sum100+sum+sum1+sum2+sum3+sum4+sum5+sum6+sum7+sum8+sum9+sum10+sum11+sum12+sum13+sum14+sum15+sum16+sum17+sum18+sum19+sum20+sum21);
   addSum.innerHTML = "PRICE: " + sum + " Rs. ";
   addSum1.innerHTML = "PRICE: " + sum1 + " Rs. ";
   addSum2.innerHTML = "PRICE: " + sum2 + " Rs. ";
@@ -134,6 +139,7 @@ function add(){
   addSum18.innerHTML = "PRICE: " + sum18 + " Rs. ";
   addSum19.innerHTML = "PRICE: " + sum19 + " Rs. ";
   addSum20.innerHTML = "PRICE: " + sum20 + " Rs. ";
+  addSum21.innerHTML = "PRICE: " + sum21 + " Rs. ";
   addSum100.innerHTML = "PRICE: " + sum100 + " Rs. ";
   addSumtotal.innerHTML = "total: " + sumtotal + " Rs. ";
 }

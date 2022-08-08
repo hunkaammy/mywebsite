@@ -166,6 +166,24 @@ select {
     font-family: "Pt Sans", helvetica, sans-serif;
 }
 
+
+.table{
+  display: table;
+  width:100%;
+  border-collapse:collapse;
+}
+  .table-row{
+    display: table-row;
+  }
+    .table-cell, .table-head{
+      display: table-cell;
+      padding:1em;
+      border:#f0f0f0 1px solid;
+    }
+    .table-head{
+        font-weight:bold;
+    }
+
 </style>
 
 
@@ -225,12 +243,14 @@ select {
       <br>
       <br><br>
       
+<div class="table-head">1) &nbsp; </lable>   <input type="number" id="num-one" placeholder="ENTER MODEL NUMBER" > 
+	   <p id="add-sum"></p> 
 
-    <lable>  1) &nbsp; </lable>   <input type="number" id="num-one" placeholder="ENTER MODEL NUMBER" > 
-	   <p id="add-sum"></p>
+    <lable>  
     
         <hr> <br> <br>
     
+	
        
      <lable>  2) &nbsp;  <input type="number" id="num-one1" placeholder="ENTER MODEL NUMBER"> 
       <p id="add-sum1"></p>
@@ -333,7 +353,9 @@ select {
 	 <p id="add-sum20"></p>
     
         <hr> <br> <br>
-    
+    <br>  sam</div>
+    <div class="table-head"><lable>  2) &nbsp;  <input type="number" id="num-one21" placeholder="ENTER MODEL NUMBER"> 
+      <p id="add-sum21"></p></div>
     
    
    
