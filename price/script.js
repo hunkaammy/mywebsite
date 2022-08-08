@@ -141,5 +141,5 @@ function add(){
   addSum20.innerHTML = "PRICE: " + sum20 + " Rs. ";
   addSum21.innerHTML = "PRICE: " + sum21 + " Rs. ";
   addSum100.innerHTML = "PRICE: " + sum100 + " Rs. ";
-  addSumtotal.innerHTML = "total: " + sumtotal + " Rs. ";
+  addSumtotal.innerHTML = "Total: " + sumtotal + " Rs. ";
 }
