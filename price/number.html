@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodePen - Calculator with inputs</title>
+  
+
+</head>
+<body>
+
+
+  <p>
+    <input id="num-one"  placeholder="add price" > 
+    <input type="text" id="num-two" placeholder="add percentage"> <br>
+    
+    
+   
+  </p>
+  <p id="add-sum"></p>
+<h1 id="add-sum1"></h1>
+</main>
+
+
+<script>
+var numOne = document.getElementById("num-one");
+var numTwo = document.getElementById("num-two");
+var addSum = document. getElementById("add-sum");
+var addSum1 = document. getElementById("add-sum1");
+
+numOne.addEventListener("input", add);
+numTwo.addEventListener("input", add);
+
+function add(){
+  var one = Number(numOne.value) || 0;
+  var two = Number(numTwo.value) || 0;
+  var sum = Number(one*two);
+  var sum1 = Number(sum*2);
+  addSum.innerHTML = "PRICE IS: " + sum;
+  addSum1.innerHTML = "NUMBER IS: " + sum1;
+}
+
+</script>
+  
+  
+  
+
+
+</body>
+</html>
