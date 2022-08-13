@@ -7,12 +7,27 @@
 
 <div ng-app="">
  
+<style>
+.scrolling-box {
+  background-color: black;
+  display: block;
+  color:white;
+  width: 100%;
+  height: 50px;
+  padding: 0.1em;
+  padding-bottom: 2.1em;
+  position:fixed;
+  text-align: center;
+  margin-top:-19px
+}
 
-<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60  }} </h1>
+</style>
+<div class="scrolling-box">
+<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60  }} </h1> </div>
 
 
 
-
+<br> <br> <br> 
 
 <p>  <b>1)  <input type="text" ng-model="name" value="0">  </b></p>
 <p> {{+name * 0.60  }}  Rs.</p>
