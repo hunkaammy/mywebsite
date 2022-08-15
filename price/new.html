@@ -42,9 +42,10 @@ hr {
     right: 1px;
 }
 
-p {
+p  {
     font-weight: bold;
     display: block;
+    text-align: -webkit-left;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
@@ -56,7 +57,7 @@ input {
     border-radius: 20px;
     border: black;
     font-size: 22px;
-    width: 200px;
+    width: 110px;
     height: 39px;
     writing-mode: horizontal-tb !important;
     color: fieldtext;
@@ -103,14 +104,30 @@ select {
     border-image: initial;
     border-radius: 0px;
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  }
+  
+  th, td {
+  padding: 5px;
+  text-align: center;
+}
 </style>
 <div class="scrolling-box">
-<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60   + +one100 }} </h1> </div>
+<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60   + +one100 + names + names1 + names2 + names3 + names4 + names5 + names6 + names7 + names8 + names9 + names10 + names11 + names12 + names13 + names14 + names15 + names16 + names17 + names18 + names19 + names20 }} </h1> </div>
 
 
 
-<br> <br> <br> 
-
+<br> <br> <br>  <br>  <table style="width:100%">
+  <tr>
+    <td>NUMBER</td>
+    <td>DIRECT</td>
+    
+  </tr>
+  <tr>
+    <td>
 <p>  <b>1)  <input type="number" ng-model="name" placeholder="Enter item number">  </b></p>
 <p> {{+name * 0.60  }}  Rs.</p>
 
@@ -217,6 +234,118 @@ select {
 <p>{{+name20 * 0.60  }} Rs.</p>
 
 <hr/>
+
+
+</td>
+    <td><p>  <b>1)  <input type="number" ng-model="names" placeholder="Enter item number">  </b></p>
+<p> {{+names * 1  }}  Rs.</p>
+
+
+<hr>
+
+<p> <b>2) <input type="number" ng-model="names1" placeholder="Enter item number"></b></p>
+<p>{{+names1 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>3) <input type="number" ng-model="names2" placeholder="Enter item number"></b></p>
+<p>{{+names2 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>4) <input type="number" ng-model="names3" placeholder="Enter item number"></b></p>
+<p>{{+names3 * 1  }} Rs.</p>
+
+<hr/>
+
+
+<p> <b>5) <input type="number" ng-model="names4" placeholder="Enter item number"></b></p>
+<p>{{+names4 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>6) <input type="number" ng-model="names5" placeholder="Enter item number"></b></p>
+<p>{{+names5 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>7) <input type="number" ng-model="names6" placeholder="Enter item number"></b></p>
+<p>{{+names6 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>8) <input type="number" ng-model="names7" placeholder="Enter item number"></b></p>
+<p>{{+names7 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>9) <input type="number" ng-model="names8" placeholder="Enter item number"></b></p>
+<p>{{+names8 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>10) <input type="number" ng-model="names" placeholder="Enter item number"></b></p>
+<p>{{+names9 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>11) <input type="number" ng-model="names10" placeholder="Enter item number"></b></p>
+<p>{{+names10 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>12) <input type="number" ng-model="names11" placeholder="Enter item number"></b></p>
+<p>{{+names11 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>13) <input type="number" ng-model="names12" placeholder="Enter item number"></b></p>
+<p>{{+names12 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>14) <input type="number" ng-model="names13" placeholder="Enter item number"></b></p>
+<p>{{+names13 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>15) <input type="number" ng-model="names14" placeholder="Enter item number"></b></p>
+<p>{{+names14 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>16) <input type="number" ng-model="names15" placeholder="Enter item number"></b></p>
+<p>{{+names15 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>17) <input type="number" ng-model="names16" placeholder="Enter item number"></b></p>
+<p>{{+names16 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>18) <input type="number" ng-model="names17" placeholder="Enter item number"></b></p>
+<p>{{+names17 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>19) <input type="number" ng-model="names18" placeholder="Enter item number"></b></p>
+<p>{{+names18 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>20) <input type="number" ng-model="names19" placeholder="Enter item number"></b></p>
+<p>{{+names19 * 1  }} Rs.</p>
+
+<hr/>
+
+<p> <b>21) <input type="number" ng-model="names20" placeholder="Enter item number"></b></p>
+<p>{{+names20 * 1  }} Rs.</p>
+
+<hr/></td>
+    
+  </tr>
+</table>
 
 
 <div  class="batteries">    
