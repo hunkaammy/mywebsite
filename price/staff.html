@@ -1,236 +1,146 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CodePen - Calculator with inputs</title>
-  
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
 
-</head>
+</script>
 <body>
 
+<div ng-app="">
+ 
 <style>
-/*fonts*/
-@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,400italic);
 
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
-
-html, body{
-  background:#2F1E27;
-}
-
-body{
-  counter-reset:section;
-  text-align:left;
-  color: white;
-      position: fixed;
-}
-
-.container{
-  position:relative;
-
-}
-
-.sameline{
-  display: inline-table;
-
-}
-
-
-button {
-    min-width: -webkit-fill-available;
-    height: 33px;
-}
-
-
-.totalbalance {
-    position: fixed;
-    background: black;
+hr {
     width: 100%;
-    z-index: 1;
-    margin-top: -31px;
-    right: 1px;
+    margin-bottom: 53px;
+}
+
+.scrolling-box {
+  background-color: black;
+  display: block;
+  color:white;
+  width: 100%;
+  height: 30px;
+  padding: 0.1em;
+  padding-bottom: 2.1em;
+  position:fixed;
+  text-align: center;
+  margin-top:-19px
+  
 }
 
 .batteries {
     position: fixed;
+    text-align: -webkit-center;
     background: black;
+    color: white;
     width: 100%;
     z-index: 1;
     bottom: 0;
     height: 40px;
     align-content: center;
-	right: 1px;
+    right: 1px;
 }
 
-.container h1, .container span{
-  font-family:"Pt Sans", helvetica, sans-serif;
-}
-
-.container h1{
-  text-align:center;
-  color:#fff;
-  font-weight:100;
-  font-size:2em; 
-  margin-bottom:10px;
-}
-
-.container h2{
-  font-family:"droid serif";
-  font-style:italic;
-  color:#d3b6ca; 
-  text-align:center;
-  font-size:1.2em;
-}
-
-.container form span:before {
-  counter-increment:section;
-  content:counter(section);
-  border:2px solid #4c2639;
-  width:40px;
-  height:40px;
-  color:#fff;
-  display:inline-block;
-  border-radius:50%;
-  line-height:1.6em;
-  font-size:1.5em;
-  position:relative;
-  left:-22px;
-  top:-11px;
-  background:#2F1E27;
-}
-
-form{
-  margin-top:0px;
-  display:inline-block;
-}
-
-.hidden{
-  visibility:hidden;
+p  {
+    font-weight: bold;
+    display: block;
+	color:black;
+    text-align: -webkit-left;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 
-
-.container span{
-    margin-bottom:22px; 
-    display:inline-block;
-}
-
-.container span:last-child{
-   margin-bottom:-11px;
+.lable  {
+    font-weight: bold;
+    display: block;
+	color:black;
+    text-align: -webkit-left;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 input {
-    border: none;
-    outline: none;
-    display: inline-block;
-    height: 34px;
-    vertical-align: middle;
-    /* position: relative; */
-    /* bottom: 14px; */
-    right: 9px;
-    border-radius: 22px;
-    /* width: 220px; */
-    /* box-sizing: border-box; */
-    padding: 0 18px;
+    border-radius: 20px;
+    border: black;
+    font-size: 22px;
+    width: 270px;
+    height: 39px;
+    writing-mode: horizontal-tb !important;
+    color: fieldtext;
+    text-transform: none;
+    text-align: start;
+    padding: 1px 5px;
+    border-width: 1px;
+    border-style: dashed;
+
 }
-
-
-
-
-input[type="button"]{ 
-  background:rgba(197,62,126,.33) ! important;
-  color:#fff;
-  position:relative;
-  left:9px;
-  top:25px; 
-  width:100px;
-  cursor:pointer;
-}
-
-label {
-    cursor: default;
-	color:white;
-}
-
-
-p {
-    /* display: block; */
-    /* margin-block-start: 1em; */
-    /* margin-block-end: 1em; */
-    /* margin-inline-start: 0px; */
-    /* margin-inline-end: 0px; */
-    color: white;
-    font-weight: bolder;
-	text-align:center;
-}
-
-
-
 
 select {
-     border:none;
-  outline:none;
-  display:inline-block;
-  height:34px;
-  vertical-align:middle;
-  position:relative;
-  bottom:0px;
-  right:9px;
-  border-radius:22px;
-
-  box-sizing:border-box;
-  padding:0 18px; 
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    background-color: field;
+    cursor: default;
+    margin: 0em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    border-radius: 0px;
 }
-.container h1, .container span {
-    font-family: "Pt Sans", helvetica, sans-serif;
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  }
+  
+  th, td {
+  padding: 5px;
+  text-align: center;
 }
-
-
-
 </style>
-
-
-<!-- partial:index.partial.html -->
-
-
-
-
-
-
-    
-    
-
+<div class="scrolling-box">
+<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60   + +one100 + names + names1 + names2 + names3 + names4 + names5 + names6 + names7 + names8 + names9 + names10 + names11 + names12 + names13 + names14 + names15 + names16 + names17 + names18 + names19 + names20 }} Rs. </h1> 
 
   
-  
-  <div class="container">
+<p> Please Enter Item Code. </p>
+<p>  <b>  <input type="number" ng-model="name" placeholder="Enter item number">  </b></p>
 
-    <div  class="totalbalance">
-    <br> <b> <p id="add-sumtotal"></p> </b> </div>
-    
-  
-  <form action="" id="join-us">
-    <div class="fields">
-      
 
-    
-	
-    </div>
-       <p id="add-sum100"></p>
-    
-       
-      
-   <br>
-      
 
-     <div class="sameline" > <input type="number" id="num-one" placeholder="ENTER MODEL NUMBER" > 
-	   <p id="add-sum"></p> </div>
-    
 
-		
-		     
-             &nbsp; &nbsp; <select name="cars" id="num-one100">
+
+
+   <div class="lable"
+   <lable> SELECT BATTERIES </lable>        &nbsp; <select name="cars" ng-model="one100" >
   <option value="0">0</option>
   <option value="7">1</option>
   <option value="14">2</option>
@@ -253,146 +163,11 @@ select {
   <option value="133">19</option>
   <option value="140">20</option>
 </select>  
-		<br> 
-		<br> <button>RESET</button> <br> <br>
-    <hr>
-<div class="hidden">    
-     <input type="hidden" id="num-one1" placeholder="ENTER MODEL NUMBER"> 
-      <p id="add-sum1"></p>
-    
-        <hr> <br> <br>
-	
-	<input type="number" id="num-one2" placeholder="ENTER MODEL NUMBER"> <br>  </span>
-     <p id="add-sum2"></p>
-    
-        <hr> <br> <br>
-    
-    	<input type="hidden" id="num-one3" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum3"></p>
-    
-        <hr> <br> <br>
-    
-   <lable>  5) &nbsp; <input type="hidden" id="num-one4" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum4"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  6) &nbsp;  <input type="hidden" id="num-one5" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum5"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  7) &nbsp;  <input type="hidden" id="num-one6" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum6"></p>
-    
-        <hr> <br> <br>
-    
-   <lable>  8) &nbsp; <input type="hidden" id="num-one7" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum7"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  9) &nbsp;   <input type="hidden" id="num-one8" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum8"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  10) &nbsp;  <input type="hidden" id="num-one9" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum9"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  11) &nbsp;   <input type="hidden" id="num-one10" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum10"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  12) &nbsp;   <input type="hidden" id="num-one11" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum11"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  13) &nbsp;  <input type="hidden" id="num-one12" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum12"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  14) &nbsp;  <input type="hidden" id="num-one13" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum13"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  15) &nbsp;   <input type="hidden" id="num-one14" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum14"></p>
-    
-        <hr> <br> <br>
-    
-    
-  <lable>  16) &nbsp;  <input type="hidden" id="num-one15" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum15"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  17) &nbsp;   <input type="hidden" id="num-one16" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum16"></p>
-    
-        <hr> <br> <br>
-    
-   <lable>  18) &nbsp; <input type="hidden" id="num-one17" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum17"></p>
-    
-        <hr> <br> <br>
-    
-  <lable>  19) &nbsp;  <input type="hidden" id="num-one18" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum18"></p>
-    
-        <hr> <br> <br>
-    
- <lable>  20) &nbsp;   <input type="hidden" id="num-one19" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum19"></p>
-    
-        <hr> <br> <br>
-    
-    
- <lable>  21) &nbsp;   <input type="hidden" id="num-one20" placeholder="ENTER MODEL NUMBER"> <br> 
-	 <p id="add-sum20"></p>
-    
-        <hr> <br> <br>
-    
-	
-	<lable>  2) &nbsp;  <input type="number" id="num-one21" placeholder="ENTER MODEL NUMBER"> 
-      <p id="add-sum21"></p></div>
-    </div>
-    <input type="number" id="num-one101" placeholder="PAID" > 
-	   <p id="add-sum101"></p> 
-   
-    <br />
-    
-    </div>
-   
-   
-   
-  </form>
-  
-  <script>
-  document.addEventListener('submit', function (event) {
+ </div>
 
-	// Prevent default form submit
-	event.preventDefault();
+<button onClick="window.location.reload();">REFRESH</button>
 
-	// Clear the form fields
-	event.target.reset();
-
-});
-  </script>
-  
-  
-  
 </div>
-  
-</main>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
 </body>
 </html>
