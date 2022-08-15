@@ -29,6 +29,18 @@ hr {
   
 }
 
+.batteries {
+    position: fixed;
+    background: black;
+	color:white;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    height: 40px;
+    align-content: center;
+	right: 1px;
+}
+
 input {
     writing-mode: horizontal-tb !important;
     font-style: ;
@@ -63,13 +75,13 @@ input {
 }
 </style>
 <div class="scrolling-box">
-<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60  }} </h1> </div>
+<h1>{{+name * 0.60   + +name1 * 0.60   + +name2 * 0.60   + +name3 * 0.60   + +name4 * 0.60   + +name5 * 0.60   + +name6 * 0.60   + +name7 * 0.60   + +name8 * 0.60   + +name9 * 0.60   + +name10 * 0.60   + +name11 * 0.60   + +name12 * 0.60   + +name13 * 0.60   + +name14 * 0.60   + +name15 * 0.60   + +name16 * 0.60   + +name17 * 0.60   + +name18 * 0.60   + +name19 * 0.60   + +name20 * 0.60   + +one100 }} </h1> </div>
 
 
 
 <br> <br> <br> 
 
-<p>  <b>1)  <input type="number" ng-model="name" value="0">  </b></p>
+<p>  <b>1)  <input type="number" ng-model="name" placeholder="Enter model number">  </b></p>
 <p> {{+name * 0.60  }}  Rs.</p>
 
 
@@ -175,6 +187,34 @@ input {
 <p>{{+name20 * 0.60  }} Rs.</p>
 
 <hr/>
+
+
+<div  class="batteries">    
+            <label>  ADD BATTERIES </label> &nbsp; &nbsp; <select name="cars" ng-model="one100" >
+  <option value="0">0</option>
+  <option value="7">1</option>
+  <option value="14">2</option>
+  <option value="21">3</option>
+  <option value="28">4</option>
+  <option value="35">5</option>
+  <option value="42">6</option>
+  <option value="49">7</option>
+  <option value="56">8</option>
+  <option value="63">9</option>
+  <option value="70">10</option>
+  <option value="77">11</option>
+  <option value="84">12</option>
+  <option value="91">13</option>
+  <option value="98">14</option>
+  <option value="105">15</option>
+  <option value="112">16</option>
+  <option value="119">17</option>
+  <option value="126">18</option>
+  <option value="133">19</option>
+  <option value="140">20</option>
+</select>  
+
+total batteries {{one100}} Rs.
 
 </div>
 
