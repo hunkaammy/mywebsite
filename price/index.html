@@ -1,3 +1,128 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - jPList Slider Range Filter Control</title>
+  <link rel='stylesheet' href='https://codepen.io/1rosehip/pen/zJYbPV.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1><a href="https://jplist.org/documentation/controls/slider-range-filter">jPList Slider Range Filter Control</a></h1>
+
+<div
+    data-jplist-control="slider-range-filter"
+    data-path=".price"
+    data-group="prices-group-1"
+    data-name="price-filter-1"
+    data-min="1"
+    data-from="1"
+    data-to="1000000"
+    data-max="1000000">
+
+	 <div class="jplist-slider" data-type="slider"></div>
+	 
+	 <div class="jplist-slider-values">
+     	<b>Min:</b> <span data-type="min"></span>,
+     	<b>Value 1:</b> <span data-type="value-1"></span>,
+     	<b>Value 2:</b> <span data-type="value-2"></span>,
+     	<b>Max:</b> <span data-type="max"></span>
+	 </div>
+</div>
+
+<!-- content to filter -->
+<div data-jplist-group="prices-group-1">
+
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">850</div>
+    </div>
+    
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">1000</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">10</div>
+    </div>
+
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">20</div>
+    </div>
+
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">121</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">80</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">900</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">45</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">251</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">300</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">15</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">60</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">860</div>
+    </div>
+
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">220</div>
+    </div>
+  	<!-- no results control -->               
+    <div data-jplist-control="no-results" data-group="prices-group-1" data-name="no-results">No Results Found</div>
+</div>
+<!-- partial -->
+  <script src='https://codepen.io/1rosehip/pen/zJYbPV.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -131,105 +256,7 @@ table, th, td {
  <br> <br> <br> <br> <br> <br>
 
 
-<br> <br> <br>  <br> <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    border: 1px solid #888;
-    width: 100%;
-    height: 100%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
-</head>
-<body>
-
-
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">PRINT</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
- 
- 
- 
-{{+name * 0.60  }}
- 
-  </div>
-
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
-
-</body>
-</html>
+<br> <br> <br>  <br> 
   <table style="width:100%">
   <tr>
     <td>NUMBER</td> 
@@ -485,6 +512,108 @@ window.onclick = function(event) {
 
 {{one100}} Rs.
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 100%;
+    height: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">PRINT</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+ 
+
+
+
+
+ 
+
+ 
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
 </div>
 
 </body>

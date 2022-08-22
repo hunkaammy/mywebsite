@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - jPList Slider Range Filter Control</title>
+  <link rel='stylesheet' href='https://codepen.io/1rosehip/pen/zJYbPV.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1><a href="https://jplist.org/documentation/controls/slider-range-filter">jPList Slider Range Filter Control</a></h1>
+
+<div
+    data-jplist-control="slider-range-filter"
+    data-path=".price"
+    data-group="prices-group-1"
+    data-name="price-filter-1"
+    data-min="1"
+    data-from="1"
+    data-to="1000000"
+    data-max="1000000">
+
+	 <div class="jplist-slider" data-type="slider"></div>
+	 
+	 <div class="jplist-slider-values">
+     	<b>Min:</b> <span data-type="min"></span>,
+     	<b>Value 1:</b> <span data-type="value-1"></span>,
+     	<b>Value 2:</b> <span data-type="value-2"></span>,
+     	<b>Max:</b> <span data-type="max"></span>
+	 </div>
+</div>
+
+<!-- content to filter -->
+<div data-jplist-group="prices-group-1">
+
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">850</div>
+    </div>
+    
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">1000</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">10</div>
+    </div>
+
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">20</div>
+    </div>
+
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">121</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">80</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">900</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">45</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">251</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">300</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">15</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">60</div>
+    </div>
+    
+    <!-- item -->
+    <div data-jplist-item>
+        <div class="price">860</div>
+    </div>
+
+	<!-- item -->
+    <div data-jplist-item>
+        <div class="price">220</div>
+    </div>
+  	<!-- no results control -->               
+    <div data-jplist-control="no-results" data-group="prices-group-1" data-name="no-results">No Results Found</div>
+</div>
+<!-- partial -->
+  <script src='https://codepen.io/1rosehip/pen/zJYbPV.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
