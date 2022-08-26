@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Angular Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+<body>
+
+<style>
+input[type=number], select  {
+    width: 50px;
+   
+}
+input[type=text], select {
+    width: 25%;
+}
+</style>
+
+
+
+<!-- partial:index.partial.html -->
+<div ng-app="myApp">
+  <h2>HINDUSTAN 
+  
+
+
+  
+
+
+
+  
+  <div ng:controller="CartForm" class="mycontainer">
+    <table class="table">
+      <tr>
+      <div class="noprint">  
+        </div>
+      </tr>  </div>
+     <tr ng-repeat="item in invoice.items"> 
+        <td><input type="text" ng-model="item.description" class="input-small" placeholder="items name"></td>
+        <td><input type="number" ng-model="item.qty" ng-required class="input-mini"></td>
+        <td><input type="number" ng-model="item.cost" ng-required class="input-mini"></td>
+        <td><input type="number" ng-model="item.discount" ng-required class="input-mini"></td></div>
+        
+        
+        <!--   <td>{{item.tax}}%</td>      -->
+        <td>
+         
+		 
+		 
+		<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:0px solid black;
+  text-align: center;
+}
+</style>
+<body>
+
+
+
+<table style="width:100%">
+  <tr>
+ 
+  </tr>
+  <tr>
+    <td>{{item.description}}</td>
+    <td>{{item.qty}}</td>
+    <td>&nbsp;&nbsp;{{(item.cost) * (1 - item.discount/100)}} ₹ </td>
+	<td>{{(item.qty * item.cost) * (1 - item.discount/100)}} ₹ </td>
+  </tr>
+  <tr>
+  
+   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total:</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{total() | currency}} </td>
+    <td> <div style="color:white;" >Centro comercial Moctdswdsdsadezuma </div></td>
+    <td><div style="color:white;" >Francisco Chang</div></td>
+    <td><div style="color:white;" >Mexico</div></td>
+	 <td> <div style="color:white;" >Centro comercial Moctezuma </div></td>
+  </tr>
+</table>
+
+
+
+</body>
+</html>
+
+
+		
+		
+		 
+        
+		    
+          
+      
+     
+        
+        </td>
+        <td>
+          <a href ng-click="removeItem($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> 
+        </td>
+       
+      </tr>
+      <tr>
+        <td><a class="btn btn-info btn-sm btn-block" href ng-click="addItem()">add new item</a> </td>
+        <td colspan="6"></td>
+      </tr>
+      <tr class="row-total">
+        <td colspan="4"></td>
+     
+        
+      </tr>
+      
+
+      
+
+    </table>
+  </div>
+  
+
+
+  
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

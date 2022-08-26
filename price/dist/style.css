@@ -1,0 +1,103 @@
+body {
+
+}
+
+.h1, h1 {
+    font-size: 15px;
+    position: fixed;
+    margin-top: -100px;
+}
+
+
+h2 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.logo {
+  width: 50px;
+  height: auto;
+  margin-left: 15px;
+}
+
+input[type=number], select  {
+    width: 50px;
+   
+}
+
+td {
+    display: contents;
+    vertical-align: inherit;
+}
+
+tr {
+ 
+}
+
+
+input[type=text], select {
+    width: 25%;
+}
+
+
+td {
+    width: 0px;
+}
+
+.table {
+    width: 40%;
+ 
+}
+
+.table {
+
+    margin-bottom: 20px;
+}
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: left;
+    border-color: inherit;
+	width:20px
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+@media print{
+   .noprint{
+       display:none;
+   }
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.mycontainer {
+
+  margin: 0 auto;
+}
+th {
+  text-align: center;
+}
+input {
+  text-align: center;
+}
+input[type="checkbox"] {   
+/* 		width: 18px; 
+    height: 18px;		 */
+}
+.row-total {
+  font-size: 15px;
+}
+.author {
+  margin-top: 150px;
+}
