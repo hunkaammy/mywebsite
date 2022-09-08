@@ -7,6 +7,15 @@ h1 {
     font-size: 45px !important;
 }
 
+.text-center {
+     text-align: ; 
+}
+
+.align-self-center {
+    -ms-flex-item-align: ;
+     align-self: ; 
+}
+
 .justify {
     text-align: justify;
 }
@@ -128,6 +137,6 @@ h1 {
 /* SECTION */
 
 .section {
-    background-color: #0069d9c0;
-    color: white;
+    background-color: white;
+    color: black;
 }
