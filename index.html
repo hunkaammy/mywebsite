@@ -177,7 +177,7 @@ float:  right;
 <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
 
 
-
+<div id="logindiv">
 
 
 
@@ -187,7 +187,36 @@ float:  right;
 
 <hr/>
   
+<style>
+.inputlogin {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+</style>
 
+<style>
+.mainlogin {
+    margin-left: 20px;
+    position: fixed;
+}
+</style>
+<div class="mainlogin" >
+   <form id="formLoc11">
+<label>कृपया अपनी दुकान का नाम लिखे  !</label>
+<input type="hidden" id="nameLoc11"  class="inputlogin"  value="http://hunkaammy.github.io/mywebsite/PRODUCTS/line.png">
+  <input type="text" ng-model="name" id="cnameLoc11"class="inputlogin"  placeholder="please enter your shop name">
+
+ 
+ <label></label>
+<input type="text" id="descLoc11" class="inputlogin" placeholder="please enter your mobile number">  
+<br>
+<input type="submit" id="loginbtn"   class="buttonlogin" value="SUBMIT"/>
+</form>
+  </div>
+  
+  <br> <br>
   
 
 
@@ -218,7 +247,47 @@ float:  right;
 
 
 
+  </body>
+</html>
+<!-- partial -->
+  <script>  angular.module('app',["firebase" ])
+.controller('appCtrl',function($scope,$firebase){
   
+  
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+        var sync = $firebase(ref);
+
+
+  $scope.DB = sync.$asArray();
+  
+  $scope.titulo='Demo Angular';
+  $scope.generos=['Femenino','Masculino']
+ 
+  
+  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  
+  $scope.add=function(){
+    $scope.DB.$add($scope.app);
+    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  }
+  
+  $scope.edit=function(value){
+    $scope.app=value
+  }
+  $scope.delete=function(item){
+    $scope.DB.$remove(item)
+  }
+  
+  
+ 
+})</script>
+
+
+
+
+
 
 
 <script> history.pushState(null, null, location.href);

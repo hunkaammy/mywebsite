@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Input text value from modal</title>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal</title>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script><link rel="stylesheet" href="./newindex.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title">Please tell us your name</h5>
+                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-image" style="background-image: url()">
+                    <form id="inputs" class="needs-validation" novalidate="">
+                        <div class="form-group mx-2 mb-3">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" id="firstname" placeholder="First name" required="">
+                        </div>
+                        <div class="form-group mx-2">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" placeholder="Last name" required="">
+                        </div>
+                    </form>
+                </div>  
+                <div class="modal-footer justify text-14">
+                    <button id="submit" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!-- TAB AND CONTENT PART -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 300px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 300px;
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+</div>
+
+<div id="London" class="tabcontent">
+  <h3>London</h3>
+   <div class="bhoechie-tab-content active">
+                    <center>
+                     
+					  
+		  
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc21">
+<label></label><input type="hidden" id="nameLoc21"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/1.jpeg">
+<input type="hidden" id="cnameLoc21"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -1</P>
+<label>Qty:</label>
+<input type="number" id="descLoc21"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/2.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc22">
+<label></label><input type="hidden" id="nameLoc22"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/2.jpeg">
+<input type="hidden" id="cnameLoc22"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -2</P>
+<label>Qty:</label>
+<input type="number" id="descLoc22"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/3.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc23">
+<label></label><input type="hidden" id="nameLoc23"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/3.jpeg">
+<input type="hidden" id="cnameLoc23"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -3</P>
+<label>Qty:</label>
+<input type="number" id="descLoc23"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/4.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc24">
+<label></label><input type="hidden" id="nameLoc24"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/4.jpeg">
+<input type="hidden" id="cnameLoc24"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -4</P>
+<label>Qty:</label>
+<input type="number" id="descLoc24"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/5.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc25">
+<label></label><input type="hidden" id="nameLoc25"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/5.jpeg">
+<input type="hidden" id="cnameLoc25"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -5</P>
+<label>Qty:</label>
+<input type="number" id="descLoc25"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/6.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc26">
+<label></label><input type="hidden" id="nameLoc26"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/6.jpeg">
+<input type="hidden" id="cnameLoc26"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -6</P>
+<label>Qty:</label>
+<input type="number" id="descLoc26"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/7.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc27">
+<label></label><input type="hidden" id="nameLoc27"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/7.jpeg">
+<input type="hidden" id="cnameLoc27"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -7</P>
+<label>Qty:</label>
+<input type="number" id="descLoc27"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/8.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc28">
+<label></label><input type="hidden" id="nameLoc28"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/8.jpeg">
+<input type="hidden" id="cnameLoc28"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -8</P>
+<label>Qty:</label>
+<input type="number" id="descLoc28"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/9.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc29">
+<label></label><input type="hidden" id="nameLoc29"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/9.jpeg">
+<input type="hidden" id="cnameLoc29"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -9</P>
+<label>Qty:</label>
+<input type="number" id="descLoc29"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/10.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc30">
+<label></label><input type="hidden" id="nameLoc30"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/10.jpeg">
+<input type="hidden" id="cnameLoc30"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -10</P>
+<label>Qty:</label>
+<input type="number" id="descLoc30"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/11.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc31">
+<label></label><input type="hidden" id="nameLoc31"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/11.jpeg">
+<input type="hidden" id="cnameLoc31"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -11</P>
+<label>Qty:</label>
+<input type="number" id="descLoc31"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/12.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc32">
+<label></label><input type="hidden" id="nameLoc32"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/12.jpeg">
+<input type="hidden" id="cnameLoc32"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -12</P>
+<label>Qty:</label>
+<input type="number" id="descLoc32"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/13.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc33">
+<label></label><input type="hidden" id="nameLoc33"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/13.jpeg">
+<input type="hidden" id="cnameLoc33"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -13</P>
+<label>Qty:</label>
+<input type="number" id="descLoc33"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/14.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc34">
+<label></label><input type="hidden" id="nameLoc34"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/14.jpeg">
+<input type="hidden" id="cnameLoc34"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -14</P>
+<label>Qty:</label>
+<input type="number" id="descLoc34"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/15.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc35">
+<label></label><input type="hidden" id="nameLoc35"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/15.jpeg">
+<input type="hidden" id="cnameLoc35"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -15</P>
+<label>Qty:</label>
+<input type="number" id="descLoc35"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/16.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc36">
+<label></label><input type="hidden" id="nameLoc36"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/16.jpeg">
+<input type="hidden" id="cnameLoc36"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -16</P>
+<label>Qty:</label>
+<input type="number" id="descLoc36"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/17.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc37">
+<label></label><input type="hidden" id="nameLoc37"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/17.jpeg">
+<input type="hidden" id="cnameLoc37"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -17</P>
+<label>Qty:</label>
+<input type="number" id="descLoc37"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/18.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc38">
+<label></label><input type="hidden" id="nameLoc38"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/18.jpeg">
+<input type="hidden" id="cnameLoc38"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -18</P>
+<label>Qty:</label>
+<input type="number" id="descLoc38"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/19.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc39">
+<label></label><input type="hidden" id="nameLoc39"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/19.jpeg">
+<input type="hidden" id="cnameLoc39"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -19</P>
+<label>Qty:</label>
+<input type="number" id="descLoc39"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+<div class="userFeatureProductImage"><div class="card">
+<img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/20.jpeg" loading="lazy" alt="random dummy image" />
+<form id="formLoc40">
+<label></label><input type="hidden" id="nameLoc40"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/NEW ARRIVAL/20.jpeg">
+<input type="hidden" id="cnameLoc40"class="name"  value="{{name}}">
+<div class="cardbutton" <p>ITEM -20</P>
+<label>Qty:</label>
+<input type="number" id="descLoc40"   required>
+<input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div>
+</form></div>
+</div> 
+
+
+                    </center>
+                </div>
+</div>
+
+<div id="Paris" class="tabcontent">
+  <h3>Paris</h3>
+  <p>Paris is the capital of France.</p> 
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Tokyo</h3>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 
+
+    
+<!-- partial -->
+  <script  src="./newindex.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#222" />
+    <meta name="description" content="CLICK TO SEND YOUR ORDER>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CLICK TO SEND YOUR ORDER">
+    <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
+    <title>HINDUSTAN TOYS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+	
+</head>
+<script src="./js/index.js"></script>
+</lang="en">
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodePen - Native lazy loading with a touch of JS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./mainlazy.css">
+   <link rel="stylesheet" href="./UI.css">
+<link rel="stylesheet" href="./LAZYLOAD.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
+
+<style>
+
+<script  src="./LAZYLOAD.js"></script>
+		
+
+
+<style>
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  color:white;
+  text-align:center;
+  padding-top:6px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+QTY डालने के बाद SEND बटन दबाये 
+</div>
+
+		
+		
+		
+		
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar1 {
+  overflow: hidden;
+float:  right;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar a .navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 2px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+  background: black
+  color: white;
+}
+
+.navbar1 a.active {
+  background-color: black;
+  color: white;
+}
+
+.main {
+  padding: 16px;
+  margin-bottom: 30px;
+}
+</style>
+
+
+
+  <script  src="./mainlazy.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+        <div class="clearfix"></div>
+
+      </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--Login Form -->
+
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+
+
+
+
+
+
+
+
+
+
+<hr/>
+  
+
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+<br/>
+
+</form>
+
+
+
+
+</div>
+<!-- partial -->
+  <script  src="./UI.js"></script>
+
+</body>
+</html>
+
+
+
+  
+
+
+<script> history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+	</script>
+
+
+
+
+
+<style>
+
+
+body {
+    background-color: #f8e0b3;
+	  overscroll-behavior: contain;
+    height:1080px;
+    width:100%;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+p.naslov-text {
+    font-size:40px;
+    color:#634ea9;
+    margin:0 auto;
+    margin-top:0%;
+    margin-left:36%;
+    font-family: Aramis;
+}
+
+  </style
+
+
+
+
+
+<div ng-app="">
+
+
+
+      
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+  
+
+
+  <link rel="stylesheet" type="text/css" href="a_data/normalize.css">
+  <link rel="stylesheet" type="text/css" href="a_data/result-light.css">
+  <link rel="stylesheet" href="./tabui.css">
+   <link rel="stylesheet" href="./tabuibs.css">
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+      
+    /* EOS */
+  </style>
+
+
+
+</head>
+<body>
+    
+
+
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+
+	
+	
+
+<!-- partial -->
+ 
+ 
+   
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<style>
+#toast {
+  visibility: hidden;
+  height: 50px;
+  width: fit-content;
+  margin: auto;
+  background-color: green;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 30px;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+#toast #desc {
+  color: #fff;
+  padding: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#toast.show {
+  visibility: visible;
+  animation: fadein 1s, fadeout 1s 3s;
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 30px;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
+  }
+}
+
+</style>
+
+
+  </head>
+  <body ng-app="app" ng-controller="appCtrl"   >
+ 
+ 
+ 
+   
+  
+    
+   
+    
+
+ 
+    
+
+
+<!-- AngularFire -->
+
+
+
+</body>
+</html>
+  </div>
+
+
+<div id="toast"><div id="desc">Item Added...</div></div>
+
+<!------ Include the above in your HEAD tag ---------->
+
+
+			
+
+ <script>
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+    </script>			
+			
+
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  padding-top: 1px;
+  margin-bottom: 40px;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.cardbutton {
+    border: none;
+    padding: 12px;
+    color: black;
+    background-color: #F8F7FF;
+    text-align: left;
+    margin-top: 10px;
+    cursor: pointer;
+    height: 90px;
+    font-size: 12px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+</style>			
+				
+               
+                  
+				  
+                </div>
+				
+			
+				
+            </div>
+        </div>
+  </div>
+</div>
+
+  <script  src="./tabui.js"></script>
+ 
+ 
+ <!-- notification -->
+<script>
+launch_notification = () =>{
+  let notification = document.getElementById("toast")
+          notification.className = "show";
+          setTimeout(() => { notification.className = notification.className.replace("show", ""); }, 2000);
+}
+</script>
+
+
+
+
+
+
+
+ <script  src="./lazyload.js"></script>
+<script  src="./HTSHOP.js"></script>
+    <script type="text/javascript">//<![CDATA[
+
+
+      $("img").error(function() {
+         $(this).parent().hide();
+      });
+
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "vWwpc"
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+
+
+
+
+
+<div class="navbar1">
+
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+<style>.imgcart {
+    float: left;
+    width: 66px;
+    height: 67px;
+    background-size: cover;
+    margin: -2 4px;
+} </style>
+
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="myFunction()" >Your Order  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">CLOSE</button>
+          <h4 class="modal-title">Your Order</h4>
+        </div>
+        <div class="modal-body">
+      
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>CodePen - Tabbed View Angular Example</title>
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+    border-collapse: collapse;
+ 
+    border: 1px
+ solid #ddd;
+    font-size: 18px;
+    width: 10px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: white;
+}
+</style>
+</head>
+<body>
+
+<h2>{{name}}</h2>
+
+<input type="hidden" id="myInput"  value="{{name}}" title="Type in a name">
+
+<style>
+.container{
+padding-top:8px;
+}
+</style>
+
+
+<div class="container">
+<div class="col text-center">
+
+ 
+ </div>
+   </div>
+   
+   <script>
+   $(document).ready(function(){
+ $('#click').click(function(){
+        
+    });
+  // set time out 2 sec
+     setTimeout(function(){
+        $('#click').trigger('click');
+    }, 000);
+});
+
+
+
+
+</script>
+
+
+<style>
+.cardlazyorder {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 0.3s;
+    width: 14%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+</style>
+
+
+<style>.imgorder {
+    float: left;
+    width:  190px;
+    height: 190px;
+    background-size: cover;
+}  </style>
+   
+<table id="myTable">
+ 
+  
+		  
+		  
+       
+        <tr class="item" ng-repeat="value in DB">
+
+          <td>
+		  <div style="font-size:0vw">{{value.cname11}}</div></td> 
+		  
+		   <td>  <div class="imgorder" style="background-image:url('{{value.desc11}}');"></div>
+		  
+    
+		  
+		  
+		  
+</td> <br>
+          <td>{{value.name11}}
+		  </td><td> <button type="button" ng-click="delete(value)">Delete</button>   </tr>
+          
+      
+          
+
+
+
+   
+</table>
+
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+<div ng-app>
+
+
+  <div class="tab-content" ng-class="{'active': activeTab != 2}">
+    
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Angular Crud Firebase</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<html>
+  <head>
+
+  </head>
+  <body ng-app="app" ng-controller="appCtrl"   >
+ 
+ 
+ 
+   
+  
+    
+   
+    
+
+ 
+
+
+<!-- AngularFire -->
+
+  </body>
+</html>
+<!-- partial -->
+ 
+</body>
+</html>
+
+  </div>
+
+
+
+
+</body>
+</html>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+		
+		
+
+</head>
+<body>
+
+
+
+
+
