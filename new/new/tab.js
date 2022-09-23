@@ -19,7 +19,7 @@ window.onload = function() {
   swiper1.slides.each(function(index,val){
     var ele=$(this);
     ele.on("click",function(){
-      alert('hi tab changed');
+    
       setCurrentSlide(ele,index);
       swiper2.slideTo(index, 500, false);
       //mySwiper.initialSlide=index;
