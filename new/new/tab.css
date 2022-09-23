@@ -27,8 +27,8 @@
   border-bottom:2px solid #ec5566;
 }
 .swiper1 .swiper-slide {
-        text-align: center;
-        font-size: 10px;
+        text-align: left;
+        font-size: 20px;
         height:100%;
         /* Center slide text vertically */
         display: -webkit-box;
