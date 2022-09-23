@@ -2,7 +2,7 @@
 		}
 		
 		 body{
-		 min-width:100%;
+		 width:100%;
 			width:100%;
 			margin:0 auto;
 			color:#333;
@@ -28,8 +28,8 @@
 }
 .swiper1 .swiper-slide {
         text-align: left;
-		PADDING: 0PX 20PX;
-        font-size: 20px;
+		padding-right: 100px;
+        font-size: 15px;
         height:100%;
         /* Center slide text vertically */
         display: -webkit-box;
