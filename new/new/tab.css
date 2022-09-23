@@ -2,8 +2,8 @@
 		}
 		
 		 body{
-		 min-width:320px;
-			max-width:640px;
+		 min-width:100%;
+			width:100%;
 			margin:0 auto;
 			color:#333;
 			padding:0;
@@ -28,6 +28,7 @@
 }
 .swiper1 .swiper-slide {
         text-align: left;
+		PADDING: 0PX 20PX;
         font-size: 20px;
         height:100%;
         /* Center slide text vertically */
