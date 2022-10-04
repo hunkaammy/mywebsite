@@ -19,6 +19,25 @@
 
 <div ng-app="">
 
+
+<html>
+ <head>
+ <script>
+ function disableClick(){
+ document.onclick=function(event){
+ if (event.button == 2) {
+ alert('Right Click Message');
+ return false;
+ }
+ }
+ }
+ </script>
+ </head>
+ <body onLoad="disableClick()">
+ </body>
+</html>
+
+
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadow">
