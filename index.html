@@ -19,25 +19,6 @@
 
 <div ng-app="">
 
-
-<html>
- <head>
- <script>
- function disableClick(){
- document.onclick=function(event){
- if (event.button == 2) {
- alert('Right Click Message');
- return false;
- }
- }
- }
- </script>
- </head>
- <body onLoad="disableClick()">
- </body>
-</html>
-
-
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadow">
@@ -48,24 +29,21 @@
                     </button>
                 </div>
                 <div class="modal-body bg-image" style="background-image: url()">
-				
-				
-                    <form id="formLoc11" class="needs-validation" novalidate="">
+                    <form id="inputs" class="needs-validation" novalidate="">
                         <div class="form-group mx-2 mb-3">
                             <label for="firstname">Please enter your shop name</label>
 							
 							
-                            <input type="text" class="form-control" ng-model="name" id="nameLoc11" placeholder="Shop Name" required="">
+                            <input type="text" class="form-control" ng-model="name" id="firstname" placeholder="Shop Name" required="">
                         </div>
                         <div class="form-group mx-2">
                             <label for="lastname">Please enter your mobile number</label>
-                            <input type="number" class="form-control" id="descLoc11" placeholder="Mobile number" required="">
-							 <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm"/>
+                            <input type="text" class="form-control" id="lastname" placeholder="Mobile number" required="">
                         </div>
                     </form>
                 </div>  
                 <div class="modal-footer justify text-14">
-			<!-- 	 <button type="hidden" id="close" class="btn btn-primary" data-dismiss="modal" aria-label="Close">submit</button>-->
+				 <button type="button" id="close" class="btn btn-primary" data-dismiss="modal" aria-label="Close">submit</button>
                     
                 </div>
             </div>
@@ -5041,7 +5019,6 @@ function myFunction() {
 
 </head>
 <body>
-
 
 
 
