@@ -32,7 +32,7 @@ function generate(user_input) {
   qr_code_element.appendChild(download);
 
   let download_link = document.createElement("a");
-  download_link.setAttribute("download", "qr_code.png");
+  download_link.setAttribute("", "qr_code.png");
   download_link.innerHTML = `Download <i class="fa-solid fa-download"></i>`;
 
   download.appendChild(download_link);
