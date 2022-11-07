@@ -209,7 +209,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   <h4>  Total:
                     {{total() | currency:'₹'}} </h4></td>
          
-	
 
 
 
@@ -220,6 +219,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	
 
 </div>
+
 
 <script>
 // Get the modal
@@ -271,93 +271,4 @@ window.onclick = function(event) {
 </html>  
 
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - QR Code Generator using Vanilla JavaScript</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>QRCodes | QR Code Generator</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;display=swap'>
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html>
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body>
-
-
-  
-  
-  
-  
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<body>
-
-<div ng-app="">
- 
-  
-  
-  
-
-<p>ENTER AMOUNT <input type="text" ng-model="name" value="200"></p>
-
-  
-  <button class="button" type="submit" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">GENERATE BARCODE</b>
-  
-  
-  <i class="fa-solid fa-rotate"></i></button>
-
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content">
-      <header class="w3-container w3-teal"> 
-        <span onclick="document.getElementById('id01').style.display='none'" 
-        class="w3-button w3-display-topright">&times;</span>
-        <h2>YOU ARE PAYING {{name}} Rs. TO HINDUSTAN TOYS</h2>
-      </header>
-      <div class="w3-container">
-   
-
-
-<div class="user-input-section">
-  <section class="heading">
-
-  </section>
-  <section class="user-input">
-    
-
-    
-    <input type="hidden" placeholder="Type something..." name="input_text" id="input_text" autocomplete="off" value="upi://pay?pa=9827734802@ybl&pn=sameer motwani&cu=INR&am={{name}}">
-    
-  </section>
-</div>
-<div class="qr-code-container">
-  <div class="qr-code" style></div>
-</div>
-    
-    
-      </div>
-      <footer class="w3-container w3-teal">
-        <p>THANKYOU FOR SHOPPING WITH US</p>
-      </footer>
-    </div>
-  </div>
-</div>
-            
-</body>
-</html>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'></script><script  src="./qr.js"></script>
-
-</body>
-</html>
