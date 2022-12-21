@@ -38,6 +38,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
   height: 100%;
 }
 
+
+.modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    overflow: auto;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -112,7 +132,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <th>Product</th>  
                     <th>Quantity</th>  
                     <th>Price</th> 
- <th>Select</th>					
+ <th>Select</th>	
+<th>price</th>  
                     <th>Total</th>  
                     <th></th>  
                 </tr>  
@@ -134,10 +155,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					<td>  
 					<select name="cars" id="cars" ng:model="item.select" class="form-control">
     <option value="0.60">R</option>
-    <option value="1">W</option>
-	<option value="0.50">H</option>
+	<option value="0.50">W</option>
+    <option value="1">D</option>
+	
  
   </select>
+  
+ <td> {{item.cost * item.select | currency:'₹'}} </td>
+  
   <br><br></td>  
 					
 					
@@ -214,11 +239,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
-
-
 	
 
 </div>
+
+
 
 
 <script>
