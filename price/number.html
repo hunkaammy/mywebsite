@@ -13,12 +13,14 @@
   <p>
     <input type="number" id="num-one"  placeholder="add price" >   <br>
     <input type="text" id="num-two" placeholder="add percentage"> <br>
+	    <input type="hidden" id="num-three" placeholder="add percentage"> <br>
     
     
    
   </p>
   <p id="add-sum"></p>
 <h1 id="add-sum1"></h1>
+<h1 id="add-sum2"></h1>
 </main>
 
 
@@ -27,17 +29,23 @@ var numOne = document.getElementById("num-one");
 var numTwo = document.getElementById("num-two");
 var addSum = document. getElementById("add-sum");
 var addSum1 = document. getElementById("add-sum1");
+var numThree = document.getElementById("num-three");
+var addSum2 = document. getElementById("add-sum2");
 
 numOne.addEventListener("input", add);
 numTwo.addEventListener("input", add);
+numThree.addEventListener("input", add);
 
 function add(){
   var one = Number(numOne.value) || 0;
   var two = Number(numTwo.value) || 0;
+  var three = Number(numThree.value) || 0;
   var sum = Number(one*two);
   var sum1 = Number(sum*2);
+  var sum2 = Number(sum*1.15);
   addSum.innerHTML = "PRICE IS: " + sum;
   addSum1.innerHTML = "NUMBER IS: " + sum1;
+  addSum2.innerHTML = "RETAIL IS: " + sum1*0.60;
 }
 
 </script>
