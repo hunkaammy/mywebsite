@@ -20,41 +20,7 @@
 <div ng-app="">
 
 </ul>
-<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadow">
-                <div class="modal-header">
-                    <h5 class="modal-title">Please tell us your Shop name</h5>
-                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-image" style="background-image: url()">
-                    <form id="inputs" class="needs-validation" novalidate="">
-                        <div class="form-group mx-2 mb-3">
-                            <label for="firstname">Please enter your shop name</label>
-							
-							
-                            <input type="text" class="form-control" ng-model="name" id="firstname" placeholder="Shop Name" required="">
-                        </div>
-                        <div class="form-group mx-2">
-                            <label for="lastname">Please enter your mobile number</label>
-                            <input type="number" class="form-control" ng-model="number" id="lastname" placeholder="Mobile number" required="">
-                        </div>
-                    </form>
-                </div>  
-                <div class="modal-footer justify text-14">
-				<form id="formLoc3569">
-				<label></label><input type="hidden" id="nameLoc3569" value="{{name}}" />
-				<label></label><input type="hidden" id="descLoc3569" value="{{number}}" />
-				
-				 <button id="submit" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Submit</button> </form>
-				<!-- <button type="button" id="close" class="btn btn-primary" data-dismiss="modal" aria-label="Close">submit</button>-->
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="container-fluid h-100 section">
         <div class="row h-100 d-flex">
