@@ -1,4 +1,4 @@
-var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
+var root = new Firebase('https://ordertaking-26a9f-default-rtdb.asia-southeast1.firebasedatabase.app/');
 
 var locRef = root.child('location');
 locRef.on('child_added', function(snap){
