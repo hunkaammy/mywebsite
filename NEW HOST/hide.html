@@ -143,35 +143,13 @@
 
 <div class="userFeatureProductImage">
 <img loading='lazy'   src="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED%20TOYS/1.jpeg" data-enlargable width="100" />
-<form id="formLoc">
-  <label>Name:</label><input type="hidden" id="nameLoc" value="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED%20TOYS/1.jpeg" />
-  <label>Desc:</label><input type="text" id="descLoc" />
+<form id="formLoc12">
+  <label>Name:</label><input type="hidden" id="nameLoc12" value="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED%20TOYS/1.jpeg" />
+  <label>Desc:</label><input type="text" id="descLoc12" />
   <input type="submit" value="send it" name="submitLoc"/>
 </form>
 
-<script>
-var root = new Firebase('https://ters-bd627-default-rtdb.firebaseio.com/');
-
-var locRef = root.child('location');
-locRef.on('child_added', function(snap){
-  var locVal = snap.val();
-  $('#locList').append(
-  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
-  );
-});
-
-
-$("#formLoc").submit(function(e){
-  e.preventDefault();
-  var x = {
-    name:$('#nameLoc').val(),
-    desc:$('#descLoc').val()
-  }; 
-  locRef.push(x);
-});
-
-
-</script>
+<script  src="./HTSHOP.js"></script>
 
 
 
