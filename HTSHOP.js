@@ -1,4 +1,4 @@
-var root = new Firebase('https://ters-bd627-default-rtdb.firebaseio.com/');
+var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
 
 var locRef = root.child('location');
 locRef.on('child_added', function(snap){
