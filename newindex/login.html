@@ -9,6 +9,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
 
 
   <script
@@ -139,22 +140,20 @@ img {
 <h2>New Location</h2>
 <form id="formLoc">
   <label>Name:</label><input type="text" ng-model="name" />
+  {{name}}
   <label>Desc:</label><input type="text" id="descLoc" />
   <input type="submit" value="send it" name="submitLoc"/>
 </form>
 
 
 
+<div ng-app="">
+ 
+
 
 <div class="userFeatureProductImage"><div class="card"><img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/1.jpeg" loading="lazy" alt="random dummy image" /><form id="formLoc18"><label></label><input type="hidden" id="nameLoc18"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/1.jpeg"><input type="hidden" id="cnameLoc18"class="name"  value="{{name}}"><div class="cardbutton" <p>ITEM -1</P><input type="number" id="descLoc18"   placeholder=" QTY "  required><input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div></form></div></div> 
 
 
-<div id="test">blah<div>
-<!-- partial -->
-  <script  src="./HTSHOP.js"></script>
-
-</body>
-</html>
 
 
 <div class="userFeatureProductImage"><div class="card"><img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/2.jpeg" loading="lazy" alt="random dummy image" /><form id="formLoc22"><label></label><input type="hidden" id="nameLoc22"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/2.jpeg"><input type="hidden" id="cnameLoc22"class="name"  value="{{name}}"><div class="cardbutton" <p>ITEM -2</P><input type="number" id="descLoc22"   placeholder=" QTY "  required><input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div></form></div></div> 
@@ -557,6 +556,49 @@ img {
 <div class="userFeatureProductImage"><div class="card"><img src="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/399.jpeg" loading="lazy" alt="random dummy image" /><form id="formLoc419"><label></label><input type="hidden" id="nameLoc419"class=name"  value="https://hunkaammy.github.io/mywebsite/PRODUCTS/IMPORTED TOYS/399.jpeg"><input type="hidden" id="cnameLoc419"class="name"  value="{{name}}"><div class="cardbutton" <p>ITEM -399</P><input type="number" id="descLoc419"   placeholder=" QTY "  required><input onclick="launch_notification();this.value='ADDED ✅'" type="submit" value="SEND"/> </div></form></div></div> 
 
 
+
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title">Please tell us your name</h5>
+                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="">
+ 
+
+				
+				
+				
+                <div class="modal-body bg-image" style="background-image: url()">
+                    <form id="inputs" class="needs-validation" novalidate="">
+                        <div class="form-group mx-2 mb-3">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" id="firstname" ng-model="name" placeholder="First name" required="">
+							
+                        </div>
+                        <div class="form-group mx-2">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" placeholder="Last name" required="">
+                        </div>
+                    </form>
+                </div>  
+                <div class="modal-footer justify text-14">
+                    <button id="submit" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 <div id="test">blah<div>
 <!-- partial -->
   <script  src="./HTSHOP.js"></script>
@@ -629,50 +671,14 @@ img {
 
 
 
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Input text value from modal</title>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Modal</title>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script><link rel="stylesheet" href="./loginpage.css">
 
-</head>
-<body>
 <!-- partial:index.partial.html -->
-<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadow">
-                <div class="modal-header">
-                    <h5 class="modal-title">Please tell us your name</h5>
-                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-image" style="background-image: url()">
-                    <form id="inputs" class="needs-validation" novalidate="">
-                        <div class="form-group mx-2 mb-3">
-                            <label for="firstname">First Name</label>
-                            <input type="text" class="form-control" id="firstname" placeholder="First name" required="">
-                        </div>
-                        <div class="form-group mx-2">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" class="form-control" id="lastname" placeholder="Last name" required="">
-                        </div>
-                    </form>
-                </div>  
-                <div class="modal-footer justify text-14">
-                    <button id="submit" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
    
 <!-- partial -->
