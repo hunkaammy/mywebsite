@@ -329,9 +329,11 @@ footer .credits {
 }
 @media (min-width: 576px) {
 
-	.tabs > ul {
-		width: 150px;
-	}
+	.tabs > ul{
+    width: 150px;
+    POSITION: FIXED;
+    Z-INDEX: 100;
+}
 
 	.tabs > ul li a {
 		flex-wrap: wrap;
@@ -348,9 +350,9 @@ footer .credits {
 	}
 
 	.tabs section {
-		width: calc(100% - 150px);
-		padding: 2rem 2rem;
-	}
+    padding: 2rem 2rem;
+    PADDING-LEFT: 158PX;
+}
 }
 @media (min-width: 768px) {
 
