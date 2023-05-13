@@ -150,7 +150,7 @@ footer .credits {
  * Tabs Container
  */
 .tabs-container {
-	padding: 0rem;
+	padding: 2rem;
 }
 
 /**
@@ -329,11 +329,9 @@ footer .credits {
 }
 @media (min-width: 576px) {
 
-	.tabs > ul{
-    width: 150px;
-    POSITION: FIXED;
-    Z-INDEX: 100;
-}
+	.tabs > ul {
+		width: 150px;
+	}
 
 	.tabs > ul li a {
 		flex-wrap: wrap;
@@ -350,9 +348,9 @@ footer .credits {
 	}
 
 	.tabs section {
-    padding: 2rem 2rem;
-    PADDING-LEFT: 158PX;
-}
+		width: calc(100% - 150px);
+		padding: 2rem 2rem;
+	}
 }
 @media (min-width: 768px) {
 
@@ -361,7 +359,7 @@ footer .credits {
 	}
 
 	.tabs-container {
-		padding: 0rem 0rem;
+		padding: 4rem 4rem;
 	}
 }
 @media (min-width: 992px) {
