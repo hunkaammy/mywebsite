@@ -170,10 +170,11 @@ footer .credits {
 }
 
 .tabs > ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	width: 24%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 23%;
+    FONT-SIZE: 12PX;
 }
 
 .tabs > ul li {
