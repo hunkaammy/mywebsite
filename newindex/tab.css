@@ -330,8 +330,10 @@ footer .credits {
 @media (min-width: 576px) {
 
 	.tabs > ul {
-		width: 150px;
-	}
+    width: 102PX;
+    TEXT-ALIGN: CENTER;
+    FONT-SIZE: 10PX;
+}
 
 	.tabs > ul li a {
 		flex-wrap: wrap;
