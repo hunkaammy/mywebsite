@@ -150,7 +150,7 @@ footer .credits {
  * Tabs Container
  */
 .tabs-container {
-	padding: 2rem;
+	padding: 0rem;
 }
 
 /**
@@ -359,7 +359,7 @@ footer .credits {
 	}
 
 	.tabs-container {
-		padding: 4rem 4rem;
+		padding: 0rem 0rem;
 	}
 }
 @media (min-width: 992px) {
