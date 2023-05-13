@@ -10,6 +10,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
+
+	<script type="text/javascript">//<![CDATA[
+
+
+      $("img").error(function() {
+         $(this).parent().hide();
+      });
+
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "vWwpc"
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+    <script>
+      let allLines = []
+
+      window.addEventListener("message", (message) => {
+        if (message.data.console){
+          let insert = document.querySelector("#insert")
+          allLines.push(message.data.console.payload)
+          insert.innerHTML = allLines.join(";\r")
+
+          let result = eval.call(null, message.data.console.payload)
+          if (result !== undefined){
+            console.log(result)
+          }
+        }
+      })
+    </script>
+
+
   <script
     type="text/javascript"
     src="http://code.jquery.com/jquery-1.4.4.min.js"
