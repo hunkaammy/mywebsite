@@ -225,68 +225,73 @@ img {
 </head>
 <body>
 
-
 <style>
-
-
-.modal.modal-fullscreen .modal-dialog,
-.modal.modal-fullscreen .modal-content {
-  bottom: 0;
-  left: -10;
-  position: absolute;
-  right: 0;
-  top: 0;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-.modal.modal-fullscreen .modal-dialog {
-  margin: 0;
-  width: 100%;
-  animation-duration:0.6s;
+.modalDialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 100ms ease-in;
+    -moz-transition: opacity 100ms ease-in;
+    transition: opacity 100ms ease-in;
+    pointer-events: none;
 }
-.modal.modal-fullscreen .modal-content {
-  border: none;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-box-shadow: inherit;
-  -moz-box-shadow: inherit;
-  -o-box-shadow: inherit;
-  box-shadow: inherit;
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
 }
-.modal.modal-fullscreen.force-fullscreen .modal-body {
-  padding: 0;
+.modalDialog > div {
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 3px;
+    background: #fff;
 }
-.modal.modal-fullscreen.force-fullscreen .modal-header,
-.modal.modal-fullscreen.force-fullscreen .modal-footer {
-  left: 0;
-  position: absolute;
-  right: 0;
+.close {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f26d7d;
+    color: #fff;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 34px;
+    height: 34px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+    padding-top: 5px;
 }
-.modal.modal-fullscreen.force-fullscreen .modal-header {
-  top: 0;
+.close:hover {
+    background: #fa3f6f;
 }
-.modal.modal-fullscreen.force-fullscreen .modal-footer {
-  bottom: 0;
-}
-
 </style>
 
-
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModalFullscreen" onclick="myFunction()" contenteditable="false">Open Fullscreen Modal</button>
-        </div>
-    </div>
-
-<!-- /.container -->
-<div class="modal fade modal-fullscreen  footer-to-bottom" id="myModalFullscreen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog animated fadeInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                	<h4 class="modal-title">Modal title</h4>
-
-            </div>
-            <div class="modal-body">
-			
-			
-			<!DOCTYPE html>
+<a href="#openModal-about">Modal</a>
+<!--modals-->
+  <div id="openModal-about" class="modalDialog">
+      <div>
+         <a href="#close" title="Close" class="close">X</a>
+		 
+		 
+		 <!DOCTYPE html>
 <html lang="en" >
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -318,13 +323,10 @@ img {
 }
 
 #myTable {
-    border-collapse: collapse;
-    background: white;
-    width: 100px;
-    margin-left: -85px;
-    border: 1px solid #ddd;
-    font-size: 18px;
-    overflow-y: hidden;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
 }
 
 #myTable th, #myTable td {
@@ -345,7 +347,7 @@ img {
 
 <h2>ORDER LISTS</h2>
 
-<input type="text" id="myInput" onkeyup="myFunction()"  value="{{name}}" title="Type in a name">
+<input type="text" id="myInput" onkeyup="myFunction()"  placeholder="Search Order" title="Type in a name">
 
 
 
@@ -563,14 +565,186 @@ function myFunction() {
 </body>
 </html>
 
+         <h2>Modal</h2>
+         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+       </div>
+   </div>
+
+
+            
+			
+			
+			
+
+
+
+
+
+<div ng-app>
+
+
+  <div class="tab-content" ng-class="{'active': activeTab != 2}">
+    <!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Angular Crud Firebase</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<html>
+  <head>
+
+  </head>
+  <body ng-app="app" ng-controller="appCtrl"   >
+ 
+ 
+ 
+   
+  
+    
+   
+    
+
+ 
+    
+ <script 
+         
+         src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+ <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
+  </body>
+</html>
+<!-- partial -->
+  <script>  angular.module('app',["firebase" ])
+.controller('appCtrl',function($scope,$firebase){
+  
+  
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+        var sync = $firebase(ref);
+
+
+  $scope.DB = sync.$asArray();
+  
+  $scope.titulo='Demo Angular';
+  $scope.generos=['Femenino','Masculino']
+ 
+  
+  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  
+  $scope.add=function(){
+    $scope.DB.$add($scope.app);
+    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  }
+  
+  $scope.edit=function(value){
+    $scope.app=value
+  }
+  $scope.delete=function(item){
+    $scope.DB.$remove(item)
+  }
+  
+  
+ 
+})</script>
+
+</body>
+</html>
+
+  </div>
+
+  <div class="tab-content" ng-class="{'active': activeTab == 2}">
+    <!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Angular Crud Firebase</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<html>
+  <head>
+
+  </head>
+  <body ng-app="app" ng-controller="appCtrl"   >
+ 
+ 
+ 
+   
+  
+    
+   
+    
+
+ 
+    
+ <script 
+         
+         src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+ <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
+  </body>
+</html>
+<!-- partial -->
+  <script>  angular.module('app',["firebase" ])
+.controller('appCtrl',function($scope,$firebase){
+  
+  
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+        var sync = $firebase(ref);
+
+
+  $scope.DB = sync.$asArray();
+  
+  $scope.titulo='Demo Angular';
+  $scope.generos=['Femenino','Masculino']
+ 
+  
+  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  
+  $scope.add=function(){
+    $scope.DB.$add($scope.app);
+    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
+  
+  }
+  
+  $scope.edit=function(value){
+    $scope.app=value
+  }
+  $scope.delete=function(item){
+    $scope.DB.$remove(item)
+  }
+  
+  
+ 
+})</script>
+
+</body>
+</html>
+  </div>
+
+</div>
+<!-- partial -->
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+</body>
+</html>
+
 			
 			
             
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+          
         </div>
         <!-- /.modal-content -->
     </div>
