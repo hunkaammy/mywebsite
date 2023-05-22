@@ -282,81 +282,9 @@ img {
 .close:hover {
     background: #fa3f6f;
 }
-
-
-#fixed-header {
-  background: #fff;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,.30);
-  width: 100%;
-  height: 80px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: all 0.3s ease 0s;
-  transform: translateY(-80px);
-  z-index: 100;
-}
-#inner-header {
-  width: 100%;
-  height: 80px;
-}
-nav {
-  width: 100%;
-  height: 80px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 </style>
 
-
-
-
-<body>
-  <header id="fixed-header">
-    <nav>
-      <span>MENU 1</span>
-      <span>MENU 2</span>
-      <span>MENU 3</span>
-      <span><a href="#openModal-about" onclick="myFunction()">Modal</a></span>
-    </nav>
-  </header>
-  <main>
-    <div id="inner-header">
-      <nav>
-        <span>MENU 1</span>
-        <span>MENU 2</span>
-        <span>MENU 3</span>
-        <span><a href="#openModal-about" onclick="myFunction()">Modal</a></span>
-      </nav>
-    </div>
-  </main>
-</body>
-
-<script>
-$(function(){
-  var startPos = 0;
-  var headerElem = $('#fixed-header');
-  var threshold = 200;
-  $(window).on('scroll',function(){
-    var currentPos = $(this).scrollTop();
-    if(currentPos > startPos) {
-      if($(window).scrollTop() >= threshold) {
-        headerElem.css({
-          'transform': 'translateY(0)'
-        });
-      }
-    } else {
-      headerElem.css({
-        'transform': 'translateY(-80px)'
-      });
-    }
-    startPos = currentPos;
-  });
-});
-</script>
-
-
+<a href="#openModal-about" onclick="myFunction()">Modal</a>
 <!--modals-->
   <div id="openModal-about" class="modalDialog">
       <div>
