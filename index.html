@@ -1906,7 +1906,7 @@ p.naslov-text {
 } </style>
 
 
-  <button type="button" id="btn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="myFunction()" >Your Order  </button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="myFunction()" >Your Order  </button>
 
 
   <div class="modal fade" id="myModal" role="dialog">
@@ -1928,15 +1928,10 @@ p.naslov-text {
 </head>
 <body>
 <object data="https://hunkaammy.github.io/mywebsite/cart#myInput={{name}}" width="300" height="400"> 
-    <embed id="iframeid" src="https://hunkaammy.github.io/mywebsite/cart#myInput=ravina" width="300" height="400"> </embed> 
+    <embed src="https://hunkaammy.github.io/mywebsite/cart#myInput=ravina" width="300" height="400"> </embed> 
     Error: Embedded data could not be displayed. 
 </object>
-  <script>
-            function reload() {
-                document.getElementById('iframeid').src += '';
-            }
-            btn.onclick = reload;
-        </script>
+
 
 <div class="container">
 <div class="col text-center">
