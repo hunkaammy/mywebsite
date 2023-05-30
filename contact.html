@@ -53,9 +53,10 @@
 <body>
 
 <h2>ORDER LISTS</h2>
-
-<input type="text" id="myInput" onkeyup="myFunction()"  placeholder="Search Order" title="Type in a name">
-
+<form>
+<input type="text" id="myInput"   placeholder="Search Order" title="Type in a name">
+<input type="button" id="click" onclick="myFunction()" />
+</form>
 
 
 <table id="myTable">
@@ -269,7 +270,10 @@ function myFunction() {
 </div>
 <!-- partial -->
 
-<script>
+
+
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+  <script>
 var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
 for(var i = 0; i < hashParams.length; i++){
     var p = hashParams[i].split('=');
@@ -277,6 +281,19 @@ for(var i = 0; i < hashParams.length; i++){
 }
 </script>
 
-  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+
+<script>
+//Tutorial by Eddie Kidiw
+//https://www.eddiekidiw.org
+$(document).ready(function(){
+ $('#click').click(function(){
+        alert('button clicked');
+    });
+  // set time out 5 sec
+     setTimeout(function(){
+        $('#click').trigger('click');
+    }, 4000);
+});
+</script>
 </body>
 </html>
