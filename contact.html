@@ -84,6 +84,124 @@
    
 </table>
 
+
+<!-- Snippet	 -->
+<section class="container">
+	<pre class="content">
+			<code class="code">
+				Hey! I just copied something;
+			</code>
+  </pre>
+</section>
+
+<section class="container">
+	<pre class="content">
+			<code class="code">
+				Hey! I just copied another;
+			</code>
+  </pre>
+</section>
+
+<div class="tooltip">
+<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+</div>
+
+
+<!-- Output	 -->
+<textarea placeholder="Paste snippet" rows="10" cols="30" class="textarea"></textarea>
+
+
+<style>
+.container {
+	position: relative;
+	text-align: left;
+}
+
+.content {
+	background-color: #292828;
+	border-radius: 5px;
+	color: #fff;
+	font-family: monaco;
+	min-height: 50px;
+	padding: 20px;
+}
+
+.content::after {
+	content: "Copy";
+	color: #000;
+	background-color: #ffd700;
+	cursor: pointer;
+	padding: 3px 10px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.textarea {
+	resize: none;
+}
+
+/*  */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+<script>
+document.querySelectorAll(".content").forEach((item, index) => {
+	item.addEventListener("click", async (event) => {
+		if (!navigator.clipboard) {
+			// Clipboard API not available
+			return;
+		}
+		try {
+			await navigator.clipboard.writeText(event.target.innerText);
+			alert("Copied to clipboard");
+			
+			var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copied"
+			
+		} catch (err) {
+			console.error("Failed to copy!", err);
+		}
+	});
+});
+</script>
+
 <script>
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
