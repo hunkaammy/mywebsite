@@ -43,12 +43,9 @@ html,body{
 }
 
 img {
-  display: block;
-  margin: 10px auto;
-  opacity: 0;
-  transform: scale(1.2);
-  transition: all .25s;
-  &.loaded {
-    opacity: 1;
-    transform: none;
-  }
+    display: block;
+    margin: 10px auto;
+    opacity: 100%;
+    transform: scale(1.2);
+    transition: all .25s;
+}
