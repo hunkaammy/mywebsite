@@ -7,53 +7,41 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
 
-
-body {
-    background-color: #f8e0b3;
-	  overscroll-behavior: contain;
-    height:1080px;
-    width:100%;
-
-}
-
-@media only screen and (max-width: 700px) {
-  body {
-    background-color: lightblue;
-  }
-}
-
-p.naslov-text {
-    font-size:40px;
-    color:#634ea9;
-    margin:0 auto;
-    margin-top:0%;
-    margin-left:36%;
-    font-family: Aramis;
-}
-
-  </style
 
 
 
 <style>
-* {
-  box-sizing: border-box;
-}
 
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 50%;
-  
+html, body {
+  margin: 0;
+  padding: 0;
 }
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+h1 {
+  margin-left: 0.5rem;
+}
+p {
+  margin-left: 0.5rem;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+.wrapper {
+  position: relative;
+}
+.onscreen {
+  width: 100vw;
+  height: 200px;
+  background: red;
+  color: white;
+}
+.offscreen {
+  position: absolute;
+  height: 200px;
+  width: 50vw;
+  left: 100vw;
+  top: 0;
+  background: blue;
+  color: white;
 }
 </style>
 </head>
@@ -647,14 +635,17 @@ float:  right;
 			
 
 <style>
+
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-  padding-top: 1px;
-  margin-bottom: 40px;
+   {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 134px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    padding-top: 1px;
+    padding: 3px;
+    margin-bottom: 40px;
 }
 
 .price {
