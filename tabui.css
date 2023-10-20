@@ -15,14 +15,15 @@ div.bhoechie-tab-container{
   opacity: 0.97;
   filter: alpha(opacity=97);
 }
-div.bhoechie-tab-menu{
+div.bhoechie-tab-menu {
     padding-right: 0;
-    padding-left: 0;
+    padding-left: 0px;
     padding-bottom: 0;
     position: fixed;
     overflow: auto;
     height: 100%;
-	    WIDTH: 75PX;
+    WIDTH: 85PX;
+    FONT-SIZE: inherit;
 }
 div.bhoechie-tab-menu div.list-group{
    {
