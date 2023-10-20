@@ -22,8 +22,9 @@ div.bhoechie-tab-menu {
     position: fixed;
     overflow: auto;
     height: 100%;
-    WIDTH: 85PX;
-    FONT-SIZE: inherit;
+    WIDTH: 97PX;
+    FONT-SIZE: 11px;
+    z-index: 1;
 }
 div.bhoechie-tab-menu div.list-group{
    {
