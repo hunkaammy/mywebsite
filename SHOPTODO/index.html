@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>CodePen - Firebase - Todolist</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -54,22 +55,7 @@
 	<button @click="testt()">Test</button>
 </div>
 
-<div id="learnInfo">
-	<h2>Learn in this example:</h2>	
-<ol>
-	<li>1. Database: Use firebase to save data (database), need use &lt;form&gt; to send data</li><br>
-	<li>2. CSS: Let article break (word-wrap:break-word;)</li><br>
-	<li>3. Vue: &lt;form&gt; can press "enter" to submit no need @keyup.enter</li><br>
-	<li>3-1. (.prevent) @submit.prevent , let the page doesn't refresh when submit</li><br>
-	<li>3-2. v-if: alert a tips if the input is empty when submit(add) , and typing sth in input	this alert will disappear</li><br>
-	<li>3-3. use {{}} to bind data , its only can be string. if you wnat to render HTML Tag ,<br>
-	then you must be change {{}} to v-html ( *see details in  &lt;span class="time"&gt; )</li><br>
-	<li>3-4. editHandler(idx) can selecet "idx" value becasue editHandler() is  in v-for="lists" , <br>
-	but editDone() cant call value because editDone() is not in the v-for="lists" , <br>
-	so we set a tempKey in data , and we select a todo( editHandler(idx) ) will give a idx,then this idx pass value in tempKey , when we editDone there are no idx can use on TodosRef.child(idx) , so we can use tempKey make a idx to TodosRef.child(idx) </li><br>
- 	<li>4. Delete confirm alert</li><br>
-	</ol>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
