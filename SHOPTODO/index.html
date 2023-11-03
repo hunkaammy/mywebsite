@@ -41,7 +41,7 @@
 			<div class="todo">
 				<p>
 					{{todo.newTodo}}
-					<span class="idx">{{idx}}</span>
+					
 				</p>
 				
 			</div>
@@ -49,10 +49,10 @@
 			
 			<span class="date" v-html="getTime(todo.newTime)"></span>
 			<button class="editBtn" @click="editHandler(idx)">Edit</button>
-			<button class="deleteBtn" @click="removeHandler(idx)">Del</button>
+			<button class="deleteBtn" @click="removeHandler(idx)">Del</button><br> <br>
 		</li>
 	</ul>
-	<button @click="testt()">Test</button>
+
 </div>
 
 

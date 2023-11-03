@@ -2,12 +2,7 @@ body {
   font-family: monospace, "Microsoft JhengHei";
 }
 
-#todolistApp {
-  width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid black;
-}
+
 #todolistApp h1 {
   margin: 10px;
   font-size: 25px;
