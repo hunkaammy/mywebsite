@@ -1,0 +1,145 @@
+body {
+  font-family: monospace, "Microsoft JhengHei";
+}
+
+#todolistApp {
+  width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid black;
+}
+#todolistApp h1 {
+  margin: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.todoInputSection {
+  margin: 20px auto;
+}
+.todoInputSection input {
+  border: 1px black solid;
+  width: 250px;
+  margin: 10px auto;
+  margin-left: 10px;
+  height: 20px;
+}
+.todoInputSection .addBtn {
+  float: right;
+  right: 2.5%;
+  top: -30px;
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: darkgreen;
+  border: 1px solid #00000042;
+  color: snow;
+}
+.todoInputSection hr {
+  width: 100%;
+  background: #3a3a3a3a;
+  height: 1px;
+  border: none;
+}
+.todoInputSection .doneBtn {
+  width: 50px;
+  height: 24px;
+  background: darkgreen;
+  border: 1px solid #00000042;
+  color: snow;
+}
+.todoInputSection .cxlBtn {
+  width: 50px;
+  height: 24px;
+  background: maroon;
+  border: 1px solid #00000042;
+  color: snow;
+}
+
+.inputWarning {
+  font-size: 10px;
+  margin-left: 12px;
+}
+
+.emptyWarning {
+  color: red;
+}
+
+.title {
+  margin-bottom: -5px;
+}
+.title h2 {
+  display: inline-block;
+  width: 390px;
+  margin-top: 10px;
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.title span {
+  display: inline-block;
+}
+
+.todo-list {
+  text-align: left;
+  margin: 20px auto;
+}
+.todo-list li {
+  margin-bottom: 24px;
+  padding-left: 10px;
+  border-bottom: 1px solid black;
+}
+.todo-list li .todo {
+  display: inline-block;
+  width: 350px;
+  padding-bottom: 5px;
+  margin-right: 30px;
+}
+.todo-list li .todo p {
+  line-height: 18px;
+  word-wrap: break-word;
+}
+.todo-list li .todo .idx {
+  color: #eee;
+  display: inline-block;
+  float: right;
+  margin-right: -30px;
+}
+.todo-list li .date {
+  display: inline-block;
+  margin: auto 5px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.todo-list li .editBtn {
+  width: 40px;
+  height: 20px;
+  background: green;
+  border: 1px solid #00000042;
+  color: snow;
+}
+.todo-list li .deleteBtn {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background: maroon;
+  border: 1px solid #00000042;
+  color: snow;
+}
+
+button {
+  border-radius: 3px;
+}
+
+#learnInfo {
+  margin-top: 60px;
+  margin-left: 20px;
+  color: gray;
+  font-size: 12px;
+  line-height: 16px;
+}
+#learnInfo h2 {
+  font-size: 16px;
+  font-weight: bold;
+}
