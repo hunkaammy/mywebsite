@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title>Dynamically Submit Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+</head>
+
+<body ng-controller="imagesController as vm">
+
+    <br><br>
+
+    <div ng-repeat="image in vm.images | orderBy: '-date'" >
+        {{$index}}
+        <input type="text" id="{{'inputa' + $index}}" ng-model="image.url">
+        <input type="text" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="image.field2">
+        <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
+        <button id="submitButton" ng-click="submitData(image, $index)">Submit</button> <br><br>
+    </div>
+
+    <div ng-repeat="submittedData in vm.submittedData">
+        {{$index + 1}}. Field 1: {{submittedData.field1}}, Field 2: {{submittedData.field2}}, Field 3: {{submittedData.field3}}
+        <button ng-click="deleteData(submittedData.$id)">Delete</button><br>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', ['firebase']);
+
+        app.controller('imagesController', function ($scope, $firebaseArray) {
+            $scope.vm = this;
+            $scope.vm.images = [];
+            $scope.vm.submittedData = [];
+
+            var firebaseConfigSubmit = {
+    apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+  authDomain: "notes-12519.firebaseapp.com",
+  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+  projectId: "notes-12519",
+  storageBucket: "notes-12519.appspot.com",
+  messagingSenderId: "1073774450189",
+  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+  measurementId: "G-GZXYCJ33TR"
+};
+            
+
+            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+
+            var databaseSubmit = firebaseSubmit.database().ref();
+            var listSubmit = $firebaseArray(databaseSubmit);
+
+            $scope.vm.submitData = function (image, index) {
+                var inputa = image.url;
+                var inputb = image.field2;
+                var inputc = image.field3;
+
+                var newDataKey = databaseSubmit.push().key;
+
+                databaseSubmit.child(newDataKey).set({
+                    field1: inputa,
+                    field2: inputb,
+                    field3: inputc
+                });
+
+                // Clear input fields after submission
+                image.url = '';
+                image.field2 = '';
+                image.field3 = '';
+            };
+
+            // Fetch submitted data
+            listSubmit.$loaded().then(function (data) {
+                $scope.vm.submittedData = data;
+            });
+
+            $scope.deleteData = function (dataId) {
+                databaseSubmit.child(dataId).remove();
+            };
+
+            $scope.image = function (event) {
+                event.preventDefault();
+                var file = event.target.files[0];
+                uploadImage(file);
+            };
+
+            function uploadImage(file) {
+                var random = parseInt(Math.random() * 1000000);
+                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
+                var uploadTask = refStorageSubmit.put(file);
+
+                uploadTask.on('state_changed', null, function (error) {
+                    console.error('Upload error:', error);
+                }, function () {
+                    var imageData = {
+                        url: uploadTask.snapshot.ref.getDownloadURL(),
+                        bytes: uploadTask.snapshot.totalBytes,
+                        name: uploadTask.snapshot.metadata.name,
+                        path: uploadTask.snapshot.ref.fullPath,
+                        date: uploadTask.snapshot.metadata.timeCreated
+                    };
+
+                    listSubmit.$add(imageData).then(function (ref) {
+                        swal("Success", "Your image has been uploaded", "success");
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            angular
+                .module('myApp')
+                .directive('customOnChange', customOnChange);
+
+            function customOnChange() {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        var onChangeHandler = scope.$eval(attrs.customOnChange);
+                        element.bind('change', onChangeHandler);
+                    }
+                };
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
+</html>
