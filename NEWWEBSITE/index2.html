@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<header data-header class="header">
+  <button data-logout-button class='logout-button'>Logout</button>
+  <div class="welcome">'Ello.
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+
+
+<style>
+
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.containers {
+  padding: 2px 16px;
+  background: #F8F7FF;
+}
+
+.qtyclass {
+    height: 40px;
+    padding: 2px 16px;
+    width: 66px;
+    margin-right: 1px;
+}
+
+.submit
+{
+    -webkit-appearance: button;
+    cursor: pointer;
+    BACKGROUND: #5A55A3;
+    COLOR: WHITE;
+    WIDTH: 86PX;
+    height: 40px;
+    margin-left: 10px;
+}
+
+p {
+    
+}
+
+
+.header {
+
+  .logout-button, 
+  .welcome {
+    display: none;
+  }
+
+  &.state-logged-in {
+    .logout-button, 
+    .welcome {
+      display: block;
+    }    
+  }
+  
+}
+
+.user-authorization {
+  padding: 10px;
+  background-color: #DDD;
+
+  .login-form {
+    &.state-hidden {
+      display: none;
+    }
+  }
+
+  .login-user {
+    &.state-hidden {
+      display: none;
+    }
+  }
+
+}
+
+
+// DEMO Purposes only
+* {
+  font-family: sans-serif;
+}
+</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title>Dynamically Submit Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+</head>
+
+  </script>
+
+<body ng-controller="imagesController as vm">
+
+
+
+    <!-- New input field for dynamic ng-value -->
+    <label>Dynamic Field 2 Value: </label>
+    <input type="text" ng-model="dynamicField2Value" placeholder="enter name" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.7/jquery.lazyload.js"></script>
+
+
+
+    <div ng-repeat="image in vm.images | orderBy: '-date'" >
+       
+		
+		<div id="containers">
+		
+		<div class="card">
+<img class="lazy img-responsive" src="{{image.url}}" data-original="{{image.url}}" width="450" height="450" alt="Little guy" style="width:100%">
+ 
+ 
+		
+		     
+        <div class="containers">
+    <h4><b> ITEM NO.{{$index}}</b></h4> 
+    <p>Architect & Engineer</p> 
+	   <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
+        <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
+        <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
+        <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
+ <br><br>
+    </div> </div>
+</div><br><br>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+     $("img.lazy").lazyload({
+         effect : "fadeIn"
+     });
+
+  });
+</script>
+
+    <script>
+        var app = angular.module('myApp', ['firebase']);
+
+        app.controller('imagesController', function ($scope, $firebaseArray) {
+            $scope.vm = this;
+            $scope.vm.images = [];
+            $scope.dynamicField2Value = ""; // Set your default dynamic value
+
+            var firebaseConfigFetch = {
+                  apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+  authDomain: "htshop-e9c51.firebaseapp.com",
+  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+  projectId: "htshop-e9c51",
+  storageBucket: "htshop-e9c51.appspot.com",
+  messagingSenderId: "653137640907",
+  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+  measurementId: "G-FJ4Q0FHBEG"
+            };
+
+            var firebaseConfigSubmit = {
+                apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+  authDomain: "notes-12519.firebaseapp.com",
+  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+  projectId: "notes-12519",
+  storageBucket: "notes-12519.appspot.com",
+  messagingSenderId: "1073774450189",
+  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+  measurementId: "G-GZXYCJ33TR"
+            };
+
+            var firebaseFetch = firebase.initializeApp(firebaseConfigFetch, 'fetchApp');
+            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+
+            var storageServiceFetch = firebaseFetch.storage();
+            var databaseFetch = firebaseFetch.database().ref();
+            var listFetch = $firebaseArray(databaseFetch);
+            $scope.vm.images = listFetch;
+
+            var storageServiceSubmit = firebaseSubmit.storage();
+            var databaseSubmit = firebaseSubmit.database().ref();
+            var listSubmit = $firebaseArray(databaseSubmit);
+
+            $scope.submitData = function (image, index) {
+                var inputa = image.url;
+                var inputb = $scope.dynamicField2Value; // Use dynamicField2Value here
+                var inputc = image.field3;
+
+                var newDataKey = databaseSubmit.push().key;
+
+                databaseSubmit.child(newDataKey).set({
+                    field1: inputa,
+                    field2: inputb,
+                    field3: inputc
+                });
+            };
+
+            $scope.image = function (event) {
+                event.preventDefault();
+                var file = event.target.files[0];
+                uploadImage(file);
+            };
+
+            function uploadImage(file) {
+                var random = parseInt(Math.random() * 1000000);
+                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
+                var uploadTask = refStorageSubmit.put(file);
+
+                uploadTask.on('state_changed', null, function (error) {
+                    console.error('Upload error:', error);
+                }, function () {
+                    var imageData = {
+                        url: uploadTask.snapshot.ref.getDownloadURL(),
+                        bytes: uploadTask.snapshot.totalBytes,
+                        name: uploadTask.snapshot.metadata.name,
+                        path: uploadTask.snapshot.ref.fullPath,
+                        date: uploadTask.snapshot.metadata.timeCreated
+                    };
+
+                    listSubmit.$add(imageData).then(function (ref) {
+                        swal("Success", "Your image has been uploaded", "success");
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            angular
+                .module('myApp')
+                .directive('customOnChange', customOnChange);
+
+            function customOnChange() {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        var onChangeHandler = scope.$eval(attrs.customOnChange);
+                        element.bind('change', onChangeHandler);
+                    }
+                };
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
+</html>
+
+
+
+</div>
+
+</header>
+
+<div class="user-authorization">
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+  <form id="formLoc">
+    <input type="text" id="nameLoc"  class='login-username' oninput="validateInputs()" ng-model="dynamicField2Value"   />
+    <input type="text" class='login-password' oninput="validateInputs()" id="descLoc" />
+    <input type="submit" name="submitLoc" data-login-button class='login-button' disabled>
+  </form>
+
+
+<script>
+var root = new Firebase('https://notes-12519-default-rtdb.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+$("#formLoc").submit(function(e){
+  e.preventDefault();
+  var x = {
+    field1:$('#nameLoc').val(),
+    field2:$('#descLoc').val()
+  }; 
+  locRef.push(x);
+});
+
+
+</script>
+
+
+
+  <div data-login-user class="login-user state-hidden">
+    Yo, username.
+    <button data-logout-button class='logout-button'>Logout</button>
+  </div>
+</div>
+
+<script>
+  function validateInputs() {
+    var loginButton = document.querySelector('[data-login-button]');
+    var usernameInput = document.querySelector('.login-username');
+    var passwordInput = document.querySelector('.login-password');
+
+    loginButton.disabled = usernameInput.value.trim() === '' || passwordInput.value.trim() === '';
+  }
+</script>
+
+
+<script>
+$('document').ready(function(){
+  
+  $('[data-login-button], [data-logout-button]').click(function(){
+    $('[data-login-form], [data-login-user]').toggleClass('state-hidden');
+    $('[data-header]').toggleClass('state-logged-in');
+  });
+  
+});
+</script>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
+</html>
