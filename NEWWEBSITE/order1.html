@@ -14,6 +14,10 @@
 <head>
 
 <style>
+
+
+
+
 * {
   box-sizing: border-box;
 }
@@ -38,7 +42,7 @@
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 12px;
+ 
 }
 
 #myTable tr {
@@ -53,24 +57,52 @@
 <body>
 
 <h2>ORDER LISTS</h2>
+<form>
+<input type="hidden" id="myInput" onkeyup="myFunction()"   placeholder="Search Order" title="Type in a name">
+ 
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
 
-<input type="text" id="myInput" onkeyup="myFunction()"  placeholder="Search Order" title="Type in a name">
+
+<div class="container">
+<div class="col text-center">
+<p style="display:none;"><button id="click" onclick="myFunction()" class="btn btn-danger">SEARCH</button></p>
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js'></script><script  src="./script.js"></script>
 
 
+  </div>
+   </div>
+</form>
+<script>
+//Tutorial by Eddie Kidiw
+//https://www.eddiekidiw.org
+$(document).ready(function(){
+ $('#click').click(function(){
+        ;
+    });
+  // set time out 5 sec
+     setInterval(function(){
+        $('#click').trigger('click');
+    }, 1000);
+});
+</script>
 
 <table id="myTable">
   <tr class="header">
-    <th style="width:10%;">Name</th>
+    <th style="width:10%;"><p style="font-size:0px;">Name</p></th>
     <th style="width:10%;">Item</th>
     <th style="width:10%;">Qty</th>
+	<th style="width:10%;">ACTION</th>
   </tr>
   <tr>
         
        
         <tr class="item" ng-repeat="value in DB">
 
-          <td>{{value.field2}}</td>
-          <td><img src="{{value.field1}}" alt="items" width="200" height="200">
+          <td><p style="font-size:0px;">{{value.field2}}</p></td>
+          <td><img src="{{value.field1}}" alt="items" width="100" height="100">
 </td>
           <td>{{value.field3}}</td> 
 <td> <button type="button" ng-click="delete(value)">Delete</button>   </tr>
@@ -156,7 +188,7 @@ function myFunction() {
 .controller('appCtrl',function($scope,$firebase){
   
   
-  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/");
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
         var sync = $firebase(ref);
 
 
@@ -232,7 +264,7 @@ function myFunction() {
 .controller('appCtrl',function($scope,$firebase){
   
   
-  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com");
         var sync = $firebase(ref);
 
 
@@ -268,6 +300,19 @@ function myFunction() {
 
 </div>
 <!-- partial -->
+
+
+
   <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+  <script>
+var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+for(var i = 0; i < hashParams.length; i++){
+    var p = hashParams[i].split('=');
+    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
+}
+</script>
+
+
+
 </body>
 </html>
