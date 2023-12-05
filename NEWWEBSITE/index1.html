@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CodePen - Upload Images to Firebase 3</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+
+
+
 <style>
+
 
 
 .card {
@@ -26,6 +27,27 @@
   background: #F8F7FF;
 }
 
+.qtyclass {
+    height: 40px;
+    padding: 2px 16px;
+    width: 66px;
+    margin-right: 1px;
+}
+
+.submit
+{
+    -webkit-appearance: button;
+    cursor: pointer;
+    BACKGROUND: #5A55A3;
+    COLOR: WHITE;
+    WIDTH: 86PX;
+    height: 40px;
+    margin-left: 10px;
+}
+
+p {
+    
+}
 
 </style>
 
@@ -71,8 +93,9 @@
     <p>Architect & Engineer</p> 
 	   <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
         <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
-        <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
-        <button id="submitButton" ng-click="submitData(image, $index)">Submit</button> <br><br>
+        <input type="text" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
+        <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
+ <br><br>
     </div> </div>
 </div><br><br>
 
