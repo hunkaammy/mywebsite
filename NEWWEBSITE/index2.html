@@ -102,6 +102,7 @@ p {
 .user-authorization {
   padding: 10px;
   background-color: #DDD;
+  }
 
   .login-form {
     &.state-hidden {
@@ -373,8 +374,9 @@ p {
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
   <form id="formLoc">
-    <input type="text" id="nameLoc"  class='login-username' oninput="validateInputs()" ng-model="dynamicField2Value" placeholder="Enter your shop name"   />
-    <input type="number" class='login-password' oninput="validateInputs()" id="descLoc"  placeholder="Enter your mobile number" />
+<label> Enter your shop name </label><br> 
+    <input type="text" id="nameLoc"  class='login-username' oninput="validateInputs()" ng-model="dynamicField2Value" placeholder="Enter your shop name"   /> <br><br><label> Enter your mobile number </label><br>
+    <input type="number" class='login-password' oninput="validateInputs()" id="descLoc"  placeholder="Enter your mobile number" /> <br> <br>
     <input type="submit" name="submitLoc" data-login-button class='login-button' disabled>
   </form>
 
