@@ -52,7 +52,7 @@
         }
 
         list.$add(imageData).then(function(ref) {
-          swal("Success", "Your image has been upload", "success")
+          swal
         });
       }
     );
