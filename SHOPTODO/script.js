@@ -1,9 +1,9 @@
 // Firebase config
 var config = {
-    apiKey: "AIzaSyDXTnqM1_gCNui8EW9uAqWof7lpnbGolEc",
-    authDomain: "firetodo666.firebaseapp.com",
-    databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
-    storageBucket: "firetodo666.appspot.com",
+   apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+  authDomain: "shop-reminder-3ce10.firebaseapp.com",
+  databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+    storageBucket: "shop-reminder-3ce10",
 };
 
 // Firebase intialise
