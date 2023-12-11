@@ -224,9 +224,12 @@ p {
 		     
         <div class="containers">
     <h4><b> ITEM NO.{{$index+1}}</b></h4> 
-    <p>Product name </p> 
+    <p>{{image.name}}</p> 
 	   <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
         <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
+		<!-- Add this input field inside the card section -->
+
+
         <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
         <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
  <br><br>
@@ -289,20 +292,24 @@ p {
             var storageServiceSubmit = firebaseSubmit.storage();
             var databaseSubmit = firebaseSubmit.database().ref();
             var listSubmit = $firebaseArray(databaseSubmit);
+			
+			
 
-            $scope.submitData = function (image, index) {
-                var inputa = image.url;
-                var inputb = $scope.dynamicField2Value; // Use dynamicField2Value here
-                var inputc = image.field3;
+  $scope.submitData = function (image, index) {
+    var inputa = image.url;
+    var inputb = $scope.dynamicField2Value;
+    var inputc = image.field3;
+    var inputName = image.name; // Add this line
 
-                var newDataKey = databaseSubmit.push().key;
+    var newDataKey = databaseSubmit.push().key;
 
-                databaseSubmit.child(newDataKey).set({
-                    field1: inputa,
-                    field2: inputb,
-                    field3: inputc
-                });
-            };
+    databaseSubmit.child(newDataKey).set({
+        field1: inputa,
+        field2: inputb,
+        field3: inputc,
+        productName: inputName // Add this line
+    });
+};
 
             $scope.image = function (event) {
                 event.preventDefault();
