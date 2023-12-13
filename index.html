@@ -87,10 +87,15 @@ html {
 p {
     
 }
-
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: black;
+    line-height: inherit;
+}
 
 .header {
-
+    margin-top: -70px;
   .logout-button, 
   .welcome {
     display: none;
@@ -106,9 +111,10 @@ p {
 }
 
 .user-authorization {
-  padding: 10px;
-  background-color: #DDD;
-  }
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #DDD;
+}
 
   .login-form {
     &.state-hidden {
@@ -131,6 +137,60 @@ p {
   font-family: sans-serif;
 }
 </style>
+
+
+ <style>
+        /* Style for the navbar */
+        .navbar {
+            background-color: #5A55A3;
+            padding: 10px;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Style for the search input */
+        #searchInput {
+            margin-top: 60px; /* Adjust the margin as needed */
+            padding: 10px;
+            width: 80%;
+        }
+
+        /* Style for the container */
+        .container {
+            margin-top: 120px; /* Adjust the margin-top based on your content height */
+        }
+
+        /* Your existing card styles */
+        #containers {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .containers {
+            margin-top: 10px;
+        }
+
+        .qtyclass {
+            width: 60px;
+        }
+
+        .submit  {
+    background-color: #5A55A3;
+    color: white;
+    /* padding: 10px 15px; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+    </style>
 
 </head>
 <body>
@@ -211,27 +271,33 @@ p {
 
 </body>
 </html>
-    <div ng-repeat="image in vm.images | orderBy: '-date'" >
-       
-		
-		<div id="containers">
-		
-		<div class="card">
-<img class="lazy img-responsive" src="{{image.url}}" data-original="{{image.url}}" width="450" height="450" alt="Little guy" style="width:90%">
- 
- 
-		
-		     
-        <div class="containers">
-    <h4><b> ITEM NO.{{$index+1}}</b></h4> 
-    <p>{{image.name}}</p> 
-	   <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
-        <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
-		<!-- Add this input field inside the card section -->
 
+    <div class="navbar">
+        <!-- Add your navbar content here -->
+        Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name">
+	
+    </div>
 
-        <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
-        <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
+   
+
+<div ng-repeat="image in vm.images | orderBy: '-date' | filter:searchQuery">
+    <div id="containers">
+        <div class="card">
+            <img class="lazy img-responsive" src="{{image.url}}" data-original="{{image.url}}" width="450" height="450" alt="Little guy" style="width:90%">
+
+            <div class="containers">
+                <h4><b> ITEM NO.{{$index+1}}</b></h4>
+                <p>{{image.name}}</p>
+                <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
+                <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
+
+                <!-- Add this input field inside the card section -->
+                <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
+                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
+            </div>
+        </div>
+    </div>
+</div>
  <br><br>
     </div> </div>
 </div><br><br>
