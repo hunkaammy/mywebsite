@@ -191,6 +191,24 @@ button, input, select, textarea {
     cursor: pointer;
 }
     </style>
+	
+	<style>
+	img {
+  display: block;
+  margin: 10px auto;
+  opacity: 1;
+  transform: scale(1.2);
+  transition: all .25s;
+      width: 240px;
+    height: 240px;
+  &.loaded {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+	</style>
 
 </head>
 <body>
@@ -254,7 +272,7 @@ button, input, select, textarea {
       <div class="modal-body">
         
 <object data="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/order1#myInput={{dynamicField2Value}}" width="300" height="400"> 
-    <embed src="https://hunkaammy.github.io/mywebsite/cart#myInput=samrat" width="300" height="400"> </embed> 
+    <embed src="https://hunkaammy.github.io/mywebsite/cart#myInput=samrat" width="229" height="229"> </embed> 
     Error: Embedded data could not be displayed. 
 </object>
       </div>
@@ -283,7 +301,7 @@ button, input, select, textarea {
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter:searchQuery">
     <div id="containers">
         <div class="card">
-            <img class="lazy img-responsive" src="{{image.url}}" data-original="{{image.url}}" width="450" height="450" alt="Little guy" style="width:90%">
+            <img src="{{image.url}}" loading="lazy" width="350" height="350">
 
             <div class="containers">
                 <h4><b> ITEM NO.{{$index+1}}</b></h4>
@@ -302,13 +320,13 @@ button, input, select, textarea {
     </div> </div>
 </div><br><br>
 
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-     $("img.lazy").lazyload({
-         effect : "fadeIn"
-     });
+<script>
+const images = document.querySelectorAll('img');
 
-  });
+for(let img of images) {
+  img.onload = ({target}) => setTimeout(() => {target.classList.add('loaded')}, 200)
+}
+
 </script>
 
 
