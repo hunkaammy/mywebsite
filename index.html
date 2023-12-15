@@ -291,18 +291,33 @@ button, input, select, textarea {
 </body>
 </html>
 
-    <div class="navbar">
-        <!-- Add your navbar content here -->
-        Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name"> <br>
-	Select Product <select ng-model="productNameFilter" >
-    <option value="">All Products</option>
-    <option value="RACKET">RACKET</option>
-    <option value="REMOTE">REMOTE CAR</option>
-    <option value="DOLL">DOLL</option>
-	<option value="LUMO">LUMO PRODUCTS</option>
-</select>
-    </div>
+   <div class="navbar">
+        <!-- Your existing navbar content here -->
+        Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name" id="topBtn" onclick="scrollToTop()"> <br>
+        Select Product <select ng-model="productNameFilter"  id="topBtn" onclick="scrollToTop()" >
+            <option  id="topBtn"  value="">All Products</option>
+            <option  id="topBtn"  value="RACKET">RACKET</option>
+            <option  id="topBtn"  value="REMOTE">REMOTE CAR</option>
+            <option  id="topBtn"  value="DOLL">DOLL</option>
+            <option  id="topBtn"  value="LUMO">LUMO PRODUCTS</option>
+        </select>
+	
+<script>
+</script>
+<script>
+    function resetSelect() {
+        document.getElementById('topBtn').value = '';
+        // Optionally, you can trigger any other actions needed after reset
+        // For example, scrollToTop()
+        scrollToTop();
+    }
 
+    function scrollToTop() {
+        // Your scrollToTop implementation here
+        console.log('Scrolling to top');
+    }
+</script>
+    </div>
 
 <div ng-repeat="image in vm.images  | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
 
@@ -323,6 +338,23 @@ button, input, select, textarea {
         </div>
     </div>
 </div>
+
+ <button id="topBtn" onclick="scrollToTop()">Top</button>
+
+    <script>
+        // JavaScript to handle scrolling
+        function scrollToTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+        }
+
+        // Your existing script here
+        const images = document.querySelectorAll('img');
+
+        for (let img of images) {
+            img.onload = ({ target }) => setTimeout(() => { target.classList.add('loaded') }, 200)
+        }
+    </script>
  <br><br>
     </div> </div>
 </div><br><br>
