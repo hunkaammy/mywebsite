@@ -294,12 +294,17 @@ button, input, select, textarea {
     <div class="navbar">
         <!-- Add your navbar content here -->
         Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name">
-	
+	<select ng-model="productNameFilter" >
+    <option value="">All Products</option>
+    <option value="RACKET">RACKET</option>
+    <option value="REMOTE">REMOTE CAR</option>
+    <option value="DOLL">DOLL</option>
+</select>
     </div>
 
-   
 
-<div ng-repeat="image in vm.images | orderBy: '-date' | filter:searchQuery">
+<div ng-repeat="image in vm.images  | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
+
     <div id="containers">
         <div class="card">
             <img src="{{image.url}}" loading="lazy" width="350" height="350">
