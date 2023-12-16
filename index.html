@@ -35,7 +35,7 @@
 html {
     font-size: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    background: white;
+    background: #5A55A3;
 }
 
 
@@ -44,7 +44,7 @@ html {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 309px;
-    margin-left: 112px;
+    margin-left: 24px;
     text-align: -webkit-center;
 }
 
@@ -208,50 +208,8 @@ button, input, select, textarea {
   }
 }
 
-select:-internal-list-box option:checked {
-    background-color: -internal-light-red(rgb(206, 206, 206), rgb(84, 84, 84));
-    color: -internal-light-dark(rgb(16, 16, 16), rgb(255, 255, 255));
-}
 
 	</style>
-	
-	<style>
-    #topBtn  {
-    BORDER: 0PX;
-    overflow-y: auto;
-}
-
-    #topBtn option{
-    TEXT-ALIGN: CENTER;
-    PADDING: 10PX;
-    BORDER: inset;
-    DISPLAY: block;
-    font-size: 11px;
-    padding: 10px;
-    background-color: WHITE;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    WIDTH: 104PX;
-    PADDING: 31PX 4PX;
-}
-
-    #topBtn option:hover {
-      background-color: #5A55A3;
-    }
-
-    /* Style for the selected option */
-    #topBtn option:checked {
-      background-color: #5A55A3;
-      color: #fff;
-    }
-	
-	div.fixed {
-    z-index: 1;
-    position: fixed;
-    bottom: 0;
-    top: 50px;
-}
-  </style>
 
 </head>
 <body>
@@ -336,8 +294,14 @@ select:-internal-list-box option:checked {
    <div class="navbar">
         <!-- Your existing navbar content here -->
         Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name" id="topBtn" onclick="scrollToTop()"> <br>
-      
-
+        Select Product <select ng-model="productNameFilter"  id="topBtn" onclick="scrollToTop()" >
+            <option  id="topBtn"  value="">All Products</option>
+            <option  id="topBtn"  value="RACKET">RACKET</option>
+            <option  id="topBtn"  value="REMOTE">REMOTE CAR</option>
+            <option  id="topBtn"  value="DOLL">DOLL</option>
+			 <option  id="topBtn"  value="MIX">MIX TOYS</option>
+            <option  id="topBtn"  value="LUMO">LUMO PRODUCTS</option>
+        </select>
 	
 <script>
 </script>
@@ -355,16 +319,6 @@ select:-internal-list-box option:checked {
     }
 </script>
     </div>
-	<div class="fixed">
-	 <select ng-model="productNameFilter" id="topBtn" onclick="scrollToTop()" size="6" style="height: auto;">
-    <option value="">All Products</option>
-    <option value="RACKET">RACKET</option>
-    <option value="REMOTE">REMOTE CAR</option>
-    <option value="DOLL">DOLL</option>
-    <option value="MIX">MIX TOYS</option>
-    <option value="LUMO">LUMO PRODUCTS</option>
-  </select>
-</div>
 
 <div ng-repeat="image in vm.images  | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
 
