@@ -166,8 +166,9 @@ button, input, select, textarea {
 
         /* Your existing card styles */
         #containers {
-            margin-bottom: 20px;
-        }
+    margin-bottom: 20px;
+    MARGIN-TOP: 52PX;
+}
 
         .card {
             border: 1px solid #ccc;
@@ -316,7 +317,7 @@ button, input, select, textarea {
     }
 
     .tab-btn.active {
-        background-color: #4CAF50; /* Change this to your desired active tab color */
+        background-color:#5A55A3; /* Change this to your desired active tab color */
         color: white;
     }
 </style>
@@ -329,11 +330,12 @@ button, input, select, textarea {
 
   <div class="tab-btns">
         <div class="tab-btn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">All Products</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">RACKET</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">REMOTE CAR</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">DOLL</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">MIX TOYS</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">LUMO PRODUCTS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'PALNA'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PALNA</div>
+        <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">RACKET</div>
+        <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">REMOTE CAR</div>
+        <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">DOLL</div>
+        <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">MIX TOYS</div>
+        <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">LUMO PRODUCTS</div>
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
