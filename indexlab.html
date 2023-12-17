@@ -291,10 +291,24 @@ button, input, select, textarea {
 </body>
 </html>
 
+<style>
+    /* Additional styles as needed */
+    #topBtn {
+      display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+      #topBtn {
+        position: fixed;
+        z-index: 9999;
+      }
+    }
+  </style>
+
    <div class="navbar">
         <!-- Your existing navbar content here -->
         Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name" id="topBtn" onclick="scrollToTop()"> <br>
-        Select Product   <select ng-model="productNameFilter" id="topBtn" onclick="scrollToTop()" size="6">
+        Select Product    <select ng-model="productNameFilter" id="topBtn" onclick="scrollToTop()" size="6">
     <option value="">All Products</option>
     <option value="RACKET">RACKET</option>
     <option value="REMOTE">REMOTE CAR</option>
@@ -302,8 +316,9 @@ button, input, select, textarea {
     <option value="MIX">MIX TOYS</option>
     <option value="LUMO">LUMO PRODUCTS</option>
   </select>
+
 	
-  <script>
+    <script>
     // Set the selectedIndex to a non-zero value to keep the dropdown open
     document.getElementById("topBtn").selectedIndex = 1;
 
