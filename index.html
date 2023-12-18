@@ -340,6 +340,7 @@ button, input, select, textarea {
         <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">MIX TOYS</div>
         <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">LUMO PRODUCTS</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'RIDDER'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">MAGIC RIDDER</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">FANCY ITEMS</div>
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
