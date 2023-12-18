@@ -327,12 +327,12 @@ button, input, select, textarea {
 
 <div class="navbar">
     <!-- Your existing navbar content here -->
-    Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+    Search Product <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by name" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
   
 </div>
 
-  <div class="tab-btns">
-        <div class="tab-btn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">All Products</div>
+  <div class="tab-btns" onclick="scrollToTop()">
+        <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">All Products</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'PALNA'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PALNA</div>
         <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">RACKET</div>
         <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">REMOTE CAR</div>
@@ -360,6 +360,8 @@ button, input, select, textarea {
 </div>
 
  <button id="topBtn" onclick="scrollToTop()">Top</button>
+
+
 
     <script>
         // JavaScript to handle scrolling
