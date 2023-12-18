@@ -32,8 +32,6 @@
 
 <style>
 
-
-
 html {
     font-size: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -45,8 +43,8 @@ html {
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 236px;
-    margin-left: 98px;
+    width: 309px;
+    margin-left: 24px;
     text-align: -webkit-center;
 }
 
@@ -55,8 +53,8 @@ html {
 }
 
 .containers {
-    padding: 2px 0px;
-    background: #F8F7FF;
+  padding: 2px 16px;
+  background: #F8F7FF;
 }
 
 .qtyclass {
@@ -168,12 +166,10 @@ button, input, select, textarea {
 
         /* Your existing card styles */
         #containers {
-    margin-bottom: 20px;
-    MARGIN-TOP: 4PX;
-}
+            margin-bottom: 20px;
+        }
 
         .card {
-		
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 8px;
@@ -204,8 +200,8 @@ button, input, select, textarea {
   opacity: 1;
   transform: scale(1.2);
   transition: all .25s;
-      width: 177px;
-    height: 200px;
+      width: 240px;
+    height: 240px;
   &.loaded {
     opacity: 1;
     transform: none;
@@ -295,56 +291,41 @@ button, input, select, textarea {
 </body>
 </html>
 
-<style>
-    .tab-btns  {
-    position: fixed;
-    width: 92px;
-    overflow: overlay;
-    z-index: 1;
-    display: block;
-    flex-direction: column;
-    background-color: white;
-    /* padding: 10px; */
-    /* border: darkorange; */
-}
-    .tab-btn {
-        padding: 10px;
-        margin-bottom: 5px;
-        text-align: left;
-        cursor: pointer;
-        transition: background-color 0.3s;
+   <div class="navbar">
+        <!-- Your existing navbar content here -->
+        Search Product <input type="text" ng-model="searchQuery" placeholder="Search by name" id="topBtn" onclick="scrollToTop()"> <br>
+        Select Product <select ng-model="productNameFilter"  id="topBtn" onclick="scrollToTop()" >
+            <option  id="topBtn"  value="">All Products</option>
+            <option  id="topBtn"  value="RACKET">RACKET</option>
+            <option  id="topBtn"  value="REMOTE">REMOTE CAR</option>
+            <option  id="topBtn"  value="DOLL">DOLL</option>
+			 <option  id="topBtn"  value="MIX">MIX TOYS</option>
+            <option  id="topBtn"  value="LUMO">LUMO PRODUCTS</option>
+        </select>
+	
+<script>
+</script>
+<script>
+    function resetSelect() {
+        document.getElementById('topBtn').value = '';
+        // Optionally, you can trigger any other actions needed after reset
+        // For example, scrollToTop()
+        scrollToTop();
     }
 
-    .tab-btn:hover {
-        background-color: #ddd;
+    function scrollToTop() {
+        // Your scrollToTop implementation here
+        console.log('Scrolling to top');
     }
-
-    .tab-btn.active {
-        background-color:#5A55A3; /* Change this to your desired active tab color */
-        color: white;
-    }
-</style>
-
-<div class="navbar">
-    <!-- Your existing navbar content here -->
-    Search Product <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by name" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
-  
-</div>
-
-  <div class="tab-btns" onclick="scrollToTop()">
-        <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">All Products</div>
-		<div class="tab-btn" ng-click="productNameFilter = 'PALNA'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PALNA</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">RACKET</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">REMOTE CAR</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">DOLL</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">MIX TOYS</div>
-        <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">LUMO PRODUCTS</div>
+</script>
     </div>
 
-<div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
+<div ng-repeat="image in vm.images  | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
+
     <div id="containers">
         <div class="card">
             <img src="{{image.url}}" loading="lazy" width="350" height="350">
+
             <div class="containers">
                 <h4><b> ITEM NO.{{$index+1}}</b></h4>
                 <p>{{image.name}}</p>
@@ -353,15 +334,13 @@ button, input, select, textarea {
 
                 <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
-                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
+                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ✔ '" ng-bind="buttonText || 'Submit'"></button>
             </div>
         </div>
     </div>
 </div>
 
  <button id="topBtn" onclick="scrollToTop()">Top</button>
-
-
 
     <script>
         // JavaScript to handle scrolling
