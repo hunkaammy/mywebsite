@@ -16,7 +16,12 @@
   <div class="welcome">
 
 
-
+ <script type="text/javascript"> 
+        window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
+    </script> 
 
 
 
@@ -547,9 +552,7 @@ for(let img of images) {
   </form>
 
 
-<script type="text/javascript">
-  document.getElementById("myForm").reset();
-</script>
+
 
 <script>
 var root = new Firebase('https://shop-reminder-3ce10-default-rtdb.firebaseio.com/');
