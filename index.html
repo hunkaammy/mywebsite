@@ -547,6 +547,10 @@ for(let img of images) {
   </form>
 
 
+<script type="text/javascript">
+  document.getElementById("myForm").reset();
+</script>
+
 <script>
 var root = new Firebase('https://shop-reminder-3ce10-default-rtdb.firebaseio.com/');
 
@@ -588,17 +592,7 @@ $("#formLoc").submit(function(e){
   }
 </script>
 
-<script>
-    window.location.hash = "no-back-button";
 
-    // Again because Google Chrome doesn't insert
-    // the first hash into the history
-    window.location.hash = "Again-No-back-button"; 
-
-    window.onhashchange = function(){
-        window.location.hash = "no-back-button";
-    }
-</script>
 
 
 <script>
