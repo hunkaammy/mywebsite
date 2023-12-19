@@ -335,7 +335,7 @@ button, input, select, textarea {
 
   <div class="tab-btns" onclick="scrollToTop()">
         <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
-		<div class="tab-btn" ng-click="productNameFilter = 'PALNA WALKER'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PALNA</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'PALNA WALKER'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">WALKER & PALNA</div>
         <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">RACKET</div>
         <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">REMOTE CAR</div>
         <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">DOLL</div>
@@ -344,7 +344,7 @@ button, input, select, textarea {
 		<div class="tab-btn" ng-click="productNameFilter = 'RIDDER'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">MAGIC RIDDER</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">FANCY ITEMS</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">BATTERY OPERATED</div>
-		<div class="tab-btn" ng-click="productNameFilter = 'TRICYCLE RIDDERS'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">TRICYCLES & RIDDERS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'TRICYCLE , RIDDERS'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">TRICYCLES & RIDDERS</div>
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
