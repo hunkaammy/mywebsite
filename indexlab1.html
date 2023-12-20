@@ -9,6 +9,14 @@
 <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
 
 </head>
+
+<script> history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+	</script>
+
+
 <body>
 <!-- partial:index.partial.html -->
 <header data-header class="header">
