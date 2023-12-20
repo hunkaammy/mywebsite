@@ -9,72 +9,11 @@
 <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
 
 </head>
-
-<script> history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
-	</script>
-
-
 <body>
 <!-- partial:index.partial.html -->
 <header data-header class="header">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            
-        }
-
-        #login-container {
-    margin-top: 35px;
-    max-width: 401px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div id="login-container">
-        <h2>Login</h2>
-        <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your name">
-        <input type="tel" id="mobile" placeholder="Enter your mobile number">
-        <button onclick="validateLogin()">Login</button>
-    </div>
-
-    <div id="content" style="display: none;">
+  <div class="welcome">
 
 
  <script type="text/javascript"> 
@@ -84,6 +23,11 @@
         } 
     </script> 
 
+<script> history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+	</script>
 
 
 <!DOCTYPE html>
@@ -106,7 +50,7 @@ body {
 html {
     font-size: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    background: white;
+    background: #5A55A3;
 }
 
 
@@ -147,7 +91,6 @@ html {
 }
 
 .btn-primary  {
-    text-align: left;
     Z-INDEX: 1;
     top: 94%;
     left: 74%;
@@ -168,9 +111,11 @@ button, input, select, textarea {
 }
 
 .header {
-    margin-top: 82px;
-    .logout-button,: ;
-}
+    margin-top: -70px;
+  .logout-button, 
+  .welcome {
+    display: none;
+  }
 
   &.state-logged-in {
     .logout-button, 
@@ -231,13 +176,13 @@ button, input, select, textarea {
 
         /* Style for the container */
         .container {
-            margin-top: 12px; /* Adjust the margin-top based on your content height */
+            margin-top: 120px; /* Adjust the margin-top based on your content height */
         }
 
         /* Your existing card styles */
         #containers {
-    margin-bottom: 18px;
-    MARGIN-TOP: -14px;
+    margin-bottom: 20px;
+    MARGIN-TOP: 4PX;
 }
 
         .card {
@@ -365,11 +310,11 @@ button, input, select, textarea {
 
 <style>
     .tab-btns  {
-    top: 60px;
     position: fixed;
     width: 92px;
-    overflow: overlay;
+    overflow: scroll;
     z-index: 1;
+    HEIGHT: 100%;
     display: block;
     flex-direction: column;
     background-color: white;
@@ -396,7 +341,7 @@ button, input, select, textarea {
 
 <div class="navbar">
     <!-- Your existing navbar content here -->
-   <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+    Search Product <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by name" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
   
 </div>
 
@@ -412,6 +357,8 @@ button, input, select, textarea {
 		<div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">FANCY ITEMS</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">BATTERY OPERATED</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'TRICYCLE , RIDDERS'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">TRICYCLES & RIDDERS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'DOZEN'; activeTab = 11; searchQuery = '';" ng-class="{ 'active': activeTab === 11 }">DOZEN PACKING ITEMS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 12; searchQuery = '';" ng-class="{ 'active': activeTab === 12 }">GUNS VARIETY</div>
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
@@ -601,6 +548,60 @@ for(let img of images) {
 
 </header>
 
+<div class="user-authorization">
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+  <form id="formLoc" data-login-form action="" class="login-form" onsubmit="return false;">
+<label> Enter your shop name </label><br> 
+    <input type="text" id="nameLoc"  class='login-username' oninput="validateInputs()" ng-model="dynamicField2Value" placeholder="Enter your shop name"   /> <br><br><label> Enter your mobile number </label><br>
+    <input type="number" class='login-password' oninput="validateInputs()" id="descLoc"  placeholder="Enter your mobile number" /> <br> <br>
+    <input type="submit" name="submitLoc" data-login-button class='login-button' disabled>
+  </form>
+
+
+
+
+<script>
+var root = new Firebase('https://shop-reminder-3ce10-default-rtdb.firebaseio.com/');
+
+var locRef = root.child('location');
+locRef.on('child_added', function(snap){
+  var locVal = snap.val();
+  $('#locList').append(
+  	"<li>"+locVal.name+" "+locVal.desc+"</li>"
+  );
+});
+
+
+$("#formLoc").submit(function(e){
+  e.preventDefault();
+  var x = {
+    field1:$('#nameLoc').val(),
+    field2:$('#descLoc').val()
+  }; 
+  locRef.push(x);
+});
+
+
+</script>
+
+
+
+  <div data-login-user class="login-user state-hidden">
+
+  </div>
+</div>
+
+<script>
+  function validateInputs() {
+    var loginButton = document.querySelector('[data-login-button]');
+    var usernameInput = document.querySelector('.login-username');
+    var passwordInput = document.querySelector('.login-password');
+
+    loginButton.disabled = usernameInput.value.trim() === '' || passwordInput.value.trim() === '';
+  }
+</script>
 
 
 
@@ -624,25 +625,5 @@ $('document').ready(function(){
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
 <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
 <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
-</body>
-</html>
-
-  </div>
-
-    <script>
-        function validateLogin() {
-            var name = document.getElementById('name').value;
-            var mobile = document.getElementById('mobile').value;
-
-            // Simple validation
-            if (name.trim() === '' || !/^\d{10}$/.test(mobile)) {
-                alert('Please enter valid name and mobile number.');
-            } else {
-                // Hide login container and show content
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            }
-        }
-    </script>
 </body>
 </html>
