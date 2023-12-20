@@ -225,13 +225,14 @@ button, input, select, textarea {
 
         /* Style for the container */
         .container {
-            margin-top: 120px; /* Adjust the margin-top based on your content height */
+            margin-top: 12px; /* Adjust the margin-top based on your content height */
         }
 
         /* Your existing card styles */
-        #containers {
-    margin-bottom: 20px;
-    MARGIN-TOP: 4PX;
+        #containers 
+    margin-bottom: -107px;
+    MARGIN-TOP: 124px;
+    /* TOP: 57PX; */
 }
 
         .card {
@@ -359,6 +360,7 @@ button, input, select, textarea {
 
 <style>
     .tab-btns  {
+    top: 60px;
     position: fixed;
     width: 92px;
     overflow: overlay;
@@ -389,7 +391,7 @@ button, input, select, textarea {
 
 <div class="navbar">
     <!-- Your existing navbar content here -->
-    Search Product <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by name" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+   <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
   
 </div>
 
