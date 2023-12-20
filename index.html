@@ -351,6 +351,8 @@ button, input, select, textarea {
 		<div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">FANCY ITEMS</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">BATTERY OPERATED</div>
 		<div class="tab-btn" ng-click="productNameFilter = 'TRICYCLE , RIDDERS'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">TRICYCLES & RIDDERS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'DOZEN; activeTab = 11; searchQuery = '';" ng-class="{ 'active': activeTab === 11 }">DOZEN PACKING ITEMS</div>
+		<div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 12; searchQuery = '';" ng-class="{ 'active': activeTab === 12 }">GUNS VARIETY</div>
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
