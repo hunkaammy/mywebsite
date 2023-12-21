@@ -84,7 +84,27 @@
         } 
     </script> 
 
+<script>
+  let inactivityTimeout;
 
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(refreshPage, 5 * 60 * 1000); // 5 minutes in milliseconds
+  }
+
+  function refreshPage() {
+    location.reload(true); // Reload the page, forcing it to fetch the latest content from the server
+  }
+
+  // Add event listeners to detect user activity
+  document.addEventListener('mousemove', resetInactivityTimer);
+  document.addEventListener('keydown', resetInactivityTimer);
+  document.addEventListener('touchstart', resetInactivityTimer);
+  document.addEventListener('touchmove', resetInactivityTimer);
+
+  // Start the inactivity timer when the page loads
+  resetInactivityTimer();
+</script>
 
 <!DOCTYPE html>
 <html lang="en" >
