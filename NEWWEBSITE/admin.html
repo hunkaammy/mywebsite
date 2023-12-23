@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Website</title>
-</head>
-<body>
 
-<script>
-    function checkCredentials() {
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
-
-        if (username === 'admin' && password === 'richman') {
-            // Correct credentials, hide login elements
-            document.getElementById('login-form').style.display = 'none';
-            
-            // Show content
-            document.getElementById('content').style.display = 'block';
-        } else {
-            // Incorrect credentials, show error message
-            document.getElementById('error').style.display = 'block';
-        }
-    }
-</script>
-
-<div id="login-form">
-    <label for="username">Username:</label>
-    <input type="text" id="username" placeholder="Enter your username">
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" placeholder="Enter your password">
-
-    <button onclick="checkCredentials()">Login</button>
-
-    <div id="error" style="color: red; display: none;">Incorrect username or password</div>
-</div>
-
-<div id="content" style="display: none;">
 
 
 <!DOCTYPE html>
@@ -394,9 +354,5 @@
       fetchImages();
     });
   </script>
-</body>
-</html>
-</div>
-
 </body>
 </html>
