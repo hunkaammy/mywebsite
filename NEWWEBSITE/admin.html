@@ -243,7 +243,7 @@
           return;
         }
 
-        const currentDate = new Date().toISOString().split('T')[0]; // Get current date in the format "2023-12-06"
+        const currentDate = new Date().toISOString();
         const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`); // Include date and image name in the storage path
         const task = storageRef.put(file);
 
