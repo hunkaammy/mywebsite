@@ -385,16 +385,19 @@ button, input, select, textarea {
 
 <style>
     .tab-btns  {
+    font-size: 10px;
     position: fixed;
     width: 92px;
-    overflow: scroll;
+    overflow: auto;
     z-index: 1;
     HEIGHT: 100%;
     display: block;
     flex-direction: column;
     background-color: white;
-    /* padding: 10px; */
+    padding: 10px;
     /* border: darkorange; */
+    bottom: -50px;
+    padding: 10pz;
 }
     .tab-btn {
         padding: 10px;
@@ -409,9 +412,10 @@ button, input, select, textarea {
     }
 
     .tab-btn.active {
-        background-color:#5A55A3; /* Change this to your desired active tab color */
-        color: white;
-    }
+    background-color: #5A55A3;
+    color: white;
+    border-radius: 12px;
+}
 </style>
 
 <div class="navbar">
