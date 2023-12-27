@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Transactions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    select, input, button {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    #allBalances {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #allBalances p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+<label for="newCustomerName">New Customer Name:</label>
+  <input type="text" id="newCustomerName">
+<button onclick="addNewCustomer()">Add New Customer</button>
+  <label for="customerSelect">Select Customer:</label>
+  <select id="customerSelect">
+    <option value="" selected disabled>Select Customer</option>
+  </select>
+
+  
+
+  <label for="transactionType">Transaction Type:</label>
+  <select id="transactionType">
+    <option value="debit">Debit</option>
+    <option value="credit">Credit</option>
+  </select>
+
+  <label for="amountInput">Enter Amount:</label>
+  <input type="number" id="amountInput">
+
+  <label for="transactionDate">Transaction Date:</label>
+  <input type="date" id="transactionDate" required>
+
+  <label for="transactionDescription">Transaction Description:</label>
+  <input type="text" id="transactionDescription">
+
+  <button onclick="saveTransaction()">Save Transaction</button>
+  
+
+  <h2>Customer Transactions:</h2>
+  <p>Total Balance: $<span id="totalBalance">0.00</span></p>
+  <table id="transactionsTable">
+    <thead>
+      <tr>
+        <th>Credit Date</th>
+        <th>Credit Amount</th>
+        <th>Credit Description</th>
+        <th></th> <!-- Leave some columns empty -->
+        <th></th>
+        <th>Debit Date</th>
+        <th>Debit Amount</th>
+        <th>Debit Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="transactionsBody"></tbody>
+  </table>
+
+  <h2>All Customer Balances:</h2>
+  <ul id="allBalances"></ul>
+
+  <!-- Firebase SDK script tags with defer attribute -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js" defer></script>
+
+  <script>
+    // Initialize Firebase with your project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "accounts-be4cd.firebaseapp.com",
+      databaseURL: "https://accounts-be4cd-default-rtdb.firebaseio.com",
+      projectId: "accounts-be4cd",
+      storageBucket: "accounts-be4cd.appspot.com",
+      messagingSenderId: "316902567114",
+      appId: "1:316902567114:web:d50cca2a9ba298e70d9833",
+      measurementId: "G-KQ8TE66EXX"
+    };
+
+    // Ensure that the initialization code runs after the SDK is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      firebase.initializeApp(firebaseConfig);
+
+      // Reference to your Firebase Realtime Database
+      const database = firebase.database();
+
+      // Populate customer select options
+      function populateCustomersSelect() {
+        const customersRef = database.ref('customers');
+
+        customersRef.once('value', (snapshot) => {
+          const customerSelect = document.getElementById('customerSelect');
+          customerSelect.innerHTML = '<option value="" selected disabled>Select Customer</option>';
+
+          const customerArray = [];
+
+          snapshot.forEach((childSnapshot) => {
+            const customerId = childSnapshot.key;
+            const customerName = childSnapshot.val().name;
+            customerArray.push({ id: customerId, name: customerName });
+          });
+
+          // Sort customers alphabetically by name
+          customerArray.sort((a, b) => a.name.localeCompare(b.name));
+
+          // Add options to the select element
+          customerArray.forEach((customer) => {
+            const option = document.createElement('option');
+            option.value = customer.id;
+            option.textContent = customer.name;
+            customerSelect.appendChild(option);
+          });
+        });
+      }
+
+      // Call populateCustomersSelect initially to populate customer options
+      populateCustomersSelect();
+
+      // Call saveTransaction function globally
+      window.saveTransaction = async function() {
+        const customerId = document.getElementById('customerSelect').value;
+        const newCustomerName = document.getElementById('newCustomerName').value.trim();
+        const transactionType = document.getElementById('transactionType').value;
+        const amount = parseFloat(document.getElementById('amountInput').value);
+        const transactionDate = document.getElementById('transactionDate').value;
+        const description = document.getElementById('transactionDescription').value;
+
+        if (customerId || newCustomerName) {
+          // If a new customer name is entered, save the new customer first
+          if (newCustomerName !== '') {
+            const newCustomerRef = database.ref('customers').push();
+            await newCustomerRef.set({
+              name: newCustomerName
+            });
+
+            // Move the new customer to the top
+            const updates = {};
+            updates[`customers/${newCustomerRef.key}`] = { name: newCustomerName };
+            database.ref().update(updates);
+          }
+
+          // Get the customer ID after saving a new customer or use the selected customer ID
+          const finalCustomerId = newCustomerName !== '' ? newCustomerRef.key : customerId;
+
+          // Push the transaction to a specific node (e.g., 'transactions')
+          database.ref('transactions').push({
+            customerId: finalCustomerId,
+            type: transactionType,
+            amount: amount,
+            date: transactionDate,
+            description: description
+          });
+
+          // Clear the input fields after saving
+          document.getElementById('customerSelect').value = '';
+          document.getElementById('newCustomerName').value = '';
+          document.getElementById('transactionType').value = 'debit';
+          document.getElementById('amountInput').value = '';
+          document.getElementById('transactionDate').value = '';
+          document.getElementById('transactionDescription').value = '';
+
+          // Update transactions dynamically
+          fetchCustomerTransactions();
+        } else {
+          alert('Please select a customer or enter a new customer name.');
+        }
+      };
+
+      // Function to fetch and display customer transactions in a table
+      function fetchCustomerTransactions() {
+        const selectedCustomerId = document.getElementById('customerSelect').value;
+
+        if (selectedCustomerId) {
+          const transactionsRef = database.ref('transactions');
+
+          transactionsRef.once('value', (snapshot) => {
+            const transactionsBody = document.getElementById('transactionsBody');
+            transactionsBody.innerHTML = '';
+
+            let totalBalance = 0;
+
+            snapshot.forEach((childSnapshot) => {
+              const customerId = childSnapshot.val().customerId;
+              const amount = childSnapshot.val().amount;
+              const date = childSnapshot.val().date;
+              const transactionType = childSnapshot.val().type;
+              const description = childSnapshot.val().description || 'No Description';
+              const transactionId = childSnapshot.key;
+
+              if (customerId === selectedCustomerId) {
+                const row = document.createElement('tr');
+                const cellCreditDate = document.createElement('td');
+                const cellCreditAmount = document.createElement('td');
+                const cellCreditDescription = document.createElement('td');
+                const cellEmpty1 = document.createElement('td'); // Leave empty columns
+                const cellEmpty2 = document.createElement('td');
+                const cellEmpty3 = document.createElement('td');
+                const cellDebitDate = document.createElement('td');
+                const cellDebitAmount = document.createElement('td');
+                const cellDebitDescription = document.createElement('td');
+                const cellEdit = document.createElement('td');
+                const cellDelete = document.createElement('td');
+
+                if (transactionType === 'credit') {
+                  cellCreditDate.textContent = date;
+                  cellCreditAmount.textContent = `$${amount}`;
+                  cellCreditDescription.textContent = description;
+                  totalBalance += amount;
+                } else {
+                  cellDebitDate.textContent = date;
+                  cellDebitAmount.textContent = `$${amount}`;
+                  cellDebitDescription.textContent = description;
+                  totalBalance -= amount;
+                }
+
+                // Edit button
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.onclick = function() {
+                  editTransaction(transactionId, customerId, transactionType, amount, date, description);
+                };
+                cellEdit.appendChild(editButton);
+
+                // Delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = function() {
+                  deleteTransaction(transactionId);
+                };
+                cellDelete.appendChild(deleteButton);
+
+                row.appendChild(cellCreditDate);
+                row.appendChild(cellCreditAmount);
+                row.appendChild(cellCreditDescription);
+                row.appendChild(cellEmpty1);
+                row.appendChild(cellEmpty2);
+                row.appendChild(cellEmpty3);
+                row.appendChild(cellDebitDate);
+                row.appendChild(cellDebitAmount);
+                row.appendChild(cellDebitDescription);
+                row.appendChild(cellEdit);
+                row.appendChild(cellDelete);
+
+                transactionsBody.appendChild(row);
+              }
+            });
+
+            // Update total balance
+            document.getElementById('totalBalance').textContent = totalBalance.toFixed(2);
+          });
+        } else {
+          alert('Please select a customer.');
+        }
+      };
+
+      // Function to edit a transaction
+      window.editTransaction = function(transactionId, customerId, transactionType, amount, date, description) {
+        const newTransactionType = prompt('Enter new transaction type (credit/debit):', transactionType);
+        const newAmount = parseFloat(prompt('Enter new amount:', amount));
+        const newDate = prompt('Enter new date (YYYY-MM-DD):', date);
+        const newDescription = prompt('Enter new description:', description);
+
+        // Update the transaction in the database
+        database.ref('transactions').child(transactionId).update({
+          type: newTransactionType,
+          amount: newAmount,
+          date: newDate,
+          description: newDescription
+        });
+
+        // Update transactions dynamically
+        fetchCustomerTransactions();
+      };
+
+      // Function to delete a transaction
+      window.deleteTransaction = function(transactionId) {
+        // Confirm the deletion
+        const confirmation = confirm('Are you sure you want to delete this transaction?');
+
+        if (confirmation) {
+          // Remove the transaction from the database
+          database.ref('transactions').child(transactionId).remove();
+
+          // Update transactions dynamically
+          fetchCustomerTransactions();
+        }
+      };
+
+      // Function to fetch and display all customer balances
+      function fetchAllCustomerBalances() {
+        const allBalancesContainer = document.getElementById('allBalances');
+
+        database.ref('customers').once('value', (snapshot) => {
+          allBalancesContainer.innerHTML = '';
+
+          snapshot.forEach((childSnapshot) => {
+            const customerId = childSnapshot.key;
+            const customerName = childSnapshot.val().name;
+
+            const customerBalanceItem = document.createElement('p');
+            customerBalanceItem.textContent = `${customerName}: $`;
+
+            database.ref('transactions').orderByChild('customerId').equalTo(customerId).once('value', (transactionSnapshot) => {
+              let customerBalance = 0;
+
+              transactionSnapshot.forEach((transactionChildSnapshot) => {
+                const transactionType = transactionChildSnapshot.val().type;
+                const amount = transactionChildSnapshot.val().amount;
+
+                if (transactionType === 'debit') {
+                  customerBalance -= amount;
+                } else {
+                  customerBalance += amount;
+                }
+              });
+
+              customerBalanceItem.textContent += customerBalance.toFixed(2);
+              allBalancesContainer.appendChild(customerBalanceItem);
+            });
+          });
+        });
+      }
+
+      // Call fetchCustomerTransactions initially to display existing transactions
+      fetchCustomerTransactions();
+
+      // Call fetchCustomerTransactions whenever the selected customer changes
+      document.getElementById('customerSelect').addEventListener('change', fetchCustomerTransactions);
+
+      // Call fetchAllCustomerBalances initially to display all balances
+      fetchAllCustomerBalances();
+
+      // Function to add a new customer without a transaction
+      window.addNewCustomer = async function() {
+        const newCustomerName = document.getElementById('newCustomerName').value.trim();
+
+        if (newCustomerName) {
+          const newCustomerRef = database.ref('customers').push();
+          await newCustomerRef.set({
+            name: newCustomerName
+          });
+
+          // Move the new customer to the top
+          const updates = {};
+          updates[`customers/${newCustomerRef.key}`] = { name: newCustomerName };
+          database.ref().update(updates);
+
+          // Clear the input field after adding
+          document.getElementById('newCustomerName').value = '';
+
+          // Update the customer select options dynamically
+          populateCustomersSelect();
+
+          // Update transactions dynamically
+          fetchCustomerTransactions();
+
+          // Update all balances dynamically
+          fetchAllCustomerBalances();
+        } else {
+          alert('Please enter a new customer name.');
+        }
+      };
+    });
+  </script>
+</body>
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
+</html>
