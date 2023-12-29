@@ -444,47 +444,23 @@ button, input, select, textarea {
 		<div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 15; searchQuery = '';" ng-class="{ 'active': activeTab === 15 }">EMPTY</div>
     </div>
 
-<div>
-    <button ng-click="shareSelected()">Share Selected Images</button>
+<div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
+    <div id="containers">
+        <div class="card">
+            <img src="{{image.url}}" loading="lazy" width="350" height="350">
+            <div class="containers">
+                <h4><b> ITEM NO.{{$index+1}}</b></h4>
+                <p>{{image.name}}</p>
+                <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
+                <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
 
-    <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
-        <div id="containers">
-            <div class="card">
-                <input type="checkbox" ng-model="image.selected">
-                <img src="{{image.url}}" loading="lazy" width="350" height="350">
-                <div class="containers">
-                    <h4><b> ITEM NO.{{$index+1}}</b></h4>
-                    <p>{{image.name}}</p>
-                    <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
-                    <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
-
-                    <!-- Add this input field inside the card section -->
-                    <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
-                    <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
-                </div>
+                <!-- Add this input field inside the card section -->
+                <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
+                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Include the sharing logic directly in the HTML -->
-<script>
-    function shareSelected() {
-        var selectedImages = vm.images.filter(function(image) {
-            return image.selected;
-        });
-
-        // Check if any images are selected
-        if (selectedImages.length > 0) {
-            // Implement the sharing logic directly here
-            console.log("Sharing selected images:", selectedImages);
-            // Add your implementation here...
-        } else {
-            // Handle case when no images are selected
-            alert("Please select images to share.");
-        }
-    }
-</script>
 
  <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
