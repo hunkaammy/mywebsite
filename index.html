@@ -67,14 +67,20 @@
     </style>
 </head>
 <body>
-    <div id="login-container">
-        <h2>Login</h2>
-        <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your name">
-        <input type="tel" id="mobile" placeholder="Enter your mobile number">
-        <button onclick="validateLogin()">Login</button>
-    </div>
+     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
 
-    <div id="content" style="display: none;">
+<div id="login-container">
+    <h2>Login</h2>
+    <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your name">
+    <input type="tel" id="mobile" placeholder="Enter your mobile number">
+    <button onclick="validateLogin()">Login</button>
+</div>
+
+<div id="content" style="display: none;">
+
 
 
  <script type="text/javascript"> 
@@ -659,20 +665,75 @@ $('document').ready(function(){
 
   </div>
 
-    <script>
-        function validateLogin() {
-            var name = document.getElementById('name').value;
-            var mobile = document.getElementById('mobile').value;
+   
+</body>
+</html>
 
-            // Simple validation
-            if (name.trim() === '' || !/^\d{10}$/.test(mobile)) {
-                alert('Please enter valid name and mobile number.');
-            } else {
-                // Hide login container and show content
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            }
-        }
-    </script>
+</div>
+
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        authDomain: "shop-reminder-3ce10.firebaseapp.com",
+        databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+        projectId: "shop-reminder-3ce10",
+        storageBucket: "shop-reminder-3ce10.appspot.com",
+        messagingSenderId: "555627569260",
+        appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
+        measurementId: "G-BP5EYR6ET1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Array of allowed IP addresses
+    var allowedIPs = ['192.168.1.1', '192.168.1.2', '192.168.1.3'];
+
+    // Function to validate login
+    function validateLogin() {
+        // Get user input
+        var name = document.getElementById('name').value;
+        var mobile = document.getElementById('mobile').value;
+
+        // Get user IP address
+        getUserIPAddress()
+            .then(function(ipAddress) {
+                // Check if the user's IP is in the allowed list
+                if (allowedIPs.includes(ipAddress)) {
+                    // Redirect to another page for allowed IPs
+                    window.location.href = 'https://example.com/allowed-page';
+                } else {
+                    // Create a reference to your Firebase database
+                    var database = firebase.database();
+                    
+                    // Push user data to Firebase
+                    var userRef = database.ref('users').push({
+                        name: name,
+                        mobile: mobile,
+                        ipAddress: ipAddress
+                    });
+
+                    // Hide login container and show content
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                }
+            })
+            .catch(function(error) {
+                console.error('Error fetching IP address:', error);
+            });
+    }
+
+    // Function to get user IP address using ipify
+    function getUserIPAddress() {
+        return fetch('https://api.ipify.org?format=json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                return data.ip;
+            });
+    }
+</script>
+
 </body>
 </html>
