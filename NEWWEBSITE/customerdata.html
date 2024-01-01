@@ -83,21 +83,14 @@
     var database = firebase.database();
     var usersRef = database.ref('users');
 
-    // Fetch user data from Firebase
-    usersRef.once('value')
-        .then(function(snapshot) {
-            // Render fetched data
-            renderUserData(snapshot.val());
-        })
-        .catch(function(error) {
-            console.error('Error fetching data:', error);
-        });
-
     // Function to render user data in a table
     function renderUserData(userData) {
         var userListElement = document.getElementById('user-list');
         
-        // Iterate through each user in reverse order to add new data to the top
+        // Clear the existing table
+        userListElement.innerHTML = '';
+
+        // Iterate through each user to add new data to the table
         for (var userId in userData) {
             if (userData.hasOwnProperty(userId)) {
                 var user = userData[userId];
@@ -124,9 +117,16 @@
                 var deleteBtn = document.createElement('span');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.className = 'delete-btn';
+
+                // Store user ID as a data attribute
+                deleteBtn.setAttribute('data-user-id', userId);
+
                 deleteBtn.onclick = function() {
-                    // Delete user entry when the "Delete" button is clicked
-                    deleteUser(userId);
+                    // Retrieve the user ID associated with the clicked delete button
+                    var clickedUserId = this.getAttribute('data-user-id');
+
+                    // Delete user entry using the correct user ID
+                    deleteUser(clickedUserId);
                 };
                 actionCell.appendChild(deleteBtn);
                 row.appendChild(actionCell);
@@ -141,20 +141,6 @@
     function deleteUser(userId) {
         // Remove the user entry from Firebase
         usersRef.child(userId).remove()
-            .then(function() {
-                // Fetch updated user data from Firebase
-                usersRef.once('value')
-                    .then(function(snapshot) {
-                        // Clear the table
-                        document.getElementById('user-list').innerHTML = '';
-
-                        // Render the updated data
-                        renderUserData(snapshot.val());
-                    })
-                    .catch(function(error) {
-                        console.error('Error fetching data:', error);
-                    });
-            })
             .catch(function(error) {
                 console.error('Error deleting user:', error);
             });
@@ -181,6 +167,12 @@
             }
         }
     }
+
+    // Listen for real-time changes in the 'users' node
+    usersRef.on('value', function(snapshot) {
+        // Render updated user data
+        renderUserData(snapshot.val());
+    });
 </script>
 
 </body>
