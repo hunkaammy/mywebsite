@@ -46,6 +46,14 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+ #inside {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
         input {
             width: 100%;
             padding: 10px;
@@ -75,11 +83,12 @@
 <body>
 
 <div id="login-container">
+<div id="inside">
     <h2>Login</h2>
     <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your name">
     <input type="tel" id="mobile" placeholder="Enter your mobile number">
     <button onclick="validateLogin()">Login</button>
-</div>
+</div> </div>
 
 <div id="content" style="display: none;">
 
