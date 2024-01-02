@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Excel File</title>
+</head>
+<body>
+
+    <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        function submitForm() {
+            // Capture form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+            };
+
+            try {
+                // Load existing workbook
+                const existingWorkbook = XLSX.readFile('form_data.xlsx');
+
+                // Get the first sheet
+                const existingWorksheet = existingWorkbook.Sheets[existingWorkbook.SheetNames[0]];
+
+                // Get the existing data as an array of arrays
+                const existingData = XLSX.utils.sheet_to_json(existingWorksheet, { header: 1 });
+
+                // Append new data
+                existingData.push(Object.values(formData));
+
+                // Clear existing worksheet data
+                XLSX.utils.sheet_clear(existingWorksheet);
+
+                // Write updated data to the worksheet
+                existingData.forEach((row, rowIndex) => {
+                    row.forEach((value, colIndex) => {
+                        const cellAddress = XLSX.utils.encode_cell({ r: rowIndex, c: colIndex });
+                        existingWorksheet[cellAddress] = { t: 's', v: value };
+                    });
+                });
+
+                // Save the updated workbook
+                XLSX.writeFile(existingWorkbook, 'form_data.xlsx');
+                alert('Data added successfully!');
+            } catch (error) {
+                console.error('Error:', error.message);
+                alert('Error adding data. Check console for details.');
+            }
+        }
+    </script>
+
+</body>
+</html>
