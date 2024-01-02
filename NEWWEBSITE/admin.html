@@ -274,22 +274,27 @@
         });
       }
 
-      function fetchImages() {
-        // Fetch image URLs, image names, and dates from the root of the database, ordered by date in descending order
-        database.ref().orderByChild('date').once('value').then(snapshot => {
-          const images = [];
-          snapshot.forEach(childSnapshot => {
+ function fetchImagesRealtime() {
+    // Fetch image URLs, image names, and dates from the root of the database, ordered by date in descending order
+    database.ref().orderByChild('date').on('value', snapshot => {
+        const images = [];
+        snapshot.forEach(childSnapshot => {
             const imageUrl = childSnapshot.val().url; // Change imageUrl to url
             const name = childSnapshot.val().name; // Change imageName to name
             const date = childSnapshot.val().date;
             images.push({ imageUrl, name, date, key: childSnapshot.key });
-          });
-          // Display images in reverse order (newest first)
-          for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].date, images[i].key);
-          }
         });
-      }
+        // Clear existing images before displaying new ones
+        imageContainer.innerHTML = "";
+        // Display images in reverse order (newest first)
+        for (let i = images.length - 1; i >= 0; i--) {
+            displayImage(images[i].imageUrl, images[i].name, images[i].date, images[i].key);
+        }
+    });
+}
+
+// Call the fetchImagesRealtime function to fetch and continuously update data
+fetchImagesRealtime();
 
       function displayImage(url, name, date, key) { // Change imageUrl to url
         const image = document.createElement('img');
