@@ -193,12 +193,26 @@
       background-color: #333;
       color: #fff;
     }
+	
+	
+    .make-out-of-stock {
+      background-color: red;
+      color: white;
+    }
+
+    .make-available {
+      background-color: green;
+      color: white;
+    }
+
+    /* Add other styles as needed */
+  
   </style>
 </head>
 <body>
   <header>Firebase Image CRUD</header>
   <main>
-    <input type="file" id="imageInput" />
+     <input type="file" id="imageInput" />
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
     <button onclick="uploadImage()">Upload Image</button>
     <div id="uploadProgress">
@@ -206,7 +220,9 @@
     </div>
     <div id="imageContainer"></div>
   </main>
-  <footer>&copy; 2023 Firebase Image CRUD</footer>  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js"></script>
+  <footer>&copy; 2023 Firebase Image CRUD</footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js"></script>
@@ -216,14 +232,14 @@
       // Initialize Firebase
       const firebaseConfig = {
         apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-  authDomain: "htshop-e9c51.firebaseapp.com",
-  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-  projectId: "htshop-e9c51",
-  storageBucket: "htshop-e9c51.appspot.com",
-  messagingSenderId: "653137640907",
-  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-  measurementId: "G-FJ4Q0FHBEG"
-};
+        authDomain: "htshop-e9c51.firebaseapp.com",
+        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+        projectId: "htshop-e9c51",
+        storageBucket: "htshop-e9c51.appspot.com",
+        messagingSenderId: "653137640907",
+        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+        measurementId: "G-FJ4Q0FHBEG"
+      };
 
       firebase.initializeApp(firebaseConfig);
 
@@ -237,77 +253,78 @@
 
       window.uploadImage = function() {
         const file = imageInput.files[0];
-        const name = nameInput.value.trim(); // Get the image name from the input field
+        const name = nameInput.value.trim();
         if (!file || !name) {
           alert('Please select an image and enter an image name.');
           return;
         }
 
         const currentDate = new Date().toISOString();
-        const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`); // Include date and image name in the storage path
+        const outOfStock = false; // Set the initial availability status
+        const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
         const task = storageRef.put(file);
 
-        // Show the progress bar
         uploadProgress.style.display = 'block';
 
-        // Update progress bar during the upload
         task.on('state_changed', (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           progressBar.style.width = progress + '%';
         }, (error) => {
           console.error(error.message);
         }, () => {
-          // Upload completed successfully
           storageRef.getDownloadURL().then(downloadURL => {
-            // Save image URL, image name, and date to the database root
             database.ref().push({
               url: downloadURL,
               name: name,
-              date: currentDate
+              date: currentDate,
+              outOfStock: outOfStock
             });
-            // Clear input fields after upload
             imageInput.value = '';
             nameInput.value = '';
-            // Hide the progress bar
             uploadProgress.style.display = 'none';
           });
         });
       }
 
- function fetchImagesRealtime() {
-    // Fetch image URLs, image names, and dates from the root of the database, ordered by date in descending order
-    database.ref().orderByChild('date').on('value', snapshot => {
-        const images = [];
-        snapshot.forEach(childSnapshot => {
-            const imageUrl = childSnapshot.val().url; // Change imageUrl to url
-            const name = childSnapshot.val().name; // Change imageName to name
+      function fetchImagesRealtime() {
+        database.ref().orderByChild('date').on('value', snapshot => {
+          const images = [];
+          snapshot.forEach(childSnapshot => {
+            const imageUrl = childSnapshot.val().url;
+            const name = childSnapshot.val().name;
             const date = childSnapshot.val().date;
-            images.push({ imageUrl, name, date, key: childSnapshot.key });
+            const outOfStock = childSnapshot.val().outOfStock;
+            images.push({ imageUrl, name, date, outOfStock, key: childSnapshot.key });
+          });
+
+          imageContainer.innerHTML = "";
+
+          for (let i = images.length - 1; i >= 0; i--) {
+            displayImage(images[i].imageUrl, images[i].name, images[i].date, images[i].outOfStock, images[i].key);
+          }
         });
-        // Clear existing images before displaying new ones
-        imageContainer.innerHTML = "";
-        // Display images in reverse order (newest first)
-        for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].date, images[i].key);
-        }
-    });
-}
+      }
 
-// Call the fetchImagesRealtime function to fetch and continuously update data
-fetchImagesRealtime();
+      fetchImagesRealtime();
 
-      function displayImage(url, name, date, key) { // Change imageUrl to url
+      function displayImage(url, name, date, outOfStock, key) {
         const image = document.createElement('img');
-        image.src = url; // Change imageUrl to url
-        image.style.maxWidth = '200px';  // Set maximum width
-        image.style.maxHeight = '200px'; // Set maximum height
-        image.loading = 'lazy'; // Add lazy loading
+        image.src = url;
+        image.style.maxWidth = '200px';
+        image.style.maxHeight = '200px';
+        image.loading = 'lazy';
 
         const nameElement = document.createElement('p');
         nameElement.innerText = `Name: ${name}`;
 
         const dateElement = document.createElement('p');
         dateElement.innerText = `Date: ${date}`;
+
+        const outOfStockButton = document.createElement('button');
+        outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
+        outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
+
+            outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
 
         const editButton = document.createElement('button');
         editButton.innerText = 'Edit Image Name';
@@ -322,10 +339,19 @@ fetchImagesRealtime();
         container.appendChild(image);
         container.appendChild(nameElement);
         container.appendChild(dateElement);
+        container.appendChild(outOfStockButton);
         container.appendChild(editButton);
         container.appendChild(deleteButton);
 
         imageContainer.appendChild(container);
+      }
+
+      function toggleAvailability(key, newStatus) {
+        database.ref(`${key}/outOfStock`).set(newStatus).then(() => {
+          const container = document.querySelector(`[data-key="${key}"]`);
+          const outOfStockButton = container.querySelector('button');
+          outOfStockButton.innerText = newStatus ? 'Make Available' : 'Make Out of Stock';
+        });
       }
 
       function enableEditMode(key) {
