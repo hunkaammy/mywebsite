@@ -703,7 +703,7 @@ $('document').ready(function(){
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
-    var allowedIPs = ['192.168.1.1', '192.168.1.2', '192.168.1.3'];
+    var allowedIPs = ['106.77.191.69', '110.224.183.135', '192.168.1.3'];
 
     // Function to validate login
     function validateLogin() {
@@ -723,7 +723,7 @@ $('document').ready(function(){
                 // Check if the user's IP is in the allowed list
                 if (allowedIPs.includes(ipAddress)) {
                     // Redirect to another page for allowed IPs
-                    window.location.href = 'https://example.com/allowed-page';
+                    window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
                 } else {
                     // Create a reference to your Firebase database
                     var database = firebase.database();
