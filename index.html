@@ -442,15 +442,17 @@ button, input, select, textarea {
     <!-- Your existing navbar content here -->
 	
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!-- Include Font Awesome CSS (you can get this link from the Font Awesome website) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <!-- Use a microphone icon with animation instead of the button -->
-<span id="micIcon" onclick="startVoiceRecognition()" style="cursor: pointer;">
+<span id="micIcon" onclick="startVoiceRecognition()" style="cursor: pointer; color: black;">
     <i class="fas fa-microphone"></i>
 </span>
 
 <!-- Input field for search with voice recognition -->
 <input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+
 
   
 </div>
@@ -467,6 +469,7 @@ button, input, select, textarea {
 /* Apply the animation to the microphone icon during the voice recognition process */
 #micIcon.active {
     animation: pulse 1s infinite;
+    color: blue; /* Change the color to blue while recognizing */
 }
 </style>
 
