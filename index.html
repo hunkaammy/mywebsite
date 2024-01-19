@@ -440,15 +440,41 @@ button, input, select, textarea {
 
 <div class="navbar">
     <!-- Your existing navbar content here -->
-	<button onclick="startVoiceRecognition()">Start Voice Recognition</button>
+	
 
-   <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<!-- Use a microphone icon with animation instead of the button -->
+<span id="micIcon" onclick="startVoiceRecognition()" style="cursor: pointer;">
+    <i class="fas fa-microphone"></i>
+</span>
+
+<!-- Input field for search with voice recognition -->
+<input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
+
   
 </div>
 
 
+<style>
+/* Define a CSS animation for the microphone icon */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Apply the animation to the microphone icon during the voice recognition process */
+#micIcon.active {
+    animation: pulse 1s infinite;
+}
+</style>
+
 <script>
 function startVoiceRecognition() {
+    const micIcon = document.getElementById('micIcon');
+    micIcon.classList.add('active'); // Add the 'active' class to start the animation
+
     const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
     recognition.lang = 'en-US';
     
@@ -464,6 +490,8 @@ function startVoiceRecognition() {
         // Trigger the filtering logic and scroll to top
         filterData(transcript);
         scrollToTop();
+        
+        micIcon.classList.remove('active'); // Remove the 'active' class to stop the animation
     };
     
     recognition.start();
