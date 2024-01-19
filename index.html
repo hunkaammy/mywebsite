@@ -761,7 +761,7 @@ $('document').ready(function(){
 </div>
 
 <script>
-    const firebaseConfig = {
+    var firebaseConfig = {
         apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
         authDomain: "shop-reminder-3ce10.firebaseapp.com",
         databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
@@ -776,53 +776,58 @@ $('document').ready(function(){
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
-    const allowedIPs = ['110.224.182.77', '110.224.183.135', '192.168.1.3', '192.168.1.1'];
+    var allowedIPs = ['122.168.151.151', '110.224.177.37', '192.168.1.3', '192.168.1.1'];
 
     // Function to validate login
-    async function validateLogin() {
+    function validateLogin() {
         // Get user input
-        const name = document.getElementById('name').value.trim();
-        const mobile = document.getElementById('mobile').value.trim();
+        var name = document.getElementById('name').value.trim();
+        var mobile = document.getElementById('mobile').value.trim();
 
         // Check if name and mobile are provided
-        if (!name || !mobile) {
+        if (name === '' || mobile === '') {
             alert('Please enter both name and mobile number.');
             return;
         }
 
-        try {
-            // Get user IP address
-            const ipAddress = await getUserIPAddress();
+        // Get user IP address
+        getUserIPAddress()
+            .then(function (ipAddress) {
+                // Check if the user's IP is in the blocked list
+                if (allowedIPs.includes(ipAddress)) {
+                    // Redirect to another page for blocked IPs
+                    window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
+                } else {
+                    // Create a reference to your Firebase database
+                    var database = firebase.database();
 
-            // Check if the user's IP is in the blocked list
-            if (allowedIPs.includes(ipAddress)) {
-                // Redirect to another page for blocked IPs
-                window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
-            } else {
-                // Create a reference to your Firebase database
-                const database = firebase.database();
+                    // Push user data to Firebase with timestamp
+                    var userRef = database.ref('users').push({
+                        name: name,
+                        mobile: mobile,
+                        ipAddress: ipAddress,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
 
-                // Push user data to Firebase with timestamp
-                const userRef = database.ref('users').push({
-                    mobile,
-                    ipAddress,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP
-                });
-
-                // Hide login container and show content
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            }
-        } catch (error) {
-            console.error('Error fetching IP address:', error);
-        }
+                    // Hide login container and show content
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                }
+            })
+            .catch(function (error) {
+                console.error('Error fetching IP address:', error);
+            });
     }
 
     // Function to get user IP address using ipify
-    async function getUserIPAddress() {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        return data.ip;
+    function getUserIPAddress() {
+        return fetch('https://api.ipify.org?format=json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                return data.ip;
+            });
     }
 </script>
 
