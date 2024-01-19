@@ -460,15 +460,14 @@ button, input, select, textarea {
 <style>
 /* Define a CSS animation for the microphone icon */
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1); color: black; }
+    50% { transform: scale(1.1); color: blue; } /* Change the color to blue during the animation */
+    100% { transform: scale(1); color: black; }
 }
 
 /* Apply the animation to the microphone icon during the voice recognition process */
 #micIcon.animating {
     animation: pulse 1s infinite;
-    color: blue; /* Change the color to blue while recognizing */
 }
 </style>
 
