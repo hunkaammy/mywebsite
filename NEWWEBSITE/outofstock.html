@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Realtime Database Example</title>
+  <!-- Add Firebase to your web app -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+    authDomain: "htshop-e9c51.firebaseapp.com",
+    databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+    projectId: "htshop-e9c51",
+    storageBucket: "htshop-e9c51.appspot.com",
+    messagingSenderId: "653137640907",
+    appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+    measurementId: "G-FJ4Q0FHBEG"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Reference to your database
+  var database = firebase.database();
+
+  // Fetch data from the root of the database
+  database.ref().on("value", function(snapshot) {
+    // The snapshot.val() contains all data at the root
+    var allData = snapshot.val();
+    console.log(allData);
+
+    // Display the "url" and "outOfStock" field values based on the selected filter
+    displayProductDetails(allData);
+  });
+
+  // Function to display "url" and "outOfStock" field values based on the selected filter
+  function displayProductDetails(allData) {
+    var output = document.getElementById("output");
+    output.innerHTML = "<h2>Product Details:</h2>";
+
+    // Get the selected filter value
+    var filterValue = document.querySelector('input[name="filter"]:checked').value;
+
+    for (var dataKey in allData) {
+      if (allData.hasOwnProperty(dataKey) && allData[dataKey].url && allData[dataKey].outOfStock !== undefined) {
+        // Check if the current entry matches the selected filter
+        if ((filterValue === "true" && allData[dataKey].outOfStock) || (filterValue === "false" && !allData[dataKey].outOfStock)) {
+          output.innerHTML += "<p><strong>Out of Stock:</strong> " + allData[dataKey].outOfStock + "</p>";
+          // Add lazy-loaded image with src from the "url" field and set a small width
+          output.innerHTML += '<img src="' + allData[dataKey].url + '" loading="lazy" alt="Product Image" width="100">';
+          
+          // Add delete button with data-key attribute to identify the key for deletion
+          output.innerHTML += '<button onclick="deleteProduct(\'' + dataKey + '\')">Delete Product</button>';
+        }
+      }
+    }
+  }
+
+  // Function to delete a product by key
+  function deleteProduct(key) {
+    var confirmDelete = confirm("Are you sure you want to delete this product?");
+    if (confirmDelete) {
+      // Remove the product from the database
+      database.ref(key).remove()
+        .then(function() {
+          console.log("Product deleted successfully");
+        })
+        .catch(function(error) {
+          console.error("Error deleting product: ", error);
+        });
+    }
+  }
+</script>
+
+<!-- Form for filtering data -->
+<form>
+  <label>
+    <input type="radio" name="filter" value="true" checked> Show Out of Stock
+  </label>
+</form>
+
+<!-- Display area for "url" and "outOfStock" field values -->
+<div id="output"></div>
+
+</body>
+</html>
