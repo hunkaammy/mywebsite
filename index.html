@@ -454,9 +454,25 @@ function startVoiceRecognition() {
     recognition.onresult = function (event) {
         const transcript = event.results[0][0].transcript;
         document.getElementById('topBtn').value = transcript;
+        
+        // Update AngularJS model (searchQuery) with the recognized transcript
+        angular.element(document.getElementById('topBtn')).scope().$apply(function($scope) {
+            $scope.searchQuery = transcript;
+        });
+
+        // Trigger the filtering logic or any other functionality based on the recognized transcript
+        filterData(transcript);
     };
     
     recognition.start();
+}
+
+function filterData(query) {
+    // Implement your filtering logic here based on the recognized voice input
+    // For example, update $scope.productNameFilter with the filtered value
+    angular.element(document.getElementById('topBtn')).scope().$apply(function($scope) {
+        $scope.productNameFilter = query;
+    });
 }
 </script>
 
