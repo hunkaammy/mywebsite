@@ -436,11 +436,29 @@ button, input, select, textarea {
 }
 </style>
 
+
+
 <div class="navbar">
     <!-- Your existing navbar content here -->
+	<button onclick="startVoiceRecognition()">Start Voice Recognition</button>
+
    <input type="text" onclick="scrollToTop()" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';"> <br>
   
 </div>
+
+<script>
+function startVoiceRecognition() {
+    const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+    recognition.lang = 'en-US';
+    
+    recognition.onresult = function (event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('topBtn').value = transcript;
+    };
+    
+    recognition.start();
+}
+</script>
 
   <div class="tab-btns" onclick="scrollToTop()">
   <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
