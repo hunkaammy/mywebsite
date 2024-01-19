@@ -466,7 +466,7 @@ button, input, select, textarea {
 }
 
 /* Apply the animation to the microphone icon during the voice recognition process */
-#micIcon.active {
+#micIcon.animating {
     animation: pulse 1s infinite;
     color: blue; /* Change the color to blue while recognizing */
 }
@@ -475,7 +475,7 @@ button, input, select, textarea {
 <script>
 function startVoiceRecognition() {
     const micIcon = document.getElementById('micIcon');
-    micIcon.classList.add('active'); // Add the 'active' class to start the animation
+    micIcon.classList.add('animating'); // Add the 'animating' class to start the animation
 
     const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
     recognition.lang = 'en-US';
@@ -493,7 +493,7 @@ function startVoiceRecognition() {
         filterData(transcript);
         scrollToTop();
         
-        micIcon.classList.remove('active'); // Remove the 'active' class to stop the animation
+        micIcon.classList.remove('animating'); // Remove the 'animating' class to stop the animation
     };
     
     recognition.start();
