@@ -446,6 +446,7 @@ button, input, select, textarea {
   
 </div>
 
+
 <script>
 function startVoiceRecognition() {
     const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
@@ -460,8 +461,9 @@ function startVoiceRecognition() {
             $scope.searchQuery = transcript;
         });
 
-        // Trigger the filtering logic or any other functionality based on the recognized transcript
+        // Trigger the filtering logic and scroll to top
         filterData(transcript);
+        scrollToTop();
     };
     
     recognition.start();
@@ -473,6 +475,11 @@ function filterData(query) {
     angular.element(document.getElementById('topBtn')).scope().$apply(function($scope) {
         $scope.productNameFilter = query;
     });
+}
+
+function scrollToTop() {
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
 }
 </script>
 
