@@ -21,24 +21,20 @@ function startRecognition() {
     recognition = new webkitSpeechRecognition() || new SpeechRecognition();
     recognition.lang = 'hi-IN';
     recognition.interimResults = true;
+    recognition.continuous = true;
 
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         output.innerHTML = 'आपने कहा: ' + transcript;
     };
 
-    recognition.onend = function() {
-        startButton.disabled = false;
-        stopButton.disabled = true;
-    };
-
     recognition.onerror = function(event) {
         output.innerHTML = 'त्रुटि हुई: ' + event.error;
     };
 
-    recognition.start();
     startButton.disabled = true;
     stopButton.disabled = false;
+    recognition.start();
 }
 
 function stopRecognition() {
