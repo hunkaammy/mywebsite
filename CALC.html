@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>हिंदी में आवाज संज्ञान 1.9</title>
+<title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान</h1>
+<h1>हिंदी में आवाज संज्ञान 1.10</h1>
 <button id="startButton">शुरू करें</button>
 <div>
   <p id="output"></p>
@@ -41,13 +41,8 @@ recognition.onresult = function(event) {
         }
     }
     output.innerHTML = 'आपने कहा: ' + transcript;
-    const words = transcript.split(' '); // Split transcript into individual words
-    words.forEach(word => {
-        if (!isNaN(word.replace(/\s+/g, ''))) { // Check if the word is a number
-            sum += parseFloat(word.replace(/\s+/g, '')); // Add the recognized number to the sum
-        }
-    });
-    updateSumOutput(); // Update sum output
+    editedOutput.value = transcript; // Display recognized speech in the input field
+    updateSum(transcript); // Update the sum
 };
 
 recognition.onend = function() {
@@ -57,6 +52,17 @@ recognition.onend = function() {
 recognition.onerror = function(event) {
     output.innerHTML = 'त्रुटि हुई: ' + event.error;
 };
+
+function updateSum(transcript) {
+    const words = transcript.split(' '); // Split transcript into individual words
+    sum = 0; // Reset sum
+    words.forEach(word => {
+        if (!isNaN(word.replace(/\s+/g, ''))) { // Check if the word is a number
+            sum += parseFloat(word.replace(/\s+/g, '')); // Add the recognized number to the sum
+        }
+    });
+    updateSumOutput(); // Update sum output
+}
 
 function updateSumOutput() {
     sumOutput.innerHTML = 'कुल: ' + sum.toFixed(2); // Display sum with 2 decimal places
