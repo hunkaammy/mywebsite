@@ -22,16 +22,20 @@ recognition.interimResults = true;
 
 startButton.addEventListener('click', function() {
     output.innerHTML = '';
+    sum = 0; // Reset sum when starting recognition
+    updateSumOutput(); // Update sum output
     recognition.start();
     startButton.disabled = true;
 });
 
 recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript;
+    const transcript = event.results[event.results.length - 1][0].transcript.trim(); // Get the last recognized result
     output.innerHTML = 'आपने कहा: ' + transcript;
-    // Update sum
-    sum += parseInt(transcript) || 0; // Try to parse as integer, if not, add 0
-    sumOutput.innerHTML = 'कुल: ' + sum;
+    const parsedValue = parseInt(transcript); // Parse the recognized speech
+    if (!isNaN(parsedValue)) {
+        sum += parsedValue;
+        updateSumOutput(); // Update sum output
+    }
 };
 
 recognition.onend = function() {
@@ -41,6 +45,10 @@ recognition.onend = function() {
 recognition.onerror = function(event) {
     output.innerHTML = 'त्रुटि हुई: ' + event.error;
 };
+
+function updateSumOutput() {
+    sumOutput.innerHTML = 'कुल: ' + sum;
+}
 
 </script>
 </body>
