@@ -60,7 +60,7 @@ function startSpeechRecognition() {
 
 // टेक्स्ट से संख्याएँ पार्स करने के लिए फ़ंक्शन
 function parseNumbers(text) {
-    const numberRegex = /-?\d{1,4}(\.\d+)?/g; // संख्याएँ मिलाने के लिए नियमित अभिव्यक्ति (Regular expression to match numbers up to four digits)
+    const numberRegex = /-?\d+(\.\d+)?/g; // संख्याएँ मिलाने के लिए नियमित अभिव्यक्ति (Regular expression to match numbers up to four digits)
     const matches = text.match(numberRegex);
     return matches ? matches.map(parseFloat) : [];
 }
