@@ -17,11 +17,13 @@
 <p> v0.3 </p>
 <script>
 let realTimeRecognizedText = ''; // प्रायोजित समय में पहचाना गया टेक्स्ट को संग्रहीत करने के लिए चर
+let recognition = null;
 
 // आवाज़ जाँच प्रारंभ करने के लिए फ़ंक्शन
 function startSpeechRecognition() {
-    const recognition = new window.webkitSpeechRecognition(); // SpeechRecognition का एक नया उदाहरण बनाएं
+    recognition = new window.webkitSpeechRecognition(); // SpeechRecognition का एक नया उदाहरण बनाएं
     recognition.lang = 'hi-IN'; // पहचान भाषा को हिंदी में सेट करें (Set recognition language to Hindi (India))
+    recognition.interimResults = true; // Allow interim results
 
     recognition.onstart = function() {
         console.log('आवाज़ जाँच प्रारंभ हो गई (Speech recognition started)');
@@ -53,6 +55,7 @@ function startSpeechRecognition() {
 
     recognition.onend = function() {
         console.log('आवाज़ जाँच समाप्त हो गई (Speech recognition ended)');
+        setTimeout(startSpeechRecognition, 5000); // Restart recognition after 1 second of silence
     };
 
     recognition.start(); // जाँच प्रारंभ करें (Start recognition)
