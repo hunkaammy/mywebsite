@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Input Addition (Hindi)</title>
+</head>
+<body>
+
+<h1>Voice Input Addition (Hindi)</h1>
+
+<button onclick="startSpeechRecognition()">Activate Microphone</button>
+
+<script>
+// Function to start speech recognition
+function startSpeechRecognition() {
+    const recognition = new window.webkitSpeechRecognition(); // Create a new instance of SpeechRecognition
+    recognition.lang = 'hi-IN'; // Set recognition language to Hindi (India)
+
+    recognition.onstart = function() {
+        console.log('Speech recognition started');
+    };
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        console.log('Transcript:', transcript);
+        const numbers = parseNumbers(transcript);
+        if (numbers.length > 0) {
+            const sum = addNumbers(numbers);
+            alert('योग: ' + sum); // "Sum:" in Hindi
+        } else {
+            alert('बोले गए शब्दों में कोई संख्याएँ नहीं मिलीं'); // "No numbers found in the speech" in Hindi
+        }
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+        if (event.error === 'not-allowed') {
+            alert('माइक्रोफोन एक्सेस अनुमति नहीं है। कृपया अनुमति दें और पुनः प्रयास करें।'); // "Microphone access is not allowed. Please grant permission and try again." in Hindi
+        }
+    };
+
+    recognition.onend = function() {
+        console.log('Speech recognition ended');
+    };
+
+    recognition.start(); // Start recognition
+}
+
+// Function to parse numbers from a string
+function parseNumbers(text) {
+    const numberRegex = /-?\d+\.?\d*/g; // Regular expression to match numbers
+    const matches = text.match(numberRegex);
+    return matches ? matches.map(parseFloat) : [];
+}
+
+// Function to add numbers in an array
+function addNumbers(numbers) {
+    return numbers.reduce((sum, num) => sum + num, 0);
+}
+</script>
+
+</body>
+</html>
