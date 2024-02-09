@@ -6,52 +6,35 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.2</h1>
-<button id="startButton" onclick="startRecognition()">शुरू करें</button>
-<button id="stopButton" onclick="stopRecognition()" disabled>रोकें</button>
+<h1>हिंदी में आवाज संज्ञान</h1>
+<button id="startButton">शुरू करें</button>
 <p id="output"></p>
 <script>
 const output = document.getElementById('output');
 const startButton = document.getElementById('startButton');
-const stopButton = document.getElementById('stopButton');
-let recognition;
 
-function startRecognition() {
+const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+recognition.lang = 'hi-IN';
+recognition.interimResults = true;
+
+startButton.addEventListener('click', function() {
     output.innerHTML = '';
-    recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-    recognition.lang = 'hi-IN';
-    recognition.interimResults = true;
-    recognition.continuous = true;
-
-    recognition.onstart = function() {
-        console.log('आवाज संज्ञान शुरू हो गया।');
-    };
-
-    recognition.onresult = function(event) {
-        console.log('Result:', event.results);
-        const transcript = event.results[0][0].transcript;
-        console.log('Transcript:', transcript);
-        output.innerHTML = 'आपने कहा: ' + transcript;
-    };
-
-    recognition.onerror = function(event) {
-        output.innerHTML = 'त्रुटि हुई: ' + event.error;
-        console.error('त्रुटि हुई:', event.error);
-    };
-
-    startButton.disabled = true;
-    stopButton.disabled = false;
     recognition.start();
-}
+    startButton.disabled = true;
+});
 
-function stopRecognition() {
-    if (recognition) {
-        recognition.stop();
-        console.log('आवाज संज्ञान समाप्त हो गया।');
-        startButton.disabled = false;
-        stopButton.disabled = true;
-    }
-}
+recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    output.innerHTML = 'आपने कहा: ' + transcript;
+};
+
+recognition.onend = function() {
+    startButton.disabled = false;
+};
+
+recognition.onerror = function(event) {
+    output.innerHTML = 'त्रुटि हुई: ' + event.error;
+};
 
 </script>
 </body>
