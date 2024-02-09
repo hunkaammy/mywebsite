@@ -6,16 +6,19 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.7</h1>
+<h1>हिंदी में आवाज संज्ञान 1.8</h1>
 <button id="startButton">शुरू करें</button>
-<p id="output"></p>
+<div>
+  <p id="output"></p>
+  <input type="text" id="editedOutput" placeholder="आपकी परिवर्तित पाठ यहाँ दर्ज करें">
+</div>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
 <script>
 const output = document.getElementById('output');
+const editedOutput = document.getElementById('editedOutput');
 const sumOutput = document.getElementById('sumOutput');
 const startButton = document.getElementById('startButton');
 let sum = 0;
-let currentNumber = ''; // Variable to hold the current number being formed
 
 const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
 recognition.lang = 'hi-IN';
@@ -23,8 +26,8 @@ recognition.interimResults = true;
 
 startButton.addEventListener('click', function() {
     output.innerHTML = '';
+    editedOutput.value = '';
     sum = 0; // Reset sum when starting recognition
-    currentNumber = ''; // Reset currentNumber
     updateSumOutput(); // Update sum output
     recognition.start();
     startButton.disabled = true;
@@ -38,26 +41,10 @@ recognition.onresult = function(event) {
         }
     }
     output.innerHTML = 'आपने कहा: ' + transcript;
-    const words = transcript.split(' '); // Split transcript into individual words
-    words.forEach(word => {
-        if (!isNaN(word.replace(/\s+/g, ''))) { // Check if the word is a number
-            currentNumber += word.replace(/\s+/g, ''); // Concatenate recognized digits
-        } else {
-            if (currentNumber !== '') { // If there is a current number
-                sum += parseFloat(currentNumber); // Add the current number to the sum
-                currentNumber = ''; // Reset currentNumber
-            }
-        }
-    });
-    updateSumOutput(); // Update sum output
+    editedOutput.value = transcript; // Display recognized speech in the input field
 };
 
 recognition.onend = function() {
-    if (currentNumber !== '') { // If there is a remaining current number
-        sum += parseFloat(currentNumber); // Add the current number to the sum
-        currentNumber = ''; // Reset currentNumber
-    }
-    updateSumOutput(); // Update sum output
     startButton.disabled = false;
 };
 
