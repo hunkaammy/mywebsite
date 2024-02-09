@@ -24,6 +24,12 @@
             document.getElementById('error').style.display = 'block';
         }
     }
+
+    // Function to count "Make Out of Stock" buttons
+    function countOutOfStockButtons() {
+        var outOfStockButtons = document.querySelectorAll('.make-out-of-stock');
+        alert("Number of 'Make Out of Stock' buttons: " + outOfStockButtons.length);
+    }
 </script>
 
 <div id="login-form">
@@ -212,6 +218,8 @@
 <body>
   <header>Firebase Image CRUD</header>
   <main>
+   <button onclick="countOutOfStockButtons()">count available stock</button> <br> <br>
+
      <input type="file" id="imageInput" />
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
     <button onclick="uploadImage()">Upload Image</button>
