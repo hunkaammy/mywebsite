@@ -9,9 +9,12 @@
 <h1>हिंदी में आवाज संज्ञान</h1>
 <button id="startButton">शुरू करें</button>
 <p id="output"></p>
+<p id="sumOutput"></p>
 <script>
 const output = document.getElementById('output');
+const sumOutput = document.getElementById('sumOutput');
 const startButton = document.getElementById('startButton');
+let sum = 0;
 
 const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
 recognition.lang = 'hi-IN';
@@ -26,6 +29,9 @@ startButton.addEventListener('click', function() {
 recognition.onresult = function(event) {
     const transcript = event.results[0][0].transcript;
     output.innerHTML = 'आपने कहा: ' + transcript;
+    // Update sum
+    sum += parseInt(transcript) || 0; // Try to parse as integer, if not, add 0
+    sumOutput.innerHTML = 'कुल: ' + sum;
 };
 
 recognition.onend = function() {
