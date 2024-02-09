@@ -6,7 +6,7 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान1.1</h1>
+<h1>हिंदी में आवाज संज्ञान 1.2</h1>
 <button id="startButton" onclick="startRecognition()">शुरू करें</button>
 <button id="stopButton" onclick="stopRecognition()" disabled>रोकें</button>
 <p id="output"></p>
@@ -28,7 +28,9 @@ function startRecognition() {
     };
 
     recognition.onresult = function(event) {
+        console.log('Result:', event.results);
         const transcript = event.results[0][0].transcript;
+        console.log('Transcript:', transcript);
         output.innerHTML = 'आपने कहा: ' + transcript;
     };
 
