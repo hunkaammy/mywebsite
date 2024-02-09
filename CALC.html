@@ -6,17 +6,19 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.10</h1>
+<h1>हिंदी में आवाज संज्ञान 1.11</h1>
 <button id="startButton">शुरू करें</button>
 <div>
   <p id="output"></p>
   <input type="text" id="editedOutput" placeholder="आपकी परिवर्तित पाठ यहाँ दर्ज करें">
 </div>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
+<div id="editedSumOutput"></div> <!-- Div to display sum of edited data -->
 <script>
 const output = document.getElementById('output');
 const editedOutput = document.getElementById('editedOutput');
 const sumOutput = document.getElementById('sumOutput');
+const editedSumOutput = document.getElementById('editedSumOutput');
 const startButton = document.getElementById('startButton');
 let sum = 0;
 
@@ -29,6 +31,7 @@ startButton.addEventListener('click', function() {
     editedOutput.value = '';
     sum = 0; // Reset sum when starting recognition
     updateSumOutput(); // Update sum output
+    updateEditedSumOutput(); // Update edited sum output
     recognition.start();
     startButton.disabled = true;
 });
@@ -53,6 +56,11 @@ recognition.onerror = function(event) {
     output.innerHTML = 'त्रुटि हुई: ' + event.error;
 };
 
+editedOutput.addEventListener('input', function() {
+    const editedData = editedOutput.value;
+    updateEditedSum(editedData); // Update the sum based on edited data
+});
+
 function updateSum(transcript) {
     const words = transcript.split(' '); // Split transcript into individual words
     sum = 0; // Reset sum
@@ -64,8 +72,23 @@ function updateSum(transcript) {
     updateSumOutput(); // Update sum output
 }
 
+function updateEditedSum(editedData) {
+    const words = editedData.split(' '); // Split edited data into individual words
+    let editedSum = 0; // Initialize edited sum
+    words.forEach(word => {
+        if (!isNaN(word.replace(/\s+/g, ''))) { // Check if the word is a number
+            editedSum += parseFloat(word.replace(/\s+/g, '')); // Add the number to the edited sum
+        }
+    });
+    editedSumOutput.innerHTML = 'संपादित कुल: ' + editedSum.toFixed(2); // Display edited sum output
+}
+
 function updateSumOutput() {
     sumOutput.innerHTML = 'कुल: ' + sum.toFixed(2); // Display sum with 2 decimal places
+}
+
+function updateEditedSumOutput() {
+    editedSumOutput.innerHTML = 'संपादित कुल: 0'; // Initialize edited sum output
 }
 
 </script>
