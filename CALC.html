@@ -1,74 +1,73 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>आवाज़ इनपुट जोड़ना (Voice Input Addition)</title>
+<title>Voice Input Addition</title>
 </head>
 <body>
 
-<h1>आवाज़ इनपुट जोड़ना (Voice Input Addition)</h1>
+<h1>Voice Input Addition</h1>
 
-<button onclick="startSpeechRecognition()">माइक्रोफोन सक्रिय करें (Activate Microphone)</button>
+<button onclick="startSpeechRecognition()">Activate Microphone</button>
 
-<p id="recognizedText">पहचाना गया टेक्स्ट (Recognized Text):</p>
+<p id="recognizedText">Recognized Text:</p>
 
-<div id="realTimeText">वास्तविक समय में पहचाना गया टेक्स्ट (Real-Time Recognized Text): </div>
+<div id="realTimeText">Real-Time Recognized Text: </div>
 <p> v0.3 </p>
 <script>
-let realTimeRecognizedText = ''; // प्रायोजित समय में पहचाना गया टेक्स्ट को संग्रहीत करने के लिए चर
+let realTimeRecognizedText = ''; // Variable to store real-time recognized text
 let recognition = null;
 
-// आवाज़ जाँच प्रारंभ करने के लिए फ़ंक्शन
+// Function to start speech recognition
 function startSpeechRecognition() {
-    recognition = new window.webkitSpeechRecognition(); // SpeechRecognition का एक नया उदाहरण बनाएं
-    recognition.lang = 'hi-IN'; // पहचान भाषा को हिंदी में सेट करें (Set recognition language to Hindi (India))
+    recognition = new window.webkitSpeechRecognition(); // Create a new instance of SpeechRecognition
+    recognition.lang = 'en-US'; // Set recognition language to English (United States)
     recognition.interimResults = true; // Allow interim results
 
     recognition.onstart = function() {
-        console.log('आवाज़ जाँच प्रारंभ हो गई (Speech recognition started)');
+        console.log('Speech recognition started');
     };
 
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
-        console.log('ट्रांसक्रिप्ट:', transcript);
+        console.log('Transcript:', transcript);
 
-        // वास्तविक समय में पहचाना गया टेक्स्ट को अपडेट करें
+        // Update real-time recognized text
         realTimeRecognizedText = transcript;
-        document.getElementById('realTimeText').textContent = 'वास्तविक समय में पहचाना गया टेक्स्ट: ' + realTimeRecognizedText;
+        document.getElementById('realTimeText').textContent = 'Real-Time Recognized Text: ' + realTimeRecognizedText;
 
         const numbers = parseNumbers(transcript);
         if (numbers.length > 0) {
             const sum = addNumbers(numbers);
-            alert('योग: ' + sum); // जोड़: (Sum) in Hindi
+            alert('Sum: ' + sum);
         } else {
-            alert('बोले गए शब्दों में कोई संख्याएँ नहीं मिलीं (No numbers found in the speech)'); // अलर्ट: बोले गए शब्दों में कोई संख्याएँ नहीं मिलीं (No numbers found in the speech)
+            alert('No numbers found in the speech');
         }
     };
 
     recognition.onerror = function(event) {
-        console.error('आवाज़ जाँच त्रुटि:', event.error);
+        console.error('Speech recognition error:', event.error);
         if (event.error === 'not-allowed') {
-            alert('माइक्रोफोन एक्सेस अनुमति नहीं है। कृपया अनुमति दें और पुनः प्रयास करें।'); // माइक्रोफोन एक्सेस अनुमति नहीं है। कृपया अनुमति दें और पुनः प्रयास करें। (Microphone access is not allowed. Please grant permission and try again.)
+            alert('Microphone access is not allowed. Please grant permission and try again.');
         }
     };
 
     recognition.onend = function() {
-        console.log('आवाज़ जाँच समाप्त हो गई (Speech recognition ended)');
-        setTimeout(startSpeechRecognition, 5000); // Restart recognition after 1 second of silence
+        console.log('Speech recognition ended');
     };
 
-    recognition.start(); // जाँच प्रारंभ करें (Start recognition)
+    recognition.start(); // Start recognition
 }
 
-// टेक्स्ट से संख्याएँ पार्स करने के लिए फ़ंक्शन
+// Function to parse numbers from text
 function parseNumbers(text) {
-    const numberRegex = /(?:\d{1,3}(?:,\d{3})+|\d+)/g; // संख्याएँ मिलाने के लिए नियमित अभिव्यक्ति (Regular expression to match numbers with or without thousands separators)
+    const numberRegex = /(?:\d{1,3}(?:,\d{3})+|\d+)/g; // Regular expression to match numbers with or without thousands separators
     const matches = text.match(numberRegex);
     return matches ? matches.map(parseFloat) : [];
 }
 
-// संख्याओं को एक सरणी में जोड़ने के लिए फ़ंक्शन
+// Function to add numbers in an array
 function addNumbers(numbers) {
     return numbers.reduce((sum, num) => sum + num, 0);
 }
