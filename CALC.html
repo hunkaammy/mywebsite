@@ -14,7 +14,7 @@
 <p id="recognizedText">पहचाना गया टेक्स्ट (Recognized Text):</p>
 
 <div id="realTimeText">वास्तविक समय में पहचाना गया टेक्स्ट (Real-Time Recognized Text): </div>
-<p> v0.4<p>
+<p> v0.3 </p>
 <script>
 let realTimeRecognizedText = ''; // प्रायोजित समय में पहचाना गया टेक्स्ट को संग्रहीत करने के लिए चर
 
@@ -60,7 +60,7 @@ function startSpeechRecognition() {
 
 // टेक्स्ट से संख्याएँ पार्स करने के लिए फ़ंक्शन
 function parseNumbers(text) {
-    const numberRegex = /(?:\d{1,3}(?:,\d{3})*|\d+)/g; // संख्याएँ मिलाने के लिए नियमित अभिव्यक्ति (Regular expression to match numbers with or without thousands separators)
+    const numberRegex = /(?:\d{1,3}(?:,\d{3})+|\d+)/g; // संख्याएँ मिलाने के लिए नियमित अभिव्यक्ति (Regular expression to match numbers with or without thousands separators)
     const matches = text.match(numberRegex);
     return matches ? matches.map(parseFloat) : [];
 }
