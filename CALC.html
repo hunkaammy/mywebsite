@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>आवाज़ इनपुट जोड़ना (Voice Input Addition)</h1>
+<h1>v.4 आवाज़ इनपुट जोड़ना (Voice Input Addition)</h1>
 
 <button onclick="startSpeechRecognition()">माइक्रोफोन सक्रिय करें (Activate Microphone)</button>
 
@@ -55,7 +55,6 @@ function startSpeechRecognition() {
 
     recognition.onend = function() {
         console.log('आवाज़ जाँच समाप्त हो गई (Speech recognition ended)');
-        setTimeout(startSpeechRecognition, 5000); // Restart recognition after 1 second of silence
     };
 
     recognition.start(); // जाँच प्रारंभ करें (Start recognition)
