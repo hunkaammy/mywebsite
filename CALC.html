@@ -7,34 +7,47 @@
 </head>
 <body>
 <h1>हिंदी में आवाज संज्ञान</h1>
-<button id="startButton">शुरू करें</button>
+<button id="startButton" onclick="startRecognition()">शुरू करें</button>
+<button id="stopButton" onclick="stopRecognition()" disabled>रोकें</button>
 <p id="output"></p>
 <script>
 const output = document.getElementById('output');
 const startButton = document.getElementById('startButton');
+const stopButton = document.getElementById('stopButton');
+let recognition;
 
-const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-recognition.lang = 'hi-IN';
-recognition.interimResults = true;
-
-startButton.addEventListener('click', function() {
+function startRecognition() {
     output.innerHTML = '';
+    recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+    recognition.lang = 'hi-IN';
+    recognition.interimResults = true;
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        output.innerHTML = 'आपने कहा: ' + transcript;
+    };
+
+    recognition.onend = function() {
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    };
+
+    recognition.onerror = function(event) {
+        output.innerHTML = 'त्रुटि हुई: ' + event.error;
+    };
+
     recognition.start();
     startButton.disabled = true;
-});
+    stopButton.disabled = false;
+}
 
-recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript;
-    output.innerHTML = 'आपने कहा: ' + transcript;
-};
-
-recognition.onend = function() {
-    startButton.disabled = false;
-};
-
-recognition.onerror = function(event) {
-    output.innerHTML = 'त्रुटि हुई: ' + event.error;
-};
+function stopRecognition() {
+    if (recognition) {
+        recognition.stop();
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    }
+}
 
 </script>
 </body>
