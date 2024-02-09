@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>हिंदी में आवाज संज्ञान</title>
+<title>हिंदी में आवाज संज्ञान  </title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.1</h1>
+<h1>हिंदी में आवाज संज्ञान 1.2</h1>
 <button id="startButton">शुरू करें</button>
 <p id="output"></p>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
@@ -29,9 +29,14 @@ startButton.addEventListener('click', function() {
 });
 
 recognition.onresult = function(event) {
-    const transcript = event.results[event.results.length - 1][0].transcript.trim(); // Get the last recognized result
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+            transcript += event.results[i][0].transcript.trim(); // Concatenate final results
+        }
+    }
     output.innerHTML = 'आपने कहा: ' + transcript;
-    const parsedValue = parseInt(transcript); // Parse the recognized speech
+    const parsedValue = parseFloat(transcript); // Parse the recognized speech as float
     if (!isNaN(parsedValue)) {
         sum += parsedValue;
         updateSumOutput(); // Update sum output
@@ -47,7 +52,7 @@ recognition.onerror = function(event) {
 };
 
 function updateSumOutput() {
-    sumOutput.innerHTML = 'कुल: ' + sum;
+    sumOutput.innerHTML = 'कुल: ' + sum.toFixed(2); // Display sum with 2 decimal places
 }
 
 </script>
