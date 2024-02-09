@@ -6,7 +6,7 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.5</h1>
+<h1>हिंदी में आवाज संज्ञान 1.6</h1>
 <button id="startButton">शुरू करें</button>
 <p id="output"></p>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
@@ -34,20 +34,30 @@ recognition.onresult = function(event) {
     let transcript = '';
     for (let i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
-            transcript += event.results[i][0].transcript.trim() + ' '; // Concatenate final results with space
+            transcript += event.results[i][0].transcript.trim(); // Concatenate final results
         }
     }
     output.innerHTML = 'आपने कहा: ' + transcript;
-    // Concatenate recognized transcript to form numbers
-    currentNumber += transcript.trim().replace(/\s+/g, ''); // Remove spaces
-    const parsedValue = parseFloat(currentNumber); // Parse currentNumber as float
-    if (!isNaN(parsedValue)) {
-        sum = parsedValue; // Update sum to the parsedValue
-        updateSumOutput(); // Update sum output
-    }
+    const words = transcript.split(' '); // Split transcript into individual words
+    words.forEach(word => {
+        if (!isNaN(word)) { // Check if the word is a number
+            currentNumber += word; // Concatenate recognized digits
+        } else {
+            if (currentNumber !== '') { // If there is a current number
+                sum += parseFloat(currentNumber); // Add the current number to the sum
+                currentNumber = ''; // Reset currentNumber
+            }
+        }
+    });
+    updateSumOutput(); // Update sum output
 };
 
 recognition.onend = function() {
+    if (currentNumber !== '') { // If there is a remaining current number
+        sum += parseFloat(currentNumber); // Add the current number to the sum
+        currentNumber = ''; // Reset currentNumber
+    }
+    updateSumOutput(); // Update sum output
     startButton.disabled = false;
 };
 
