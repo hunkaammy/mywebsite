@@ -11,7 +11,13 @@
 
 <button onclick="startSpeechRecognition()">Activate Microphone</button>
 
+<p id="recognizedText">Recognized Text:</p>
+
+<div id="realTimeText">Real-Time Recognized Text: </div>
+
 <script>
+let realTimeRecognizedText = ''; // Variable to store real-time recognized text
+
 // Function to start speech recognition
 function startSpeechRecognition() {
     const recognition = new window.webkitSpeechRecognition(); // Create a new instance of SpeechRecognition
@@ -24,6 +30,11 @@ function startSpeechRecognition() {
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         console.log('Transcript:', transcript);
+
+        // Update real-time recognized text
+        realTimeRecognizedText = transcript;
+        document.getElementById('realTimeText').textContent = 'Real-Time Recognized Text: ' + realTimeRecognizedText;
+
         const numbers = parseNumbers(transcript);
         if (numbers.length > 0) {
             const sum = addNumbers(numbers);
