@@ -6,7 +6,7 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.1</h1>
+<h1>हिंदी में आवाज संज्ञान1.1</h1>
 <button id="startButton" onclick="startRecognition()">शुरू करें</button>
 <button id="stopButton" onclick="stopRecognition()" disabled>रोकें</button>
 <p id="output"></p>
@@ -23,6 +23,10 @@ function startRecognition() {
     recognition.interimResults = true;
     recognition.continuous = true;
 
+    recognition.onstart = function() {
+        console.log('आवाज संज्ञान शुरू हो गया।');
+    };
+
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         output.innerHTML = 'आपने कहा: ' + transcript;
@@ -30,6 +34,7 @@ function startRecognition() {
 
     recognition.onerror = function(event) {
         output.innerHTML = 'त्रुटि हुई: ' + event.error;
+        console.error('त्रुटि हुई:', event.error);
     };
 
     startButton.disabled = true;
@@ -40,6 +45,7 @@ function startRecognition() {
 function stopRecognition() {
     if (recognition) {
         recognition.stop();
+        console.log('आवाज संज्ञान समाप्त हो गया।');
         startButton.disabled = false;
         stopButton.disabled = true;
     }
