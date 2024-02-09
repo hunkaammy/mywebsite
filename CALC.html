@@ -6,7 +6,7 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.4</h1>
+<h1>हिंदी में आवाज संज्ञान 1.5</h1>
 <button id="startButton">शुरू करें</button>
 <p id="output"></p>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
@@ -15,6 +15,7 @@ const output = document.getElementById('output');
 const sumOutput = document.getElementById('sumOutput');
 const startButton = document.getElementById('startButton');
 let sum = 0;
+let currentNumber = ''; // Variable to hold the current number being formed
 
 const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
 recognition.lang = 'hi-IN';
@@ -23,6 +24,7 @@ recognition.interimResults = true;
 startButton.addEventListener('click', function() {
     output.innerHTML = '';
     sum = 0; // Reset sum when starting recognition
+    currentNumber = ''; // Reset currentNumber
     updateSumOutput(); // Update sum output
     recognition.start();
     startButton.disabled = true;
@@ -36,13 +38,13 @@ recognition.onresult = function(event) {
         }
     }
     output.innerHTML = 'आपने कहा: ' + transcript;
-    const parsedValues = transcript.trim().split(' ').map(parseFloat); // Parse each recognized speech as float
-    parsedValues.forEach(parsedValue => {
-        if (!isNaN(parsedValue)) {
-            sum += parsedValue;
-        }
-    });
-    updateSumOutput(); // Update sum output
+    // Concatenate recognized transcript to form numbers
+    currentNumber += transcript.trim().replace(/\s+/g, ''); // Remove spaces
+    const parsedValue = parseFloat(currentNumber); // Parse currentNumber as float
+    if (!isNaN(parsedValue)) {
+        sum = parsedValue; // Update sum to the parsedValue
+        updateSumOutput(); // Update sum output
+    }
 };
 
 recognition.onend = function() {
