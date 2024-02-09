@@ -6,7 +6,7 @@
 <title>हिंदी में आवाज संज्ञान</title>
 </head>
 <body>
-<h1>हिंदी में आवाज संज्ञान 1.6</h1>
+<h1>हिंदी में आवाज संज्ञान 1.7</h1>
 <button id="startButton">शुरू करें</button>
 <p id="output"></p>
 <p id="sumOutput">कुल: 0</p> <!-- Initially, sum is 0 -->
@@ -40,8 +40,8 @@ recognition.onresult = function(event) {
     output.innerHTML = 'आपने कहा: ' + transcript;
     const words = transcript.split(' '); // Split transcript into individual words
     words.forEach(word => {
-        if (!isNaN(word)) { // Check if the word is a number
-            currentNumber += word; // Concatenate recognized digits
+        if (!isNaN(word.replace(/\s+/g, ''))) { // Check if the word is a number
+            currentNumber += word.replace(/\s+/g, ''); // Concatenate recognized digits
         } else {
             if (currentNumber !== '') { // If there is a current number
                 sum += parseFloat(currentNumber); // Add the current number to the sum
