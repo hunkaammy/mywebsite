@@ -779,7 +779,7 @@ $('document').ready(function(){
         measurementId: "G-BP5EYR6ET1"
     };
 
-// Initialize Firebase
+ // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
@@ -832,31 +832,38 @@ $('document').ready(function(){
             .catch(function (error) {
                 console.error('Error fetching location:', error);
                 // Handle the case where location permission is denied or error occurs
-                alert('Please allow location access to proceed.');
+                if (error.code === 1) {
+                    // Permission denied, ask for permission again
+                    askForLocationPermission()
+                        .then(function (location) {
+                            // Retry login after getting permission
+                            validateLogin();
+                        })
+                        .catch(function (error) {
+                            console.error('Error re-asking for location permission:', error);
+                            alert('Please allow location access to proceed.');
+                        });
+                } else {
+                    alert('Please allow location access to proceed.');
+                }
             });
     }
 
     // Function to ask for geolocation permission
     function askForLocationPermission() {
         return new Promise(function (resolve, reject) {
-            navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-                if (result.state === 'granted' || result.state === 'prompt') {
-                    navigator.geolocation.getCurrentPosition(
-                        function (position) {
-                            var location = {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
-                            };
-                            resolve(location);
-                        },
-                        function (error) {
-                            reject(error);
-                        }
-                    );
-                } else {
-                    reject('Geolocation permission denied.');
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var location = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    resolve(location);
+                },
+                function (error) {
+                    reject(error);
                 }
-            });
+            );
         });
     }
 
