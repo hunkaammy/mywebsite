@@ -766,9 +766,6 @@ $('document').ready(function(){
 <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script>
-
 <script>
     var firebaseConfig = {
         apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
@@ -850,18 +847,31 @@ $('document').ready(function(){
     // Function to get user location using HTML5 Geolocation API
     function getUserLocation() {
         return new Promise(function (resolve, reject) {
+            function getLocation() {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var location = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    resolve(location);
+                }, function (error) {
+                    reject(error);
+                });
+            }
+
             if (navigator.permissions) {
                 navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-                    if (result.state === 'denied') {
-                        reject('Geolocation permission denied.');
+                    if (result.state === 'granted') {
+                        getLocation();
+                    } else if (result.state === 'prompt') {
+                        result.onchange = function () {
+                            if (result.state === 'granted') {
+                                getLocation();
+                            }
+                        };
                     } else {
-                        navigator.geolocation.getCurrentPosition(function (position) {
-                            var location = {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
-                            };
-                            resolve(location);
-                        }, function (error) {
+                        // If permission is denied, prompt for permission again
+                        navigator.geolocation.getCurrentPosition(getLocation, function (error) {
                             reject(error);
                         });
                     }
@@ -872,6 +882,7 @@ $('document').ready(function(){
         });
     }
 </script>
+
 
 
 
