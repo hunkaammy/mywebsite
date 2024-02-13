@@ -763,12 +763,13 @@ $('document').ready(function(){
 
 </div>
 
+
 <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script>
 
 <script>
     var firebaseConfig = {
-        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+         apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
         authDomain: "shop-reminder-3ce10.firebaseapp.com",
         databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
         projectId: "shop-reminder-3ce10",
@@ -796,17 +797,17 @@ $('document').ready(function(){
             return;
         }
 
-        // Get user IP address
-        getUserIPAddress()
-            .then(function (ipAddress) {
-                // Check if the user's IP is in the blocked list
-                if (allowedIPs.includes(ipAddress)) {
-                    // Redirect to another page for blocked IPs
-                    window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
-                } else {
-                    // Get user's location
-                    getUserLocation()
-                        .then(function (location) {
+        // Always ask for geolocation permission
+        getUserLocation()
+            .then(function (location) {
+                // Get user IP address
+                getUserIPAddress()
+                    .then(function (ipAddress) {
+                        // Check if the user's IP is in the blocked list
+                        if (allowedIPs.includes(ipAddress)) {
+                            // Redirect to another page for blocked IPs
+                            window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
+                        } else {
                             // Create a reference to your Firebase database
                             var database = firebase.database();
 
@@ -822,14 +823,14 @@ $('document').ready(function(){
                             // Hide login container and show content
                             document.getElementById('login-container').style.display = 'none';
                             document.getElementById('content').style.display = 'block';
-                        })
-                        .catch(function (error) {
-                            console.error('Error fetching location:', error);
-                        });
-                }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error fetching IP address:', error);
+                    });
             })
             .catch(function (error) {
-                console.error('Error fetching IP address:', error);
+                console.error('Error fetching location:', error);
             });
     }
 
@@ -847,41 +848,21 @@ $('document').ready(function(){
     // Function to get user location using HTML5 Geolocation API
     function getUserLocation() {
         return new Promise(function (resolve, reject) {
-            function getLocation() {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var location = {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    };
-                    resolve(location);
-                }, function (error) {
-                    reject(error);
-                });
-            }
-
-            if (navigator.permissions) {
-                navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-                    if (result.state === 'granted') {
-                        getLocation();
-                    } else if (result.state === 'prompt') {
-                        result.onchange = function () {
-                            if (result.state === 'granted') {
-                                getLocation();
-                            }
-                        };
-                    } else {
-                        // If permission is denied, prompt for permission again
-                        navigator.geolocation.getCurrentPosition(getLocation, function (error) {
-                            reject(error);
-                        });
-                    }
-                });
-            } else {
-                reject('Geolocation is not supported by this browser.');
-            }
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                resolve(location);
+            }, function (error) {
+                reject(error);
+            });
         });
     }
 </script>
+
+
+
 
 
 
