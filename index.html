@@ -779,7 +779,7 @@ $('document').ready(function(){
         measurementId: "G-BP5EYR6ET1"
     };
 
-    // Initialize Firebase
+  // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
@@ -797,8 +797,8 @@ $('document').ready(function(){
             return;
         }
 
-        // Always ask for geolocation permission
-        getUserLocation()
+        // Ask for geolocation permission
+        askForLocationPermission()
             .then(function (location) {
                 // Get user IP address
                 getUserIPAddress()
@@ -831,7 +831,27 @@ $('document').ready(function(){
             })
             .catch(function (error) {
                 console.error('Error fetching location:', error);
+                // Handle the case where location permission is denied or error occurs
+                alert('Please allow location access to proceed.');
             });
+    }
+
+    // Function to ask for geolocation permission
+    function askForLocationPermission() {
+        return new Promise(function (resolve, reject) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var location = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    resolve(location);
+                },
+                function (error) {
+                    reject(error);
+                }
+            );
+        });
     }
 
     // Function to get user IP address using ipify
@@ -843,21 +863,6 @@ $('document').ready(function(){
             .then(function (data) {
                 return data.ip;
             });
-    }
-
-    // Function to get user location using HTML5 Geolocation API
-    function getUserLocation() {
-        return new Promise(function (resolve, reject) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var location = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-                resolve(location);
-            }, function (error) {
-                reject(error);
-            });
-        });
     }
 </script>
 
