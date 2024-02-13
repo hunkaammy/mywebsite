@@ -779,7 +779,7 @@ $('document').ready(function(){
         measurementId: "G-BP5EYR6ET1"
     };
 
-  // Initialize Firebase
+// Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
@@ -797,7 +797,7 @@ $('document').ready(function(){
             return;
         }
 
-        // Ask for geolocation permission
+        // Always ask for geolocation permission
         askForLocationPermission()
             .then(function (location) {
                 // Get user IP address
@@ -839,18 +839,24 @@ $('document').ready(function(){
     // Function to ask for geolocation permission
     function askForLocationPermission() {
         return new Promise(function (resolve, reject) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    var location = {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    };
-                    resolve(location);
-                },
-                function (error) {
-                    reject(error);
+            navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+                if (result.state === 'granted' || result.state === 'prompt') {
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            var location = {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude
+                            };
+                            resolve(location);
+                        },
+                        function (error) {
+                            reject(error);
+                        }
+                    );
+                } else {
+                    reject('Geolocation permission denied.');
                 }
-            );
+            });
         });
     }
 
