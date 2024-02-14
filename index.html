@@ -763,13 +763,9 @@ $('document').ready(function(){
 
 </div>
 
-
-<script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script>
-
 <script>
     var firebaseConfig = {
-         apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
         authDomain: "shop-reminder-3ce10.firebaseapp.com",
         databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
         projectId: "shop-reminder-3ce10",
@@ -779,11 +775,11 @@ $('document').ready(function(){
         measurementId: "G-BP5EYR6ET1"
     };
 
- // Initialize Firebase
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
     // Array of allowed IP addresses
-    var allowedIPs = ['106.76.242.98', '101.77.243.99', '192.168.1.3', '192.168.1.1'];
+    var allowedIPs = ['106.76.242.98', '101.77.243.99 ', '192.168.1.3', '192.168.1.1'];
 
     // Function to validate login
     function validateLogin() {
@@ -797,100 +793,46 @@ $('document').ready(function(){
             return;
         }
 
-        // Ask for permission
-        var permissionConfirmed = confirm("we need your location to serve you better please accept the location permission.");
-        if (permissionConfirmed) {
-            getUserLocation()
-                .then(function(location) {
-                    // Get user IP address
-                    getUserIPAddress()
-                        .then(function(ipAddress) {
-                            // Check if the user's IP is in the blocked list
-                            if (allowedIPs.includes(ipAddress)) {
-                                // Redirect to another page for blocked IPs
-                                window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
-                            } else {
-                                // Create a reference to your Firebase database
-                                var database = firebase.database();
+        // Get user IP address
+        getUserIPAddress()
+            .then(function (ipAddress) {
+                // Check if the user's IP is in the blocked list
+                if (allowedIPs.includes(ipAddress)) {
+                    // Redirect to another page for blocked IPs
+                    window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
+                } else {
+                    // Create a reference to your Firebase database
+                    var database = firebase.database();
 
-                                // Push user data to Firebase with timestamp
-                                var userRef = database.ref('users').push({
-                                    name: name,
-                                    mobile: mobile,
-                                    ipAddress: ipAddress,
-                                    location: location,
-                                    timestamp: firebase.database.ServerValue.TIMESTAMP
-                                });
+                    // Push user data to Firebase with timestamp
+                    var userRef = database.ref('users').push({
+                        name: name,
+                        mobile: mobile,
+                        ipAddress: ipAddress,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
 
-                                // Hide login container and show content
-                                document.getElementById('login-container').style.display = 'none';
-                                document.getElementById('content').style.display = 'block';
-                            }
-                        })
-                        .catch(function(error) {
-                            console.error('Error fetching IP address:', error);
-                        });
-                })
-                .catch(function(error) {
-                    console.error('Error fetching location:', error);
-                    // Handle the case where location permission is denied or error occurs
-                    alert('Please allow location access to proceed.');
-                });
-        } else {
-            // Handle case where user denies permission
-            alert("Location access denied. Some features may not work properly.");
-        }
+                    // Hide login container and show content
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                }
+            })
+            .catch(function (error) {
+                console.error('Error fetching IP address:', error);
+            });
     }
 
     // Function to get user IP address using ipify
     function getUserIPAddress() {
         return fetch('https://api.ipify.org?format=json')
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(data) {
+            .then(function (data) {
                 return data.ip;
             });
     }
-
-    // Function to get user location using HTML5 Geolocation API
-    function getUserLocation() {
-        return new Promise(function(resolve, reject) {
-            navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-                if (result.state === 'granted') {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var location = {
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude
-                        };
-                        resolve(location);
-                    }, function(error) {
-                        reject(error);
-                    });
-                } else if (result.state === 'prompt') {
-                    // Prompt user for permission again
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var location = {
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude
-                        };
-                        resolve(location);
-                    }, function(error) {
-                        reject(error);
-                    });
-                } else {
-                    reject('Geolocation permission denied.');
-                }
-            });
-        });
-    }
 </script>
-
-
-
-
-
-
 
 </body>
 </html>
