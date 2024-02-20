@@ -222,6 +222,7 @@
 
      <input type="file" id="imageInput" />
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
+	<input type="text" id="priceInput" placeholder="Price">
     <button onclick="uploadImage()">Upload Image</button>
     <div id="uploadProgress">
       <div id="progressBar"></div>
@@ -249,6 +250,8 @@
         measurementId: "G-FJ4Q0FHBEG"
       };
 
+
+
       firebase.initializeApp(firebaseConfig);
 
       const storage = firebase.storage();
@@ -256,43 +259,58 @@
       const imageContainer = document.getElementById('imageContainer');
       const imageInput = document.getElementById('imageInput');
       const nameInput = document.getElementById('nameInput');
+      const priceInput = document.getElementById('priceInput');
       const uploadProgress = document.getElementById('uploadProgress');
       const progressBar = document.getElementById('progressBar');
 
-      window.uploadImage = function() {
-        const file = imageInput.files[0];
-        const name = nameInput.value.trim();
-        if (!file || !name) {
-          alert('Please select an image and enter an image name.');
-          return;
-        }
+window.uploadImage = function() {
+    const file = imageInput.files[0];
+    const name = nameInput.value.trim();
+    const price = parseFloat(priceInput.value.trim()); // Parse the price as a float
 
-        const currentDate = new Date().toISOString();
-        const outOfStock = false; // Set the initial availability status
-        const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
-        const task = storageRef.put(file);
+    // Check if price is a valid number
+    if (isNaN(price) || price <= 0) {
+        alert('Please enter a valid price.');
+        return;
+    }
 
-        uploadProgress.style.display = 'block';
+    // Divide the price by 2
+    const priceHalf = price / 2;
 
-        task.on('state_changed', (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          progressBar.style.width = progress + '%';
-        }, (error) => {
-          console.error(error.message);
-        }, () => {
-          storageRef.getDownloadURL().then(downloadURL => {
+    if (!file || !name) {
+        alert('Please select an image and enter an image name.');
+        return;
+    }
+
+    const currentDate = new Date().toISOString();
+    const outOfStock = false; // Set the initial availability status
+    const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
+    const task = storageRef.put(file);
+
+    uploadProgress.style.display = 'block';
+
+    task.on('state_changed', (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        progressBar.style.width = progress + '%';
+    }, (error) => {
+        console.error(error.message);
+    }, () => {
+        storageRef.getDownloadURL().then(downloadURL => {
+            // Push the priceHalf variable to Firebase instead of the original price
             database.ref().push({
-              url: downloadURL,
-              name: name,
-              date: currentDate,
-              outOfStock: outOfStock
+                url: downloadURL,
+                name: name,
+                price: priceHalf, // Push the calculated price
+                date: currentDate,
+                outOfStock: outOfStock
             });
             imageInput.value = '';
             nameInput.value = '';
+            priceInput.value = '';
             uploadProgress.style.display = 'none';
-          });
         });
-      }
+    });
+}
 
       function fetchImagesRealtime() {
         database.ref().orderByChild('date').on('value', snapshot => {
@@ -300,22 +318,23 @@
           snapshot.forEach(childSnapshot => {
             const imageUrl = childSnapshot.val().url;
             const name = childSnapshot.val().name;
+            const price = childSnapshot.val().price;
             const date = childSnapshot.val().date;
             const outOfStock = childSnapshot.val().outOfStock;
-            images.push({ imageUrl, name, date, outOfStock, key: childSnapshot.key });
+            images.push({ imageUrl, name, price, date, outOfStock, key: childSnapshot.key });
           });
 
           imageContainer.innerHTML = "";
 
           for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].date, images[i].outOfStock, images[i].key);
+            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].key);
           }
         });
       }
 
       fetchImagesRealtime();
 
-      function displayImage(url, name, date, outOfStock, key) {
+      function displayImage(url, name, price, date, outOfStock, key) {
         const image = document.createElement('img');
         image.src = url;
         image.style.maxWidth = '200px';
@@ -325,6 +344,9 @@
         const nameElement = document.createElement('p');
         nameElement.innerText = `Name: ${name}`;
 
+        const priceElement = document.createElement('p');
+        priceElement.innerText = `Price: ${price}`;
+
         const dateElement = document.createElement('p');
         dateElement.innerText = `Date: ${date}`;
 
@@ -332,11 +354,16 @@
         outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
         outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
 
-            outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
+        outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
 
         const editButton = document.createElement('button');
         editButton.innerText = 'Edit Image Name';
         editButton.addEventListener('click', () => enableEditMode(key));
+
+        const editPriceButton = document.createElement('button');
+        editPriceButton.innerText = 'Edit Price';
+        editPriceButton.className = 'edit-price';
+        editPriceButton.addEventListener('click', () => enableEditPrice(key));
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete Image';
@@ -346,9 +373,11 @@
         container.setAttribute('data-key', key);
         container.appendChild(image);
         container.appendChild(nameElement);
+        container.appendChild(priceElement);
         container.appendChild(dateElement);
         container.appendChild(outOfStockButton);
         container.appendChild(editButton);
+        container.appendChild(editPriceButton);
         container.appendChild(deleteButton);
 
         imageContainer.appendChild(container);
@@ -420,6 +449,53 @@
         nameElement.innerText = `Name: ${nameInput.value}`;
       }
 
+      function enableEditPrice(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const priceElement = container.querySelector('p:nth-child(3)');
+        const editPriceButton = container.querySelector('.edit-price');
+
+        const savePriceButton = document.createElement('button');
+        savePriceButton.innerText = 'Save Price';
+        savePriceButton.className = 'save-price';
+        const priceInput = document.createElement('input');
+        priceInput.type = 'text';
+        priceInput.value = priceElement.innerText.replace('Price: ', '');
+
+        editPriceButton.style.display = 'none';
+
+        savePriceButton.addEventListener('click', () => saveEditedPrice(key, priceInput.value));
+
+        container.appendChild(priceInput);
+        container.appendChild(savePriceButton);
+
+        container.classList.add('edit-price-mode');
+      }
+
+      function saveEditedPrice(key, newPrice) {
+    const newPriceHalf = parseFloat(newPrice) / 2; // Divide the new price by 2
+    database.ref(`${key}/price`).set(newPriceHalf).then(() => {
+        exitEditPriceMode(key);
+    });
+}
+
+      function exitEditPriceMode(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const priceElement = container.querySelector('p:nth-child(3)');
+        const editPriceButton = container.querySelector('.edit-price');
+        const priceInput = container.querySelector('input');
+        const savePriceButton = container.querySelector('.save-price');
+
+        priceInput.style.display = 'none';
+        savePriceButton.style.display = 'none';
+
+        priceElement.style.display = 'block';
+        editPriceButton.style.display = 'inline-block';
+
+        container.classList.remove('edit-price-mode');
+
+        priceElement.innerText = `Price: ${priceInput.value}`;
+      }
+
       function deleteImage(key) {
         // Retrieve image URL, image name, and date from the root of the database
         database.ref(key).once('value').then(snapshot => {
@@ -436,7 +512,7 @@
               const imageElement = document.querySelector(`[data-key="${key}"]`);
               imageElement.remove();
             });
-          } else {
+           } else {
             console.log('No image to delete');
           }
         });
