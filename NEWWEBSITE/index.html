@@ -669,16 +669,25 @@ for(let img of images) {
                 uploadImage(file);
             };
 			
-			$scope.captureScreenshot = function() {
-    html2canvas(document.getElementById('containers'), {
-        onrendered: function(canvas) {
-            var link = document.createElement('a');
-            link.href = canvas.toDataURL();
-            link.download = 'screenshot.png';
-            link.click();
-        }
-    });
+	$scope.captureScreenshot = function() {
+    var imageElement = document.querySelector('#containers img');
+    var canvas = document.createElement('canvas');
+    canvas.width = imageElement.width;
+    canvas.height = imageElement.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(imageElement, 0, 0, imageElement.width, imageElement.height);
+
+    // Convert canvas to data URL
+    var dataURL = canvas.toDataURL();
+
+    // Create a link and trigger download
+    var link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'screenshot.png';
+    link.click();
 }
+
+
 
             function uploadImage(file) {
                 var random = parseInt(Math.random() * 1000000);
