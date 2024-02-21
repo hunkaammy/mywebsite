@@ -661,21 +661,15 @@ for(let img of images) {
     });
 };
 
-            $scope.shareImage = function(imageUrl) {
-    // CORS Anywhere proxy URL
-    var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-    // Append the proxy URL to the image URL
-    var proxiedUrl = proxyUrl + imageUrl;
-
+           $scope.shareImage = function(imageUrl) {
     // Create a new XMLHttpRequest instance
     var xhr = new XMLHttpRequest();
 
     // Set responseType to 'blob' since we're dealing with binary data
     xhr.responseType = 'blob';
 
-    // Open a GET request to the proxied image URL
-    xhr.open('GET', proxiedUrl);
+    // Open a GET request to the image URL
+    xhr.open('GET', imageUrl);
 
     // When the request is successful, convert the blob to base64 and share it on WhatsApp
     xhr.onload = function() {
@@ -686,11 +680,10 @@ for(let img of images) {
             // When the FileReader has loaded the blob (image), convert it to base64
             reader.onloadend = function() {
                 // Create a data URI with the base64 string
-                var base64Data = reader.result;
-                var dataUri = 'data:image/jpeg;base64,' + base64Data.split(',')[1];
-
-                // Open WhatsApp share dialog with the data URI
-                var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(dataUri);
+                var base64Data = reader.result.split(',')[1];
+                
+                // Open WhatsApp share dialog with the base64-encoded image data
+                var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent("data:image/jpeg;base64," + base64Data);
                 window.open(whatsappUrl, '_blank');
             };
 
