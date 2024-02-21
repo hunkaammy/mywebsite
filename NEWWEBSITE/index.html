@@ -544,21 +544,22 @@ function scrollToTop() {
         <div class="card">
             <img src="{{image.url}}" loading="lazy" width="350" height="350">
             <div class="containers">
-<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>             
-			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
+                <h4><b><p>{{image.price}} Rs.</p></b></h4>             
                 <p>{{image.name}}</p>
-			
-                
+
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                 <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
 
-                <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
                 <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
+                
+                <!-- Button to capture screenshot -->
+                <button class="capture-screenshot" ng-click="captureScreenshot()">Capture Screenshot</button>
             </div>
         </div>
     </div>
 </div>
+
 
  <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
@@ -665,6 +666,17 @@ for(let img of images) {
                 var file = event.target.files[0];
                 uploadImage(file);
             };
+			
+			$scope.captureScreenshot = function() {
+    html2canvas(document.getElementById('containers'), {
+        onrendered: function(canvas) {
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'screenshot.png';
+            link.click();
+        }
+    });
+}
 
             function uploadImage(file) {
                 var random = parseInt(Math.random() * 1000000);
