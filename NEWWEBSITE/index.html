@@ -555,8 +555,7 @@ function scrollToTop() {
                 <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
                 <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
-            <button ng-click="shareImage(image.url)">Share on WhatsApp</button>
-			</div>
+            </div>
         </div>
     </div>
 </div>
@@ -661,40 +660,11 @@ for(let img of images) {
     });
 };
 
-           $scope.shareImage = function(imageUrl) {
-    // Create a new XMLHttpRequest instance
-    var xhr = new XMLHttpRequest();
-
-    // Set responseType to 'blob' since we're dealing with binary data
-    xhr.responseType = 'blob';
-
-    // Open a GET request to the image URL
-    xhr.open('GET', imageUrl);
-
-    // When the request is successful, convert the blob to base64 and share it on WhatsApp
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            // Create a FileReader instance
-            var reader = new FileReader();
-
-            // When the FileReader has loaded the blob (image), convert it to base64
-            reader.onloadend = function() {
-                // Create a data URI with the base64 string
-                var base64Data = reader.result.split(',')[1];
-                
-                // Open WhatsApp share dialog with the base64-encoded image data
-                var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent("data:image/jpeg;base64," + base64Data);
-                window.open(whatsappUrl, '_blank');
+            $scope.image = function (event) {
+                event.preventDefault();
+                var file = event.target.files[0];
+                uploadImage(file);
             };
-
-            // Read the blob (image) as base64
-            reader.readAsDataURL(xhr.response);
-        }
-    };
-
-    // Send the request
-    xhr.send();
-};
 
             function uploadImage(file) {
                 var random = parseInt(Math.random() * 1000000);
