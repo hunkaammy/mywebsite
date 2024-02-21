@@ -544,17 +544,15 @@ function scrollToTop() {
         <div class="card">
             <img src="{{image.url}}" loading="lazy" width="350" height="350">
             <div class="containers">
-<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>             
-			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
+                <h4><b>{{image.price}} Rs.</b></h4>
                 <p>{{image.name}}</p>
-			
-                
-                <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
-                <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
-
-                <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
                 <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
+
+                <!-- Button to share on WhatsApp -->
+                <button class="share-whatsapp" ng-click="shareOnWhatsApp(image.name, image.price)">
+                    Share on WhatsApp
+                </button>
             </div>
         </div>
     </div>
@@ -628,67 +626,72 @@ for(let img of images) {
             };
 
             var firebaseFetch = firebase.initializeApp(firebaseConfigFetch, 'fetchApp');
-            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+        var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
 
-            var storageServiceFetch = firebaseFetch.storage();
-            var databaseFetch = firebaseFetch.database().ref();
-            var listFetch = $firebaseArray(databaseFetch);
-            $scope.vm.images = listFetch;
+        var storageServiceFetch = firebaseFetch.storage();
+        var databaseFetch = firebaseFetch.database().ref();
+        var listFetch = $firebaseArray(databaseFetch);
+        $scope.vm.images = listFetch;
 
-            var storageServiceSubmit = firebaseSubmit.storage();
-            var databaseSubmit = firebaseSubmit.database().ref();
-            var listSubmit = $firebaseArray(databaseSubmit);
-			
-			
+        var storageServiceSubmit = firebaseSubmit.storage();
+        var databaseSubmit = firebaseSubmit.database().ref();
+        var listSubmit = $firebaseArray(databaseSubmit);
 
-  $scope.submitData = function (image, index) {
-    var inputa = image.url;
-    var inputb = $scope.dynamicField2Value;
-    var inputc = image.field3;
-    var inputName = image.name; // Add this line
-	var inputPrice = image.price; // Add this line
-    var inputoutofstock = image.outOfStock; // Add this line
+        $scope.submitData = function (image, index) {
+            var inputa = image.url;
+            var inputb = $scope.dynamicField2Value;
+            var inputc = image.field3;
+            var inputName = image.name; // Add this line
+            var inputPrice = image.price; // Add this line
+            var inputoutofstock = image.outOfStock; // Add this line
 
-    var newDataKey = databaseSubmit.push().key;
+            var newDataKey = databaseSubmit.push().key;
 
-    databaseSubmit.child(newDataKey).set({
-        field1: inputa,
-        field2: inputb,
-        field3: inputc,
-        productName: inputName, // Add this line
-		productPrice: inputPrice // Add this line
-    });
-};
+            databaseSubmit.child(newDataKey).set({
+                field1: inputa,
+                field2: inputb,
+                field3: inputc,
+                productName: inputName, // Add this line
+                productPrice: inputPrice // Add this line
+            });
+        };
 
-            $scope.image = function (event) {
-                event.preventDefault();
-                var file = event.target.files[0];
-                uploadImage(file);
-            };
+        $scope.shareOnWhatsApp = function (image) {
+            var message = "Check out this item: " + image.name + "\nPrice: " + image.price + " Rs.";
+            var whatsappUrl = "whatsapp://send?text=" + encodeURIComponent(message);
+            window.open(whatsappUrl, '_blank');
+        };
 
-            function uploadImage(file) {
-                var random = parseInt(Math.random() * 1000000);
-                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
-                var uploadTask = refStorageSubmit.put(file);
+        $scope.image = function (event) {
+            event.preventDefault();
+            var file = event.target.files[0];
+            uploadImage(file);
+        };
 
-                uploadTask.on('state_changed', null, function (error) {
-                    console.error('Upload error:', error);
-                }, function () {
-                    var imageData = {
-                        url: uploadTask.snapshot.ref.getDownloadURL(),
-                        bytes: uploadTask.snapshot.totalBytes,
-                        name: uploadTask.snapshot.metadata.name,
-						outOfStock: uploadTask.snapshot.metadata.outOfStock,
-                        path: uploadTask.snapshot.ref.fullPath,
-                        date: uploadTask.snapshot.metadata.timeCreated
-                    };
+        function uploadImage(file) {
+            var random = parseInt(Math.random() * 1000000);
+            var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
+            var uploadTask = refStorageSubmit.put(file);
 
-                    listSubmit.$add(imageData).then(function (ref) {
-                        swal("Success", "Your image has been uploaded", "success");
-                    });
+            uploadTask.on('state_changed', null, function (error) {
+                console.error('Upload error:', error);
+            }, function () {
+                var imageData = {
+                    url: uploadTask.snapshot.ref.getDownloadURL(),
+                    bytes: uploadTask.snapshot.totalBytes,
+                    name: uploadTask.snapshot.metadata.name,
+                    outOfStock: uploadTask.snapshot.metadata.outOfStock,
+                    path: uploadTask.snapshot.ref.fullPath,
+                    date: uploadTask.snapshot.metadata.timeCreated
+                };
+
+                listSubmit.$add(imageData).then(function (ref) {
+                    swal("Success", "Your image has been uploaded", "success");
                 });
-            }
-        });
+            });
+        }
+    });
+
     </script>
 
     <script>
