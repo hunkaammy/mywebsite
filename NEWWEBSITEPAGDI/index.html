@@ -347,8 +347,6 @@ button, input, select, textarea {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.7/jquery.lazyload.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-
 
 
 <!DOCTYPE html>
@@ -517,56 +515,52 @@ function scrollToTop() {
 }
 </script>
 
-  <div class="tab-btns" onclick="scrollToTop()">
-  <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
-     <div class="tab-btn" ng-click="productNameFilter = 'STUDY TABLE'; activeTab = 20; searchQuery = '';" ng-class="{ 'active': activeTab === 20 }">STUDY TABLE</div>
-    <div class="tab-btn" ng-click="productNameFilter = 'SOFT TOY'; activeTab = 19; searchQuery = '';" ng-class="{ 'active': activeTab === 19 }">SOFT TOY</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'SPORTS'; activeTab = 18; searchQuery = '';" ng-class="{ 'active': activeTab === 18 }">SPORTS ITEM</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">LUMO PRODUCTS</div>
-    <div class="tab-btn" ng-click="productNameFilter = 'PATTA'; activeTab = 17; searchQuery = '';" ng-class="{ 'active': activeTab === 17 }">PATTA ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 15; searchQuery = '';" ng-class="{ 'active': activeTab === 15 }">GUNS VARIETY</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">REMOTE CAR</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'RATTELS & CHUCHU'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">RATTELS AND CHUCHU</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'STATIONERY'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">STATIONERY ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'INDIAN TOYS'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">INDIAN TOYS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'BLOCKS'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">BLOCKS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'PALNA WALKER'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">WALKER & PALNA</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">RACKET</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">DOLL</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">MIX TOYS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'RIDDER'; activeTab = 11; searchQuery = '';" ng-class="{ 'active': activeTab === 11 }">MAGIC RIDDER</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 12; searchQuery = '';" ng-class="{ 'active': activeTab === 12 }">FANCY ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 13; searchQuery = '';" ng-class="{ 'active': activeTab === 13 }">BATTERY OPERATED</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'DOZEN'; activeTab = 14; searchQuery = '';" ng-class="{ 'active': activeTab === 14 }">DOZEN PACKING ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 16; searchQuery = '';" ng-class="{ 'active': activeTab === 16 }">EMPTY</div>
-    </div>
+<div class="tab-btns" onclick="scrollToTop()">
+   <div class="tab-btn active" ng-click="productNameFilter = 'PAGDI'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PAGDI</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'VAR VADHU MALA'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">VAR VADHU MALA</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'PAN MOTI MALA'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">PAN MOTI MALA</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'KATTAR'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">KATTAR , PATTA & CHAIN</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'DULHA HAAR'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">DULHA HAAR</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'DULHAN MUKUT'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">DULHAN MUKUT</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'HALDI MEHENDI'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">HALDI MEHENDI</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'NARIYAL'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">NARIYAL</div>
+ <!-- Rest of the tabs -->
+</div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
     <div id="containers" ng-if="!image.outOfStock">
         <div class="card">
             <img src="{{image.url}}" loading="lazy" width="350" height="350">
             <div class="containers">
-                <h4><b><p>{{image.price}} Rs.</p></b></h4>             
+<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>             
+			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
                 <p>{{image.name}}</p>
-
+			
+                
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                 <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
 
+                <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
                 <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
-                
-                <!-- Button to capture screenshot -->
-                <button class="capture-screenshot" ng-click="captureScreenshot()">Capture Screenshot</button>
             </div>
         </div>
     </div>
 </div>
 
-
  <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
 
+<script>
+    window.onload = function() {
+        // Simulate click on the PAGDI tab to load its data on page load
+        document.querySelector('.tab-btn:nth-child(1)').click();
+    };
 
+    function scrollToTop() {
+        // Your scrollToTop function implementation
+    }
+</script>
     <script>
         // JavaScript to handle scrolling
         function scrollToTop() {
@@ -609,15 +603,15 @@ for(let img of images) {
             $scope.dynamicField2Value = ""; // Set your default dynamic value
 
             var firebaseConfigFetch = {
-                  apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-  authDomain: "htshop-e9c51.firebaseapp.com",
-  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-  projectId: "htshop-e9c51",
-  storageBucket: "htshop-e9c51.appspot.com",
-  messagingSenderId: "653137640907",
-  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-  measurementId: "G-FJ4Q0FHBEG"
-            };
+                  apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
+  authDomain: "pagdi-6f8ce.firebaseapp.com",
+  databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
+  projectId: "pagdi-6f8ce",
+  storageBucket: "pagdi-6f8ce.appspot.com",
+  messagingSenderId: "746289566527",
+  appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
+  measurementId: "G-CXW0QZRHFG"
+};
 
             var firebaseConfigSubmit = {
                 apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
@@ -668,26 +662,6 @@ for(let img of images) {
                 var file = event.target.files[0];
                 uploadImage(file);
             };
-			
-	$scope.captureScreenshot = function() {
-    var imageElement = document.querySelector('#containers img');
-    var canvas = document.createElement('canvas');
-    canvas.width = imageElement.width;
-    canvas.height = imageElement.height;
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(imageElement, 0, 0, imageElement.width, imageElement.height);
-
-    // Convert canvas to data URL
-    var dataURL = canvas.toDataURL();
-
-    // Create a link and trigger download
-    var link = document.createElement('a');
-    link.href = dataURL;
-    link.download = 'screenshot.png';
-    link.click();
-}
-
-
 
             function uploadImage(file) {
                 var random = parseInt(Math.random() * 1000000);

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetched Data</title>
+    <!-- Include Firebase SDK from Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <style>
+        #fetched-data {
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #user-table th,
+        #user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #user-table th {
+            background-color: #f2f2f2;
+        }
+
+        .delete-btn {
+            cursor: pointer;
+            color: red;
+            text-decoration: underline;
+        }
+
+        #search-input {
+            margin-top: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="fetched-data">
+    <h2>Fetched Data</h2>
+    <input type="text" id="search-input" placeholder="Search by name or IP address" oninput="searchUser()">
+    <table id="user-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>IP Address</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="user-list"></tbody>
+    </table>
+</div>
+
+<!-- Your Firebase config goes here -->
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        authDomain: "shop-reminder-3ce10.firebaseapp.com",
+        databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+        projectId: "shop-reminder-3ce10",
+        storageBucket: "shop-reminder-3ce10.appspot.com",
+        messagingSenderId: "555627569260",
+        appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
+        measurementId: "G-BP5EYR6ET1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference to the 'users' node in the database
+    var database = firebase.database();
+    var usersRef = database.ref('users');
+
+    // Function to render user data in a table
+    function renderUserData(userData) {
+        var userListElement = document.getElementById('user-list');
+        
+        // Clear the existing table
+        userListElement.innerHTML = '';
+
+        // Iterate through each user to add new data to the table
+        for (var userId in userData) {
+            if (userData.hasOwnProperty(userId)) {
+                var user = userData[userId];
+                var row = document.createElement('tr');
+
+                // Create table cells for each user property
+                var nameCell = document.createElement('td');
+                nameCell.textContent = user.name;
+                row.appendChild(nameCell);
+
+                var mobileCell = document.createElement('td');
+                mobileCell.textContent = user.mobile;
+                row.appendChild(mobileCell);
+
+                var ipCell = document.createElement('td');
+                ipCell.textContent = user.ipAddress;
+                row.appendChild(ipCell);
+
+                var timestampCell = document.createElement('td');
+                timestampCell.textContent = new Date(user.timestamp).toLocaleString();
+                row.appendChild(timestampCell);
+
+                var actionCell = document.createElement('td');
+                var deleteBtn = document.createElement('span');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.className = 'delete-btn';
+
+                // Store user ID as a data attribute
+                deleteBtn.setAttribute('data-user-id', userId);
+
+                deleteBtn.onclick = function() {
+                    // Retrieve the user ID associated with the clicked delete button
+                    var clickedUserId = this.getAttribute('data-user-id');
+
+                    // Delete user entry using the correct user ID
+                    deleteUser(clickedUserId);
+                };
+                actionCell.appendChild(deleteBtn);
+                row.appendChild(actionCell);
+
+                // Insert the new row at the top of the table
+                userListElement.insertBefore(row, userListElement.firstChild);
+            }
+        }
+    }
+
+    // Function to delete a user entry
+    function deleteUser(userId) {
+        // Remove the user entry from Firebase
+        usersRef.child(userId).remove()
+            .catch(function(error) {
+                console.error('Error deleting user:', error);
+            });
+    }
+
+    // Function to search for a user by name or IP address
+    function searchUser() {
+        var input, filter, table, tr, tdName, tdIP, i, txtValueName, txtValueIP;
+        input = document.getElementById("search-input");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("user-table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            tdName = tr[i].getElementsByTagName("td")[0];
+            tdIP = tr[i].getElementsByTagName("td")[2];
+            if (tdName || tdIP) {
+                txtValueName = tdName.textContent || tdName.innerText;
+                txtValueIP = tdIP.textContent || tdIP.innerText;
+                if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueIP.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Listen for real-time changes in the 'users' node
+    usersRef.on('value', function(snapshot) {
+        // Render updated user data
+        renderUserData(snapshot.val());
+    });
+</script>
+
+</body>
+</html>

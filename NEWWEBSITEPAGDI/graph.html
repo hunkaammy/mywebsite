@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Analysis Chart with Firebase</title>
+  <!-- Updated Firebase SDK and Chart.js CDN -->
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+      margin: 20px; /* Add some margin for better mobile appearance */
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="myChart" width="300" height="200"></canvas>
+
+  <form id="dataForm">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="value">Value:</label>
+    <input type="number" id="value" name="value" required>
+
+    <button type="submit">Submit Data</button>
+  </form>
+
+  <script>
+    function initializeFirebase() {
+      // Replace these values with your own Firebase configuration
+      var firebaseConfig = {
+     apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+  authDomain: "shop-reminder-3ce10.firebaseapp.com",
+  databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+  projectId: "shop-reminder-3ce10",
+  storageBucket: "shop-reminder-3ce10.appspot.com",
+  messagingSenderId: "555627569260",
+  appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
+  measurementId: "G-BP5EYR6ET1"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Reference to your Firebase Realtime Database
+      var database = firebase.database();
+
+      // Get the canvas element
+      var ctx = document.getElementById('myChart').getContext('2d');
+
+      // Updated initial data without default values
+      var initialData = {
+        labels: [],
+        datasets: [{
+          label: 'Daily Data',
+          data: [],
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          pointRadius: 3, /* Adjust the point radius for a smaller graph */
+          pointHoverRadius: 5,
+        }]
+      };
+
+      // Create the initial chart
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: initialData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Handle form submission
+      document.getElementById('dataForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get form values
+        var date = document.getElementById('date').value;
+        var value = parseInt(document.getElementById('value').value);
+
+        // Update chart data
+        myChart.data.labels.push(date);
+        myChart.data.datasets[0].data.push(value);
+
+        // Update Firebase with the new data
+        database.ref('/charts/chart1').update(myChart.data).then(function () {
+          // Update the chart immediately after updating Firebase
+          myChart.update();
+          alert('Data submitted and updated!');
+        });
+
+        // Reset form
+        document.getElementById('dataForm').reset();
+      });
+
+      // Fetch data from Firebase on page load
+      database.ref('/charts/chart1').once('value').then(function (snapshot) {
+        var fetchedData = snapshot.val();
+        if (fetchedData) {
+          // Update the chart with fetched data
+          myChart.data = fetchedData;
+          myChart.update();
+        }
+      });
+    }
+
+    // Load Firebase asynchronously
+    var firebaseScript = document.createElement('script');
+    firebaseScript.src = 'https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js';
+    firebaseScript.onload = function () {
+      var firebaseDatabaseScript = document.createElement('script');
+      firebaseDatabaseScript.src = 'https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js';
+      firebaseDatabaseScript.onload = initializeFirebase;
+      document.head.appendChild(firebaseDatabaseScript);
+    };
+    document.head.appendChild(firebaseScript);
+  </script>
+
+</body>
+</html>
