@@ -98,7 +98,7 @@ $(document).ready(function(){
     <th style="width:10%;">Total</th>
     <th style="width:10%;">ACTION</th>
   </tr>
-  <tr class="item" ng-repeat="value in DB">
+  <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
     <td>{{value.field2}}</td>
     <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
     <td>{{value.field3}}</td>
@@ -106,11 +106,22 @@ $(document).ready(function(){
     <td>{{value.field3 * value.productPrice}}</td>
     <td><button type="button" ng-click="delete(value)">Delete</button></td>
   </tr>
-  <!-- Grand total row -->
+  <!-- Grand total row for filtered data -->
   <tr>
     <td colspan="4"></td>
     <td>
-      <!-- Grand total calculation -->
+      <!-- Grand total calculation for filtered data -->
+      <span ng-init="filteredGrandTotal = 0"></span>
+      <span ng-repeat="value in filteredDB" ng-init="filteredGrandTotal = filteredGrandTotal + (value.field3 * value.productPrice)"></span>
+      {{ filteredGrandTotal }}
+    </td>
+    <td></td>
+  </tr>
+  <!-- Grand total row for all data -->
+  <tr>
+    <td colspan="4"></td>
+    <td>
+      <!-- Grand total calculation for all data -->
       <span ng-init="grandTotal = 0"></span>
       <span ng-repeat="value in DB" ng-init="grandTotal = grandTotal + (value.field3 * value.productPrice)"></span>
       {{ grandTotal }}
