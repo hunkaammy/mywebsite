@@ -56,7 +56,9 @@
 </head>
 <body>
 
-<h2>ORDER LISTS</h2>
+<h2>ORDER LISTS</h2> <div>
+  Grand Total: <span id="grandTotal"><h1>0</h1></span>
+</div>
 <form>
 <input type="hidden" id="myInput" onkeyup="myFunction()"   placeholder="Search Order" title="Type in a name">
  
@@ -109,9 +111,7 @@ $(document).ready(function(){
 
   </tr>
 </table>
-<div>
-  Grand Total: <span id="grandTotal">0</span>
-</div>
+
 
 <script>
 function myFunction() {
