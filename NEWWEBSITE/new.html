@@ -89,7 +89,7 @@ $(document).ready(function(){
 });
 </script>
 
-<table id="myTable">
+<table id="myTable" ng-app="app" ng-controller="appCtrl">
   <tr class="header">
     <th style="width:10%;">Name</th>
     <th style="width:10%;">Item</th>
@@ -99,17 +99,19 @@ $(document).ready(function(){
     <th style="width:10%;">ACTION</th>
   </tr>
   <tr class="item" ng-repeat="value in DB">
-    <td>{{value.field2}}</td>
-    <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
-    <td>{{value.field3}}</td>
-    <td>{{value.productPrice}}</td>
-    <td>{{value.field3 * value.productPrice}}</td>
-    <td><button type="button" ng-click="delete(value)">Delete</button></td>
+    <td>{{value.nombre}}</td>
+    <td><img ng-src="{{value.field1}}" alt="items" width="100" height="100"></td>
+    <td>{{value.edad}}</td>
+    <td>{{value.genero}}</td>
+    <td>{{value.edad * value.genero}}</td>
+    <td>
+      <button type="button" ng-click="delete(value)">Delete</button>
+    </td>
   </tr>
   <tr>
     <td colspan="4" style="text-align:right;">Grand Total:</td>
     <td>
-      {{ getTotal() }}
+      {{ getTotalWithoutJS() }}
     </td>
   </tr>
 </table>
@@ -183,7 +185,7 @@ function myFunction() {
   </body>
 </html>
 <!-- partial -->
- <script>  
+<script>  
   angular.module('app', ["firebase"])
   .controller('appCtrl', function($scope, $firebase) {
   
@@ -210,10 +212,10 @@ function myFunction() {
       $scope.DB.$remove(item)
     }
     
-    $scope.getTotal = function() {
+    $scope.getTotalWithoutJS = function() {
       var total = 0;
       for (var i = 0; i < $scope.DB.length; i++) {
-        total += $scope.DB[i].field3 * $scope.DB[i].productPrice;
+        total += $scope.DB[i].edad * $scope.DB[i].genero;
       }
       return total;
     };
