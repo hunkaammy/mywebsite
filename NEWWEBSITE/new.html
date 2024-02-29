@@ -106,30 +106,9 @@ $(document).ready(function(){
     <td>{{value.field3 * value.productPrice}}</td>
     <td><button type="button" ng-click="delete(value)">Delete</button></td>
   </tr>
-  <!-- Grand total row for filtered data -->
-  <tr>
-    <td colspan="4"></td>
-    <td>
-      <!-- Grand total calculation for filtered data -->
-      <span ng-init="filteredGrandTotal = 0"></span>
-      <span ng-repeat="value in filteredDB" ng-init="filteredGrandTotal = filteredGrandTotal + (value.field3 * value.productPrice)"></span>
-      {{ filteredGrandTotal }}
-    </td>
-    <td></td>
-  </tr>
-  <!-- Grand total row for all data -->
-  <tr>
-    <td colspan="4"></td>
-    <td>
-      <!-- Grand total calculation for all data -->
-      <span ng-init="grandTotal = 0"></span>
-      <span ng-repeat="value in DB" ng-init="grandTotal = grandTotal + (value.field3 * value.productPrice)"></span>
-      {{ grandTotal }}
-    </td>
-    <td></td>
+
   </tr>
 </table>
-
 
 
 <script>
@@ -139,19 +118,28 @@ function myFunction() {
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
+  var grandTotal = 0; // Initialize grand total
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
+        // Calculate total and add to grand total
+        var totalCell = tr[i].getElementsByTagName("td")[4];
+        if (totalCell) {
+          grandTotal += parseFloat(totalCell.textContent || totalCell.innerText);
+        }
       } else {
         tr[i].style.display = "none";
       }
     }       
   }
+  // Display grand total
+  document.getElementById("grandTotal").textContent = grandTotal;
 }
 </script>
+
 
 </body>
 </html>
