@@ -65,7 +65,7 @@
 
 <div class="container">
 <div class="col text-center">
-<p style="display:none;"><button id="click" onclick="myFunction()" class="btn btn-danger">SEARCH</button></p>
+<p style="display:;"><button id="click" onclick="myFunction()" class="btn btn-danger">SEARCH</button></p>
 
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
@@ -90,46 +90,33 @@ $(document).ready(function(){
 </script>
 
 <table id="myTable">
-  <tr class="header">
-    <th style="width:10%;">Name</th>
-    <th style="width:10%;">Item</th>
-    <th style="width:10%;">Qty</th>
-    <th style="width:10%;">Price</th>
-    <th style="width:10%;">Total</th>
-    <th style="width:10%;">ACTION</th>
-  </tr>
-  <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
-    <td>{{value.field2}}</td>
-    <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
-    <td>{{value.field3}}</td>
-    <td>{{value.productPrice}}</td>
-    <td>{{value.field3 * value.productPrice}}</td>
-    <td><button type="button" ng-click="delete(value)">Delete</button></td>
-  </tr>
-  <!-- Grand total row for filtered data -->
-  <tr>
-    <td colspan="4"></td>
-    <td>
-      <!-- Grand total calculation for filtered data -->
-      <span ng-init="filteredGrandTotal = 0"></span>
-      <span ng-repeat="value in filteredDB" ng-init="filteredGrandTotal = filteredGrandTotal + (value.field3 * value.productPrice)"></span>
-      {{ filteredGrandTotal }}
-    </td>
-    <td></td>
-  </tr>
-  <!-- Grand total row for all data -->
-  <tr>
-    <td colspan="4"></td>
-    <td>
-      <!-- Grand total calculation for all data -->
-      <span ng-init="grandTotal = 0"></span>
-      <span ng-repeat="value in DB" ng-init="grandTotal = grandTotal + (value.field3 * value.productPrice)"></span>
-      {{ grandTotal }}
-    </td>
-    <td></td>
-  </tr>
-</table>
-
+    <tr class="header">
+      <th style="width:10%;">Nombre</th>
+      <th style="width:10%;">Apellidos</th>
+      <th style="width:10%;">Género</th>
+      <th style="width:10%;">Edad</th>
+      <th style="width:10%;">Total</th>
+      <th style="width:10%;">ACTION</th>
+    </tr>
+    <tr class="item" ng-repeat="value in DB | filter:search">
+      <td>{{value.nombre}}</td>
+      <td>{{value.apellidos}}</td>
+      <td>{{value.genero}}</td>
+      <td>{{value.edad}}</td>
+      <!-- Here you can adjust according to your data structure -->
+      <td>{{value.field3 * value.productPrice}}</td>
+      <td><button type="button" ng-click="delete(value)">Delete</button></td>
+    </tr>
+    <!-- Grand total row -->
+    <tr>
+      <td colspan="4"></td>
+      <td>
+        <!-- Grand total calculation -->
+        {{ calculateGrandTotal() }}
+      </td>
+      <td></td>
+    </tr>
+  </table>
 
 
 <script>
@@ -200,39 +187,44 @@ function myFunction() {
   </body>
 </html>
 <!-- partial -->
-  <script>  angular.module('app',["firebase" ])
-.controller('appCtrl',function($scope,$firebase){
+<script>
+  angular.module('app',["firebase"])
+    .controller('appCtrl',function($scope,$firebase){
   
+      var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
+      var sync = $firebase(ref);
   
-  var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com/location");
-        var sync = $firebase(ref);
+      $scope.DB = sync.$asArray();
+      
+      $scope.titulo='Demo Angular';
+      $scope.generos=['Femenino','Masculino'];
+  
+      $scope.app={nombre:'',apellidos:'',genero:'',edad:''};
+  
+      $scope.add=function(){
+        $scope.DB.$add($scope.app);
+        $scope.app={nombre:'',apellidos:'',genero:'',edad:''};
+      };
+  
+      $scope.edit=function(value){
+        $scope.app=value;
+      };
+  
+      $scope.delete=function(item){
+        $scope.DB.$remove(item);
+      };
 
-
-  $scope.DB = sync.$asArray();
+      // Function to calculate the grand total
+      $scope.calculateGrandTotal = function() {
+        var total = 0;
+        angular.forEach($scope.DB, function(value) {
+          total += value.field3 * value.productPrice;
+        });
+        return total;
+      };
   
-  $scope.titulo='Demo Angular';
-  $scope.generos=['Femenino','Masculino']
- 
-  
-  $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  
-  $scope.add=function(){
-    $scope.DB.$add($scope.app);
-    $scope.app={nombre:'',apellidos:'',genero:'',edad:''}
-  
-  }
-  
-  $scope.edit=function(value){
-    $scope.app=value
-  }
-  $scope.delete=function(item){
-    $scope.DB.$remove(item)
-  }
-  
-  
- 
-})</script>
+  });
+</script>
 
 </body>
 </html>
