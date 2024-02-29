@@ -113,11 +113,12 @@ $(document).ready(function(){
       <!-- Grand total calculation -->
       <span ng-init="grandTotal = 0"></span>
       <span ng-repeat="value in DB" ng-init="grandTotal = grandTotal + (value.field3 * value.productPrice)"></span>
-      {{grandTotal}}
+      {{ grandTotal }}
     </td>
     <td></td>
   </tr>
 </table>
+
 
 
 <script>
