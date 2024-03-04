@@ -46,11 +46,17 @@
 }
 
 #myTable tr {
-  border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
 
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
+}
+
+.field2 {
+ text-align: left;
 }
 </style>
 </head>
@@ -91,25 +97,29 @@ $(document).ready(function(){
 });
 </script>
 
-<table id="myTable">
-  <tr class="header">
-    <th style="width:10%;">Name</th>
-    <th style="width:10%;">Item</th>
-    <th style="width:10%;">Qty</th>
-    <th style="width:10%;">Price</th>
-   
-    <th style="width:10%;">ACTION</th>
-  </tr>
-  <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
-    <td>{{value.field2}}</td>
-    <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
-    <td>{{value.field3}}</td>
-    <td>{{value.productPrice}}</td>
-   <td style="display: none;">{{value.field3 * value.productPrice}}</td>
-    <td><button type="button" ng-click="delete(value)">Delete</button></td>
-  </tr>
-
-  </tr>
+<table class="card-table">
+  <thead>
+    <tr>
+      <th>Field 2</th>
+      <th>Image</th>
+      <th>Field 3</th>
+      <th>Product Price</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="value in filteredDB = (DB | filter:search)">
+<td class="field2">{{value.field2}}</td>
+      <td class="card">
+        <img ng-src="{{value.field1}}" alt="items">
+      </td>
+      <td>{{value.field3}}</td>
+      <td>{{value.productPrice}}</td>
+      <td>
+        <button type="button" ng-click="delete(value)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 
