@@ -828,15 +828,28 @@ $('document').ready(function(){
     }
 
     // Function to get user IP address using ipify
-    function getUserIPAddress() {
-        return fetch('https://api.ipify.org?format=json')
-            .then(function (response) {
+    // Function to get user IP address using ipify
+function getUserIPAddress() {
+    return new Promise(function(resolve, reject) {
+        // Set a timeout to fetch the IP address
+        var timeout = setTimeout(function() {
+            reject(new Error('Timeout while fetching IP address'));
+        }, 5000); // Adjust the timeout duration as needed (e.g., 5000 milliseconds)
+
+        fetch('https://api.ipify.org?format=json')
+            .then(function(response) {
+                clearTimeout(timeout); // Clear the timeout if the request succeeds
                 return response.json();
             })
-            .then(function (data) {
-                return data.ip;
+            .then(function(data) {
+                resolve(data.ip);
+            })
+            .catch(function(error) {
+                clearTimeout(timeout); // Clear the timeout if an error occurs
+                reject(error);
             });
-    }
+    });
+}
 </script>
 
 </body>
