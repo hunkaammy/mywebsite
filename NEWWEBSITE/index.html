@@ -285,7 +285,7 @@ button, input, select, textarea {
     margin-bottom: 18px;
     MARGIN-TOP: -14px;
     display: block;
-    float: left;
+    float: right;
 }
 
         .card {
@@ -658,13 +658,13 @@ for(let img of images) {
 			
 			
 
-  $scope.submitData = function (image, index) {
+$scope.submitData = function(image, index) {
     var inputa = image.url;
     var inputb = $scope.dynamicField2Value;
     var inputc = image.field3;
-    var inputName = image.name; // Add this line
-	var inputPrice = image.price; // Add this line
-    var inputoutofstock = image.outOfStock; // Add this line
+    var inputName = image.name;
+    var inputPrice = image.price;
+    var inputoutofstock = image.outOfStock;
 
     var newDataKey = databaseSubmit.push().key;
 
@@ -672,10 +672,13 @@ for(let img of images) {
         field1: inputa,
         field2: inputb,
         field3: inputc,
-        productName: inputName, // Add this line
-		productPrice: inputPrice // Add this line
+        productName: inputName,
+        productPrice: inputPrice
     });
+
+    console.log("Data submitted to Firebase");
 };
+
 
             $scope.image = function (event) {
                 event.preventDefault();
@@ -691,14 +694,7 @@ for(let img of images) {
                 uploadTask.on('state_changed', null, function (error) {
                     console.error('Upload error:', error);
                 }, function () {
-                    var imageData = {
-                        url: uploadTask.snapshot.ref.getDownloadURL(),
-                        bytes: uploadTask.snapshot.totalBytes,
-                        name: uploadTask.snapshot.metadata.name,
-						outOfStock: uploadTask.snapshot.metadata.outOfStock,
-                        path: uploadTask.snapshot.ref.fullPath,
-                        date: uploadTask.snapshot.metadata.timeCreated
-                    };
+                  3
 
                     listSubmit.$add(imageData).then(function (ref) {
                         swal("Success", "Your image has been uploaded", "success");
