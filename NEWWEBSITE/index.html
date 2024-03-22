@@ -515,7 +515,7 @@ function scrollToTop() {
     window.scrollTo(0, 0);
 }
 </script>
-
+<!--
   <div class="tab-btns" onclick="scrollToTop()">
   <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
  <div class="tab-btn" ng-click="productNameFilter = 'WATER BOTTEL'; activeTab = 23; searchQuery = '';" ng-class="{ 'active': activeTab === 23 }">WATER BOTTEL</div> 
@@ -544,7 +544,7 @@ function scrollToTop() {
   <div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 13; searchQuery = '';" ng-class="{ 'active': activeTab === 13 }">BATTERY OPERATED</div>
   <div class="tab-btn" ng-click="productNameFilter = 'DOZEN'; activeTab = 14; searchQuery = '';" ng-class="{ 'active': activeTab === 14 }">DOZEN PACKING ITEMS</div>
   <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 16; searchQuery = '';" ng-class="{ 'active': activeTab === 16 }">EMPTY</div>
-    </div>
+    </div>-->
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
     <div id="containers" ng-if="!image.outOfStock">
