@@ -263,13 +263,21 @@ button, input, select, textarea {
  <style>
         /* Style for the navbar */
         .navbar {
-    background-color: #5A55A3;
+    background-color: white;
     padding: 7px;
     color: white;
     position: fixed;
     width: 100%;
     top: -16px;
     z-index: 1000;
+}
+
+#rcorners1 {
+  border-radius: 25px;
+  background: grey;
+  padding: 20px; 
+  width: 200px;
+  height: 150px;  
 }
 
         /* Style for the search input */
@@ -376,6 +384,9 @@ button, input, select, textarea {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+
+
 
 <div class="container mt-3">
 
@@ -597,7 +608,8 @@ function scrollToTop() {
     </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
-    <div id="containers" ng-if="!image.outOfStock">
+   
+ <div id="containers" ng-if="!image.outOfStock">
         <div class="card">
           
 			<img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
