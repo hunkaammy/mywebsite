@@ -167,7 +167,7 @@ html {
 
 .qtyclass {
     height: 40px;
-    padding: 2px 16px;
+   
     width: 66px;
     margin-right: 1px;
 }
@@ -300,17 +300,19 @@ button, input, select, textarea {
     HEIGHT: 196PX;
 }
 
-        .qtyclass {
-            width: 60px;
-        }
+        .qtyclass{
+    width: 49px;
+    margin-left: -9px;
+}
 
-        .submit  {
-    background-color: #5A55A3;
-    color: white;
-    /* padding: 10px 15px; */
-    border: none;
-    border-radius: 5px;
+        .submit {
+    -webkit-appearance: button;
     cursor: pointer;
+    BACKGROUND: #5A55A3;
+    COLOR: WHITE;
+    WIDTH: 68PX;
+    height: 42px;
+    margin-right: -18px;
 }
     </style>
 	
@@ -599,6 +601,7 @@ function scrollToTop() {
 <div id="enlarged-image-container" class="enlarged-image-container" style="display: none;">
     <div class="enlarged-image">
         <img id="enlarged-img" src="" alt="Enlarged Image">
+		
 		
         <button onclick="closeEnlarged()">Close</button>
     </div>
