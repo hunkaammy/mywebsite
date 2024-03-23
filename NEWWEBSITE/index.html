@@ -416,8 +416,8 @@ button, input, select, textarea {
     .tab-btns  {
     font-size: 11px;
     position: fixed;
-    width: 66px;
-    overflow: hidden;
+    width: 96px;
+    overflow: auto;
     z-index: 1;
     HEIGHT: 100%;
     display: block;
@@ -427,26 +427,18 @@ button, input, select, textarea {
     /* border: darkorange; */
     bottom: -58px;
     padding: 10pz;
-    text-align: left;
 }
-    .tab-btn  {
-    padding: 10px 0px;
-    margin-bottom: 5px;
-    /* text-align: left; */
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    .tab-btn {
+        padding: 10px;
+        margin-bottom: 5px;
+        text-align: left;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
     .tab-btn:hover {
         background-color: #ddd;
     }
-	
-	.enlarged {
-    width: 500px; /* Adjust the width as needed */
-    height: 500px; /* Adjust the height as needed */
-    transition: width 0.3s, height 0.3s; /* Add smooth transition effect */
-}
-
 
     .tab-btn.active {
     background-color: #5A55A3;
@@ -454,7 +446,41 @@ button, input, select, textarea {
     border-radius: 12px;
 }
 </style>
+<style>
+/* Style for the enlarged image container */
+.enlarged-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's above other content */
+}
 
+/* Style for the enlarged image */
+.enlarged-image img {
+    max-width: 500PX;
+    max-height: 237PX;
+    width: auto;
+    height: auto;
+}
+
+/* Style for the close button */
+.enlarged-image button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+</style>
 
 
 <div class="navbar">
@@ -567,12 +593,24 @@ function scrollToTop() {
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
     <div id="containers" ng-if="!image.outOfStock">
         <div class="card">
-            <img src="{{image.url}}" loading="lazy" width="350" height="350" ng-click="toggleEnlargement($event)">
-            <div class="containers">
-                <h4><b><p>{{image.price}} Rs.</p></b></h4>
+          
+			<img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
+          
+<div id="enlarged-image-container" class="enlarged-image-container" style="display: none;">
+    <div class="enlarged-image">
+        <img id="enlarged-img" src="" alt="Enlarged Image">
+        <button onclick="closeEnlarged()">Close</button>
+    </div>
+</div>
+		  <div class="containers">
+<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>             
+			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
                 <p>{{image.name}}</p>
+			
+                
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                 <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
+
                 <!-- Add this input field inside the card section -->
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
                 <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
@@ -583,6 +621,25 @@ function scrollToTop() {
 
  <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
+<script>
+function enlargeImage(src) {
+    var enlargedImg = document.getElementById('enlarged-img');
+    var enlargedContainer = document.getElementById('enlarged-image-container');
+    
+    // Set the source of the enlarged image
+    enlargedImg.src = src;
+    
+    // Show the enlarged image container
+    enlargedContainer.style.display = 'flex';
+}
+
+function closeEnlarged() {
+    var enlargedContainer = document.getElementById('enlarged-image-container');
+    
+    // Hide the enlarged image container
+    enlargedContainer.style.display = 'none';
+}
+</script>
 
 
     <script>
@@ -683,14 +740,6 @@ $scope.submitData = function(image, index) {
     console.log("Data submitted to Firebase");
 };
 
-$scope.toggleEnlargement = function(event) {
-    var img = event.target;
-    if (!img.classList.contains('enlarged')) {
-        img.classList.add('enlarged');
-    } else {
-        img.classList.remove('enlarged');
-    }
-};
 
             $scope.image = function (event) {
                 event.preventDefault();
