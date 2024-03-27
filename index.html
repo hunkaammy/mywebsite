@@ -607,8 +607,6 @@ function scrollToTop() {
   <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 16; searchQuery = '';" ng-class="{ 'active': activeTab === 16 }">EMPTY</div>
     </div>
 
-    
-
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
    
  <div id="containers" ng-if="!image.outOfStock">
@@ -629,12 +627,6 @@ function scrollToTop() {
 			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
                 <p>{{image.name}}</p>
 			
-                <div ng-repeat="image in vm.images">
-                    <p>{{ image.name }}</p>
-                    <p>{{ image.price }}</p>
-                    <p>Out of Stock: {{ image.outOfStock }}</p>
-                    <button ng-click="editData(image)">Edit Out of Stock</button>
-                </div>
                 
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                 <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
@@ -745,23 +737,6 @@ for(let img of images) {
             var databaseSubmit = firebaseSubmit.database().ref();
             var listSubmit = $firebaseArray(databaseSubmit);
 			
-            $scope.editData = function(image, index) {
-    var newDataKey = image.$id; // Assuming $id is the unique key of your data
-    
-    var updates = {};
-    updates['/field1'] = image.url;
-    updates['/field2'] = $scope.dynamicField2Value;
-    updates['/field3'] = image.field3;
-    updates['/productName'] = image.name;
-    updates['/productPrice'] = image.price;
-    updates['/outOfStock'] = !image.outOfStock; // Toggle the outOfStock value
-    
-    databaseSubmit.child(newDataKey).update(updates).then(function() {
-        console.log("Data updated successfully");
-    }).catch(function(error) {
-        console.error("Error updating data:", error);
-    });
-};
 			
 
 $scope.submitData = function(image, index) {
