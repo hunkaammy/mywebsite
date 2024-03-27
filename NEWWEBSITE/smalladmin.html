@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Website</title>
+</head>
+<body>
+
+<script>
+    function checkCredentials() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        if (username === 'admin' && password === 'richman') {
+            // Correct credentials, hide login elements
+            document.getElementById('login-form').style.display = 'none';
+            
+            // Show content
+            document.getElementById('content').style.display = 'block';
+        } else {
+            // Incorrect credentials, show error message
+            document.getElementById('error').style.display = 'block';
+        }
+    }
+
+    // Function to count "Make Out of Stock" buttons
+    function countOutOfStockButtons() {
+        var outOfStockButtons = document.querySelectorAll('.make-out-of-stock');
+        alert("Number of 'Make Out of Stock' buttons: " + outOfStockButtons.length);
+    }
+</script>
+
+<div id="login-form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Enter your username">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter your password">
+
+    <button onclick="checkCredentials()">Login</button>
+
+    <div id="error" style="color: red; display: none;">Incorrect username or password</div>
+</div>
+
+<div id="content" style="display: none;">
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Image CRUD</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-size: 24px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    #imageInput {
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], button {
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #uploadProgress {
+      display: none;
+      width: 100%;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    #progressBar {
+      width: 0;
+      height: 20px;
+      background-color: #4caf50;
+    }
+
+    #imageContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .image-card {
+      flex: 1 0 200px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .image-card:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card-details {
+      padding: 10px;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+
+    .product-info {
+      margin-top: 10px;
+    }
+
+    .product-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    .product-button {
+      padding: 8px 16px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .product-button:hover {
+      background-color: #45a049;
+    }
+
+    .edit-mode input {
+      border: 1px solid #000;
+      pointer-events: auto;
+    }
+
+    .edit-mode button {
+      display: none;
+    }
+
+    .edit-mode button.save {
+      display: inline-block;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+    }
+	
+	
+    .make-out-of-stock {
+      background-color: red;
+      color: white;
+    }
+
+    .make-available {
+      background-color: green;
+      color: white;
+    }
+
+    /* Add other styles as needed */
+  
+  </style>
+</head>
+<body>
+  <header>Firebase Image CRUD</header>
+  <main>
+   <button onclick="countOutOfStockButtons()">count available stock</button> <br> <br>
+
+     <input type="file" id="imageInput" />
+    <input type="text" id="nameInput" placeholder="Enter Image Name" />
+	<input type="text" id="priceInput" placeholder="Price">
+    <button onclick="uploadImage()">Upload Image</button>
+    <div id="uploadProgress">
+      <div id="progressBar"></div>
+    </div>
+    <div id="imageContainer"></div>
+  </main>
+  <footer>&copy; 2023 Firebase Image CRUD</footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+        authDomain: "htshop-e9c51.firebaseapp.com",
+        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+        projectId: "htshop-e9c51",
+        storageBucket: "htshop-e9c51.appspot.com",
+        messagingSenderId: "653137640907",
+        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+        measurementId: "G-FJ4Q0FHBEG"
+      };
+
+
+
+      firebase.initializeApp(firebaseConfig);
+
+      const storage = firebase.storage();
+      const database = firebase.database();
+      const imageContainer = document.getElementById('imageContainer');
+      const imageInput = document.getElementById('imageInput');
+      const nameInput = document.getElementById('nameInput');
+      const priceInput = document.getElementById('priceInput');
+      const uploadProgress = document.getElementById('uploadProgress');
+      const progressBar = document.getElementById('progressBar');
+
+window.uploadImage = function() {
+    const file = imageInput.files[0];
+    const name = nameInput.value.trim();
+    const price = parseFloat(priceInput.value.trim()); // Parse the price as a float
+
+    // Check if price is a valid number
+    if (isNaN(price) || price <= 0) {
+        alert('Please enter a valid price.');
+        return;
+    }
+
+    // Divide the price by 2
+    const priceHalf = price / 2;
+
+    if (!file || !name) {
+        alert('Please select an image and enter an image name.');
+        return;
+    }
+
+    const currentDate = new Date().toISOString();
+    const outOfStock = false; // Set the initial availability status
+    const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
+    const task = storageRef.put(file);
+
+    uploadProgress.style.display = 'block';
+
+    task.on('state_changed', (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        progressBar.style.width = progress + '%';
+    }, (error) => {
+        console.error(error.message);
+    }, () => {
+        storageRef.getDownloadURL().then(downloadURL => {
+            // Push the priceHalf variable to Firebase instead of the original price
+            database.ref().push({
+                url: downloadURL,
+                name: name,
+                price: priceHalf, // Push the calculated price
+                date: currentDate,
+                outOfStock: outOfStock
+            });
+            imageInput.value = '';
+            nameInput.value = '';
+            priceInput.value = '';
+            uploadProgress.style.display = 'none';
+        });
+    });
+}
+
+      function fetchImagesRealtime() {
+        database.ref().orderByChild('date').on('value', snapshot => {
+          const images = [];
+          snapshot.forEach(childSnapshot => {
+            const imageUrl = childSnapshot.val().url;
+            const name = childSnapshot.val().name;
+            const price = childSnapshot.val().price;
+            const date = childSnapshot.val().date;
+            const outOfStock = childSnapshot.val().outOfStock;
+            images.push({ imageUrl, name, price, date, outOfStock, key: childSnapshot.key });
+          });
+
+          imageContainer.innerHTML = "";
+
+          for (let i = images.length - 1; i >= 0; i--) {
+            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].key);
+          }
+        });
+      }
+
+      fetchImagesRealtime();
+
+      function displayImage(url, name, price, date, outOfStock, key) {
+        const image = document.createElement('img');
+        image.src = url;
+        image.style.maxWidth = '200px';
+        image.style.maxHeight = '200px';
+        image.loading = 'lazy';
+
+        const nameElement = document.createElement('p');
+        nameElement.innerText = `Name: ${name}`;
+
+        const priceElement = document.createElement('p');
+        priceElement.innerText = `Price: ${price}`;
+
+        const dateElement = document.createElement('p');
+        dateElement.innerText = `Date: ${date}`;
+
+        const outOfStockButton = document.createElement('button');
+        outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
+        outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
+
+        outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
+
+        const editButton = document.createElement('button');
+        editButton.innerText = 'Edit Image Name';
+        editButton.addEventListener('click', () => enableEditMode(key));
+
+        const editPriceButton = document.createElement('button');
+        editPriceButton.innerText = 'Edit Price';
+        editPriceButton.className = 'edit-price';
+        editPriceButton.addEventListener('click', () => enableEditPrice(key));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete Image';
+        deleteButton.addEventListener('click', () => deleteImage(key));
+
+        const container = document.createElement('div');
+        container.setAttribute('data-key', key);
+        container.appendChild(image);
+        container.appendChild(nameElement);
+        container.appendChild(priceElement);
+        container.appendChild(dateElement);
+        container.appendChild(outOfStockButton);
+        container.appendChild(editButton);
+        container.appendChild(editPriceButton);
+        container.appendChild(deleteButton);
+
+        imageContainer.appendChild(container);
+      }
+
+      function toggleAvailability(key, newStatus) {
+        database.ref(`${key}/outOfStock`).set(newStatus).then(() => {
+          const container = document.querySelector(`[data-key="${key}"]`);
+          const outOfStockButton = container.querySelector('button');
+          outOfStockButton.innerText = newStatus ? 'Make Available' : 'Make Out of Stock';
+        });
+      }
+
+      function enableEditMode(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const nameElement = container.querySelector('p');
+        const editButton = container.querySelector('button');
+        const saveButton = document.createElement('button');
+        const nameInput = document.createElement('input');
+
+        // Set initial input value to current name
+        nameInput.value = nameElement.innerText.replace('Name: ', '');
+
+        // Display input and save button
+        nameElement.style.display = 'none';
+        editButton.style.display = 'none';
+
+        // Configure input and save button
+        nameInput.type = 'text';
+        saveButton.innerText = 'Save';
+        saveButton.className = 'save';
+        saveButton.addEventListener('click', () => saveEditedName(key, nameInput.value));
+
+        // Append input and save button to container
+        container.appendChild(nameInput);
+        container.appendChild(saveButton);
+
+        // Add edit mode class for styling
+        container.classList.add('edit-mode');
+      }
+
+      function saveEditedName(key, newName) {
+        // Update name in the database
+        database.ref(`${key}/name`).set(newName).then(() => {
+          // Exit edit mode
+          exitEditMode(key);
+        });
+      }
+
+      function exitEditMode(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const nameElement = container.querySelector('p');
+        const editButton = container.querySelector('button');
+        const nameInput = container.querySelector('input');
+        const saveButton = container.querySelector('button.save');
+
+        // Hide input and save button
+        nameInput.style.display = 'none';
+        saveButton.style.display = 'none';
+
+        // Show name and edit button
+        nameElement.style.display = 'block';
+        editButton.style.display = 'inline-block';
+
+        // Remove edit mode class
+        container.classList.remove('edit-mode');
+
+        // Update displayed name
+        nameElement.innerText = `Name: ${nameInput.value}`;
+      }
+
+      function enableEditPrice(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const priceElement = container.querySelector('p:nth-child(3)');
+        const editPriceButton = container.querySelector('.edit-price');
+
+        const savePriceButton = document.createElement('button');
+        savePriceButton.innerText = 'Save Price';
+        savePriceButton.className = 'save-price';
+        const priceInput = document.createElement('input');
+        priceInput.type = 'text';
+        priceInput.value = priceElement.innerText.replace('Price: ', '');
+
+        editPriceButton.style.display = 'none';
+
+        savePriceButton.addEventListener('click', () => saveEditedPrice(key, priceInput.value));
+
+        container.appendChild(priceInput);
+        container.appendChild(savePriceButton);
+
+        container.classList.add('edit-price-mode');
+      }
+
+      function saveEditedPrice(key, newPrice) {
+    const newPriceHalf = parseFloat(newPrice) / 2; // Divide the new price by 2
+    database.ref(`${key}/price`).set(newPriceHalf).then(() => {
+        exitEditPriceMode(key);
+    });
+}
+
+      function exitEditPriceMode(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const priceElement = container.querySelector('p:nth-child(3)');
+        const editPriceButton = container.querySelector('.edit-price');
+        const priceInput = container.querySelector('input');
+        const savePriceButton = container.querySelector('.save-price');
+
+        priceInput.style.display = 'none';
+        savePriceButton.style.display = 'none';
+
+        priceElement.style.display = 'block';
+        editPriceButton.style.display = 'inline-block';
+
+        container.classList.remove('edit-price-mode');
+
+        priceElement.innerText = `Price: ${priceInput.value}`;
+      }
+
+      function deleteImage(key) {
+        // Retrieve image URL, image name, and date from the root of the database
+        database.ref(key).once('value').then(snapshot => {
+          const imageUrl = snapshot.val().url; // Change imageUrl to url
+          const name = snapshot.val().name; // Change imageName to name
+          const date = snapshot.val().date;
+          if (imageUrl) {
+            // Delete image from storage
+            storage.refFromURL(imageUrl).delete().then(() => {
+              console.log('Image deleted successfully');
+              // Remove image from the root of the database
+              database.ref(key).remove();
+              // Remove image from the DOM
+              const imageElement = document.querySelector(`[data-key="${key}"]`);
+              imageElement.remove();
+            });
+           } else {
+            console.log('No image to delete');
+          }
+        });
+      }
+
+      // Fetch images when the page loads
+      fetchImages();
+    });
+  </script>
+</body>
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
+</html>
+
+</div>
+
+</body>
+</html>
+
+</div>
+
+</body>
+</html>
