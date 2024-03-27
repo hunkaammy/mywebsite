@@ -614,11 +614,9 @@ function scrollToTop() {
     </div>
 </div>
 		  <div class="containers">
-<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>  
-
-   <p>Current Price: {{ image.price }}</p>
-    <label>New Price:</label>
-    <input type="number" ng-model="newPrice[$index]" placeholder="Enter new price">
+<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4> 
+<p>{{image.name}}</p> 
+ <input type="number" ng-model="newPrice[$index]" placeholder="Enter new price">
     <br>
     <label>
         Out of Stock:
@@ -629,16 +627,14 @@ function scrollToTop() {
     <hr>
            
 			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
-                <p>{{image.name}}</p>
+                
 			
                 
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                 <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
 
                 <!-- Add this input field inside the card section -->
-                <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
-                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
-            </div>
+                 </div>
         </div>
     </div>
 </div>
