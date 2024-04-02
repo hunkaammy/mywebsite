@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .modal-content {
+            margin: auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        .green-dot {
+            height: 12px;
+            width: 12px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .red-dot {
+            height: 12px;
+            width: 12px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .editable {
+            display: inline-block;
+            cursor: pointer;
+        }
+        .form-inline {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .form-inline .form-group {
+            margin-right: 10px;
+        }
+        .form-inline .btn {
+            margin-left: 10px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .price-column, .action-column {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body ng-controller="MainCtrl">
+
+    <!-- Customer Name Form -->
+    <form class="form-inline no-print">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="customerName" placeholder="Enter customer name" ng-keypress="keypress($event)">
+        </div>
+    </form>
+
+    <!-- Product Entry Form -->
+    <form class="form-inline no-print">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="product" placeholder="Enter product name" ng-keypress="keypress($event)">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" ng-model="qty" placeholder="Enter qty" ng-keypress="keypress($event)">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" ng-model="price" placeholder="Enter price" ng-keypress="keypress($event)">
+        </div>
+        <button class="btn btn-primary" ng-click="addToCart()">Add with Discount</button>
+        <button class="btn btn-primary" ng-click="addToCartNoDiscount()">Add without Discount</button>
+    </form>
+
+    <!-- Button to open modal -->
+    <button class="btn btn-primary mt-2 no-print" ng-click="openCartModal()">Open Cart</button>
+    
+    <!-- Button to print cart -->
+    <button class="btn btn-success mt-2 no-print" ng-click="printCart()">Print Cart</button>
+    
+    <!-- Add Save Button -->
+    <button class="btn btn-info mt-2 no-print" ng-click="saveCart()">Save Cart</button>
+
+    <!-- Displaying cart items on main page -->
+    <div class="container mt-3">
+        <h2>HINDUSTAN TOYS </h2>
+        <p>SHOP NO E-4 VRINDAVAN PARISAR BILASPUR (C.G) </p>
+        <p>GSTIN:22AKMPM8309A1ZG
+        
+        <!-- Displaying customer name -->
+        <h3>Customer: {{ customerName }} - <p> {{ currentDate }} </p></h3>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th class="price-column">Price</th> <!-- Hide this column in print -->
+                    <th>Discounted Price</th>
+                    <th>Total Price</th>
+                    <th class="action-column">Action</th> <!-- Hide this column in print -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in cartItems">
+                    <td>
+                        <span ng-if="item.discountApplied" class="green-dot"></span>
+                        <span ng-if="!item.discountApplied" class="red-dot"></span>
+                        <span class="editable" contenteditable="true" ng-blur="updateProductName($index, $event)">{{ item.product || 'Unnamed Product' }}</span>
+                    </td>
+                    <td>{{ item.qty }}</td>
+                    <td class="price-column">{{ item.price }}</td> <!-- Hide this column in print -->
+                    <td>Rs.{{ item.discountedPrice }}</td>
+                    <td>Rs.{{ item.totalPrice }}</td>
+                    <td class="action-column"><button class="btn btn-danger btn-sm" ng-click="removeItem($index)">Delete</button></td> <!-- Hide this column in print -->
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Grand Total:</td>
+                    <td>Rs.{{ getGrandTotal() }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Modal content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('MainCtrl', function($scope, $timeout) {
+            $scope.cartItems = [];
+            $scope.currentDate = new Date().toLocaleDateString();
+
+            $scope.addToCart = function() {
+                if ($scope.qty && $scope.price) {
+                    var discountedPrice = $scope.price * 0.6; // 40% discount
+                    var totalPrice = discountedPrice * $scope.qty;
+                    $scope.cartItems.push({
+                        product: $scope.product || 'Unnamed Product',
+                        qty: $scope.qty,
+                        price: $scope.price,
+                        discountedPrice: discountedPrice.toFixed(2),
+                        totalPrice: totalPrice.toFixed(2),
+                        discountApplied: true // Indicates discount applied
+                    });
+                    $scope.product = '';
+                    $scope.qty = '';
+                    $scope.price = '';
+                    // Focus on product name input after adding product
+                    $timeout(function() {
+                        document.querySelectorAll('input[type="text"]')[1].focus(); // Select the second input element (product name)
+                    });
+                }
+            };
+
+            $scope.addToCartNoDiscount = function() {
+                if ($scope.qty && $scope.price) {
+                    var totalPrice = $scope.price * $scope.qty;
+                    $scope.cartItems.push({
+                        product: $scope.product || 'Unnamed Product',
+                        qty: $scope.qty,
+                        price: $scope.price,
+                        discountedPrice: $scope.price, // No discount
+                        totalPrice: totalPrice.toFixed(2),
+                        discountApplied: false // Indicates no discount applied
+                    });
+                    $scope.product = '';
+                    $scope.qty = '';
+                    $scope.price = '';
+                    $timeout(function() {
+                        document.querySelector('input[type="text"]').focus();
+                    });
+                }
+            };
+
+            $scope.removeItem = function(index) {
+                $scope.cartItems.splice(index, 1);
+            };
+
+            $scope.openCartModal = function() {
+                $('#cartModal').modal('show');
+            };
+
+            $scope.keypress = function(event, isModal) {
+                if (event.keyCode === 13) {
+                    if (isModal) {
+                        $scope.addToCart();
+                    } else {
+                        document.querySelector('input[type="text"]').focus();
+                    }
+                }
+            };
+
+            $scope.updateProductName = function(index, event) {
+                $scope.cartItems[index].product = event.target.innerText.trim();
+            };
+
+            $scope.getGrandTotal = function() {
+                var grandTotal = 0;
+                angular.forEach($scope.cartItems, function(item) {
+                    grandTotal += parseFloat(item.totalPrice);
+                });
+                return grandTotal.toFixed(2);
+            };
+
+            $scope.printCart = function() {
+                $scope.saveCart(); // Save cart data before printing
+                setTimeout(function() {
+                    window.print(); // Print after a short delay to ensure data is saved
+                }, 500);
+            };
+
+            $scope.saveCart = function() {
+                // Generate node name with current date and time
+                var now = new Date();
+                var nodeName = 'cart_' + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + '_' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds();
+
+                // Open or create an IndexDB database named "cartDB"
+                var request = indexedDB.open("cartDB", 1);
+
+                request.onerror = function(event) {
+                    console.log("Database error: " + event.target.errorCode);
+                };
+
+                request.onupgradeneeded = function(event) {
+                    var db = event.target.result;
+                    var objectStore = db.createObjectStore("carts", { keyPath: "id", autoIncrement: true });
+                };
+
+                request.onsuccess = function(event) {
+                    var db = event.target.result;
+                    var transaction = db.transaction(["carts"], "readwrite");
+                    var objectStore = transaction.objectStore("carts");
+
+                    // Store the cart items in IndexDB
+                    var cartData = {
+                        id: nodeName,
+                        cartItems: $scope.cartItems,
+                        timestamp: now.toLocaleString()
+                    };
+
+                    var addRequest = objectStore.add(cartData);
+
+                    addRequest.onsuccess = function(event) {
+                        console.log("Cart data saved successfully with node name: " + nodeName);
+                    };
+
+                    addRequest.onerror = function(event) {
+                        console.log("Error saving cart data: " + event.target.errorCode);
+                    };
+
+                    transaction.oncomplete = function(event) {
+                        console.log("Transaction completed: Cart data saved.");
+                    };
+
+                    transaction.onerror = function(event) {
+                        console.log("Transaction error: " + event.target.errorCode);
+                    };
+                };
+            };
+
+            // Focus on product name after adding an item
+            $scope.$watch('cartItems', function(newValue, oldValue) {
+                if (newValue.length > oldValue.length) {
+                    $timeout(function() {
+                        document.querySelectorAll('input[type="text"]')[1].focus(); // Select the second input element (product name)
+                    });
+                }
+            }, true);
+        });
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

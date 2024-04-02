@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+    <p>Current Node Name: {{ currentNodeName }}</p>
+    <button ng-click="saveCart()">Generate Node Name</button>
+    
+    <!-- Display saved nodes -->
+    <div ng-show="savedNodes.length > 0">
+        <h2>Saved Nodes:</h2>
+        <ul>
+            <li ng-repeat="node in savedNodes track by $index" ng-click="showNodeData(node)">
+                <strong>{{ node.id }}</strong> - {{ node.timestamp }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Display selected node data -->
+    <div ng-show="selectedNodeData">
+        <h2>Selected Node Data:</h2>
+        <ul>
+            <li ng-repeat="item in selectedNodeData track by $index">
+                {{ item.product }} - Quantity: {{ item.qty }} - Price: ${{ item.price }} - Discounted Price: ${{ item.discountedPrice }} - Total Price: ${{ item.totalPrice }}
+            </li>
+        </ul>
+    </div>
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+
+app.controller('MainCtrl', function($scope, $timeout) {
+    $scope.currentNodeName = '';
+    $scope.savedNodes = [];
+    $scope.selectedNodeData = null;
+
+    $scope.saveCart = function() {
+        var now = new Date();
+        $scope.currentNodeName = 'cart_' + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + '_' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds();
+        
+        // Open or create an IndexDB database named "cartDB"
+        var request = indexedDB.open("cartDB", 1);
+
+        request.onerror = function(event) {
+            console.log("Database error: " + event.target.errorCode);
+        };
+
+        request.onsuccess = function(event) {
+            var db = event.target.result;
+            var transaction = db.transaction(["carts"], "readwrite");
+            var objectStore = transaction.objectStore("carts");
+
+            // Retrieve saved nodes from IndexDB
+            var getRequest = objectStore.getAll();
+
+            getRequest.onsuccess = function(event) {
+                $scope.savedNodes = event.target.result;
+                $scope.$apply(); // Apply changes to AngularJS scope
+            };
+
+            transaction.onerror = function(event) {
+                console.log("Transaction error: " + event.target.errorCode);
+            };
+        };
+    };
+
+    $scope.showNodeData = function(node) {
+        // Retrieve data of the clicked node
+        var request = indexedDB.open("cartDB", 1);
+
+        request.onerror = function(event) {
+            console.log("Database error: " + event.target.errorCode);
+        };
+
+        request.onsuccess = function(event) {
+            var db = event.target.result;
+            var transaction = db.transaction(["carts"], "readwrite");
+            var objectStore = transaction.objectStore("carts");
+
+            var getRequest = objectStore.get(node.id);
+
+            getRequest.onsuccess = function(event) {
+                $scope.selectedNodeData = event.target.result.cartItems;
+                $scope.$apply(); // Apply changes to AngularJS scope
+            };
+
+            transaction.onerror = function(event) {
+                console.log("Transaction error: " + event.target.errorCode);
+            };
+        };
+    };
+});
+
+	</script>
+	
+</body>
+</html>
