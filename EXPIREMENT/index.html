@@ -528,8 +528,31 @@ button, input, select, textarea {
     }
 }
 
-</style>
 
+
+</style>
+<style>
+    /* Define the tick animation */
+    @keyframes tick {
+        0% { transform: scale(0); }
+        100% { transform: scale(1); }
+    }
+
+    /* Apply the animation to the tick element */
+    .tick {
+        display: none; /* Hide the tick element by default */
+        width: 24px; /* Adjust size as needed */
+        height: 24px;
+        background-image: url('tick_icon.png'); /* Replace 'tick_icon.png' with your tick icon */
+        background-size: cover;
+        animation: tick 0.3s ease-in-out; /* Apply the tick animation */
+    }
+    
+    /* Show the tick element when condition is met */
+    .item-added.ng-if-show {
+        display: inline-block;
+    }
+</style>
 
 <div class="navbar">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -660,7 +683,7 @@ function scrollToTop() {
                 <!-- Use ng-model-options with debounce to delay form submission -->
             <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3" ng-model-options="{ debounce: 2500 }" ng-change="!image.submitted && submitData(image, $index); image.submitted = true" ng-click="resetQuantity(image)" required>
 
-                <span class="item-added" ng-if="image.submitted && image.field3 !== null">Item added</span>
+    <span class="item-added" ng-if="image.submitted && image.field3 !== null">Item added</span> 
             </form>
         </div>
     </div>
