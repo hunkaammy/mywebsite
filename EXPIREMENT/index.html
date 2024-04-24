@@ -683,7 +683,7 @@ function scrollToTop() {
                 <!-- Use ng-model-options with debounce to delay form submission -->
             <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3" ng-model-options="{ debounce: 2500 }" ng-change="!image.submitted && submitData(image, $index); image.submitted = true" ng-click="resetQuantity(image)" required>
 
-    <span class="item-added" ng-if="image.submitted && image.field3 !== null">Item added</span> 
+    <span class="item-added" ng-if="image.submitted && image.field3 !== null">added</span> 
             </form>
         </div>
     </div>
