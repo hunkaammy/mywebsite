@@ -361,7 +361,7 @@ button, input, select, textarea {
     <title>Dynamically Submit Form</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+
 </head>
 
   </script>
@@ -582,43 +582,43 @@ function scrollToTop() {
 }
 </script>
 
-<div class="tab-btns" onclick="scrollToTop()">
-  <div class="tab-btn" ng-click="filterTab('', 0)">ALL PRODUCTS</div>
-  <div class="tab-btn" ng-click="filterTab('MIX', 9)">MIX TOYS</div> 
-  <div class="tab-btn" ng-click="filterTab('BATTERY', 13)">BATTERY OPERATED</div>
-  <div class="tab-btn" ng-click="filterTab('WATER BOTTEL', 23)">WATER BOTTLE</div> 
-  <div class="tab-btn" ng-click="filterTab('INDIAN TOYS', 2)">INDIAN TOYS</div>
-  <div class="tab-btn" ng-click="filterTab('REMOTE', 7)">REMOTE CAR</div>
-  <div class="tab-btn" ng-click="filterTab('EDUCATIONAL', 22)">EDUCATIONAL TOYS</div> 
-  <div class="tab-btn" ng-click="filterTab('INTEX', 21)">INTEX ITEMS</div>  
-  <div class="tab-btn" ng-click="filterTab('STUDY TABLE', 20)">STUDY TABLE</div>
-  <div class="tab-btn" ng-click="filterTab('SOFT TOY', 19)">SOFT TOY</div>
-  <div class="tab-btn" ng-click="filterTab('SPORTS', 18)">SPORTS ITEM</div>
-  <div class="tab-btn" ng-click="filterTab('LUMO', 10)">LUMO PRODUCTS</div>
-  <div class="tab-btn" ng-click="filterTab('PATTA', 17)">PATTA ITEMS</div>
-  <div class="tab-btn" ng-click="filterTab('GUN', 15)">GUNS VARIETY</div>
-  <div class="tab-btn" ng-click="filterTab('STATIONERY', 1)">STATIONERY ITEMS</div>
-  <div class="tab-btn" ng-click="filterTab('BLOCKS', 3)">BLOCKS</div>
-  <div class="tab-btn" ng-click="filterTab('WALKER & PALNA', 5)">WALKER & PALNA</div>
-  <div class="tab-btn" ng-click="filterTab('RACKET', 6)">RACKET</div>
-  <div class="tab-btn" ng-click="filterTab('DOLL', 8)">DOLL</div>
-  <div class="tab-btn" ng-click="filterTab('MAGIC RIDDER', 11)">MAGIC RIDDER</div>
-  <div class="tab-btn" ng-click="filterTab('FANCY', 12)">FANCY ITEMS</div>
-  <div class="tab-btn" ng-click="filterTab('DOZEN PACKING', 14)">DOZEN PACKING ITEMS</div>
-  <div class="tab-btn" ng-click="filterTab('EMPTY', 16)">EMPTY</div>
-</div>
-<input type="text" ng-model="searchQuery" placeholder="Search">
+  <div class="tab-btns" onclick="scrollToTop()">
+  <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">MIX TOYS</div> 
+   <div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 13; searchQuery = '';" ng-class="{ 'active': activeTab === 13 }">BATTERY OPERATED</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'BOTTEL'; activeTab = 23; searchQuery = '';" ng-class="{ 'active': activeTab === 23 }">WATER BOTTEL</div> 
+   <div class="tab-btn" ng-click="productNameFilter = 'INDIAN TOYS'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">INDIAN TOYS</div>
+   <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">REMOTE CAR</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'EDUCATIONAL'; activeTab = 22; searchQuery = '';" ng-class="{ 'active': activeTab === 22 }">EDUCATIONAL TOYS</div> 
+	<div class="tab-btn" ng-click="productNameFilter = 'INTEX'; activeTab = 21; searchQuery = '';" ng-class="{ 'active': activeTab === 21 }">INTEX ITEMS</div>  
+ 
+
+	<div class="tab-btn" ng-click="productNameFilter = 'STUDY TABLE'; activeTab = 20; searchQuery = '';" ng-class="{ 'active': activeTab === 20 }">STUDY TABLE</div>
+    <div class="tab-btn" ng-click="productNameFilter = 'SOFT TOY'; activeTab = 19; searchQuery = '';" ng-class="{ 'active': activeTab === 19 }">SOFT TOY</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'SPORTS'; activeTab = 18; searchQuery = '';" ng-class="{ 'active': activeTab === 18 }">SPORTS ITEM</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">LUMO PRODUCTS</div>
+    <div class="tab-btn" ng-click="productNameFilter = 'PATTA'; activeTab = 17; searchQuery = '';" ng-class="{ 'active': activeTab === 17 }">PATTA ITEMS</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 15; searchQuery = '';" ng-class="{ 'active': activeTab === 15 }">GUNS VARIETY</div>
+
+   <div class="tab-btn" ng-click="productNameFilter = 'STATIONERY'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">STATIONERY ITEMS</div>
+
+  <div class="tab-btn" ng-click="productNameFilter = 'BLOCKS'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">BLOCKS</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'PALNA WALKER'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">WALKER & PALNA</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">RACKET</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">DOLL</div>
+ 
+  <div class="tab-btn" ng-click="productNameFilter = 'RIDDER'; activeTab = 11; searchQuery = '';" ng-class="{ 'active': activeTab === 11 }">MAGIC RIDDER</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 12; searchQuery = '';" ng-class="{ 'active': activeTab === 12 }">FANCY ITEMS</div>
+
+  <div class="tab-btn" ng-click="productNameFilter = 'DOZEN'; activeTab = 14; searchQuery = '';" ng-class="{ 'active': activeTab === 14 }">DOZEN PACKING ITEMS</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 16; searchQuery = '';" ng-class="{ 'active': activeTab === 16 }">EMPTY</div>
+    </div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
     <div id="containers" ng-hide="image.outOfStock">
         <div class="card">
-            <img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
-            <div id="enlarged-image-container" class="enlarged-image-container" style="display: none;">
-                <div class="enlarged-image">
-                    <img id="enlarged-img" src="" alt="Enlarged Image">
-                    <button onclick="closeEnlarged()">Close</button>
-                </div>
-            </div>
+            <img src="{{image.url}}" alt="Sample Image"  loading="lazy" width="350" height="350">
+  
             <div class="containers">
                 <h4><b><p>{{image.price}} Rs.</p></b></h4>
                 <p>{{image.name}}</p>
@@ -639,8 +639,6 @@ function scrollToTop() {
 
 
 
-
- <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
 
 
@@ -749,12 +747,6 @@ $scope.resetQuantity = function(image) {
     image.submitted = false; // Add this line to reset the submitted flag
 };
 
-$scope.filterTab = function(filterValue, activeTabValue) {
-    $scope.productNameFilter = filterValue;
-    $scope.activeTab = activeTabValue;
-    $scope.searchQuery = '';
-};
-
 
             $scope.image = function (event) {
                 event.preventDefault();
@@ -809,7 +801,7 @@ $scope.filterTab = function(filterValue, activeTabValue) {
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+
 <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
 <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
 </body>
@@ -842,7 +834,7 @@ $('document').ready(function(){
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+
 <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
 <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
 </body>
