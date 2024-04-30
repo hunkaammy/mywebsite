@@ -29,13 +29,11 @@
     <title>Login Page</title>
     <style>
         body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
-    background-color: #fff;
-    width: 357px;
-}
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            
+        }
 
         #login-container {
     background-image: url(https://hunkaammy.github.io/mywebsite/NEWWEBSITE/loginpg.jpeg);
@@ -150,11 +148,11 @@ html {
 
 
 
-.card  {
+.card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 236px;
-    margin-left: 30px;
+    margin-left: 98px;
     text-align: -webkit-center;
 }
 
@@ -164,12 +162,12 @@ html {
 
 .containers {
     padding: 2px 0px;
-    background: white;
+    background: #F8F7FF;
 }
 
 .qtyclass {
     height: 40px;
-   
+    padding: 2px 16px;
     width: 66px;
     margin-right: 1px;
 }
@@ -178,15 +176,11 @@ html {
 {
     -webkit-appearance: button;
     cursor: pointer;
-    BACKGROUND: white;
-    COLOR: green;
-    font-weight: 700;
-    WIDTH: 67PX;
-    /* height: 36px; */
-    margin-right: -12px;
-    margin-left: 1px;
-    border: 1px solid grey;
-    border-radius: 7px;
+    BACKGROUND: #5A55A3;
+    COLOR: WHITE;
+    WIDTH: 86PX;
+    height: 40px;
+    margin-left: 10px;
 }
 
 .btn-primary  {
@@ -201,14 +195,6 @@ html {
 }
 
 p {
-    margin: 0 0 10px;
-
-    display: inline;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: inherit;
-
     
 }
 button, input, select, textarea {
@@ -265,21 +251,13 @@ button, input, select, textarea {
  <style>
         /* Style for the navbar */
         .navbar {
-    background-color: white;
+    background-color: #5A55A3;
     padding: 7px;
     color: white;
     position: fixed;
     width: 100%;
     top: -16px;
     z-index: 1000;
-}
-
-#rcorners1 {
-  border-radius: 25px;
-  background: grey;
-  padding: 20px; 
-  width: 200px;
-  height: 150px;  
 }
 
         /* Style for the search input */
@@ -296,55 +274,45 @@ button, input, select, textarea {
 
         /* Your existing card styles */
         #containers {
-     
     margin-bottom: 18px;
     MARGIN-TOP: -14px;
-    margin-left: 61px;
-    /* display: block; */
-    /* float: right; */
-
 }
 
         .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
+		
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
         .containers {
-    margin-top: 10px;
-    WIDTH: 120PX;
-    HEIGHT: 144PX;
-}
+            margin-top: 10px;
+        }
 
-        .qtyclass{
-    width: 49px;
-    margin-left: -9px;
-}
+        .qtyclass {
+            width: 60px;
+        }
 
-        .submit {
-    -webkit-appearance: button;
+        .submit  {
+    background-color: #5A55A3;
+    color: white;
+    /* padding: 10px 15px; */
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    BACKGROUND: white;
-    COLOR: green;
-    WIDTH: 68PX;
-    height: 42px;
-    margin-right: -18px;
 }
     </style>
 	
 	<style>
-	img  {
+	img {
     display: block;
     margin: 10px auto;
     opacity: 1;
     transform: scale(1.2);
     transition: all .25s;
-    width: 180px;
-    MARGIN-TOP: 24PX;
-    height: 197px;
-    border: 1px solid LIGHTGREY;
-    border-radius: 9px;
+    width: 169px;
+    height: 239px;
+    object-fit: cover;
 }
 }
 
@@ -360,8 +328,8 @@ button, input, select, textarea {
 <head>
     <title>Dynamically Submit Form</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-   
-
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
 </head>
 
   </script>
@@ -385,13 +353,10 @@ button, input, select, textarea {
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+  <link href="" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
-
-
 
 <div class="container mt-3">
 
@@ -435,17 +400,17 @@ button, input, select, textarea {
 </html>
 
 <style>
- .tab-btns  {
-    font-size: 10px;
+    .tab-btns  {
+    font-size: 11px;
     position: fixed;
-    width: 75px;
+    width: 96px;
     overflow: auto;
     z-index: 1;
     HEIGHT: 100%;
     display: block;
     flex-direction: column;
     background-color: white;
-    /* padding: 10px; */
+    padding: 10px;
     /* border: darkorange; */
     bottom: -58px;
     padding: 10pz;
@@ -468,41 +433,7 @@ button, input, select, textarea {
     border-radius: 12px;
 }
 </style>
-<style>
-/* Style for the enlarged image container */
-.enlarged-image-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensure it's above other content */
-}
 
-/* Style for the enlarged image */
-.enlarged-image img {
-    max-width: 500PX;
-    max-height: 237PX;
-    width: auto;
-    height: auto;
-}
-
-/* Style for the close button */
-.enlarged-image button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-</style>
 
 
 <div class="navbar">
@@ -511,7 +442,8 @@ button, input, select, textarea {
 <!-- Container for search input and microphone icon -->
 <div style="display: flex; align-items: center;">
     <!-- Input field for search with voice recognition -->
-  <input type="text" ng-model="::productNameFilter">   
+    <input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';">
+    
     <!-- Use a microphone icon with animation instead of the button -->
     <span id="micIcon" onclick="startVoiceRecognition()" style="cursor: pointer; margin-left: 10px; color: white; font-size: 24px; margin-top: 15px;">
         <i class="fas fa-microphone"></i>
@@ -581,68 +513,52 @@ function scrollToTop() {
 }
 </script>
 
-  <div class="tab-btns" onclick="scrollToTop()">
-<div class="tab-btn" ng-click="resetFilters()" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'MIX'; activeTab = 9; searchQuery = '';" ng-class="{ 'active': activeTab === 9 }">MIX TOYS</div> 
-   <div class="tab-btn" ng-click="productNameFilter = 'BATTERY'; activeTab = 13; searchQuery = '';" ng-class="{ 'active': activeTab === 13 }">BATTERY OPERATED</div>
- <div class="tab-btn" ng-click="productNameFilter = 'BOTTEL'; activeTab = 23; searchQuery = '';" ng-class="{ 'active': activeTab === 23 }">WATER BOTTEL</div> 
-   <div class="tab-btn" ng-click="productNameFilter = 'INDIAN TOYS'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">INDIAN TOYS</div>
-   <div class="tab-btn" ng-click="productNameFilter = 'REMOTE'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">REMOTE CAR</div>
- <div class="tab-btn" ng-click="productNameFilter = 'EDUCATIONAL'; activeTab = 22; searchQuery = '';" ng-class="{ 'active': activeTab === 22 }">EDUCATIONAL TOYS</div> 
-	<div class="tab-btn" ng-click="productNameFilter = 'INTEX'; activeTab = 21; searchQuery = '';" ng-class="{ 'active': activeTab === 21 }">INTEX ITEMS</div>  
- 
-
-	<div class="tab-btn" ng-click="productNameFilter = 'STUDY TABLE'; activeTab = 20; searchQuery = '';" ng-class="{ 'active': activeTab === 20 }">STUDY TABLE</div>
-    <div class="tab-btn" ng-click="productNameFilter = 'SOFT TOY'; activeTab = 19; searchQuery = '';" ng-class="{ 'active': activeTab === 19 }">SOFT TOY</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'SPORTS'; activeTab = 18; searchQuery = '';" ng-class="{ 'active': activeTab === 18 }">SPORTS ITEM</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'LUMO'; activeTab = 10; searchQuery = '';" ng-class="{ 'active': activeTab === 10 }">LUMO PRODUCTS</div>
-    <div class="tab-btn" ng-click="productNameFilter = 'PATTA'; activeTab = 17; searchQuery = '';" ng-class="{ 'active': activeTab === 17 }">PATTA ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 15; searchQuery = '';" ng-class="{ 'active': activeTab === 15 }">GUNS VARIETY</div>
-
-   <div class="tab-btn" ng-click="productNameFilter = 'STATIONERY'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">STATIONERY ITEMS</div>
-
-  <div class="tab-btn" ng-click="productNameFilter = 'BLOCKS'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">BLOCKS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'PALNA WALKER'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">WALKER & PALNA</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'RACKET'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">RACKET</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'DOLL'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">DOLL</div>
- 
-  <div class="tab-btn" ng-click="productNameFilter = 'RIDDER'; activeTab = 11; searchQuery = '';" ng-class="{ 'active': activeTab === 11 }">MAGIC RIDDER</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'FANCY'; activeTab = 12; searchQuery = '';" ng-class="{ 'active': activeTab === 12 }">FANCY ITEMS</div>
-
-  <div class="tab-btn" ng-click="productNameFilter = 'DOZEN'; activeTab = 14; searchQuery = '';" ng-class="{ 'active': activeTab === 14 }">DOZEN PACKING ITEMS</div>
-  <div class="tab-btn" ng-click="productNameFilter = 'GUN'; activeTab = 16; searchQuery = '';" ng-class="{ 'active': activeTab === 16 }">EMPTY</div>
-    </div>
+<div class="tab-btns" onclick="scrollToTop()">
+   <div class="tab-btn active" ng-click="productNameFilter = 'PAGDI'; activeTab = 1; searchQuery = '';" ng-class="{ 'active': activeTab === 1 }">PAGDI</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'VAR VADHU MALA'; activeTab = 2; searchQuery = '';" ng-class="{ 'active': activeTab === 2 }">VAR VADHU MALA</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'PAN MOTI MALA'; activeTab = 3; searchQuery = '';" ng-class="{ 'active': activeTab === 3 }">PAN MOTI MALA</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'KATTAR'; activeTab = 4; searchQuery = '';" ng-class="{ 'active': activeTab === 4 }">KATTAR , PATTA & CHAIN</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'DULHA HAAR'; activeTab = 5; searchQuery = '';" ng-class="{ 'active': activeTab === 5 }">DULHA HAAR</div>
+  <div class="tab-btn" ng-click="productNameFilter = 'DULHAN MUKUT'; activeTab = 6; searchQuery = '';" ng-class="{ 'active': activeTab === 6 }">DULHAN MUKUT</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'HALDI MEHENDI'; activeTab = 7; searchQuery = '';" ng-class="{ 'active': activeTab === 7 }">HALDI MEHENDI</div>
+ <div class="tab-btn" ng-click="productNameFilter = 'NARIYAL'; activeTab = 8; searchQuery = '';" ng-class="{ 'active': activeTab === 8 }">NARIYAL</div>
+ <!-- Rest of the tabs -->
+</div>
 
 <div ng-repeat="image in vm.images | orderBy: '-date' | filter: { name: productNameFilter } | filter:searchQuery">
-    <div id="containers" ng-hide="image.outOfStock">
+    <div id="containers" ng-if="!image.outOfStock">
         <div class="card">
-            <img src="{{image.url}}" alt="Sample Image"  loading="lazy" width="350" height="350">
-  
+            <img src="{{image.url}}" loading="lazy" width="350" height="350">
             <div class="containers">
-                <h4><b><p>{{image.price}} Rs.</p></b></h4>
+<h4><b>	<p>{{image.price}} Rs.</p> </b>  </h4>             
+			  <!-- <h4><b> ITEM NO.{{$index+1}}</b></h4>-->
                 <p>{{image.name}}</p>
-                <form ng-submit="submitData(image, $index)" ng-init="image.submitted = false">
-                    <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
-                    <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
-                    <!-- Removed !image.submitted && from ng-change -->
-                    <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3" ng-model-options="{ debounce: 2500 }" ng-change="submitData(image, $index); image.submitted = true" ng-click="resetQuantity(image)" required>
-                    <span class="item-added" ng-if="image.submitted && image.field3 !== null">Item added</span> 
-                </form>
+			
+                
+                <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
+                <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
+
+                <!-- Add this input field inside the card section -->
+                <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3">
+                <button class="submit" id="submitButton{{$index}}" ng-click="submitData(image, $index); buttonText='ADDED ? '" ng-bind="buttonText || 'Submit'"></button>
             </div>
         </div>
     </div>
+</div>
+
+ <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
 
+<script>
+    window.onload = function() {
+        // Simulate click on the PAGDI tab to load its data on page load
+        document.querySelector('.tab-btn:nth-child(1)').click();
+    };
 
-
-
-
-
-
-
-
-
-
+    function scrollToTop() {
+        // Your scrollToTop function implementation
+    }
+</script>
     <script>
         // JavaScript to handle scrolling
         function scrollToTop() {
@@ -661,7 +577,14 @@ function scrollToTop() {
     </div> </div>
 </div><br><br>
 
+<script>
+const images = document.querySelectorAll('img');
 
+for(let img of images) {
+  img.onload = ({target}) => setTimeout(() => {target.classList.add('loaded')}, 200)
+}
+
+</script>
 
 
 
@@ -677,7 +600,7 @@ function scrollToTop() {
             $scope.vm.images = [];
             $scope.dynamicField2Value = ""; // Set your default dynamic value
 
-            var firebaseConfigFetch = {
+var firebaseConfigFetch = {
                   apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
   authDomain: "htshop-e9c51.firebaseapp.com",
   databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
@@ -710,22 +633,16 @@ function scrollToTop() {
             var storageServiceSubmit = firebaseSubmit.storage();
             var databaseSubmit = firebaseSubmit.database().ref();
             var listSubmit = $firebaseArray(databaseSubmit);
-	
-$scope.resetFilters = function() {
-    $scope.productNameFilter = '';
-    $scope.searchQuery = '';
-    $scope.activeTab = 0;
-};
-	
+			
 			
 
-$scope.submitData = function(image, index) {
+  $scope.submitData = function (image, index) {
     var inputa = image.url;
     var inputb = $scope.dynamicField2Value;
     var inputc = image.field3;
-    var inputName = image.name;
-    var inputPrice = image.price;
-    var inputoutofstock = image.outOfStock;
+    var inputName = image.name; // Add this line
+	var inputPrice = image.price; // Add this line
+    var inputoutofstock = image.outOfStock; // Add this line
 
     var newDataKey = databaseSubmit.push().key;
 
@@ -733,20 +650,10 @@ $scope.submitData = function(image, index) {
         field1: inputa,
         field2: inputb,
         field3: inputc,
-        productName: inputName,
-        productPrice: inputPrice
+        productName: inputName, // Add this line
+		productPrice: inputPrice // Add this line
     });
-
-    console.log("Data submitted to Firebase");
 };
-
-
-
-$scope.resetQuantity = function(image) {
-    image.field3 = null;
-    image.submitted = false; // Add this line to reset the submitted flag
-};
-
 
             $scope.image = function (event) {
                 event.preventDefault();
@@ -762,7 +669,14 @@ $scope.resetQuantity = function(image) {
                 uploadTask.on('state_changed', null, function (error) {
                     console.error('Upload error:', error);
                 }, function () {
-                  3
+                    var imageData = {
+                        url: uploadTask.snapshot.ref.getDownloadURL(),
+                        bytes: uploadTask.snapshot.totalBytes,
+                        name: uploadTask.snapshot.metadata.name,
+						outOfStock: uploadTask.snapshot.metadata.outOfStock,
+                        path: uploadTask.snapshot.ref.fullPath,
+                        date: uploadTask.snapshot.metadata.timeCreated
+                    };
 
                     listSubmit.$add(imageData).then(function (ref) {
                         swal("Success", "Your image has been uploaded", "success");
@@ -801,7 +715,7 @@ $scope.resetQuantity = function(image) {
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
 <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
 <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
 </body>
@@ -834,7 +748,7 @@ $('document').ready(function(){
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
 <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
 <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
 <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
 </body>
@@ -863,8 +777,8 @@ $('document').ready(function(){
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-     // Array of allowed IP addresses
-    var allowedIPs = ['106.76.242.98', '101.77.243.99', '192.168.1.3', '192.168.1.1'];
+    // Array of allowed IP addresses
+    var allowedIPs = ['106.76.242.98', '101.77.243.99 ', '192.168.1.3', '192.168.1.1'];
 
     // Function to validate login
     function validateLogin() {
@@ -878,19 +792,44 @@ $('document').ready(function(){
             return;
         }
 
-        // Create a reference to your Firebase database
-        var database = firebase.database();
+        // Get user IP address
+        getUserIPAddress()
+            .then(function (ipAddress) {
+                // Check if the user's IP is in the blocked list
+                if (allowedIPs.includes(ipAddress)) {
+                    // Redirect to another page for blocked IPs
+                    window.location.href = 'https://hunkaammy.github.io/mywebsite/NEWWEBSITE/blocked.html';
+                } else {
+                    // Create a reference to your Firebase database
+                    var database = firebase.database();
 
-        // Push user data to Firebase with timestamp
-        var userRef = database.ref('users').push({
-            name: name,
-            mobile: mobile,
-            timestamp: firebase.database.ServerValue.TIMESTAMP
-        });
+                    // Push user data to Firebase with timestamp
+                    var userRef = database.ref('users').push({
+                        name: name,
+                        mobile: mobile,
+                        ipAddress: ipAddress,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
 
-        // Hide login container and show content
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
+                    // Hide login container and show content
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                }
+            })
+            .catch(function (error) {
+                console.error('Error fetching IP address:', error);
+            });
+    }
+
+    // Function to get user IP address using ipify
+    function getUserIPAddress() {
+        return fetch('https://api.ipify.org?format=json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                return data.ip;
+            });
     }
 </script>
 
