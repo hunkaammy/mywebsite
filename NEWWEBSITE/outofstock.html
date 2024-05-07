@@ -16,13 +16,13 @@
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-    authDomain: "htshop-e9c51.firebaseapp.com",
-    databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-    projectId: "htshop-e9c51",
-    storageBucket: "htshop-e9c51.appspot.com",
-    messagingSenderId: "653137640907",
-    appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-    measurementId: "G-FJ4Q0FHBEG"
+  authDomain: "htshop-e9c51.firebaseapp.com",
+  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+  projectId: "htshop-e9c51",
+  storageBucket: "htshop-e9c51.appspot.com",
+  messagingSenderId: "653137640907",
+  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+  measurementId: "G-FJ4Q0FHBEG"
   };
 
   // Initialize Firebase
@@ -41,7 +41,7 @@
     displayProductDetails(allData);
   });
 
-  // Function to display "name", "url", "price", and "outOfStock" field values based on the selected filter and search query
+  // Function to display "name", "url", "price", "date", and "outOfStock" field values based on the selected filter and search query
   function displayProductDetails(allData) {
     var output = document.getElementById("output");
     var html = "<h2>Product Details:</h2>";
@@ -53,49 +53,55 @@
     var searchQuery = document.getElementById("search").value.trim().toLowerCase();
     console.log("Search Query:", searchQuery);
 
+    // Convert allData object to an array for sorting
+    var dataArray = Object.keys(allData).map(key => ({ key, ...allData[key] }));
+
+    // Sort the array based on the date in descending order
+    dataArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     // Flag to track if any product is found
     var foundProduct = false;
 
-    for (var dataKey in allData) {
-      if (allData.hasOwnProperty(dataKey) && allData[dataKey].url && allData[dataKey].price && allData[dataKey].outOfStock !== undefined && allData[dataKey].name) {
-        // Check if the current entry matches the selected filter and search query
-        if (((filterValue === "true" && allData[dataKey].outOfStock) || (filterValue === "false" && !allData[dataKey].outOfStock)) &&
-            (searchQuery === '' || allData[dataKey].name.toLowerCase().indexOf(searchQuery) !== -1)) {
-          html += "<p><strong>Name:</strong> " + allData[dataKey].name + "</p>";
-          html += "<p><strong>Price:</strong> " + allData[dataKey].price + "</p>";
-          html += "<p><strong>Out of Stock:</strong> " + allData[dataKey].outOfStock + "</p>";
-          // Add lazy-loaded image with src from the "url" field and set a small width
-          html += '<img src="' + allData[dataKey].url + '" loading="lazy" alt="Product Image" width="100">';
-          
-          // Add delete button with data-key attribute to identify the key for deletion
-          html += '<button onclick="deleteProduct(\'' + dataKey + '\')">Delete Product</button>';
-
-          foundProduct = true; // Set flag to true if at least one product is found
+    // Iterate over sorted array
+    dataArray.forEach(data => {
+        if (data.url && data.price && data.outOfStock !== undefined && data.name && data.date) {
+            // Check if the current entry matches the selected filter and search query
+            if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
+                (searchQuery === '' || data.name.toLowerCase().indexOf(searchQuery) !== -1)) {
+                html += "<p><strong>Name:</strong> " + data.name + "</p>";
+                html += "<p><strong>Price:</strong> " + data.price + "</p>";
+                html += "<p><strong>Out of Stock:</strong> " + data.outOfStock + "</p>";
+                html += "<p><strong>Date:</strong> " + data.date + "</p>";
+                // Add lazy-loaded image with src from the "url" field and set a small width
+                html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
+                // Add delete button with data-key attribute to identify the key for deletion
+                html += '<button onclick="deleteProduct(\'' + data.key + '\')">Delete Product</button>';
+                foundProduct = true; // Set flag to true if at least one product is found
+            }
         }
-      }
-    }
+    });
 
     if (!foundProduct) {
-      output.innerHTML = "<p>No products found matching the search criteria.</p>";
+        output.innerHTML = "<p>No products found matching the search criteria.</p>";
     } else {
-      output.innerHTML = html;
+        output.innerHTML = html;
     }
-  }
+}
 
-  // Function to delete a product by key
-  function deleteProduct(key) {
+// Function to delete a product by key
+function deleteProduct(key) {
     var confirmDelete = confirm("Are you sure you want to delete this product?");
     if (confirmDelete) {
-      // Remove the product from the database
-      database.ref(key).remove()
-        .then(function() {
-          console.log("Product deleted successfully");
-        })
-        .catch(function(error) {
-          console.error("Error deleting product: ", error);
-        });
+        // Remove the product from the database
+        database.ref(key).remove()
+            .then(function() {
+                console.log("Product deleted successfully");
+            })
+            .catch(function(error) {
+                console.error("Error deleting product: ", error);
+            });
     }
-  }
+}
 </script>
 
 <!-- Form for filtering data -->
@@ -111,7 +117,7 @@
 <!-- Input field for searching by name -->
 <input type="text" id="search" placeholder="Search by name" oninput="displayProductDetails(allData)">
 
-<!-- Display area for "name", "url", "price", and "outOfStock" field values -->
+<!-- Display area for "name", "url", "price", "date", and "outOfStock" field values -->
 <div id="output"></div>
 
 </body>
