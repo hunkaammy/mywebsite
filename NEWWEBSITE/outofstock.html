@@ -68,14 +68,15 @@
             // Check if the current entry matches the selected filter and search query
             if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
                 (searchQuery === '' || data.name.toLowerCase().indexOf(searchQuery) !== -1)) {
-                html += "<p><strong>Name:</strong> " + data.name + "</p>";
+                html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
+				html += "<p><strong>Name:</strong> " + data.name + "</p>";
                 html += "<p><strong>Price:</strong> " + data.price + "</p>";
                 html += "<p><strong>Out of Stock:</strong> " + data.outOfStock + "</p>";
                 html += "<p><strong>Date:</strong> " + data.date + "</p>";
                 // Add lazy-loaded image with src from the "url" field and set a small width
-                html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
+                
                 // Add delete button with data-key attribute to identify the key for deletion
-                html += '<button onclick="deleteProduct(\'' + data.key + '\')">Delete Product</button>';
+                html += '<button onclick="deleteProduct(\'' + data.key + '\')">Delete Product</button><hr/>';
                 foundProduct = true; // Set flag to true if at least one product is found
             }
         }
