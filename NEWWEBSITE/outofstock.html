@@ -11,6 +11,8 @@
 <body>
 
 <script>
+  var allData; // Global variable to hold the data
+
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
@@ -32,33 +34,51 @@
   // Fetch data from the root of the database
   database.ref().on("value", function(snapshot) {
     // The snapshot.val() contains all data at the root
-    var allData = snapshot.val();
-    console.log(allData);
+    allData = snapshot.val(); // Update the global variable
+    console.log("All Data:", allData);
 
-    // Display the "url" and "outOfStock" field values based on the selected filter
+    // Display all products initially
     displayProductDetails(allData);
   });
 
-  // Function to display "url" and "outOfStock" field values based on the selected filter
+  // Function to display "name", "url", "price", and "outOfStock" field values based on the selected filter and search query
   function displayProductDetails(allData) {
     var output = document.getElementById("output");
-    output.innerHTML = "<h2>Product Details:</h2>";
+    var html = "<h2>Product Details:</h2>";
 
     // Get the selected filter value
     var filterValue = document.querySelector('input[name="filter"]:checked').value;
 
+    // Get the search query
+    var searchQuery = document.getElementById("search").value.trim().toLowerCase();
+    console.log("Search Query:", searchQuery);
+
+    // Flag to track if any product is found
+    var foundProduct = false;
+
     for (var dataKey in allData) {
-      if (allData.hasOwnProperty(dataKey) && allData[dataKey].url && allData[dataKey].outOfStock !== undefined) {
-        // Check if the current entry matches the selected filter
-        if ((filterValue === "true" && allData[dataKey].outOfStock) || (filterValue === "false" && !allData[dataKey].outOfStock)) {
-          output.innerHTML += "<p><strong>Out of Stock:</strong> " + allData[dataKey].outOfStock + "</p>";
+      if (allData.hasOwnProperty(dataKey) && allData[dataKey].url && allData[dataKey].price && allData[dataKey].outOfStock !== undefined && allData[dataKey].name) {
+        // Check if the current entry matches the selected filter and search query
+        if (((filterValue === "true" && allData[dataKey].outOfStock) || (filterValue === "false" && !allData[dataKey].outOfStock)) &&
+            (searchQuery === '' || allData[dataKey].name.toLowerCase().indexOf(searchQuery) !== -1)) {
+          html += "<p><strong>Name:</strong> " + allData[dataKey].name + "</p>";
+          html += "<p><strong>Price:</strong> " + allData[dataKey].price + "</p>";
+          html += "<p><strong>Out of Stock:</strong> " + allData[dataKey].outOfStock + "</p>";
           // Add lazy-loaded image with src from the "url" field and set a small width
-          output.innerHTML += '<img src="' + allData[dataKey].url + '" loading="lazy" alt="Product Image" width="100">';
+          html += '<img src="' + allData[dataKey].url + '" loading="lazy" alt="Product Image" width="100">';
           
           // Add delete button with data-key attribute to identify the key for deletion
-          output.innerHTML += '<button onclick="deleteProduct(\'' + dataKey + '\')">Delete Product</button>';
+          html += '<button onclick="deleteProduct(\'' + dataKey + '\')">Delete Product</button>';
+
+          foundProduct = true; // Set flag to true if at least one product is found
         }
       }
+    }
+
+    if (!foundProduct) {
+      output.innerHTML = "<p>No products found matching the search criteria.</p>";
+    } else {
+      output.innerHTML = html;
     }
   }
 
@@ -83,9 +103,15 @@
   <label>
     <input type="radio" name="filter" value="true" checked> Show Out of Stock
   </label>
+  <label>
+    <input type="radio" name="filter" value="false"> Show In Stock
+  </label>
 </form>
 
-<!-- Display area for "url" and "outOfStock" field values -->
+<!-- Input field for searching by name -->
+<input type="text" id="search" placeholder="Search by name" oninput="displayProductDetails(allData)">
+
+<!-- Display area for "name", "url", "price", and "outOfStock" field values -->
 <div id="output"></div>
 
 </body>
