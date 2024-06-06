@@ -85,13 +85,12 @@
 <body>
 
 <div id="login-container">
-    <div id="inside">
-        <h2>WELCOME TO HINDUSTAN TOYS</h2>
-        <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your shop name" autocomplete="off">
-        <input type="tel" id="mobile" placeholder="Enter your mobile number" autocomplete="off">
-        <button onclick="validateLogin()">Login</button>
-    </div>
-</div>
+<div id="inside">
+    <h2>WELCOME TO HINDUSTAN TOYS</h2>
+    <input type="text" id="name" ng-model="dynamicField2Value" placeholder="Enter your shop name" autocomplete="off">
+    <input type="tel" id="mobile" placeholder="Enter your mobile number" autocomplete="off">
+    <button onclick="validateLogin()">Login</button>
+</div> </div>
 
 <div id="content" style="display: none;">
 
@@ -104,7 +103,27 @@
         } 
     </script> 
 
+<script>
+  let inactivityTimeout;
 
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(refreshPage, 30 * 60 * 1000); // 5 minutes in milliseconds
+  }
+
+  function refreshPage() {
+    location.reload(true); // Reload the page, forcing it to fetch the latest content from the server
+  }
+
+  // Add event listeners to detect user activity
+  document.addEventListener('mousemove', resetInactivityTimer);
+  document.addEventListener('keydown', resetInactivityTimer);
+  document.addEventListener('touchstart', resetInactivityTimer);
+  document.addEventListener('touchmove', resetInactivityTimer);
+
+  // Start the inactivity timer when the page loads
+  resetInactivityTimer();
+</script>
 
 <!DOCTYPE html>
 <html lang="en" >
@@ -495,8 +514,9 @@ button, input, select, textarea {
     <input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';">
     
     <!-- Use a microphone icon with animation instead of the button -->
-    <!-- Logout button -->
-    <button ng-click="logout()">Logout</button>
+    <span id="micIcon" onclick="startVoiceRecognition()" style="cursor: pointer; margin-left: 10px; color: white; font-size: 24px; margin-top: 15px;">
+        <i class="fas fa-microphone"></i>
+    </span>
 </div>
 
 
@@ -615,8 +635,7 @@ function scrollToTop() {
                 <p>{{image.name}}</p>
 
                 <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
-                 <input type="hidden" id="{{'inputb' + $index}}" ng-model="dynamicField2Value" ng-value="dynamicField2Value">
-
+                <input type="hidden" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="dynamicField2Value">
 
                 <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3" ng-change="submitData(image, $index)" ng-model-options="{ debounce: 4500 }">
                 
@@ -686,54 +705,51 @@ for(let img of images) {
 
 
     <script>
-var app = angular.module('myApp', ['firebase']);
+        var app = angular.module('myApp', ['firebase']);
 
-app.controller('imagesController', function ($scope, $firebaseArray, $window) {
-      $scope.vm = this;
-    $scope.vm.images = [];
-    // Set dynamicField2Value to the logged user's name retrieved from local storage
-    $scope.dynamicField2Value = localStorage.getItem('name');
+        app.controller('imagesController', function ($scope, $firebaseArray) {
+            $scope.vm = this;
+            $scope.vm.images = [];
+            $scope.dynamicField2Value = ""; // Set your default dynamic value
 
+            var firebaseConfigFetch = {
+                  apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+  authDomain: "htshop-e9c51.firebaseapp.com",
+  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+  projectId: "htshop-e9c51",
+  storageBucket: "htshop-e9c51.appspot.com",
+  messagingSenderId: "653137640907",
+  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+  measurementId: "G-FJ4Q0FHBEG"
+            };
 
+            var firebaseConfigSubmit = {
+                apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+  authDomain: "notes-12519.firebaseapp.com",
+  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+  projectId: "notes-12519",
+  storageBucket: "notes-12519.appspot.com",
+  messagingSenderId: "1073774450189",
+  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+  measurementId: "G-GZXYCJ33TR"
+            };
 
-
-    var firebaseConfigFetch = {
-        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-        authDomain: "htshop-e9c51.firebaseapp.com",
-        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-        projectId: "htshop-e9c51",
-        storageBucket: "htshop-e9c51.appspot.com",
-        messagingSenderId: "653137640907",
-        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-        measurementId: "G-FJ4Q0FHBEG"
-    };
-
-    var firebaseConfigSubmit = {
-        apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
-        authDomain: "notes-12519.firebaseapp.com",
-        databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
-        projectId: "notes-12519",
-        storageBucket: "notes-12519.appspot.com",
-        messagingSenderId: "1073774450189",
-        appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
-        measurementId: "G-GZXYCJ33TR"
-    };
-
-            var firebaseFetch = firebase.initializeApp(firebaseConfigFetch, 'fetchApp');
+              var firebaseFetch = firebase.initializeApp(firebaseConfigFetch, 'fetchApp');
             var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
 
-            
+            var storageServiceFetch = firebaseFetch.storage();
             var databaseFetch = firebaseFetch.database().ref();
             var listFetch = $firebaseArray(databaseFetch);
             $scope.vm.images = listFetch;
 
-            
+            var storageServiceSubmit = firebaseSubmit.storage();
             var databaseSubmit = firebaseSubmit.database().ref();
             var listSubmit = $firebaseArray(databaseSubmit);
 			
 			
 
- $scope.submitData = function(image, index) {
+ // Function to submit data to Firebase
+    $scope.submitData = function(image, index) {
         var inputa = image.url;
         var inputb = $scope.dynamicField2Value; // Use dynamicField2Value
         var inputc = image.field3;
@@ -753,18 +769,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window) {
 
         console.log("Data submitted to Firebase");
     };
-
-
- // Function to logout the user
-    $scope.logout = function() {
-        // Clear user session data (e.g., name stored in local storage)
-        localStorage.removeItem('name');
-		localStorage.removeItem('mobile');
-
-        // Redirect the user to the login page or any other page
-        // For example, redirecting to the homepage
-        $window.location.href = '/index.html'; // Change the URL as needed
-    };
+});
 
 
             $scope.image = function (event) {
@@ -879,61 +884,38 @@ $('document').ready(function(){
         measurementId: "G-BP5EYR6ET1"
     };
 
- 
-
-
-  // Initialize Firebase
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+     // Array of allowed IP addresses
+    var allowedIPs = ['106.76.242.98', '101.77.243.99', '192.168.1.3', '192.168.1.1'];
 
     // Function to validate login
     function validateLogin() {
+        // Get user input
         var name = document.getElementById('name').value.trim();
         var mobile = document.getElementById('mobile').value.trim();
 
-     // Validate name
-    if (name.length < 4) {
-        alert('Please enter a valid shop name.');
-        return;
-    }
+        // Check if name and mobile are provided
+        if (name === '' || mobile === '') {
+            alert('Please enter both name and mobile number.');
+            return;
+        }
 
-    // Validate mobile number
-    if (!/^[6-9]\d{9}$/.test(mobile)) {
-        alert('Please enter a valid mobile number.');
-        return;
-    }
-
+        // Create a reference to your Firebase database
         var database = firebase.database();
+
+        // Push user data to Firebase with timestamp
         var userRef = database.ref('users').push({
             name: name,
             mobile: mobile,
             timestamp: firebase.database.ServerValue.TIMESTAMP
         });
 
-        localStorage.setItem('name', name);
-        localStorage.setItem('mobile', mobile);
-        localStorage.setItem('loggedIn', 'true');
-        console.log('Name and mobile stored for auto-login:', name, mobile);
-
+        // Hide login container and show content
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('content').style.display = 'block';
     }
-
-    function autoLogin() {
-        console.log('autoLogin function called');
-        var storedName = localStorage.getItem('name');
-        var storedMobile = localStorage.getItem('mobile');
-        
-        console.log('Stored Name:', storedName);
-        console.log('Stored Mobile:', storedMobile);
-
-        if (storedName && storedMobile) {
-            document.getElementById('name').value = storedName;
-            document.getElementById('mobile').value = storedMobile;
-            validateLogin();
-        }
-    }
-
-    window.onload = autoLogin;
 </script>
 
 </body>
