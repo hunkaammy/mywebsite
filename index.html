@@ -484,19 +484,7 @@ button, input, select, textarea {
 }
 </style>
 
-<style>
-.sort-dropdown {
-    /* padding: 8px; */
-    bottom: 577px;
-    /* font-size: 16px; */
-    position: fixed;
-    right: -2px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 61px;
-}
-</style>
+
 
 <div class="navbar">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -510,6 +498,15 @@ button, input, select, textarea {
     <!-- Logout button -->
     <div style="    color: black;
 " ng-click="logout()">&nbsp;&nbsp;Logout</div>
+
+   <div>
+        <label for="sort">Sort by:</label>
+        <select id="sort" ng-model="sortOrder" ng-change="location.href='#top'; applyFilter()" ng-init="sortOrder='-date'" class="sort-dropdown">
+            <option value="-date">NEW</option>
+            <option value="price">LOW</option>
+            <option value="-price">HIGH</option>
+        </select>
+    </div>
 </div>
 
 
@@ -611,14 +608,7 @@ function scrollToTop() {
     </div>
 
 <body ng-controller="imagesController as vm">
-   <div>
-        <label for="sort">Sort by:</label>
-        <select id="sort" ng-model="sortOrder" ng-change="location.href='#top'; applyFilter()" ng-init="sortOrder='-date'" class="sort-dropdown">
-            <option value="-date">NEW</option>
-            <option value="price">LOW</option>
-            <option value="-price">HIGH</option>
-        </select>
-    </div>
+
 
     <div ng-repeat="image in vm.images | orderBy: sortOrder | filter: { name: productNameFilter } | filter:searchQuery">
         <div id="containers" ng-if="!image.outOfStock">
