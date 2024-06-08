@@ -278,47 +278,60 @@
 
 
   <script>
-        const dropZone = document.getElementById('dropZone');
-        const imageInput = document.getElementById('imageInput');
-        const preview = document.getElementById('preview');
+    const dropZone = document.getElementById('dropZone');
+    const imageInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
 
-        dropZone.addEventListener('click', () => {
-            imageInput.click();
-        });
+    dropZone.addEventListener('click', () => {
+        imageInput.click();
+    });
 
-        dropZone.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dropZone.classList.add('dragover');
-        });
+    dropZone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropZone.classList.add('dragover');
+    });
 
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
 
-        dropZone.addEventListener('drop', (event) => {
-            event.preventDefault();
-            dropZone.classList.remove('dragover');
+    dropZone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        dropZone.classList.remove('dragover');
 
-            if (event.dataTransfer.files.length) {
-                imageInput.files = event.dataTransfer.files;
-                previewImage(event.dataTransfer.files[0]);
-            }
-        });
-
-        imageInput.addEventListener('change', () => {
-            if (imageInput.files.length) {
-                previewImage(imageInput.files[0]);
-            }
-        });
-
-        function previewImage(file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (event) => {
-                preview.innerHTML = `<img src="${event.target.result}" alt="Image Preview">`;
-            };
+        if (event.dataTransfer.files.length) {
+            imageInput.files = event.dataTransfer.files;
+            previewImage(event.dataTransfer.files[0]);
         }
-    </script>
+    });
+
+    imageInput.addEventListener('change', () => {
+        if (imageInput.files.length) {
+            previewImage(imageInput.files[0]);
+        }
+    });
+
+    document.addEventListener('paste', (event) => {
+        const items = event.clipboardData.items;
+        for (const item of items) {
+            if (item.kind === 'file' && item.type.startsWith('image/')) {
+                const file = item.getAsFile();
+                imageInput.files = event.clipboardData.files;
+                previewImage(file);
+                break;
+            }
+        }
+    });
+
+    function previewImage(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            preview.innerHTML = `<img src="${event.target.result}" alt="Image Preview">`;
+        };
+    }
+</script>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
