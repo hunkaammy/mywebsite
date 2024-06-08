@@ -214,13 +214,52 @@
     /* Add other styles as needed */
   
   </style>
+  
+  
+     <style>
+        .drop-zone {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            padding: 20px;
+            border: 2px dashed #cccccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #cccccc;
+            cursor: pointer;
+            text-align: center;
+        }
+        .drop-zone.dragover {
+            border-color: #000000;
+            color: #000000;
+        }
+        .drop-zone input {
+            display: none;
+        }
+        .preview {
+    margin-top: -2px;
+}
+        .preview img {
+    width: 193px;
+    height: 193px;
+}
+    </style>
+  
+  
 </head>
 <body>
   <header>Firebase Image CRUD</header>
   <main>
    <button onclick="countOutOfStockButtons()">count available stock</button> <br> <br>
 
-     <input type="file" id="imageInput" />
+      <div class="drop-zone" id="dropZone">
+        Drag & Drop your file here or click to upload
+		 <div class="preview" id="preview"></div>
+        <input type="file" id="imageInput" />
+    </div>
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
 	<input type="text" id="priceInput" placeholder="Price">
     <button onclick="uploadImage()">Upload Image</button>
@@ -235,6 +274,51 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js"></script>
+
+
+
+  <script>
+        const dropZone = document.getElementById('dropZone');
+        const imageInput = document.getElementById('imageInput');
+        const preview = document.getElementById('preview');
+
+        dropZone.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.classList.remove('dragover');
+
+            if (event.dataTransfer.files.length) {
+                imageInput.files = event.dataTransfer.files;
+                previewImage(event.dataTransfer.files[0]);
+            }
+        });
+
+        imageInput.addEventListener('change', () => {
+            if (imageInput.files.length) {
+                previewImage(imageInput.files[0]);
+            }
+        });
+
+        function previewImage(file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                preview.innerHTML = `<img src="${event.target.result}" alt="Image Preview">`;
+            };
+        }
+    </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
