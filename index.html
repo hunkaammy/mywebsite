@@ -640,6 +640,16 @@ function scrollToTop() {
     </div>
 
 
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabParam = urlParams.get('tab');
+            if (tabParam === 'umbrella') {
+                document.getElementById('umbrella-tab').click();
+            }
+        });
+    </script>
+
 
  <!--<button id="topBtn" onclick="scrollToTop()">Top</button>-->
 
