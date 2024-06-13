@@ -1,151 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodePen - Upload Images to Firebase 3</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html ng-app="myApp">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-time Edit Data in Firebase</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
-    <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
-    <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
-    <style>
-        /* Style for non-editable state */
-        .field {
-            border: none;
-            padding: 5px;
-            background-color: transparent;
-            width: 100%;
-            font-size: 14px;
-            box-sizing: border-box; /* Ensures padding does not affect width */
-        }
-
-        /* Style for editable state */
-        .editable {
-            border: 1px solid #66afe9;
-            background-color: #fff;
-            font-size: 14px;
-            padding: 5px;
-            box-sizing: border-box; /* Ensures padding does not affect width */
-        }
-
-        /* Responsive table styles */
-        @media (max-width: 767px) {
-            table {
-                width: 100%;
-                max-width: 100%;
-                overflow-x: auto;
-                display: block;
-            }
-            th, td {
-                white-space: nowrap;
-            }
-        }
-    </style>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
-            authDomain: "notes-12519.firebaseapp.com",
-            databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
-            projectId: "notes-12519",
-            storageBucket: "notes-12519.appspot.com",
-            messagingSenderId: "1073774450189",
-            appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
-            measurementId: "G-GZXYCJ33TR"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // DOM element
-        const dataContainer = document.getElementById('data-container');
-
-        // Fetch and display data
-        const dataRef = ref(database);
-        onValue(dataRef, (snapshot) => {
-            const data = snapshot.val();
-            
-            // Update the DOM only with changed data
-            for (let key in data) {
-                if (data.hasOwnProperty(key)) {
-                    let entryDiv = document.getElementById(key);
-                    if (!entryDiv) {
-                        entryDiv = document.createElement('div');
-                        entryDiv.id = key;
-
-                        entryDiv.innerHTML = `
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <input type="text" class="field" value="${data[key].field2}" data-id="${key}" data-field="field2" readonly
-                                                onclick="enableEditing(event, '${key}', 'field2')"
-                                                onblur="disableEditing(event, '${key}', 'field2')"
-                                                oninput="handleInputChange(event, '${key}', 'field2')">
-                                        </th>
-                                        <th><img src="${data[key].field1}" alt="Image" width="150" height="150"></th>
-                                        <th>
-                                            <input type="text" class="field" value="${data[key].field3}" data-id="${key}" data-field="field3" readonly
-                                                onclick="enableEditing(event, '${key}', 'field3')"
-                                                onblur="disableEditing(event, '${key}', 'field3')"
-                                                oninput="handleInputChange(event, '${key}', 'field3')">
-                                        </th>
-                                        <th><button onclick="deleteData('${key}')">Delete</button></th>
-                                        <th><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput=${data[key].field2}" target="_blank">This is a link</a></th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        `;
-                        dataContainer.appendChild(entryDiv);
-                    } else {
-                        entryDiv.querySelector(`input[data-field="field2"]`).value = data[key].field2;
-                        entryDiv.querySelector(`input[data-field="field3"]`).value = data[key].field3;
-                    }
-                }
-            }
-        });
-
-        // Function to handle input change and update Firebase
-        window.handleInputChange = function (event, key, field) {
-            const updates = {};
-            updates[field] = event.target.value;
-
-            // Update Firebase without re-rendering the entire DOM
-            const dataRef = ref(database, key);
-            update(dataRef, updates);
-        };
-
-        // Enable editing of the input field
-        window.enableEditing = function (event, key, field) {
-            const inputField = event.target;
-            inputField.classList.add('editable');
-            inputField.readOnly = false;
-            inputField.focus();
-        };
-
-        // Disable editing of the input field
-        window.disableEditing = function (event, key, field) {
-            const inputField = event.target;
-            inputField.classList.remove('editable');
-            inputField.readOnly = true;
-        };
-
-        // Delete data
-        window.deleteData = function (key) {
-            const dataRef = ref(database, key);
-            remove(dataRef);
-        };
-    </script>
+    <title>Dynamically Submit Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
 </head>
 
-<body>
-    <div id="data-container"></div>
+<body ng-controller="imagesController as vm">
+
+    <br><br>
+
+    <div ng-repeat="image in vm.images | orderBy: '-date'" >
+        {{$index}}
+        <input type="text" id="{{'inputa' + $index}}" ng-model="image.url">
+        <input type="text" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="image.field2">
+        <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
+        <button id="submitButton" ng-click="submitData(image, $index)">Submit</button> <br><br>
+    </div>
+
+    <div ng-repeat="submittedData in vm.submittedData">
+	<table>
+  <thead>
+    <tr>
+      <th>{{submittedData.field2}}</th>
+      <th><img src="{{submittedData.field1}}"alt="Girl in a jacket" width="150" height="150">
+</th>
+      <th>{{submittedData.field3}}</th>
+      <th><button ng-click="deleteData(submittedData.$id)">Delete</button></th>
+	    <th><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{submittedData.field2}}" target="_blank">This is a link</a></th>
+    </tr> <br>
+        </thead>
+  <tbody>
+    <tr>
+	
+	 <td></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+    <tr>
+      <td> </td>
+    </tr>
+	   <tr>
+      <td>   <br></td>
+    </tr>
+  </tbody>
+</table>
+	   
+	   
+      
+    </div>
+
+    <script>
+        var app = angular.module('myApp', ['firebase']);
+
+        app.controller('imagesController', function ($scope, $firebaseArray) {
+            $scope.vm = this;
+            $scope.vm.images = [];
+            $scope.vm.submittedData = [];
+
+            var firebaseConfigSubmit = {
+    apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+  authDomain: "notes-12519.firebaseapp.com",
+  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+  projectId: "notes-12519",
+  storageBucket: "notes-12519.appspot.com",
+  messagingSenderId: "1073774450189",
+  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+  measurementId: "G-GZXYCJ33TR"
+};
+            
+
+            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+
+            var databaseSubmit = firebaseSubmit.database().ref();
+            var listSubmit = $firebaseArray(databaseSubmit);
+
+            $scope.vm.submitData = function (image, index) {
+                var inputa = image.url;
+                var inputb = image.field2;
+                var inputc = image.field3;
+
+                var newDataKey = databaseSubmit.push().key;
+
+                databaseSubmit.child(newDataKey).set({
+                    field1: inputa,
+                    field2: inputb,
+                    field3: inputc
+                });
+
+                // Clear input fields after submission
+                image.url = '';
+                image.field2 = '';
+                image.field3 = '';
+            };
+
+            // Fetch submitted data
+            listSubmit.$loaded().then(function (data) {
+                $scope.vm.submittedData = data;
+            });
+
+            $scope.deleteData = function (dataId) {
+                databaseSubmit.child(dataId).remove();
+            };
+
+            $scope.image = function (event) {
+                event.preventDefault();
+                var file = event.target.files[0];
+                uploadImage(file);
+            };
+
+            function uploadImage(file) {
+                var random = parseInt(Math.random() * 1000000);
+                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
+                var uploadTask = refStorageSubmit.put(file);
+
+                uploadTask.on('state_changed', null, function (error) {
+                    console.error('Upload error:', error);
+                }, function () {
+                    var imageData = {
+                        url: uploadTask.snapshot.ref.getDownloadURL(),
+                        bytes: uploadTask.snapshot.totalBytes,
+                        name: uploadTask.snapshot.metadata.name,
+                        path: uploadTask.snapshot.ref.fullPath,
+                        date: uploadTask.snapshot.metadata.timeCreated
+                    };
+
+                    listSubmit.$add(imageData).then(function (ref) {
+                        swal("Success", "Your image has been uploaded", "success");
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            angular
+                .module('myApp')
+                .directive('customOnChange', customOnChange);
+
+            function customOnChange() {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        var onChangeHandler = scope.$eval(attrs.customOnChange);
+                        element.bind('change', onChangeHandler);
+                    }
+                };
+            }
+        })();
+    </script>
+
 </body>
 
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+</body>
 </html>
