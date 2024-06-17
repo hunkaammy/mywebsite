@@ -255,13 +255,14 @@
   <main>
    <button onclick="countOutOfStockButtons()">count available stock</button> <br> <br>
 
-      <div class="drop-zone" id="dropZone">
+     <div class="drop-zone" id="dropZone">
         Drag & Drop your file here or click to upload
 		 <div class="preview" id="preview"></div>
         <input type="file" id="imageInput" />
     </div>
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
 	<input type="text" id="priceInput" placeholder="Price">
+    <input type="text" id="partyCodeInput" placeholder="Enter Party Code">
     <button onclick="uploadImage()">Upload Image</button>
     <div id="uploadProgress">
       <div id="progressBar"></div>
@@ -351,6 +352,7 @@ window.uploadImage = function() {
     const file = imageInput.files[0];
     const name = nameInput.value.trim();
     const price = parseFloat(priceInput.value.trim()); // Parse the price as a float
+    const partyCode = partyCodeInput.value.trim(); // Get the party code value
 
     // Check if price is a valid number
     if (isNaN(price) || price <= 0) {
@@ -361,8 +363,8 @@ window.uploadImage = function() {
     // Divide the price by 2
     const priceHalf = price / 2;
 
-    if (!file || !name) {
-        alert('Please select an image and enter an image name.');
+    if (!file ||!name ||!partyCode) {
+        alert('Please select an image, enter an image name, and enter a party code.');
         return;
     }
 
@@ -386,11 +388,13 @@ window.uploadImage = function() {
                 name: name,
                 price: priceHalf, // Push the calculated price
                 date: currentDate,
-                outOfStock: outOfStock
+                outOfStock: outOfStock,
+                partyCode: partyCode // Push the party code
             });
             imageInput.value = '';
             nameInput.value = '';
             priceInput.value = '';
+            partyCodeInput.value = '';
             uploadProgress.style.display = 'none';
         });
     });
