@@ -511,7 +511,8 @@ button, input, select, textarea {
     </div>
 </div>
 
-
+<div style="    color: black; text-align-last: center; font-family: system-ui;
+}" >Welcome {{dynamicField2Value}} </div>
   
 </div>
 
@@ -585,6 +586,8 @@ function scrollToTop() {
     window.scrollTo(0, 0);
 }
 </script>
+
+
 
   <div class="tab-btns" onclick="scrollToTop()">
   <div class="tab-btn"  ng-click="productNameFilter = ''; activeTab = 0; searchQuery = '';" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
