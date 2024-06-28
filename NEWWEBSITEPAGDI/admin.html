@@ -223,6 +223,7 @@
      <input type="file" id="imageInput" />
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
 	<input type="text" id="priceInput" placeholder="Price">
+	<input type="text" id="videoUrlInput">
     <button onclick="uploadImage()">Upload Image</button>
     <div id="uploadProgress">
       <div id="progressBar"></div>
@@ -238,48 +239,48 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize Firebase
-      const firebaseConfig = {
-         apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
-  authDomain: "pagdi-6f8ce.firebaseapp.com",
-  databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
-  projectId: "pagdi-6f8ce",
-  storageBucket: "pagdi-6f8ce.appspot.com",
-  messagingSenderId: "746289566527",
-  appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
-  measurementId: "G-CXW0QZRHFG"
-};
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
+    authDomain: "pagdi-6f8ce.firebaseapp.com",
+    databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
+    projectId: "pagdi-6f8ce",
+    storageBucket: "pagdi-6f8ce.appspot.com",
+    messagingSenderId: "746289566527",
+    appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
+    measurementId: "G-CXW0QZRHFG"
+  };
 
+  firebase.initializeApp(firebaseConfig);
 
+  const storage = firebase.storage();
+  const database = firebase.database();
+  const imageContainer = document.getElementById('imageContainer');
+  const imageInput = document.getElementById('imageInput');
+  const nameInput = document.getElementById('nameInput');
+  const priceInput = document.getElementById('priceInput');
+  const videoUrlInput = document.getElementById('videoUrlInput');
+  const uploadProgress = document.getElementById('uploadProgress');
+  const progressBar = document.getElementById('progressBar');
 
-      firebase.initializeApp(firebaseConfig);
-
-      const storage = firebase.storage();
-      const database = firebase.database();
-      const imageContainer = document.getElementById('imageContainer');
-      const imageInput = document.getElementById('imageInput');
-      const nameInput = document.getElementById('nameInput');
-      const priceInput = document.getElementById('priceInput');
-      const uploadProgress = document.getElementById('uploadProgress');
-      const progressBar = document.getElementById('progressBar');
-
-window.uploadImage = function() {
+  window.uploadImage = function() {
     const file = imageInput.files[0];
     const name = nameInput.value.trim();
     const price = parseFloat(priceInput.value.trim()); // Parse the price as a float
+    const videoUrl = videoUrlInput.value.trim(); // Get the video URL
 
     // Check if price is a valid number
     if (isNaN(price) || price <= 0) {
-        alert('Please enter a valid price.');
-        return;
+      alert('Please enter a valid price.');
+      return;
     }
 
     // Divide the price by 2
     const priceHalf = price / 2;
 
     if (!file || !name) {
-        alert('Please select an image and enter an image name.');
-        return;
+      alert('Please select an image and enter an image name.');
+      return;
     }
 
     const currentDate = new Date().toISOString();
@@ -290,237 +291,245 @@ window.uploadImage = function() {
     uploadProgress.style.display = 'block';
 
     task.on('state_changed', (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        progressBar.style.width = progress + '%';
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      progressBar.style.width = progress + '%';
     }, (error) => {
-        console.error(error.message);
+      console.error(error.message);
     }, () => {
-        storageRef.getDownloadURL().then(downloadURL => {
-            // Push the priceHalf variable to Firebase instead of the original price
-            database.ref().push({
-                url: downloadURL,
-                name: name,
-                price: priceHalf, // Push the calculated price
-                date: currentDate,
-                outOfStock: outOfStock
-            });
-            imageInput.value = '';
-            nameInput.value = '';
-            priceInput.value = '';
-            uploadProgress.style.display = 'none';
+      storageRef.getDownloadURL().then(downloadURL => {
+        // Push the priceHalf variable to Firebase instead of the original price
+        database.ref().push({
+          url: downloadURL,
+          name: name,
+          price: priceHalf, // Push the calculated price
+          date: currentDate,
+          outOfStock: outOfStock,
+          videoUrl: videoUrl // Push the video URL
         });
+        imageInput.value = '';
+        nameInput.value = '';
+        priceInput.value = '';
+        videoUrlInput.value = '';
+        uploadProgress.style.display = 'none';
+      });
     });
-}
+  }
 
-      function fetchImagesRealtime() {
-        database.ref().orderByChild('date').on('value', snapshot => {
-          const images = [];
-          snapshot.forEach(childSnapshot => {
-            const imageUrl = childSnapshot.val().url;
-            const name = childSnapshot.val().name;
-            const price = childSnapshot.val().price;
-            const date = childSnapshot.val().date;
-            const outOfStock = childSnapshot.val().outOfStock;
-            images.push({ imageUrl, name, price, date, outOfStock, key: childSnapshot.key });
-          });
+  function fetchImagesRealtime() {
+    database.ref().orderByChild('date').on('value', snapshot => {
+      const images = [];
+      snapshot.forEach(childSnapshot => {
+        const imageUrl = childSnapshot.val().url;
+        const name = childSnapshot.val().name;
+        const price = childSnapshot.val().price;
+        const date = childSnapshot.val().date;
+        const outOfStock = childSnapshot.val().outOfStock;
+        const videoUrl = childSnapshot.val().videoUrl; // Get the video URL
+        images.push({ imageUrl, name, price, date, outOfStock, videoUrl, key: childSnapshot.key });
+      });
 
-          imageContainer.innerHTML = "";
+      imageContainer.innerHTML = "";
 
-          for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].key);
-          }
-        });
+      for (let i = images.length - 1; i >= 0; i--) {
+        displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].videoUrl, images[i].key);
       }
+    });
+  }
 
-      fetchImagesRealtime();
+  fetchImagesRealtime();
 
-      function displayImage(url, name, price, date, outOfStock, key) {
-        const image = document.createElement('img');
-        image.src = url;
-        image.style.maxWidth = '200px';
-        image.style.maxHeight = '200px';
-        image.loading = 'lazy';
+  function displayImage(url, name, price, date, outOfStock, videoUrl, key) {
+    const image = document.createElement('img');
+    image.src = url;
+    image.style.maxWidth = '200px';
+    image.style.maxHeight = '200px';
+    image.loading = 'lazy';
 
-        const nameElement = document.createElement('p');
-        nameElement.innerText = `Name: ${name}`;
+    const nameElement = document.createElement('p');
+    nameElement.innerText = `Name: ${name}`;
 
-        const priceElement = document.createElement('p');
-        priceElement.innerText = `Price: ${price}`;
+    const priceElement = document.createElement('p');
+    priceElement.innerText = `Price: ${price}`;
 
-        const dateElement = document.createElement('p');
-        dateElement.innerText = `Date: ${date}`;
+    const dateElement = document.createElement('p');
+    dateElement.innerText = `Date: ${date}`;
 
-        const outOfStockButton = document.createElement('button');
-        outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
-        outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
+    const videoUrlElement = document.createElement('p');
+    videoUrlElement.innerText = `Video URL: ${videoUrl ? videoUrl : 'N/A'}`; // Display the video URL if it exists
 
-        outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
+    const outOfStockButton = document.createElement('button');
+    outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
+    outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
 
-        const editButton = document.createElement('button');
-        editButton.innerText = 'Edit Image Name';
-        editButton.addEventListener('click', () => enableEditMode(key));
+    outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
 
-        const editPriceButton = document.createElement('button');
-        editPriceButton.innerText = 'Edit Price';
-        editPriceButton.className = 'edit-price';
-        editPriceButton.addEventListener('click', () => enableEditPrice(key));
+    const editButton = document.createElement('button');
+    editButton.innerText = 'Edit Image Name';
+    editButton.addEventListener('click', () => enableEditMode(key));
 
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Delete Image';
-        deleteButton.addEventListener('click', () => deleteImage(key));
+    const editPriceButton = document.createElement('button');
+    editPriceButton.innerText = 'Edit Price';
+    editPriceButton.className = 'edit-price';
+    editPriceButton.addEventListener('click', () => enableEditPrice(key));
 
-        const container = document.createElement('div');
-        container.setAttribute('data-key', key);
-        container.appendChild(image);
-        container.appendChild(nameElement);
-        container.appendChild(priceElement);
-        container.appendChild(dateElement);
-        container.appendChild(outOfStockButton);
-        container.appendChild(editButton);
-        container.appendChild(editPriceButton);
-        container.appendChild(deleteButton);
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete Image';
+    deleteButton.addEventListener('click', () => deleteImage(key));
 
-        imageContainer.appendChild(container);
-      }
+    const container = document.createElement('div');
+    container.setAttribute('data-key', key);
+    container.appendChild(image);
+    container.appendChild(nameElement);
+    container.appendChild(priceElement);
+    container.appendChild(dateElement);
+    container.appendChild(videoUrlElement); // Add the video URL element
+    container.appendChild(outOfStockButton);
+    container.appendChild(editButton);
+    container.appendChild(editPriceButton);
+    container.appendChild(deleteButton);
 
-      function toggleAvailability(key, newStatus) {
-        database.ref(`${key}/outOfStock`).set(newStatus).then(() => {
-          const container = document.querySelector(`[data-key="${key}"]`);
-          const outOfStockButton = container.querySelector('button');
-          outOfStockButton.innerText = newStatus ? 'Make Available' : 'Make Out of Stock';
-        });
-      }
+    imageContainer.appendChild(container);
+  }
 
-      function enableEditMode(key) {
-        const container = document.querySelector(`[data-key="${key}"]`);
-        const nameElement = container.querySelector('p');
-        const editButton = container.querySelector('button');
-        const saveButton = document.createElement('button');
-        const nameInput = document.createElement('input');
+  function toggleAvailability(key, newStatus) {
+    database.ref(`${key}/outOfStock`).set(newStatus).then(() => {
+      const container = document.querySelector(`[data-key="${key}"]`);
+      const outOfStockButton = container.querySelector('button');
+      outOfStockButton.innerText = newStatus ? 'Make Available' : 'Make Out of Stock';
+    });
+  }
 
-        // Set initial input value to current name
-        nameInput.value = nameElement.innerText.replace('Name: ', '');
+  function enableEditMode(key) {
+    const container = document.querySelector(`[data-key="${key}"]`);
+    const nameElement = container.querySelector('p');
+    const editButton = container.querySelector('button');
+    const saveButton = document.createElement('button');
+    const nameInput = document.createElement('input');
 
-        // Display input and save button
-        nameElement.style.display = 'none';
-        editButton.style.display = 'none';
+    // Set initial input value to current name
+    nameInput.value = nameElement.innerText.replace('Name: ', '');
 
-        // Configure input and save button
-        nameInput.type = 'text';
-        saveButton.innerText = 'Save';
-        saveButton.className = 'save';
-        saveButton.addEventListener('click', () => saveEditedName(key, nameInput.value));
+    // Display input and save button
+    nameElement.style.display = 'none';
+    editButton.style.display = 'none';
 
-        // Append input and save button to container
-        container.appendChild(nameInput);
-        container.appendChild(saveButton);
+    // Configure input and save button
+    nameInput.type = 'text';
+    saveButton.innerText = 'Save';
+    saveButton.className = 'save';
+    saveButton.addEventListener('click', () => saveEditedName(key, nameInput.value));
 
-        // Add edit mode class for styling
-        container.classList.add('edit-mode');
-      }
+    // Append input and save button to container
+    container.appendChild(nameInput);
+    container.appendChild(saveButton);
 
-      function saveEditedName(key, newName) {
-        // Update name in the database
-        database.ref(`${key}/name`).set(newName).then(() => {
-          // Exit edit mode
-          exitEditMode(key);
-        });
-      }
+    // Add edit mode class for styling
+    container.classList.add('edit-mode');
+  }
 
-      function exitEditMode(key) {
-        const container = document.querySelector(`[data-key="${key}"]`);
-        const nameElement = container.querySelector('p');
-        const editButton = container.querySelector('button');
-        const nameInput = container.querySelector('input');
-        const saveButton = container.querySelector('button.save');
+  function saveEditedName(key, newName) {
+    // Update name in the database
+    database.ref(`${key}/name`).set(newName).then(() => {
+      // Exit edit mode
+      exitEditMode(key);
+    });
+  }
 
-        // Hide input and save button
-        nameInput.style.display = 'none';
-        saveButton.style.display = 'none';
+  function exitEditMode(key) {
+    const container = document.querySelector(`[data-key="${key}"]`);
+    const nameElement = container.querySelector('p');
+    const editButton = container.querySelector('button');
+    const nameInput = container.querySelector('input');
+    const saveButton = container.querySelector('button.save');
 
-        // Show name and edit button
-        nameElement.style.display = 'block';
-        editButton.style.display = 'inline-block';
+    // Hide input and save button
+    nameInput.style.display = 'none';
+    saveButton.style.display = 'none';
 
-        // Remove edit mode class
-        container.classList.remove('edit-mode');
+    // Show name and edit button
+    nameElement.style.display = 'block';
+    editButton.style.display = 'inline-block';
 
-        // Update displayed name
-        nameElement.innerText = `Name: ${nameInput.value}`;
-      }
+    // Remove edit mode class
+    container.classList.remove('edit-mode');
 
-      function enableEditPrice(key) {
-        const container = document.querySelector(`[data-key="${key}"]`);
-        const priceElement = container.querySelector('p:nth-child(3)');
-        const editPriceButton = container.querySelector('.edit-price');
+    // Update displayed name
+    nameElement.innerText = `Name: ${nameInput.value}`;
+  }
 
-        const savePriceButton = document.createElement('button');
-        savePriceButton.innerText = 'Save Price';
-        savePriceButton.className = 'save-price';
-        const priceInput = document.createElement('input');
-        priceInput.type = 'text';
-        priceInput.value = priceElement.innerText.replace('Price: ', '');
+  function enableEditPrice(key) {
+    const container = document.querySelector(`[data-key="${key}"]`);
+    const priceElement = container.querySelector('p:nth-child(3)');
+    const editPriceButton = container.querySelector('.edit-price');
 
-        editPriceButton.style.display = 'none';
+    const savePriceButton = document.createElement('button');
+    savePriceButton.innerText = 'Save Price';
+    savePriceButton.className = 'save-price';
+    const priceInput = document.createElement('input');
+    priceInput.type = 'text';
+    priceInput.value = priceElement.innerText.replace('Price: ', '');
 
-        savePriceButton.addEventListener('click', () => saveEditedPrice(key, priceInput.value));
+    editPriceButton.style.display = 'none';
 
-        container.appendChild(priceInput);
-        container.appendChild(savePriceButton);
+    savePriceButton.addEventListener('click', () => saveEditedPrice(key, priceInput.value));
 
-        container.classList.add('edit-price-mode');
-      }
+    container.appendChild(priceInput);
+    container.appendChild(savePriceButton);
 
-      function saveEditedPrice(key, newPrice) {
+    container.classList.add('edit-price-mode');
+  }
+
+  function saveEditedPrice(key, newPrice) {
     const newPriceHalf = parseFloat(newPrice) / 2; // Divide the new price by 2
     database.ref(`${key}/price`).set(newPriceHalf).then(() => {
-        exitEditPriceMode(key);
+      exitEditPriceMode(key);
     });
-}
+  }
 
-      function exitEditPriceMode(key) {
-        const container = document.querySelector(`[data-key="${key}"]`);
-        const priceElement = container.querySelector('p:nth-child(3)');
-        const editPriceButton = container.querySelector('.edit-price');
-        const priceInput = container.querySelector('input');
-        const savePriceButton = container.querySelector('.save-price');
+  function exitEditPriceMode(key) {
+    const container = document.querySelector(`[data-key="${key}"]`);
+    const priceElement = container.querySelector('p:nth-child(3)');
+    const editPriceButton = container.querySelector('.edit-price');
+    const priceInput = container.querySelector('input');
+    const savePriceButton = container.querySelector('.save-price');
 
-        priceInput.style.display = 'none';
-        savePriceButton.style.display = 'none';
+    priceInput.style.display = 'none';
+    savePriceButton.style.display = 'none';
 
-        priceElement.style.display = 'block';
-        editPriceButton.style.display = 'inline-block';
+    priceElement.style.display = 'block';
+    editPriceButton.style.display = 'inline-block';
 
-        container.classList.remove('edit-price-mode');
+    container.classList.remove('edit-price-mode');
 
-        priceElement.innerText = `Price: ${priceInput.value}`;
-      }
+    priceElement.innerText = `Price: ${priceInput.value}`;
+  }
 
-      function deleteImage(key) {
-        // Retrieve image URL, image name, and date from the root of the database
-        database.ref(key).once('value').then(snapshot => {
-          const imageUrl = snapshot.val().url; // Change imageUrl to url
-          const name = snapshot.val().name; // Change imageName to name
-          const date = snapshot.val().date;
-          if (imageUrl) {
-            // Delete image from storage
-            storage.refFromURL(imageUrl).delete().then(() => {
-              console.log('Image deleted successfully');
-              // Remove image from the root of the database
-              database.ref(key).remove();
-              // Remove image from the DOM
-              const imageElement = document.querySelector(`[data-key="${key}"]`);
-              imageElement.remove();
-            });
-           } else {
-            console.log('No image to delete');
-          }
+  function deleteImage(key) {
+    // Retrieve image URL, image name, and date from the root of the database
+    database.ref(key).once('value').then(snapshot => {
+      const imageUrl = snapshot.val().url; // Change imageUrl to url
+      const name = snapshot.val().name; // Change imageName to name
+      const date = snapshot.val().date;
+      if (imageUrl) {
+        // Delete image from storage
+        storage.refFromURL(imageUrl).delete().then(() => {
+          console.log('Image deleted successfully');
+          // Remove image from the root of the database
+          database.ref(key).remove();
+          // Remove image from the DOM
+          const imageElement = document.querySelector(`[data-key="${key}"]`);
+          imageElement.remove();
         });
+      } else {
+        console.log('No image to delete');
       }
-
-      // Fetch images when the page loads
-      fetchImages();
     });
+  }
+
+  // Fetch images when the page loads
+  fetchImages();
+});
+
   </script>
 </body>
 </html>

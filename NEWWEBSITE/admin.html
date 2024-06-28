@@ -263,6 +263,7 @@
     <input type="text" id="nameInput" placeholder="Enter Image Name" />
 	<input type="text" id="priceInput" placeholder="Price">
     <input type="text" id="partyCodeInput" placeholder="Enter Party Code">
+	 <input type="text" id="videourlInput" placeholder="Enter Party Code">
     <button onclick="uploadImage()">Upload Image</button>
     <div id="uploadProgress">
       <div id="progressBar"></div>
@@ -321,7 +322,7 @@
         }
     </script>
 
-  <script>
+ <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize Firebase
       const firebaseConfig = {
@@ -335,8 +336,6 @@
         measurementId: "G-FJ4Q0FHBEG"
       };
 
-
-
       firebase.initializeApp(firebaseConfig);
 
       const storage = firebase.storage();
@@ -345,60 +344,62 @@
       const imageInput = document.getElementById('imageInput');
       const nameInput = document.getElementById('nameInput');
       const priceInput = document.getElementById('priceInput');
+      const videourlInput = document.getElementById('videourlInput');
+      const partyCodeInput = document.getElementById('partyCodeInput');
       const uploadProgress = document.getElementById('uploadProgress');
       const progressBar = document.getElementById('progressBar');
 
-window.uploadImage = function() {
-    const file = imageInput.files[0];
-    const name = nameInput.value.trim();
-    const price = parseFloat(priceInput.value.trim()); // Parse the price as a float
-    const partyCode = partyCodeInput.value.trim(); // Get the party code value
+      window.uploadImage = function() {
+        const file = imageInput.files[0];
+        const name = nameInput.value.trim();
+        const price = parseFloat(priceInput.value.trim());
+        const partyCode = partyCodeInput.value.trim();
+        const videourl = videourlInput.value.trim();
 
-    // Check if price is a valid number
-    if (isNaN(price) || price <= 0) {
-        alert('Please enter a valid price.');
-        return;
-    }
+        if (isNaN(price) || price <= 0) {
+            alert('Please enter a valid price.');
+            return;
+        }
 
-    // Divide the price by 2
-    const priceHalf = price / 2;
+        const priceHalf = price / 2;
 
-    if (!file ||!name ||!partyCode) {
-        alert('Please select an image, enter an image name, and enter a party code.');
-        return;
-    }
+        if (!file || !name || !partyCode) {
+            alert('Please select an image, enter an image name, and enter a party code.');
+            return;
+        }
 
-    const currentDate = new Date().toISOString();
-    const outOfStock = false; // Set the initial availability status
-    const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
-    const task = storageRef.put(file);
+        const currentDate = new Date().toISOString();
+        const outOfStock = false;
+        const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
+        const task = storageRef.put(file);
 
-    uploadProgress.style.display = 'block';
+        uploadProgress.style.display = 'block';
 
-    task.on('state_changed', (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        progressBar.style.width = progress + '%';
-    }, (error) => {
-        console.error(error.message);
-    }, () => {
-        storageRef.getDownloadURL().then(downloadURL => {
-            // Push the priceHalf variable to Firebase instead of the original price
-            database.ref().push({
-                url: downloadURL,
-                name: name,
-                price: priceHalf, // Push the calculated price
-                date: currentDate,
-                outOfStock: outOfStock,
-                partyCode: partyCode // Push the party code
+        task.on('state_changed', (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            progressBar.style.width = progress + '%';
+        }, (error) => {
+            console.error(error.message);
+        }, () => {
+            storageRef.getDownloadURL().then(downloadURL => {
+                database.ref().push({
+                    url: downloadURL,
+                    name: name,
+                    price: priceHalf,
+                    date: currentDate,
+                    outOfStock: outOfStock,
+                    videourl: videourl,
+                    partyCode: partyCode
+                });
+                imageInput.value = '';
+                nameInput.value = '';
+                priceInput.value = '';
+                videourlInput.value = '';
+                partyCodeInput.value = '';
+                uploadProgress.style.display = 'none';
             });
-            imageInput.value = '';
-            nameInput.value = '';
-            priceInput.value = '';
-            partyCodeInput.value = '' .value = partyCode; // Retain the 'name' field value;
-            uploadProgress.style.display = 'none';
         });
-    });
-}
+      }
 
       function fetchImagesRealtime() {
         database.ref().orderByChild('date').on('value', snapshot => {
@@ -409,20 +410,21 @@ window.uploadImage = function() {
             const price = childSnapshot.val().price;
             const date = childSnapshot.val().date;
             const outOfStock = childSnapshot.val().outOfStock;
-            images.push({ imageUrl, name, price, date, outOfStock, key: childSnapshot.key });
+            const videourl = childSnapshot.val().videourl;
+            images.push({ imageUrl, name, price, date, outOfStock, videourl, key: childSnapshot.key });
           });
 
           imageContainer.innerHTML = "";
 
           for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].key);
+            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].videourl, images[i].key);
           }
         });
       }
 
       fetchImagesRealtime();
 
-      function displayImage(url, name, price, date, outOfStock, key) {
+      function displayImage(url, name, price, date, outOfStock, videourl, key) {
         const image = document.createElement('img');
         image.src = url;
         image.style.maxWidth = '200px';
@@ -438,10 +440,12 @@ window.uploadImage = function() {
         const dateElement = document.createElement('p');
         dateElement.innerText = `Date: ${date}`;
 
+        const videourlElement = document.createElement('p');
+        videourlElement.innerText = `Video URL: ${videourl}`;
+
         const outOfStockButton = document.createElement('button');
         outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
         outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
-
         outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
 
         const editButton = document.createElement('button');
@@ -453,6 +457,10 @@ window.uploadImage = function() {
         editPriceButton.className = 'edit-price';
         editPriceButton.addEventListener('click', () => enableEditPrice(key));
 
+        const editVideoUrlButton = document.createElement('button');
+        editVideoUrlButton.innerText = 'Edit Video URL';
+        editVideoUrlButton.addEventListener('click', () => enableEditVideoUrl(key));
+
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete Image';
         deleteButton.addEventListener('click', () => deleteImage(key));
@@ -463,9 +471,11 @@ window.uploadImage = function() {
         container.appendChild(nameElement);
         container.appendChild(priceElement);
         container.appendChild(dateElement);
+        container.appendChild(videourlElement);
         container.appendChild(outOfStockButton);
         container.appendChild(editButton);
         container.appendChild(editPriceButton);
+        container.appendChild(editVideoUrlButton);
         container.appendChild(deleteButton);
 
         imageContainer.appendChild(container);
@@ -486,31 +496,24 @@ window.uploadImage = function() {
         const saveButton = document.createElement('button');
         const nameInput = document.createElement('input');
 
-        // Set initial input value to current name
         nameInput.value = nameElement.innerText.replace('Name: ', '');
 
-        // Display input and save button
         nameElement.style.display = 'none';
         editButton.style.display = 'none';
 
-        // Configure input and save button
         nameInput.type = 'text';
         saveButton.innerText = 'Save';
         saveButton.className = 'save';
         saveButton.addEventListener('click', () => saveEditedName(key, nameInput.value));
 
-        // Append input and save button to container
         container.appendChild(nameInput);
         container.appendChild(saveButton);
 
-        // Add edit mode class for styling
         container.classList.add('edit-mode');
       }
 
       function saveEditedName(key, newName) {
-        // Update name in the database
         database.ref(`${key}/name`).set(newName).then(() => {
-          // Exit edit mode
           exitEditMode(key);
         });
       }
@@ -522,18 +525,14 @@ window.uploadImage = function() {
         const nameInput = container.querySelector('input');
         const saveButton = container.querySelector('button.save');
 
-        // Hide input and save button
         nameInput.style.display = 'none';
         saveButton.style.display = 'none';
 
-        // Show name and edit button
         nameElement.style.display = 'block';
         editButton.style.display = 'inline-block';
 
-        // Remove edit mode class
         container.classList.remove('edit-mode');
 
-        // Update displayed name
         nameElement.innerText = `Name: ${nameInput.value}`;
       }
 
@@ -560,11 +559,11 @@ window.uploadImage = function() {
       }
 
       function saveEditedPrice(key, newPrice) {
-    const newPriceHalf = parseFloat(newPrice) / 2; // Divide the new price by 2
-    database.ref(`${key}/price`).set(newPriceHalf).then(() => {
-        exitEditPriceMode(key);
-    });
-}
+        const newPriceHalf = parseFloat(newPrice) / 2;
+        database.ref(`${key}/price`).set(newPriceHalf).then(() => {
+            exitEditPriceMode(key);
+        });
+      }
 
       function exitEditPriceMode(key) {
         const container = document.querySelector(`[data-key="${key}"]`);
@@ -584,32 +583,73 @@ window.uploadImage = function() {
         priceElement.innerText = `Price: ${priceInput.value}`;
       }
 
+      function enableEditVideoUrl(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const videourlElement = container.querySelector('p:nth-child(4)');
+        const editVideoUrlButton = container.querySelector('button');
+
+        const saveVideoUrlButton = document.createElement('button');
+        saveVideoUrlButton.innerText = 'Save Video URL';
+        saveVideoUrlButton.className = 'save-video-url';
+        const videourlInput = document.createElement('input');
+        videourlInput.type = 'text';
+        videourlInput.value = videourlElement.innerText.replace('Video URL: ', '');
+
+        editVideoUrlButton.style.display = 'none';
+
+        saveVideoUrlButton.addEventListener('click', () => saveEditedVideoUrl(key, videourlInput.value));
+
+        container.appendChild(videourlInput);
+        container.appendChild(saveVideoUrlButton);
+
+        container.classList.add('edit-video-url-mode');
+      }
+
+      function saveEditedVideoUrl(key, newVideoUrl) {
+        database.ref(`${key}/videourl`).set(newVideoUrl).then(() => {
+            exitEditVideoUrlMode(key);
+        });
+      }
+
+      function exitEditVideoUrlMode(key) {
+        const container = document.querySelector(`[data-key="${key}"]`);
+        const videourlElement = container.querySelector('p:nth-child(4)');
+        const editVideoUrlButton = container.querySelector('button');
+        const videourlInput = container.querySelector('input');
+        const saveVideoUrlButton = container.querySelector('.save-video-url');
+
+        videourlInput.style.display = 'none';
+        saveVideoUrlButton.style.display = 'none';
+
+        videourlElement.style.display = 'block';
+        editVideoUrlButton.style.display = 'inline-block';
+
+        container.classList.remove('edit-video-url-mode');
+
+        videourlElement.innerText = `Video URL: ${videourlInput.value}`;
+      }
+
       function deleteImage(key) {
-        // Retrieve image URL, image name, and date from the root of the database
         database.ref(key).once('value').then(snapshot => {
-          const imageUrl = snapshot.val().url; // Change imageUrl to url
-          const name = snapshot.val().name; // Change imageName to name
+          const imageUrl = snapshot.val().url;
+          const name = snapshot.val().name;
           const date = snapshot.val().date;
           if (imageUrl) {
-            // Delete image from storage
             storage.refFromURL(imageUrl).delete().then(() => {
               console.log('Image deleted successfully');
-              // Remove image from the root of the database
               database.ref(key).remove();
-              // Remove image from the DOM
               const imageElement = document.querySelector(`[data-key="${key}"]`);
               imageElement.remove();
             });
-           } else {
+          } else {
             console.log('No image to delete');
           }
         });
       }
 
-      // Fetch images when the page loads
       fetchImages();
     });
-  </script>
+	</script>
 </body>
 </html>
 <!-- partial -->
