@@ -542,6 +542,8 @@ button, input, select, textarea {
 #micIcon.animating {
     animation: pulse 1s infinite;
 }
+
+
 </style>
 
 <script>
@@ -645,7 +647,7 @@ function scrollToTop() {
                 <div class="containers">
                     <h4><b> <p>{{image.price}} Rs.</p> </b> </h4>
                     <p>{{image.name}}</p>
-					<p><a href="{{image.videourl}}" target="_blank">{{ image.videourl ? 'Watch Video' : '' }}</a></p>
+					<p><a href="https://hunkaammy.github.io/mywebsite/videos/{{image.videourl}}.mp4" target="_blank">{{ image.videourl ? 'Watch Video' : '' }}</a></p>
 
                     <input type="hidden" id="{{'inputa' + $index}}" ng-model="image.url">
                     <input type="hidden" id="{{'inputb' + $index}}" ng-model="dynamicField2Value" ng-value="dynamicField2Value">
