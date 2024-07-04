@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Notification Example</title>
+  <!-- Include Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <h1>Firebase Notification Example</h1>
+  <button id="enableNotifications">Enable Notifications</button>
+  <div id="dataDisplay"></div> <!-- Element to display data -->
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+      authDomain: "notes-12519.firebaseapp.com",
+      databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+      projectId: "notes-12519",
+      storageBucket: "notes-12519.appspot.com",
+      messagingSenderId: "1073774450189",
+      appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+      measurementId: "G-GZXYCJ33TR"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Function to show browser notification
+    function showNotification(title, body) {
+      console.log('Attempting to show notification:', title, body); // Debug log
+      if ('Notification' in window) {
+        if (Notification.permission === 'granted') {
+          new Notification(title, { body });
+        } else {
+          console.log('Notification permission is not granted.');
+          alert('Notification permission is not granted.');
+        }
+      } else {
+        console.log('Browser does not support notifications.');
+        alert('Browser does not support notifications.');
+      }
+    }
+
+    // Request notification permission
+    document.getElementById('enableNotifications').addEventListener('click', () => {
+      if ('Notification' in window) {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            console.log('Notification permission granted.');
+            alert('Notification permission granted.');
+          } else {
+            console.log('Notification permission denied.');
+            alert('Notification permission denied.');
+          }
+        });
+      }
+    });
+
+    // Function to display data
+    function displayData(data) {
+      const dataDisplay = document.getElementById('dataDisplay');
+      dataDisplay.innerHTML = ''; // Clear previous data
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const item = data[key];
+          const itemElement = document.createElement('div');
+          itemElement.textContent = `Product: ${item.productName}, Price: ${item.productPrice}`;
+          dataDisplay.appendChild(itemElement);
+        }
+      }
+    }
+
+    // Fetch and display existing data
+    database.ref('notes').once('value').then(snapshot => {
+      const data = snapshot.val();
+      console.log('Fetched initial data:', data); // Debug log
+      if (data) {
+        displayData(data);
+      } else {
+        console.log('No data available.');
+        alert('No data available.');
+      }
+    });
+
+    // Listen for new children added in the Firebase Realtime Database
+    const notesRef = database.ref('notes');
+    notesRef.on('child_added', (snapshot) => {
+      const data = snapshot.val();
+      console.log('Child added event triggered:', data); // Debug log
+      alert('Child added event triggered');
+      if (data) {
+        const title = data.productName || 'New Data Added';
+        const body = `Product: ${data.productName}\nPrice: ${data.productPrice}`;
+        showNotification(title, body);
+        console.log('New data:', data);
+        alert(`New data: ${JSON.stringify(data)}`);
+
+        // Fetch and display updated data
+        database.ref('notes').once('value').then(snapshot => {
+          const updatedData = snapshot.val();
+          console.log('Fetched updated data:', updatedData); // Debug log
+          if (updatedData) {
+            displayData(updatedData);
+          } else {
+            console.log('No updated data available.');
+            alert('No updated data available.');
+          }
+        });
+      } else {
+        console.log('No data available.');
+        alert('No data available.');
+      }
+    });
+  </script>
+</body>
+</html>
