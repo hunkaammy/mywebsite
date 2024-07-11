@@ -68,7 +68,7 @@
             // Check if the current entry matches the selected filter and search query
             if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
                 (searchQuery === '' || data.name.toLowerCase().indexOf(searchQuery) !== -1)) {
-                html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
+                html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="250">';
 				html += "<p><strong>Name:</strong> " + data.name + "</p>";
                 html += "<p><strong>Price:</strong> " + data.price + "</p>";
 				html += "<p><strong>Party code:</strong> " + data.partyCode + "</p>";
