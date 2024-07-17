@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="productApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Product List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+   <style>
+    /* Styling for the scrolling box and other elements */
+    hr {
+        width: 100%;
+        margin-bottom: 53px;
+    }
+
+    .scrolling-box {
+        background-color: black;
+        display: block;
+        color: white;
+        width: 100%;
+        height: 142px;
+        padding: 0.1em;
+        padding-bottom: 2.1em;
+        position: fixed;
+        text-align: center;
+        margin-top: -38px;
+    }
+
+    .batteries {
+        position: fixed;
+        text-align: -webkit-center;
+        background: black;
+        color: white;
+        width: 100%;
+        z-index: 1;
+        bottom: 0;
+        height: 40px;
+        align-content: center;
+        right: 1px;
+    }
+
+    p {
+        font-weight: bold;
+        display: block;
+        text-align: -webkit-left;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    input {
+        font-weight: unset;
+        border-radius: 20px;
+        border: black;
+        font-size: 22px;
+        width: 120px;
+        height: 39px;
+        writing-mode: horizontal-tb !important;
+        color: fieldtext;
+        text-transform: none;
+        text-align: start;
+        padding: 1px 5px;
+        border-width: 1px;
+        border-style: dashed;
+        margin-top: 10px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin-top: -70px;
+    }
+
+    th,
+    td {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Remove horizontal lines in modal */
+    .modal-content hr {
+        display: none;
+    }
+
+    /* Styles for printing */
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #printContents,
+        #printContents * {
+            visibility: visible;
+        }
+
+        #printContents {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+</head>
+
+<body ng-controller="MainController">
+
+    <div class="scrolling-box">
+       
+    <h1 style="margin-top: 31px;">{{ calculateTotal() | currency:'' }} Rs.</h1>
+    <div style="margin-top: -68px;">
+	<p><b>Customer Name: <input type="text" ng-model="customerName" placeholder="Enter customer name"></b></p>
+    <p><b>Customer paid <input type="number" ng-model="change" placeholder="Enter amount"></b></p>
+    <p>Change to return: {{ calculateChange() | currency:'' }} Rs.</p>
+
+<button style="margin-top: -47px; position: fixed;" ng-click="saveInvoiceToLocal()">Save Invoice</button>
+<button style="margin-top: -47px; position: fixed; left: 61%;"  ng-click="openViewModal()">View Saved Invoices</button>
+</div>
+
+
+
+
+    </div>
+
+    <br><br><br><br><br><br><br><br><br><br>
+
+    <table style="width:100%">
+    <tr>
+        <td>LEFT PRODUCTS</td>
+        <td>RIGHT PRODUCTS</td>
+    </tr>
+    <tr>
+        <td>
+            <div ng-repeat="i in [].constructor(21) track by $index">
+                <p><b>{{$index + 1}})
+                        <input type="text" ng-model="items[$index].productName" placeholder="Enter product name">
+                        <input type="number" class="qty" ng-model="items[$index].qty" placeholder="Enter qty">
+                        <input type="number" ng-model="items[$index].number" placeholder="Enter item number">
+                        <p style="display: none"><b>
+  <input type="checkbox" ng-model="items[$index].added" ng-true-value="'Added'" ng-false-value="'Not Added'">
+  {{items[$index].added || 'Not Added'}}
+</b></p>
+                <p>{{+items[$index].number * 0.60}} Rs.</p>
+                <p>{{+items[$index].number * 0.60 * +items[$index].qty}} Rs.</p>
+            </div>
+        </td>
+        <td>
+            <div ng-repeat="i in [].constructor(21) track by $index">
+                <p><b>{{$index + 1}})
+                        <input type="text" ng-model="directItems[$index].productName" placeholder="Enter product name">
+                        <input type="number" class="qty" ng-model="directItems[$index].qty" placeholder="Enter qty">
+                        <input type="number" ng-model="directItems[$index].number" placeholder="Enter item number">
+                        <p style="display: none"><b>Added:</b>
+  <input type="checkbox" ng-model="directItems[$index].added" ng-true-value="'Added'" ng-false-value="'Not Added'">
+  {{directItems[$index].added || 'Not Added'}}
+</p>
+                <p>{{+directItems[$index].number}} Rs.</p>
+                <p>{{+directItems[$index].number * +directItems[$index].qty}} Rs.</p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+   <!-- Modal for showing added items -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" ng-click="closeModal()">&times;</span>
+        <h2>Invoice</h2>
+       
+            <p>Customer Name: {{ customerName }}</p>
+            <p>Invoice Number: {{ currentInvoiceDetails.invoiceNumber }}</p>
+            <p>Date: {{ currentInvoiceDetails.invoiceDate | date:'dd/MM/yy' }}</p>
+
+            <table style="width:100%">
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Item Number</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                <tr ng-repeat="item in getAddedItems()">
+                    <td>{{$index + 1}}</td>
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.qty }}</td> <!-- Display quantity -->
+                    <td>{{ item.number }}</td>
+                    <td ng-if="item.productName && item.number && item.qty">{{ item.number * (item.added ? 0.60 : 1) | currency:'' }} Rs.</td>
+                    <td ng-if="item.productName && item.number && item.qty">{{ item.number * (item.added ? 0.60 : 1) * item.qty | currency:'' }} Rs.</td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align:right;"><b>Total:</b></td>
+                    <td>{{ calculateTotal() | currency:'' }} Rs.</td>
+                </tr>
+            </table>
+
+
+     
+    </div>
+</div>
+
+    <!-- Modal for saving invoice -->
+    <div id="saveModal" class="modal">
+        <div class="modal-content">
+            <span class="close" ng-click="closeSaveModal()">&times;</span>
+            <h2>Save Invoice</h2>
+            <!-- Use a counter to increment invoice number -->
+            <p>Invoice Number: {{ getNextInvoiceNumber() }}</p>
+            <button ng-click="saveInvoiceToLocal()">Save</button>
+
+
+        </div>
+    </div>
+
+  <!-- Modal for viewing saved invoices -->
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+        <span class="close" ng-click="closeViewModal()">&times;</span>
+        <h2>Saved Invoices</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Invoice Number</th>
+                    <th>Customer Name</th>
+                    <th>Invoice Date</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, value) in getSavedInvoices()">
+                    <td>{{ key }}</td>
+                    <td>{{ value.customerName }}</td>
+                    <td>{{ value.invoiceDate |  date:'dd/MM/yy' }}</td>
+                    <td>{{ value.totalAmount | currency:'' }} Rs.</td>
+                    <td>
+                        <button ng-click="deleteInvoice(key)">Delete</button>
+                        <button ng-click="viewInvoiceDetails(key)">View Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+   <!-- Modal for viewing full invoice details -->
+    <div id="printContents">
+<!-- Add this inside your modal for viewing full invoice details -->
+  <div id="fullInvoiceModal" class="modal">
+    <div class="modal-content">
+        <span class="close" ng-click="closeFullInvoiceModal()">&times;</span>
+        
+		<h1>HINDUSTAN TOYS</h1>
+<p>SHOP NO E-4 VRINDAVAN PARISAR BILASPUR (C.G)</p>
+		<h2>Invoice Details</h2>
+		
+        <hr> <!-- Horizontal line for separation -->
+
+       <div class="invoice-info">
+    <p><strong>Invoice Number:</strong> {{ currentInvoiceDetails.invoiceNumber }}</p>
+    <p><strong>Invoice Date:</strong> {{ currentInvoiceDetails.invoiceDate | date:'dd/MM/yy' }}</p>
+    <p><strong>Customer Name:</strong> {{ currentInvoiceDetails.customerName }}</p>
+</div>
+
+<table class="invoice-table" style="width:100%; margin: 10px;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in currentInvoiceDetails.items">
+            <td>{{$index + 1}}</td>
+            <td>{{item.productName}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{ item.isDirectItem ? item.number : (item.number * 0.60) | currency:'' }}</td>
+            <td>{{ getItemTotal(item) | currency:'' }}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="text-align: right;"><strong>Grand Total:</strong></td>
+            <td>{{ calculateGrandTotal() | currency:'' }}</td>
+        </tr>
+    </tfoot>
+</table>
+<button ng-click="printModal()">Print</button>
+
+
+     
+
+    </div>
+	
+	<script>
+var app = angular.module('productApp', []);
+
+app.controller('MainController', function ($scope) {
+    // Initialize arrays for items and directItems
+    $scope.items = [];
+    $scope.directItems = [];
+
+    // Watch for changes in items
+    $scope.$watch('items', function(newVal, oldVal) {
+        newVal.forEach(function(item) {
+            if (item.qty && item.number) {
+                item.added = 'Added';
+            } else {
+                item.added = 'Not Added';
+            }
+        });
+    }, true);
+
+    // Watch for changes in directItems
+    $scope.$watch('directItems', function(newVal, oldVal) {
+        newVal.forEach(function(item) {
+            if (item.qty && item.number) {
+                item.added = 'Added';
+            } else {
+                item.added = 'Not Added';
+            }
+        });
+    }, true);
+
+    // Function to open modal for showing added items
+    $scope.openModal = function () {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
+        // Set up data for the modal 
+        $scope.customerName = ''; // Replace with actual customer name
+        $scope.currentInvoiceDetails = {
+            invoiceNumber: $scope.getNextInvoiceNumber(), // Ensure this fetches the correct next invoice number
+            invoiceDate: new Date() // Replace with actual date if needed
+            // Add more fields as needed
+        };
+    };
+
+$scope.printModal = function () {
+    var printContents = document.getElementById("printContents").innerHTML;
+    var printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write('<html><head><title>Invoice</title>');
+    printWindow.document.write('<style>table, th, td { border: 1px solid black; border-collapse: collapse; text-align: center; }</style>');
+    printWindow.document.write('</head><body onload="window.print(); window.close()">');
+    printWindow.document.write(printContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+};
+
+
+    // Function to close modal for showing added items
+    $scope.closeModal = function () {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    };
+
+    // Function to open modal for saving invoice
+    $scope.openSaveModal = function () {
+        var modal = document.getElementById("saveModal");
+        modal.style.display = "block";
+    };
+
+    // Function to close modal for saving invoice
+    $scope.closeSaveModal = function () {
+        var modal = document.getElementById("saveModal");
+        modal.style.display = "none";
+    };
+	
+	  $scope.calculateGrandTotal = function () {
+        var grandTotal = 0;
+        angular.forEach($scope.currentInvoiceDetails.items, function (item) {
+            grandTotal += $scope.getItemTotal(item);
+        });
+        return grandTotal;
+    };
+
+    // Function to open modal for viewing saved invoices
+    $scope.openViewModal = function () {
+        var modal = document.getElementById("viewModal");
+        modal.style.display = "block";
+    };
+
+    // Function to close modal for viewing saved invoices
+    $scope.closeViewModal = function () {
+        var modal = document.getElementById("viewModal");
+        modal.style.display = "none";
+    };
+
+    // Function to open modal for viewing full invoice details
+    $scope.viewInvoiceDetails = function (invoiceNumber) {
+        $scope.currentInvoiceDetails = $scope.savedInvoices[invoiceNumber];
+        var modal = document.getElementById("fullInvoiceModal");
+        modal.style.display = "block";
+    };
+
+    // Function to close modal for viewing full invoice details
+    $scope.closeFullInvoiceModal = function () {
+        var modal = document.getElementById("fullInvoiceModal");
+        modal.style.display = "none";
+    };
+
+// Function to get added items
+$scope.getAddedItems = function () {
+    var addedItems = $scope.items.filter(function (item) {
+        // Include items that are marked as added and have non-zero qty and number
+        return item.added && parseFloat(item.qty) !== 0 && parseFloat(item.number) !== 0;
+    });
+
+    var directItemsAdded = $scope.directItems.filter(function (item) {
+        // Include items that are marked as added and have non-zero qty and number
+        return item.added && parseFloat(item.qty) !== 0 && parseFloat(item.number) !== 0;
+    });
+
+    // Concatenate both arrays
+    return addedItems.concat(directItemsAdded);
+};
+
+
+
+
+
+    // Function to calculate total amount
+    $scope.calculateTotal = function () {
+    var total = 0;
+
+    // Calculate total for items
+    $scope.items.forEach(function (item) {
+        if (item.added) {
+            total += item.number * 0.60 * item.qty;
+        }
+    });
+
+    // Calculate total for directItems
+    $scope.directItems.forEach(function (item) {
+        if (item.added) {
+            total += item.number * item.qty;
+        }
+    });
+
+    return total;
+};
+
+    // Function to save invoice to local storage
+    $scope.saveInvoiceToLocal = function () {
+        var invoiceNumber = $scope.getNextInvoiceNumber();
+        var currentDate = new Date();
+        
+        var invoice = {
+            invoiceNumber: invoiceNumber,
+            invoiceDate: currentDate,
+            customerName: $scope.customerName,
+            totalAmount: $scope.calculateTotal(),
+            items: $scope.getAddedItems().map(function(item) {
+                return {
+                    productName: item.productName,
+                    qty: item.qty,
+                    number: item.number,
+                    added: item.added,
+                    isDirectItem: $scope.directItems.includes(item),
+                    dateAdded: currentDate // Optionally store date added for each item
+                };
+            })
+        };
+
+        $scope.savedInvoices[invoiceNumber] = invoice;
+        localStorage.setItem('savedInvoices', JSON.stringify($scope.savedInvoices));
+        $scope.closeSaveModal();
+        alert('Invoice saved successfully!');
+        $scope.customerName = ""; // Clear customer name field after saving
+        $scope.items = []; // Clear items array after saving
+        $scope.directItems = []; // Clear directItems array after saving
+    };
+
+    // Function to get saved invoices from local storage
+    $scope.getSavedInvoices = function () {
+        return $scope.savedInvoices;
+    };
+
+    // Function to delete an invoice
+    $scope.deleteInvoice = function (invoiceNumber) {
+        delete $scope.savedInvoices[invoiceNumber];
+        localStorage.setItem('savedInvoices', JSON.stringify($scope.savedInvoices));
+    };
+
+    // Function to get the next available invoice number
+    $scope.getNextInvoiceNumber = function () {
+        var maxInvoiceNumber = 0;
+
+        // Find the maximum invoice number currently in use
+        angular.forEach($scope.savedInvoices, function (value, key) {
+            maxInvoiceNumber = Math.max(maxInvoiceNumber, parseInt(key));
+        });
+
+        // Return the next available invoice number
+        return maxInvoiceNumber + 1;
+    };
+
+    // Function to calculate the total for an item
+    $scope.getItemTotal = function (item) {
+        if (item.isDirectItem) {
+            return item.number * item.qty;
+        } else {
+            return item.number * 0.60 * item.qty;
+        }
+    };
+
+    // Initialize saved invoices from localStorage
+    $scope.savedInvoices = JSON.parse(localStorage.getItem('savedInvoices')) || {};
+});
+</script>
+
+
+
+
+
+</body>
+
+</html>
+
