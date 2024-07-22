@@ -869,27 +869,33 @@ $scope.sortOrder = ''; // No default sorting order
 			
 
  $scope.submitData = function(image, index) {
-        var inputa = image.url;
-        var inputb = $scope.dynamicField2Value; // Use dynamicField2Value
-        var inputc = image.field3;
-        var inputName = image.name;
-        var inputPrice = image.price;
-		var inputvideourl = image.videourl;
-        var inputoutofstock = image.outOfStock;
+    var inputa = image.url;
+    var inputb = $scope.dynamicField2Value; // Use dynamicField2Value
+    var inputc = image.field3;
+    var inputName = image.name;
+    var inputPrice = image.price;
+    var inputvideourl = image.videourl;
+    var inputoutofstock = image.outOfStock;
 
-        var newDataKey = databaseSubmit.push().key;
+    // Get the current date and time
+    var currentDate = new Date();
+    var submitDate = currentDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    var submitTime = currentDate.toTimeString().split(' ')[0]; // Format: HH:MM:SS
 
-        databaseSubmit.child(newDataKey).set({
-            field1: inputa,
-            field2: inputb,
-            field3: inputc,
-            productName: inputName,
-            productPrice: inputPrice
-        });
+    var newDataKey = databaseSubmit.push().key;
 
-        console.log("Data submitted to Firebase");
-    };
-	
+    databaseSubmit.child(newDataKey).set({
+        field1: inputa,
+        field2: inputb,
+        field3: inputc,
+        productName: inputName,
+        productPrice: inputPrice,
+        submitDate: submitDate,
+        submitTime: submitTime
+    });
+
+    console.log("Data submitted to Firebase with date and time");
+};
 	
 	
 

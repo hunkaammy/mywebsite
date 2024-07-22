@@ -42,6 +42,8 @@
       <th><img src="{{submittedData.field1}}"alt="Girl in a jacket" width="150" height="150">
 </th>
       <th>{{submittedData.field3}}</th>
+	   <th>&nbsp;&nbsp;&nbsp;({{submittedData.submitDate
+}})</th>
       <th><button ng-click="deleteData(submittedData.$id)">Delete</button></th>
 	    <th><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{submittedData.field2}}" target="_blank">This is a link</a></th>
     </tr> <br>
@@ -96,19 +98,23 @@
                 var inputa = image.url;
                 var inputb = image.field2;
                 var inputc = image.field3;
+				var inputd = image.submitDate
+;
 
                 var newDataKey = databaseSubmit.push().key;
 
                 databaseSubmit.child(newDataKey).set({
                     field1: inputa,
                     field2: inputb,
-                    field3: inputc
+                    field3: inputc,
+					field4: inputd
                 });
 
                 // Clear input fields after submission
                 image.url = '';
                 image.field2 = '';
                 image.field3 = '';
+				 image.field4 = '';
             };
 
             // Fetch submitted data
