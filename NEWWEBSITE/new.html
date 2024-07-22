@@ -97,7 +97,7 @@ $(document).ready(function(){
     <th style="width:10%;">Item</th>
     <th style="width:10%;">Qty</th>
     <th style="width:10%;">Price</th>
-   
+   <th style="width:10%;">Date and time </th>
     <th style="width:10%;">ACTION</th>
   </tr>
   <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
@@ -105,7 +105,7 @@ $(document).ready(function(){
     <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
     <td>{{value.field3}}</td>
     <td>{{value.productPrice}}</td>
-	<td>{{value.submitDate}}</td>
+	<td>{{value.submitDate}} {{value.submitTime}}</td>
    <td style="display: none;">{{value.field3 * value.productPrice}}</td>
     <td><button type="button" ng-click="delete(value)">Delete</button></td>
   </tr>
