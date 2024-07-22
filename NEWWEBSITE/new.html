@@ -123,20 +123,33 @@ function myFunction() {
   tr = table.getElementsByTagName("tr");
   var grandTotal = 0; // Initialize grand total
 
+  console.log('Filtering with:', filter);
+
   for (i = 1; i < tr.length; i++) { // Start from 1 to skip header row
     td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
-        // Calculate total and add to grand total
-        var qty = parseFloat(tr[i].getElementsByTagName("td")[2].textContent || 0);
-        var price = parseFloat(tr[i].getElementsByTagName("td")[3].textContent || 0);
-        grandTotal += qty * price;
+
+        // Retrieve Qty and Price
+        var qtyCell = tr[i].getElementsByTagName("td")[2];
+        var priceCell = tr[i].getElementsByTagName("td")[3];
+        var qty = parseFloat(qtyCell.textContent || 0);
+        var price = parseFloat(priceCell.textContent || 0);
+
+        // Debug output
+        console.log('Row:', i, 'Qty:', qty, 'Price:', price);
+
+        if (!isNaN(qty) && !isNaN(price)) {
+          grandTotal += qty * price;
+        } else {
+          console.log('Invalid Qty or Price at row:', i);
+        }
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
   // Display grand total
   document.getElementById("grandTotal").textContent = grandTotal.toFixed(2); // Show 2 decimal places
