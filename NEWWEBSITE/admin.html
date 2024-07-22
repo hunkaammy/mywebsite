@@ -350,135 +350,140 @@
       const progressBar = document.getElementById('progressBar');
 
       window.uploadImage = function() {
-        const file = imageInput.files[0];
-        const name = nameInput.value.trim();
-        const price = parseFloat(priceInput.value.trim());
-        const partyCode = partyCodeInput.value.trim();
-        const videourl = videourlInput.value.trim();
+  const file = imageInput.files[0];
+  const name = nameInput.value.trim();
+  const price = parseFloat(priceInput.value.trim());
+  const partyCode = partyCodeInput.value.trim();
+  const videourl = videourlInput.value.trim();
 
-        if (isNaN(price) || price <= 0) {
-            alert('Please enter a valid price.');
-            return;
-        }
+  if (isNaN(price) || price <= 0) {
+    alert('Please enter a valid price.');
+    return;
+  }
 
-        const priceHalf = price / 2;
+  const priceHalf = price / 2;
 
-        if (!file || !name || !partyCode) {
-            alert('Please select an image, enter an image name, and enter a party code.');
-            return;
-        }
+  if (!file || !name || !partyCode) {
+    alert('Please select an image, enter an image name, and enter a party code.');
+    return;
+  }
 
-        const currentDate = new Date().toISOString();
-        const outOfStock = false;
-        const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
-        const task = storageRef.put(file);
+  const currentDate = new Date().toISOString();
+  const outOfStock = false;
+  const storageRef = storage.ref(`${currentDate}_${name}_${file.name}`);
+  const task = storageRef.put(file);
 
-        uploadProgress.style.display = 'block';
+  uploadProgress.style.display = 'block';
 
-        task.on('state_changed', (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            progressBar.style.width = progress + '%';
-        }, (error) => {
-            console.error(error.message);
-        }, () => {
-            storageRef.getDownloadURL().then(downloadURL => {
-                database.ref().push({
-                    url: downloadURL,
-                    name: name,
-                    price: priceHalf,
-                    date: currentDate,
-                    outOfStock: outOfStock,
-                    videourl: videourl,
-                    partyCode: partyCode
-                });
-                imageInput.value = '';
-                nameInput.value = '';
-                priceInput.value = '';
-                videourlInput.value = '';
-                uploadProgress.style.display = 'none';
-            });
-        });
-      }
+  task.on('state_changed', (snapshot) => {
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    progressBar.style.width = progress + '%';
+  }, (error) => {
+    console.error(error.message);
+  }, () => {
+    storageRef.getDownloadURL().then(downloadURL => {
+      database.ref().push({
+        url: downloadURL,
+        name: name,
+        price: priceHalf,
+        date: currentDate,
+        outOfStock: outOfStock,
+        videourl: videourl,
+        partyCode: partyCode
+      });
+      imageInput.value = '';
+      nameInput.value = '';
+      priceInput.value = '';
+      videourlInput.value = '';
+      uploadProgress.style.display = 'none';
+    });
+  });
+}
 
       function fetchImagesRealtime() {
-        database.ref().orderByChild('date').on('value', snapshot => {
-          const images = [];
-          snapshot.forEach(childSnapshot => {
-            const imageUrl = childSnapshot.val().url;
-            const name = childSnapshot.val().name;
-            const price = childSnapshot.val().price;
-            const date = childSnapshot.val().date;
-            const outOfStock = childSnapshot.val().outOfStock;
-            const videourl = childSnapshot.val().videourl;
-            images.push({ imageUrl, name, price, date, outOfStock, videourl, key: childSnapshot.key });
-          });
+  database.ref().orderByChild('date').on('value', snapshot => {
+    const images = [];
+    snapshot.forEach(childSnapshot => {
+      const imageUrl = childSnapshot.val().url;
+      const name = childSnapshot.val().name;
+      const price = childSnapshot.val().price;
+      const date = childSnapshot.val().date;
+      const outOfStock = childSnapshot.val().outOfStock;
+      const videourl = childSnapshot.val().videourl;
+      const partyCode = childSnapshot.val().partyCode;
+      images.push({ imageUrl, name, price, date, outOfStock, videourl, partyCode, key: childSnapshot.key });
+    });
 
-          imageContainer.innerHTML = "";
+    imageContainer.innerHTML = "";
 
-          for (let i = images.length - 1; i >= 0; i--) {
-            displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].videourl, images[i].key);
-          }
-        });
-      }
+    for (let i = images.length - 1; i >= 0; i--) {
+      displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].videourl, images[i].partyCode, images[i].key);
+    }
+  });
+}
 
       fetchImagesRealtime();
 
-      function displayImage(url, name, price, date, outOfStock, videourl, key) {
-        const image = document.createElement('img');
-        image.src = url;
-        image.style.maxWidth = '200px';
-        image.style.maxHeight = '200px';
-        image.loading = 'lazy';
+      function displayImage(url, name, price, date, outOfStock, videourl, partyCode, key) {
+  const image = document.createElement('img');
+  image.src = url;
+  image.style.maxWidth = '200px';
+  image.style.maxHeight = '200px';
+  image.loading = 'lazy';
 
-        const nameElement = document.createElement('p');
-        nameElement.innerText = `Name: ${name}`;
+  const nameElement = document.createElement('p');
+  nameElement.innerText = `Name: ${name}`;
 
-        const priceElement = document.createElement('p');
-        priceElement.innerText = `Price: ${price}`;
+  const priceElement = document.createElement('p');
+  priceElement.innerText = `Price: ${price}`;
 
-        const dateElement = document.createElement('p');
-        dateElement.innerText = `Date: ${date}`;
+  const dateElement = document.createElement('p');
+  dateElement.innerText = `Date: ${date}`;
 
-        const videourlElement = document.createElement('p');
-        videourlElement.innerText = `Video URL: ${videourl}`;
+  const videourlElement = document.createElement('p');
+  videourlElement.innerText = `Video URL: ${videourl}`;
 
-        const outOfStockButton = document.createElement('button');
-        outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
-        outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
-        outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
+  const partyCodeElement = document.createElement('p');
+  partyCodeElement.innerText = `Party Code: ${partyCode}`;
 
-        const editButton = document.createElement('button');
-        editButton.innerText = 'Edit Image Name';
-        editButton.addEventListener('click', () => enableEditMode(key));
+  const outOfStockButton = document.createElement('button');
+  outOfStockButton.innerText = outOfStock ? 'Make Available' : 'Make Out of Stock';
+  outOfStockButton.addEventListener('click', () => toggleAvailability(key, !outOfStock));
+  outOfStockButton.className = outOfStock ? 'make-available' : 'make-out-of-stock';
 
-        const editPriceButton = document.createElement('button');
-        editPriceButton.innerText = 'Edit Price';
-        editPriceButton.className = 'edit-price';
-        editPriceButton.addEventListener('click', () => enableEditPrice(key));
+  const editButton = document.createElement('button');
+  editButton.innerText = 'Edit Image Name';
+  editButton.addEventListener('click', () => enableEditMode(key));
 
-        const editVideoUrlButton = document.createElement('button');
-        editVideoUrlButton.innerText = 'Edit Video URL';
-        editVideoUrlButton.addEventListener('click', () => enableEditVideoUrl(key));
+  const editPriceButton = document.createElement('button');
+  editPriceButton.innerText = 'Edit Price';
+  editPriceButton.className = 'edit-price';
+  editPriceButton.addEventListener('click', () => enableEditPrice(key));
 
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Delete Image';
-        deleteButton.addEventListener('click', () => deleteImage(key));
+  const editVideoUrlButton = document.createElement('button');
+  editVideoUrlButton.innerText = 'Edit Video URL';
+  editVideoUrlButton.addEventListener('click', () => enableEditVideoUrl(key));
 
-        const container = document.createElement('div');
-        container.setAttribute('data-key', key);
-        container.appendChild(image);
-        container.appendChild(nameElement);
-        container.appendChild(priceElement);
-        container.appendChild(dateElement);
-        container.appendChild(videourlElement);
-        container.appendChild(outOfStockButton);
-        container.appendChild(editButton);
-        container.appendChild(editPriceButton);
-        container.appendChild(editVideoUrlButton);
-        container.appendChild(deleteButton);
+  const deleteButton = document.createElement('button');
+  deleteButton.innerText = 'Delete Image';
+  deleteButton.addEventListener('click', () => deleteImage(key));
 
-        imageContainer.appendChild(container);
-      }
+  const container = document.createElement('div');
+  container.setAttribute('data-key', key);
+  container.appendChild(image);
+  container.appendChild(nameElement);
+  container.appendChild(priceElement);
+  container.appendChild(dateElement);
+  container.appendChild(videourlElement);
+  container.appendChild(partyCodeElement);
+  container.appendChild(outOfStockButton);
+  container.appendChild(editButton);
+  container.appendChild(editPriceButton);
+  container.appendChild(editVideoUrlButton);
+  container.appendChild(deleteButton);
+
+  imageContainer.appendChild(container);
+}
 
       function toggleAvailability(key, newStatus) {
         database.ref(`${key}/outOfStock`).set(newStatus).then(() => {
