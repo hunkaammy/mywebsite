@@ -122,24 +122,24 @@ function myFunction() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   var grandTotal = 0; // Initialize grand total
-  for (i = 0; i < tr.length; i++) {
+
+  for (i = 1; i < tr.length; i++) { // Start from 1 to skip header row
     td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
         // Calculate total and add to grand total
-        var totalCell = tr[i].getElementsByTagName("td")[4];
-        if (totalCell) {
-          grandTotal += parseFloat(totalCell.textContent || totalCell.innerText);
-        }
+        var qty = parseFloat(tr[i].getElementsByTagName("td")[2].textContent || 0);
+        var price = parseFloat(tr[i].getElementsByTagName("td")[3].textContent || 0);
+        grandTotal += qty * price;
       } else {
         tr[i].style.display = "none";
       }
     }       
   }
   // Display grand total
-  document.getElementById("grandTotal").textContent = grandTotal;
+  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2); // Show 2 decimal places
 }
 </script>
 
