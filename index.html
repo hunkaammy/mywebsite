@@ -879,10 +879,24 @@ $scope.sortOrder = ''; // No default sorting order
 
     // Get the current date and time
     var currentDate = new Date();
-    var submitDate = currentDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-    var submitTime = currentDate.toTimeString().split(' ')[0]; // Format: HH:MM:SS
+
+    // Format date as DD-MM-YYYY
+    var day = String(currentDate.getDate()).padStart(2, '0');
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var year = currentDate.getFullYear();
+    var submitDate = day + '-' + month + '-' + year;
+
+    // Format time as HH:MM AM/PM
+    var hours = currentDate.getHours();
+    var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    var submitTime = hours + ':' + minutes + ' ' + ampm;
 
     var newDataKey = databaseSubmit.push().key;
+
+
 
     databaseSubmit.child(newDataKey).set({
         field1: inputa,
