@@ -662,7 +662,7 @@ function scrollToTop() {
 
 
  <div class="tab-btns" onclick="scrollToTop()">
-    <div class="tab-btn" ng-click="setTab('', 0)" ng-class="{ 'active': activeTab === '' }">ALL PRODUCTS</div>
+<div class="tab-btn" ng-click="setTab('', 0)" ng-class="{ 'active': activeTab === '' }">ALL PRODUCTS</div>
 <div class="tab-btn" ng-click="setTab('HT', 30)" ng-class="{ 'active': activeTab === 'HT' }">HT PRODUCTS</div>
 <div class="tab-btn" ng-click="setTab('PALNA', 29)" ng-class="{ 'active': activeTab === 'PALNA' }">PALNA</div>
 
@@ -780,6 +780,8 @@ for(let img of images) {
 
     <script>
 
+
+var app = angular.module('myApp', ['firebase']);
 
 app.controller('imagesController', function ($scope, $firebaseArray, $location) {
     $scope.vm = this;
