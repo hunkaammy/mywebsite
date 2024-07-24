@@ -809,7 +809,7 @@ for(let img of images) {
     <script>
 var app = angular.module('myApp', ['firebase']);
 
-app.controller('imagesController', function ($scope, $firebaseArray, $location) {
+app.controller('imagesController', function ($scope, $firebaseArray, $window, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
     $scope.sortOrder = ''; // No default sorting order 
@@ -842,7 +842,8 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
 
     var databaseFetch = firebaseFetch.database().ref();
     var listFetch = $firebaseArray(databaseFetch);
-    
+    $scope.vm.images = listFetch;
+
     var databaseSubmit = firebaseSubmit.database().ref();
     var listSubmit = $firebaseArray(databaseSubmit);
 
@@ -854,29 +855,23 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-    // Get URL parameter for filter
+    // Get URL parameters
     var filterParam = getUrlParameter('filter');
-    console.log("Filter Parameter:", filterParam);
+    var tabParam = getUrlParameter('tab');
 
-    // Watch for changes in the filter parameter
-    $scope.$watch(function() {
-        return filterParam;
-    }, function(newVal) {
-        if (newVal) {
-            $scope.vm.images = $scope.vm.images.filter(function(image) {
-                return image.productName.toLowerCase().includes(newVal.toLowerCase());
-            });
-        } else {
-            $scope.vm.images = listFetch;
-        }
-    });
+    // Set the scope variables based on URL parameters
+    if (filterParam && tabParam) {
+        $scope.productNameFilter = filterParam;
+        $scope.activeTab = parseInt(tabParam, 10);
+    }
 
-    // Load images data
-    listFetch.$loaded().then(function() {
-        $scope.vm.images = listFetch;
-    }).catch(function(error) {
-        console.error("Error loading Firebase data:", error);
-    });
+    // Define your tab click functions
+    $scope.setTab = function(filter, tab) {
+        $scope.productNameFilter = filter;
+        $scope.activeTab = tab;
+        $location.search('filter', filter);
+        $location.search('tab', tab);
+    };
 
     $scope.submitData = function(image, index) {
         var inputa = image.url;
@@ -918,7 +913,6 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
 
         console.log("Data submitted to Firebase with date and time");
     };
-
 	
 	
 
