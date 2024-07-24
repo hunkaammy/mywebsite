@@ -807,6 +807,8 @@ for(let img of images) {
 
 
     <script>
+	var app = angular.module('myApp', ['firebase']);
+	
 app.controller('imagesController', function ($scope, $firebaseArray, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
