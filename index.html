@@ -851,9 +851,18 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
     $scope.activeTab = 0; // Default to the first tab
     $scope.productNameFilter = ''; // Default filter
 
+    // Read filter from URL
+    var filterParam = $location.search().filter;
+    if (filterParam) {
+        $scope.productNameFilter = filterParam;
+    }
+
     $scope.setTab = function (filter, tabIndex) {
         $scope.productNameFilter = filter;
         $scope.activeTab = tabIndex;
+
+        // Update URL without reloading the page
+        $location.search('filter', filter);
     };
 
     $scope.submitData = function(image, index) {
