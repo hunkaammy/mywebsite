@@ -696,20 +696,19 @@ function scrollToTop() {
 </div>
 <body ng-controller="imagesController as vm">
 
-
-  <div class="skeleton-wrapper" ng-if="vm.images.length === 0">
-    <!-- Skeleton items based on the number you want to show -->
-    <div class="skeleton-item" ng-repeat="n in [].constructor(4) track by $index">
-        <div class="skeleton-text">
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line" style="width: 80%;"></div>
-            <div class="skeleton-line" style="width: 50%;"></div>
+    <div class="skeleton-wrapper" ng-if="vm.images.length === 0">
+        <!-- Skeleton items based on the number you want to show -->
+        <div class="skeleton-item" ng-repeat="n in [].constructor(4) track by $index">
+            <div class="skeleton-text">
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line" style="width: 80%;"></div>
+                <div class="skeleton-line" style="width: 50%;"></div>
+            </div>
         </div>
     </div>
-</div>
 
-   <div ng-repeat="image in vm.images | orderBy: sortOrder | filter: { productName: productNameFilter }">
+    <div ng-repeat="image in vm.images | orderBy: sortOrder | filter: { name: productNameFilter }">
         <div id="containers" ng-if="!image.outOfStock">
             <div class="card">
                 <img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
@@ -809,6 +808,8 @@ for(let img of images) {
     <script>
 var app = angular.module('myApp', ['firebase']);
 
+var app = angular.module('myApp', ['firebase']);
+
 app.controller('imagesController', function ($scope, $firebaseArray, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
@@ -855,30 +856,11 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-    // Get URL parameters
+    // Get URL parameter for filter
     var filterParam = getUrlParameter('filter');
-    var tabParam = getUrlParameter('tab');
 
-    // Set the scope variables based on URL parameters
-    if (filterParam && tabParam) {
-        $scope.productNameFilter = filterParam;
-        $scope.activeTab = parseInt(tabParam, 10);
-    }
-
-    // Define your tab click functions
-    $scope.setTab = function(filter, tab) {
-        $scope.productNameFilter = filter;
-        $scope.activeTab = tab;
-        $location.search('filter', filter);
-        $location.search('tab', tab);
-    };
-
-    // Watch for changes in the Firebase data and apply the filter
-    listFetch.$loaded().then(function() {
-        $scope.vm.images = listFetch.filter(function(image) {
-            return !$scope.productNameFilter || image.productName.includes($scope.productNameFilter);
-        });
-    });
+    // Set the scope variable based on URL parameter
+    $scope.productNameFilter = filterParam;
 
     $scope.submitData = function(image, index) {
         var inputa = image.url;
