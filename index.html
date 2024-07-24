@@ -708,7 +708,7 @@ function scrollToTop() {
         </div>
     </div>
 
-    <div ng-repeat="image in vm.images | orderBy: sortOrder | filter: { name: productNameFilter }">
+    <div ng-repeat="image in vm.images | filter: { field2: productNameFilter }">
         <div id="containers" ng-if="!image.outOfStock">
             <div class="card">
                 <img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
@@ -716,7 +716,7 @@ function scrollToTop() {
                 <div id="enlarged-image-container" class="enlarged-image-container" style="display: none;">
                     <div class="enlarged-image">
                         <img id="enlarged-img" src="" alt="Enlarged Image">
-                        <button onclick="closeEnlarged()"><!--Close--></button>
+                        <button onclick="closeEnlarged()">Close</button>
                     </div>
                 </div>
 
@@ -729,7 +729,7 @@ function scrollToTop() {
                     <input type="hidden" id="{{'inputb' + $index}}" ng-model="dynamicField2Value" ng-value="dynamicField2Value">
 
                     <input type="number" class="qtyclass" id="{{'inputc' + $index}}" placeholder="Qty" ng-model="image.field3" ng-change="submitData(image, $index)" ng-model-options="{ debounce: 4500 }">
-                    
+
                     <p ng-show="showItemAdded">Item Added</p>
                 </div>
             </div>
@@ -813,7 +813,7 @@ var app = angular.module('myApp', ['firebase']);
 app.controller('imagesController', function ($scope, $firebaseArray, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
-    $scope.sortOrder = ''; // No default sorting order 
+    $scope.sortOrder = ''; // No default sorting order
     $scope.dynamicField2Value = localStorage.getItem('name');
 
     var firebaseConfigFetch = {
@@ -848,19 +848,20 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
     var databaseSubmit = firebaseSubmit.database().ref();
     var listSubmit = $firebaseArray(databaseSubmit);
 
-    // Function to parse URL parameters
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec($location.absUrl());
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    // Function to read filter parameter from URL
+    function getFilterFromUrl() {
+        return $location.search().filter || '';
     }
 
-    // Get URL parameter for filter
-    var filterParam = getUrlParameter('filter');
+    // Set initial filter based on URL
+    $scope.productNameFilter = getFilterFromUrl();
 
-    // Set the scope variable based on URL parameter
-    $scope.productNameFilter = filterParam;
+    // Watch for changes in URL filter
+    $scope.$watch(function() {
+        return $location.search().filter;
+    }, function(newValue) {
+        $scope.productNameFilter = newValue || '';
+    });
 
     $scope.submitData = function(image, index) {
         var inputa = image.url;
