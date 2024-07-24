@@ -843,8 +843,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
 
     var databaseFetch = firebaseFetch.database().ref();
     var listFetch = $firebaseArray(databaseFetch);
-    $scope.vm.images = listFetch;
-
+    
     var databaseSubmit = firebaseSubmit.database().ref();
     var listSubmit = $firebaseArray(databaseSubmit);
 
@@ -858,9 +857,27 @@ app.controller('imagesController', function ($scope, $firebaseArray, $location) 
 
     // Get URL parameter for filter
     var filterParam = getUrlParameter('filter');
+    console.log("Filter Parameter:", filterParam);
 
-    // Set the scope variable based on URL parameter
-    $scope.productNameFilter = filterParam;
+    // Watch for changes in the filter parameter
+    $scope.$watch(function() {
+        return filterParam;
+    }, function(newVal) {
+        if (newVal) {
+            $scope.vm.images = $scope.vm.images.filter(function(image) {
+                return image.productName.toLowerCase().includes(newVal.toLowerCase());
+            });
+        } else {
+            $scope.vm.images = listFetch;
+        }
+    });
+
+    // Load images data
+    listFetch.$loaded().then(function() {
+        $scope.vm.images = listFetch;
+    }).catch(function(error) {
+        console.error("Error loading Firebase data:", error);
+    });
 
     $scope.submitData = function(image, index) {
         var inputa = image.url;
