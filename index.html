@@ -809,7 +809,7 @@ for(let img of images) {
     <script>
 var app = angular.module('myApp', ['firebase']);
 
-app.controller('imagesController', function ($scope, $firebaseArray, $window, $location) {
+app.controller('imagesController', function ($scope, $firebaseArray, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
     $scope.sortOrder = ''; // No default sorting order 
@@ -855,23 +855,11 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-    // Get URL parameters
+    // Get URL parameter for filter
     var filterParam = getUrlParameter('filter');
-    var tabParam = getUrlParameter('tab');
 
-    // Set the scope variables based on URL parameters
-    if (filterParam && tabParam) {
-        $scope.productNameFilter = filterParam;
-        $scope.activeTab = parseInt(tabParam, 10);
-    }
-
-    // Define your tab click functions
-    $scope.setTab = function(filter, tab) {
-        $scope.productNameFilter = filter;
-        $scope.activeTab = tab;
-        $location.search('filter', filter);
-        $location.search('tab', tab);
-    };
+    // Set the scope variable based on URL parameter
+    $scope.productNameFilter = filterParam;
 
     $scope.submitData = function(image, index) {
         var inputa = image.url;
@@ -913,6 +901,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
 
         console.log("Data submitted to Firebase with date and time");
     };
+
 	
 	
 
