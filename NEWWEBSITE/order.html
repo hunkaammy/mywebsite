@@ -60,14 +60,7 @@
       background-color: #0056b3;
     }
 
-    /* Data Table Styles */
-    table {
-    margin-top: -150px;
-    margin-left: 74px;
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+   
 
     th, td {
       border: 1px solid #ddd;
@@ -95,11 +88,18 @@
         WIDTH: 85%;
     }
 
-      .left-panel, .right-panel {
-    
-        width: 19%;
-		        position: fixed;
-    }
+      .left-panel {
+    width: 19%;
+   
+}
+
+
+
+	  .right-panel {
+    width: 19%;
+    margin-top: -481px;
+    margin-left: 117px;
+}
 
       button {
         width: 100%;
@@ -112,6 +112,19 @@
       .left-panel, .right-panel {
         
       }
+	  
+	  table {
+    background-color: transparent;
+    margin-top: -550px;
+}
+	  
+	 .tableclass {
+    margin-top: -539px;
+    margin-left: 116px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
       button {
         width: 100%;
@@ -153,16 +166,16 @@
     <div class="right-panel">
       <!-- Display filtered data by date -->
       <div ng-if="vm.filteredData.length > 0">
-        <h3>Data for Date: {{vm.selectedDate}}</h3>
-        <table>
+        <P>Data for Date: {{vm.selectedDate}} </P>
+        <table class="tableclass">
           <thead>
             <tr>
              <!--  <th>Field 2</th>-->
               <th>Image</th>
-              <th>Field 3</th>
-              <th>Submit Date</th>
-              <th>Actions</th>
+              <th>Qty</th>
               <th>Link</th>
+               <!-- <th>Actions</th>-->
+             <!-- <th>Link</th> -->
             </tr>
           </thead>
           <tbody>
@@ -171,8 +184,8 @@
               <td><img src="{{data.field1}}" alt="Image" width="150" height="150"></td>
               <td>{{data.field3}}</td>
               <!-- <td>{{data.submitDate}}</td>-->
-              <td><button ng-click="vm.deleteData(data.$id)">Delete</button></td>
-              <td><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{data.field2}}" target="_blank">This is a link</a></td>
+             <!--  <td><button ng-click="vm.deleteData(data.$id)">Delete</button></td>-->
+              <td><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{data.field2}}" target="_blank">Link</a></td>
             </tr>
           </tbody>
         </table>
