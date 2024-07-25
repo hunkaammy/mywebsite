@@ -18,18 +18,26 @@
 
     .container {
       display: flex;
-      margin-top: 20px;
+	  
+    /* padding-right: 15px; */
+    /* padding-left: 15px; */
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+
+      
     }
 
     .form-group {
       margin-bottom: 20px;
     }
+	
+
 
     /* Input and Button Styles */
     input[type="text"] {
       border: 1px solid #ccc;
       border-radius: 4px;
-      padding: 8px;
+      
       width: 100%;
       box-sizing: border-box;
     }
@@ -38,7 +46,7 @@
       background-color: #007bff;
       border: none;
       color: white;
-      padding: 10px 20px;
+      
       text-align: center;
       text-decoration: none;
       display: inline-block;
@@ -54,14 +62,16 @@
 
     /* Data Table Styles */
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
+    margin-top: -150px;
+    margin-left: 74px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
     th, td {
       border: 1px solid #ddd;
-      padding: 8px;
+     
     }
 
     th {
@@ -71,7 +81,7 @@
     /* Flexbox Layout */
     .left-panel {
       flex: 1;
-      padding-right: 10px;
+      
     }
 
     .right-panel {
@@ -80,13 +90,16 @@
 
     /* Responsive Styles */
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
+      .container{
+        /* flex-direction: column; */
+        WIDTH: 85%;
+    }
 
       .left-panel, .right-panel {
-        padding: 0;
-      }
+    
+        width: 19%;
+		        position: fixed;
+    }
 
       button {
         width: 100%;
@@ -97,7 +110,7 @@
     /* Extra Small Devices */
     @media (max-width: 576px) {
       .left-panel, .right-panel {
-        padding: 0;
+        
       }
 
       button {
@@ -108,7 +121,7 @@
   </style>
 </head>
 <body ng-app="myApp" ng-controller="imagesController as vm">
-  <div class="container">
+
     <div class="left-panel">
       <!-- Form for submitting data -->
       <div ng-repeat="image in vm.images | orderBy: '-date'">
@@ -144,7 +157,7 @@
         <table>
           <thead>
             <tr>
-              <th>Field 2</th>
+             <!--  <th>Field 2</th>-->
               <th>Image</th>
               <th>Field 3</th>
               <th>Submit Date</th>
@@ -154,10 +167,10 @@
           </thead>
           <tbody>
             <tr ng-repeat="data in vm.filteredData">
-              <td>{{data.field2}}</td>
+             <!--  <td>{{data.field2}}</td>-->
               <td><img src="{{data.field1}}" alt="Image" width="150" height="150"></td>
               <td>{{data.field3}}</td>
-              <td>{{data.submitDate}}</td>
+              <!-- <td>{{data.submitDate}}</td>-->
               <td><button ng-click="vm.deleteData(data.$id)">Delete</button></td>
               <td><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{data.field2}}" target="_blank">This is a link</a></td>
             </tr>
