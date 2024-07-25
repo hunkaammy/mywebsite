@@ -1,192 +1,270 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodePen - Upload Images to Firebase 3</title>
+  <title>Upload Images to Firebase 3</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+  <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
+  <link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
 
+    .container {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    /* Input and Button Styles */
+    input[type="text"] {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Data Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Flexbox Layout */
+    .left-panel {
+      flex: 1;
+      padding-right: 10px;
+    }
+
+    .right-panel {
+      flex: 2;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-panel, .right-panel {
+        padding: 0;
+      }
+
+      button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Extra Small Devices */
+    @media (max-width: 576px) {
+      .left-panel, .right-panel {
+        padding: 0;
+      }
+
+      button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html ng-app="myApp">
+<body ng-app="myApp" ng-controller="imagesController as vm">
+  <div class="container">
+    <div class="left-panel">
+      <!-- Form for submitting data -->
+      <div ng-repeat="image in vm.images | orderBy: '-date'">
+        <div class="form-group">
+          <input type="text" id="{{'inputa' + $index}}" ng-model="image.url" placeholder="Image URL">
+        </div>
+        <div class="form-group">
+          <input type="text" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="image.field2">
+        </div>
+        <div class="form-group">
+          <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
+        </div>
+        <button ng-click="vm.submitData(image, $index)">Submit</button> <br><br>
+      </div>
 
-<head>
-    <title>Dynamically Submit Form</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
-</head>
-
-<body ng-controller="imagesController as vm">
-
-    <br><br>
-
-    <div ng-repeat="image in vm.images | orderBy: '-date'" >
-        {{$index}}
-        <input type="text" id="{{'inputa' + $index}}" ng-model="image.url">
-        <input type="text" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="image.field2">
-        <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
-        <button id="submitButton" ng-click="submitData(image, $index)">Submit</button> <br><br>
+      <!-- Buttons for unique names -->
+      <div ng-repeat="(key, value) in vm.uniqueNames">
+        <div>
+          <button ng-click="vm.showDates(key)">{{key}}</button>
+          <div ng-if="vm.currentKey === key">
+            <div ng-repeat="date in vm.uniqueDates">
+              <p ng-click="vm.filterByDate(date)">{{date}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div ng-repeat="submittedData in vm.submittedData">
-	<table>
-  <thead>
-    <tr>
-      <th>{{submittedData.field2}}</th>
-      <th><img src="{{submittedData.field1}}"alt="Girl in a jacket" width="150" height="150">
-</th>
-      <th>{{submittedData.field3}}</th>
-	   <th>&nbsp;&nbsp;&nbsp;({{submittedData.submitDate
-}})</th>
-      <th><button ng-click="deleteData(submittedData.$id)">Delete</button></th>
-	    <th><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{submittedData.field2}}" target="_blank">This is a link</a></th>
-    </tr> <br>
-        </thead>
-  <tbody>
-    <tr>
-	
-	 <td></td>
-    </tr>
-    <tr>
-      <td></td>
-    </tr>
-    <tr>
-      <td> </td>
-    </tr>
-	   <tr>
-      <td>   <br></td>
-    </tr>
-  </tbody>
-</table>
-	   
-	   
-      
+    <div class="right-panel">
+      <!-- Display filtered data by date -->
+      <div ng-if="vm.filteredData.length > 0">
+        <h3>Data for Date: {{vm.selectedDate}}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field 2</th>
+              <th>Image</th>
+              <th>Field 3</th>
+              <th>Submit Date</th>
+              <th>Actions</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="data in vm.filteredData">
+              <td>{{data.field2}}</td>
+              <td><img src="{{data.field1}}" alt="Image" width="150" height="150"></td>
+              <td>{{data.field3}}</td>
+              <td>{{data.submitDate}}</td>
+              <td><button ng-click="vm.deleteData(data.$id)">Delete</button></td>
+              <td><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{data.field2}}" target="_blank">This is a link</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
-    <script>
-        var app = angular.module('myApp', ['firebase']);
-
-        app.controller('imagesController', function ($scope, $firebaseArray) {
-            $scope.vm = this;
-            $scope.vm.images = [];
-            $scope.vm.submittedData = [];
-
-            var firebaseConfigSubmit = {
-    apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
-  authDomain: "notes-12519.firebaseapp.com",
-  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
-  projectId: "notes-12519",
-  storageBucket: "notes-12519.appspot.com",
-  messagingSenderId: "1073774450189",
-  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
-  measurementId: "G-GZXYCJ33TR"
-};
-            
-
-            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
-
-            var databaseSubmit = firebaseSubmit.database().ref();
-            var listSubmit = $firebaseArray(databaseSubmit);
-
-            $scope.vm.submitData = function (image, index) {
-                var inputa = image.url;
-                var inputb = image.field2;
-                var inputc = image.field3;
-				var inputd = image.submitDate
-;
-
-                var newDataKey = databaseSubmit.push().key;
-
-                databaseSubmit.child(newDataKey).set({
-                    field1: inputa,
-                    field2: inputb,
-                    field3: inputc,
-					field4: inputd
-                });
-
-                // Clear input fields after submission
-                image.url = '';
-                image.field2 = '';
-                image.field3 = '';
-				 image.field4 = '';
-            };
-
-            // Fetch submitted data
-            listSubmit.$loaded().then(function (data) {
-                $scope.vm.submittedData = data;
-            });
-
-            $scope.deleteData = function (dataId) {
-                databaseSubmit.child(dataId).remove();
-            };
-
-            $scope.image = function (event) {
-                event.preventDefault();
-                var file = event.target.files[0];
-                uploadImage(file);
-            };
-
-            function uploadImage(file) {
-                var random = parseInt(Math.random() * 1000000);
-                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
-                var uploadTask = refStorageSubmit.put(file);
-
-                uploadTask.on('state_changed', null, function (error) {
-                    console.error('Upload error:', error);
-                }, function () {
-                    var imageData = {
-                        url: uploadTask.snapshot.ref.getDownloadURL(),
-                        bytes: uploadTask.snapshot.totalBytes,
-                        name: uploadTask.snapshot.metadata.name,
-                        path: uploadTask.snapshot.ref.fullPath,
-                        date: uploadTask.snapshot.metadata.timeCreated
-                    };
-
-                    listSubmit.$add(imageData).then(function (ref) {
-                        swal("Success", "Your image has been uploaded", "success");
-                    });
-                });
-            }
-        });
-    </script>
-
-    <script>
-        (function () {
-            'use strict';
-
-            angular
-                .module('myApp')
-                .directive('customOnChange', customOnChange);
-
-            function customOnChange() {
-                return {
-                    restrict: 'A',
-                    link: function (scope, element, attrs) {
-                        var onChangeHandler = scope.$eval(attrs.customOnChange);
-                        element.bind('change', onChangeHandler);
-                    }
-                };
-            }
-        })();
-    </script>
-
-</body>
-
-</html>
-<!-- partial -->
+  <!-- JS Libraries -->
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
-<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
-<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
-<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
-<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+  <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
+  <script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
+  <script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+  <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+  <script>
+    var app = angular.module('myApp', ['firebase']);
+
+    app.controller('imagesController', function($scope, $firebaseArray) {
+      var vm = this;
+      vm.images = [];
+      vm.submittedData = [];
+      vm.uniqueNames = {};
+      vm.uniqueDates = [];
+      vm.filteredData = [];
+      vm.currentKey = '';
+      vm.selectedDate = '';
+
+      var firebaseConfigSubmit = {
+        apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
+        authDomain: "notes-12519.firebaseapp.com",
+        databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
+        projectId: "notes-12519",
+        storageBucket: "notes-12519.appspot.com",
+        messagingSenderId: "1073774450189",
+        appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
+        measurementId: "G-GZXYCJ33TR"
+      };
+
+      var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+      var databaseSubmit = firebaseSubmit.database().ref();
+      var listSubmit = $firebaseArray(databaseSubmit);
+
+      vm.submitData = function(image, index) {
+        var inputa = image.url;
+        var inputb = image.field2;
+        var inputc = image.field3;
+        var inputd = new Date().toLocaleDateString(); // Use the current date as the submission date
+
+        var newDataKey = databaseSubmit.push().key;
+
+        databaseSubmit.child(newDataKey).set({
+          field1: inputa,
+          field2: inputb,
+          field3: inputc,
+          submitDate: inputd
+        });
+
+        // Clear input fields after submission
+        image.url = '';
+        image.field2 = '';
+        image.field3 = '';
+        image.submitDate = '';
+      };
+
+      // Fetch submitted data
+      listSubmit.$loaded().then(function(data) {
+        vm.submittedData = data;
+        vm.uniqueNames = getUniqueNames(data);
+      });
+
+      vm.deleteData = function(dataId) {
+        databaseSubmit.child(dataId).remove();
+      };
+
+      function getUniqueNames(data) {
+        var uniqueNames = {};
+        data.forEach(function(item) {
+          if (!uniqueNames[item.field2]) {
+            uniqueNames[item.field2] = { data: [], dates: new Set() };
+          }
+          uniqueNames[item.field2].data.push(item);
+          uniqueNames[item.field2].dates.add(item.submitDate);
+        });
+        return uniqueNames;
+      }
+
+      vm.showDates = function(name) {
+        vm.currentKey = name;
+        // Convert Set to array, sort it, and assign to vm.uniqueDates
+        vm.uniqueDates = Array.from(vm.uniqueNames[name].dates).sort(function(a, b) {
+          return new Date(b) - new Date(a); // Sort dates in descending order
+        });
+      };
+
+      vm.filterByDate = function(date) {
+        vm.selectedDate = date;
+        vm.filteredData = vm.uniqueNames[vm.currentKey].data.filter(function(item) {
+          return item.submitDate === date;
+        });
+      };
+    });
+  </script>
 </body>
 </html>
