@@ -512,8 +512,7 @@ button, input, select, textarea {
 <div style="display: flex; align-items: center;">
     <!-- Input field for search with voice recognition -->
     <!-- Input field with datalist for autocomplete -->
-  <input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" 
-         ng-click="resetFilters()" list="productNames">
+  <input type="text" ng-model="searchQuery" placeholder="Search by product" id="topBtn" ng-click="resetFilters()" list="productNames">
 
   <!-- Datalist element with hardcoded options -->
   <datalist id="productNames">
@@ -687,23 +686,23 @@ function scrollToTop() {
  
 
 
-  <div class="tab-btns" onclick="scrollToTop()">
+<div class="tab-btns" onclick="scrollToTop()">
     <div class="tab-btn" ng-click="setTab('', 0)" ng-class="{ 'active': activeTab === 0 }">ALL PRODUCTS</div>
-    <div class="tab-btn" ng-click="setTab('OWN', 30)" ng-class="{ 'active': activeTab === 30 }">HT PRODUCTS</div>  
-    <div class="tab-btn" ng-click="setTab('PALNA', 29)" ng-class="{ 'active': activeTab === 29 }">PALNA</div>  
+    <div class="tab-btn" ng-click="setTab('OWN', 30)" ng-class="{ 'active': activeTab === 30 }">HT PRODUCTS</div>
+    <div class="tab-btn" ng-click="setTab('PALNA', 29)" ng-class="{ 'active': activeTab === 29 }">PALNA</div>
     <div class="tab-btn" ng-click="setTab('WALKER', 5)" ng-class="{ 'active': activeTab === 5 }">WALKER</div>
-    <div class="tab-btn" ng-click="setTab('UMBRELLA', 24)" ng-class="{ 'active': activeTab === 24 }">UMBRELLA</div>  
-    <div class="tab-btn" ng-click="setTab('LUNCH BOX', 28)" ng-class="{ 'active': activeTab === 28}">LUNCH BOX</div> 
-    <div class="tab-btn" ng-click="setTab('PENCIL BOX', 27)" ng-class="{ 'active': activeTab === 27}">PENCIL BOX</div>
-    <div class="tab-btn" ng-click="setTab('BOTTLE', 23)" ng-class="{ 'active': activeTab === 23 }">WATER BOTTLE</div>  
-    <div class="tab-btn" ng-click="setTab('HIGH QUALITY', 25)" ng-class="{ 'active': activeTab === 25 }">HIGH QUALITY INDIAN TOYS</div>  
-    <div class="tab-btn" ng-click="setTab('BOARD GAME', 26)" ng-class="{ 'active': activeTab === 26 }">BOARD GAME</div>  
+    <div class="tab-btn" ng-click="setTab('UMBRELLA', 24)" ng-class="{ 'active': activeTab === 24 }">UMBRELLA</div>
+    <div class="tab-btn" ng-click="setTab('LUNCH BOX', 28)" ng-class="{ 'active': activeTab === 28 }">LUNCH BOX</div>
+    <div class="tab-btn" ng-click="setTab('PENCIL BOX', 27)" ng-class="{ 'active': activeTab === 27 }">PENCIL BOX</div>
+    <div class="tab-btn" ng-click="setTab('BOTTLE', 23)" ng-class="{ 'active': activeTab === 23 }">WATER BOTTLE</div>
+    <div class="tab-btn" ng-click="setTab('HIGH QUALITY', 25)" ng-class="{ 'active': activeTab === 25 }">HIGH QUALITY INDIAN TOYS</div>
+    <div class="tab-btn" ng-click="setTab('BOARD GAME', 26)" ng-class="{ 'active': activeTab === 26 }">BOARD GAME</div>
     <div class="tab-btn" ng-click="setTab('INDIAN TOYS', 2)" ng-class="{ 'active': activeTab === 2 }">INDIAN TOYS</div>
-    <div class="tab-btn" ng-click="setTab('MIX', 9)" ng-class="{ 'active': activeTab === 9 }">MIX TOYS</div> 
+    <div class="tab-btn" ng-click="setTab('MIX', 9)" ng-class="{ 'active': activeTab === 9 }">MIX TOYS</div>
     <div class="tab-btn" ng-click="setTab('BATTERY', 13)" ng-class="{ 'active': activeTab === 13 }">BATTERY OPERATED</div>
     <div class="tab-btn" ng-click="setTab('REMOTE', 7)" ng-class="{ 'active': activeTab === 7 }">REMOTE CAR</div>
-    <div class="tab-btn" ng-click="setTab('EDUCATIONAL', 22)" ng-class="{ 'active': activeTab === 22 }">EDUCATIONAL TOYS</div> 
-    <div class="tab-btn" ng-click="setTab('INTEX', 21)" ng-class="{ 'active': activeTab === 21 }">INTEX ITEMS</div>  
+    <div class="tab-btn" ng-click="setTab('EDUCATIONAL', 22)" ng-class="{ 'active': activeTab === 22 }">EDUCATIONAL TOYS</div>
+    <div class="tab-btn" ng-click="setTab('INTEX', 21)" ng-class="{ 'active': activeTab === 21 }">INTEX ITEMS</div>
     <div class="tab-btn" ng-click="setTab('STUDY TABLE', 20)" ng-class="{ 'active': activeTab === 20 }">STUDY TABLE</div>
     <div class="tab-btn" ng-click="setTab('SOFT TOY', 19)" ng-class="{ 'active': activeTab === 19 }">SOFT TOY</div>
     <div class="tab-btn" ng-click="setTab('SPORTS', 18)" ng-class="{ 'active': activeTab === 18 }">SPORTS ITEM</div>
@@ -838,9 +837,10 @@ var app = angular.module('myApp', ['firebase']);
 app.controller('imagesController', function ($scope, $firebaseArray, $window, $location) {
     $scope.vm = this;
     $scope.vm.images = [];
-    $scope.sortOrder = ''; // No default sorting order 
+    $scope.sortOrder = ''; // No default sorting order
     $scope.dynamicField2Value = localStorage.getItem('name');
-
+    
+    // Firebase configuration for fetching and submitting data
     var firebaseConfigFetch = {
         apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
         authDomain: "htshop-e9c51.firebaseapp.com",
@@ -895,13 +895,15 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
         $scope.activeTab = tab;
         $location.search('filter', filter);
         $location.search('tab', tab);
+        $scope.resetFilters();
     };
-	
-	    $scope.resetFilters = function() {
-          $scope.productNameFilter = '';
-          $scope.activeTab = 0;
-          $scope.searchQuery = '';
-        };
+
+    // Function to reset filters
+    $scope.resetFilters = function() {
+        $scope.productNameFilter = '';
+        $scope.activeTab = 0;
+        $scope.searchQuery = '';
+    };
 
     // Optionally, you can add logic to filter `vm.images` based on `productNameFilter` and `activeTab` here
 
@@ -945,6 +947,8 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
 
         console.log("Data submitted to Firebase with date and time");
     };
+});
+</script>
 	
 	
 
