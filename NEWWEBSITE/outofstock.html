@@ -73,7 +73,7 @@
             if (searchType === "name") {
                 matchesSearch = data.name.toLowerCase().indexOf(searchQuery) !== -1;
             } else if (searchType === "partyCode") {
-                matchesSearch = data.partyCode && data.partyCode.toLowerCase().indexOf(searchQuery) !== -1;
+                matchesSearch = data.partyCode && data.partyCode.toLowerCase() === searchQuery;
             }
 
             if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
