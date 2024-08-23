@@ -64,7 +64,7 @@
     <input type="date" id="date" name="date" required>
 
     <label for="value">Value:</label>
-    <input type="number" id="value" name="value" required>
+    <input type="number" id="value" name="value" step="0.01" required>
 
     <button type="submit">Submit Data</button>
   </form>
@@ -73,14 +73,14 @@
     function initializeFirebase() {
       // Replace these values with your own Firebase configuration
       var firebaseConfig = {
-     apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
-  authDomain: "shop-reminder-3ce10.firebaseapp.com",
-  databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
-  projectId: "shop-reminder-3ce10",
-  storageBucket: "shop-reminder-3ce10.appspot.com",
-  messagingSenderId: "555627569260",
-  appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
-  measurementId: "G-BP5EYR6ET1"
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        authDomain: "shop-reminder-3ce10.firebaseapp.com",
+        databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+        projectId: "shop-reminder-3ce10",
+        storageBucket: "shop-reminder-3ce10.appspot.com",
+        messagingSenderId: "555627569260",
+        appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
+        measurementId: "G-BP5EYR6ET1"
       };
 
       // Initialize Firebase
@@ -125,7 +125,7 @@
 
         // Get form values
         var date = document.getElementById('date').value;
-        var value = parseInt(document.getElementById('value').value);
+        var value = parseFloat(document.getElementById('value').value); // Use parseFloat to accept decimals
 
         // Update chart data
         myChart.data.labels.push(date);
