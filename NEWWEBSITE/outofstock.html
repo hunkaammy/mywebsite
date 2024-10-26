@@ -15,6 +15,7 @@
 
 <script>
     var allData; // Global variable to hold the data
+    var selectedProductId = null; // Variable to hold the ID of the selected product
 
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -76,7 +77,8 @@
                 if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
                     (searchQuery === '' || matchesSearch)) {
 
-                    html += `<div class="product" id="${data.key}" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">`;
+                    html += `<div class="product" id="${data.key}" onclick="selectProduct('${data.key}')"
+                        style="border: 1px solid #ccc; margin: 10px; padding: 10px;">`;
                     html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
                     html += "<p><strong>Name:</strong> " + data.name + "</p>";
                     html += "<p><strong>Price:</strong> " + data.price + " USD</p>";
@@ -93,65 +95,44 @@
         output.innerHTML = foundProduct ? html : "<p>No products found matching the search criteria.</p>";
     }
 
-    // Allow dropping
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-
-    // Set data for drag
-    function drag(event) {
-        event.dataTransfer.setData("text/plain", event.target.id); // Set the ID of the dragged item
-        console.log("Dragging ID:", event.target.id);
-    }
-
-    // Handle drop
-    function drop(event) {
-        event.preventDefault();
-
-        var draggedId = event.dataTransfer.getData("text/plain");
-        var targetElement = event.target.closest('.product');
-
-        if (targetElement) {
-            var targetId = targetElement.id;
-
-            if (draggedId !== targetId) {
-                updateProductOrder(draggedId, targetId);
-            } else {
-                console.warn("Cannot drop an item on itself.");
-            }
+    // Select a product
+    function selectProduct(productId) {
+        if (selectedProductId === null) {
+            selectedProductId = productId; // First selection
+            alert("Product selected: " + productId);
         } else {
-            console.error("Drop target is not a valid product.");
+            dropProduct(selectedProductId, productId); // Second selection
+            selectedProductId = null; // Reset selection
         }
     }
 
     // Update product order
-    function updateProductOrder(draggedId, targetId) {
-        const draggedElement = allData[draggedId];
+    function dropProduct(selectedId, targetId) {
+        const selectedElement = allData[selectedId];
         const targetElement = allData[targetId];
 
         // Validate both elements are defined
-        if (!draggedElement || !targetElement) {
-            console.error("Either dragged or target element is undefined");
-            console.log(" draggedElement:", draggedElement);
-            console.log(" targetElement:", targetElement);
+        if (!selectedElement || !targetElement) {
+            console.error("Either selected or target element is undefined.");
             return; // Prevent further execution if undefined
         }
 
         // Log the elements before swapping
         console.log("Before Swapping:", {
-            draggedElement: draggedElement,
+            selectedElement: selectedElement,
             targetElement: targetElement
         });
 
         // Swap product dates (or whatever property needs to be swapped)
-        const tempDate = draggedElement.date;
-        draggedElement.date = targetElement.date;
+        const tempDate = selectedElement.date;
+        selectedElement.date = targetElement.date;
         targetElement.date = tempDate;
 
         // Update the Firebase database
-        database.ref(draggedId).set(draggedElement).then(() => {
-            console.log("Dragged element updated in the database.");
+        database.ref(selectedId).set(selectedElement).then(() => {
+            console.log("Selected element updated in the database.");
         });
+
         database.ref(targetId).set(targetElement).then(() => {
             console.log("Target element updated in the database.");
         });
@@ -203,6 +184,4 @@
 
 </body>
 
-  
-  
 </html>
