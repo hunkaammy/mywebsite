@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +9,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
-
 <body>
 
 <script>
-    var allData; // Global variable to hold the data
+    var allData = {}; // Global variable to hold the data
     var selectedProductId = null; // Variable to hold the ID of the selected product
 
     // Your web app's Firebase configuration
@@ -31,23 +29,18 @@
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    
+
     // Reference to your database
     var database = firebase.database();
 
     // Fetch data from the root of the database
     database.ref().on("value", function(snapshot) {
-        allData = snapshot.val(); // Update the global variable
-        console.log("All Data:", allData);
-        if (allData) {
-            displayProductDetails(allData);
-        } else {
-            console.error("No data available.");
-        }
+        allData = snapshot.val() || {}; // Update the global variable
+        displayProductDetails(allData); // Refresh display
     });
 
     // Function to display product details
-    function displayProductDetails(allData) {
+    function displayProductDetails(data) {
         var output = document.getElementById("output");
         var html = "<h2>Product Details:</h2>";
 
@@ -55,38 +48,29 @@
         var searchType = document.querySelector('input[name="searchType"]:checked').value;
         var searchQuery = document.getElementById("search").value.trim().toLowerCase();
 
-        console.log("Search Query:", searchQuery);
+        // Convert data object to an array for sorting and display
+        var dataArray = Object.keys(data).map(key => ({ key, ...data[key] }));
 
-        // Convert allData object to an array for sorting and display
-        var dataArray = Object.keys(allData).map(key => ({ key, ...allData[key] }));
         dataArray.sort((a, b) => new Date(b.date) - new Date(a.date));
-
         var foundProduct = false;
 
-        // Iterate over sorted array
         dataArray.forEach(data => {
             if (data.url && data.price && data.outOfStock !== undefined && data.name && data.date) {
-                var matchesSearch = false;
-
-                if (searchType === "name") {
-                    matchesSearch = data.name.toLowerCase().includes(searchQuery);
-                } else if (searchType === "partyCode") {
-                    matchesSearch = data.partyCode && data.partyCode.toLowerCase() === searchQuery;
-                }
+                var matchesSearch = (searchType === "name") ?
+                    data.name.toLowerCase().includes(searchQuery) :
+                    (data.partyCode && data.partyCode.toLowerCase() === searchQuery);
 
                 if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
                     (searchQuery === '' || matchesSearch)) {
-
                     html += `<div class="product" id="${data.key}" onclick="selectProduct('${data.key}')"
                         style="border: 1px solid #ccc; margin: 10px; padding: 10px;">`;
-                    html += '<img src="' + data.url + '" loading="lazy" alt="Product Image" width="100">';
-                    html += "<p><strong>Name:</strong> " + data.name + "</p>";
-                    html += "<p><strong>Price:</strong> " + data.price + " USD</p>";
-                    html += "<p><strong>Party code:</strong> " + (data.partyCode || 'N/A') + "</p>";
-                    html += "<p><strong>Out of Stock:</strong> " + (data.outOfStock ? "Yes" : "No") + "</p>";
-                    html += "<p><strong>Date:</strong> " + new Date(data.date).toLocaleString() + "</p>";
-                    html += '<button onclick="deleteProduct(\'' + data.key + '\')">Delete Product</button></div>';
-
+                    html += `<img src="${data.url}" loading="lazy" alt="Product Image" width="100">`;
+                    html += `<p><strong>Name:</strong> ${data.name}</p>`;
+                    html += `<p><strong>Price:</strong> ${data.price} USD</p>`;
+                    html += `<p><strong>Party code:</strong> ${data.partyCode || 'N/A'}</p>`;
+                    html += `<p><strong>Out of Stock:</strong> ${data.outOfStock ? "Yes" : "No"}</p>`;
+                    html += `<p><strong>Date:</strong> ${new Date(data.date).toLocaleString()}</p>`;
+                    html += `<button onclick="deleteProduct('${data.key}')">Delete Product</button></div>`;
                     foundProduct = true;
                 }
             }
@@ -101,40 +85,34 @@
             selectedProductId = productId; // First selection
             alert("Product selected: " + productId);
         } else {
-            dropProduct(selectedProductId, productId); // Second selection
+            dropProduct(selectedProductId, productId); // Move product
             selectedProductId = null; // Reset selection
         }
     }
 
-    // Update product order
+    // Move product to a new position
     function dropProduct(selectedId, targetId) {
+        if (selectedId === targetId) return; // Prevent moving to the same position
+
         const selectedElement = allData[selectedId];
         const targetElement = allData[targetId];
 
         // Validate both elements are defined
         if (!selectedElement || !targetElement) {
             console.error("Either selected or target element is undefined.");
-            return; // Prevent further execution if undefined
+            return;
         }
 
-        // Log the elements before swapping
-        console.log("Before Swapping:", {
-            selectedElement: selectedElement,
-            targetElement: targetElement
-        });
+        // Create a new ordering
+        const newDataArray = Object.keys(allData).map(key => allData[key]);
 
-        // Swap product dates (or whatever property needs to be swapped)
-        const tempDate = selectedElement.date;
-        selectedElement.date = targetElement.date;
-        targetElement.date = tempDate;
+        const targetIndex = newDataArray.findIndex(item => item.key === targetId);
+        newDataArray.splice(targetIndex, 0, newDataArray.splice(newDataArray.findIndex(item => item.key === selectedId), 1)[0]);
 
-        // Update the Firebase database
-        database.ref(selectedId).set(selectedElement).then(() => {
-            console.log("Selected element updated in the database.");
-        });
-
-        database.ref(targetId).set(targetElement).then(() => {
-            console.log("Target element updated in the database.");
+        // Update the database with new order
+        newDataArray.forEach((data, index) => {
+            const newDate = new Date();
+            database.ref(data.key).set({ ...data, date: newDate.toISOString() });
         });
 
         // Refresh displayed products
@@ -183,5 +161,4 @@
 <div id="output"></div>
 
 </body>
-
 </html>
