@@ -1,91 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Realtime Database Example</title>
-  <!-- Add Firebase to your web app -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Realtime Database Example</title>
+
+    <!-- Add Firebase to your web app -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
 
 <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-    authDomain: "htshop-e9c51.firebaseapp.com",
-    databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-    projectId: "htshop-e9c51",
-    storageBucket: "htshop-e9c51.appspot.com",
-    messagingSenderId: "653137640907",
-    appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-    measurementId: "G-FJ4Q0FHBEG"
-  };
+    var allData = {}; // Global variable to hold the data
+    var selectedProductId = null; // Variable to hold the ID of the selected product
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+        authDomain: "htshop-e9c51.firebaseapp.com",
+        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+        projectId: "htshop-e9c51",
+        storageBucket: "htshop-e9c51.appspot.com",
+        messagingSenderId: "653137640907",
+        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+        measurementId: "G-FJ4Q0FHBEG"
+    };
 
-  // Reference to your database
-  var database = firebase.database();
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-  // Fetch data from the root of the database
-  database.ref().on("value", function(snapshot) {
-    // The snapshot.val() contains all data at the root
-    var allData = snapshot.val();
-    console.log(allData);
+    // Reference to your database
+    var database = firebase.database();
 
-    // Display the "url" and "outOfStock" field values based on the selected filter
-    displayProductDetails(allData);
-  });
+    // Fetch data from the root of the database
+    database.ref().on("value", function(snapshot) {
+        allData = snapshot.val() || {}; // Update the global variable
+        displayProductDetails(allData); // Refresh display
+    });
 
-  // Function to display "url" and "outOfStock" field values based on the selected filter
-  function displayProductDetails(allData) {
-    var output = document.getElementById("output");
-    output.innerHTML = "<h2>Product Details:</h2>";
+    // Function to display product details
+    function displayProductDetails(data) {
+        var output = document.getElementById("output");
+        var html = "<h2>Product Details:</h2>";
 
-    // Get the selected filter value
-    var filterValue = document.querySelector('input[name="filter"]:checked').value;
+        var filterValue = document.querySelector('input[name="filter"]:checked').value;
+        var searchType = document.querySelector('input[name="searchType"]:checked').value;
+        var searchQuery = document.getElementById("search").value.trim().toLowerCase();
 
-    for (var dataKey in allData) {
-      if (allData.hasOwnProperty(dataKey) && allData[dataKey].url && allData[dataKey].outOfStock !== undefined) {
-        // Check if the current entry matches the selected filter
-        if ((filterValue === "true" && allData[dataKey].outOfStock) || (filterValue === "false" && !allData[dataKey].outOfStock)) {
-          output.innerHTML += "<p><strong>Out of Stock:</strong> " + allData[dataKey].outOfStock + "</p>";
-          // Add lazy-loaded image with src from the "url" field and set a small width
-          output.innerHTML += '<img src="' + allData[dataKey].url + '" loading="lazy" alt="Product Image" width="100">';
-          
-          // Add delete button with data-key attribute to identify the key for deletion
-          output.innerHTML += '<button onclick="deleteProduct(\'' + dataKey + '\')">Delete Product</button>';
-        }
-      }
-    }
-  }
+        // Convert data object to an array for sorting and display
+        var dataArray = Object.keys(data).map(key => ({ key, ...data[key] }));
 
-  // Function to delete a product by key
-  function deleteProduct(key) {
-    var confirmDelete = confirm("Are you sure you want to delete this product?");
-    if (confirmDelete) {
-      // Remove the product from the database
-      database.ref(key).remove()
-        .then(function() {
-          console.log("Product deleted successfully");
-        })
-        .catch(function(error) {
-          console.error("Error deleting product: ", error);
+        dataArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+        var foundProduct = false;
+
+        dataArray.forEach(data => {
+            if (data.url && data.price && data.outOfStock !== undefined && data.name && data.date) {
+                var matchesSearch = (searchType === "name") ?
+                    data.name.toLowerCase().includes(searchQuery) :
+                    (data.partyCode && data.partyCode.toLowerCase() === searchQuery);
+
+                if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
+                    (searchQuery === '' || matchesSearch)) {
+                    html += `<div class="product" id="${data.key}" onclick="selectProduct('${data.key}')"
+                        style="border: 1px solid #ccc; margin: 10px; padding: 10px;">`;
+                    html += `<img src="${data.url}" loading="lazy" alt="Product Image" width="100">`;
+                    html += `<p><strong>Name:</strong> ${data.name}</p>`;
+                    html += `<p><strong>Price:</strong> ${data.price} USD</p>`;
+                    html += `<p><strong>Party code:</strong> ${data.partyCode || 'N/A'}</p>`;
+                    html += `<p><strong>Out of Stock:</strong> ${data.outOfStock ? "Yes" : "No"}</p>`;
+                    html += `<p><strong>Date:</strong> ${new Date(data.date).toLocaleString()}</p>`;
+                    html += `<button onclick="deleteProduct('${data.key}')">Delete Product</button></div>`;
+                    foundProduct = true;
+                }
+            }
         });
+
+        output.innerHTML = foundProduct ? html : "<p>No products found matching the search criteria.</p>";
     }
-  }
+
+    // Select a product
+    function selectProduct(productId) {
+        if (selectedProductId === null) {
+            selectedProductId = productId; // First selection
+            alert("Product selected: " + productId);
+        } else {
+            dropProduct(selectedProductId, productId); // Move product
+            selectedProductId = null; // Reset selection
+        }
+    }
+
+    // Move product to a new position
+    function dropProduct(selectedId, targetId) {
+        if (selectedId === targetId) return; // Prevent moving to the same position
+
+        const selectedElement = allData[selectedId];
+        const targetElement = allData[targetId];
+
+        // Validate both elements are defined
+        if (!selectedElement || !targetElement) {
+            console.error("Either selected or target element is undefined.");
+            return;
+        }
+
+        // Create a new ordering
+        const newDataArray = Object.keys(allData).map(key => allData[key]);
+
+        const targetIndex = newDataArray.findIndex(item => item.key === targetId);
+        newDataArray.splice(targetIndex, 0, newDataArray.splice(newDataArray.findIndex(item => item.key === selectedId), 1)[0]);
+
+        // Update the database with new order
+        newDataArray.forEach((data, index) => {
+            const newDate = new Date();
+            database.ref(data.key).set({ ...data, date: newDate.toISOString() });
+        });
+
+        // Refresh displayed products
+        displayProductDetails(allData);
+    }
+
+    // Delete product function
+    function deleteProduct(key) {
+        var confirmDelete = confirm("Are you sure you want to delete this product?");
+        if (confirmDelete) {
+            database.ref(key).remove()
+                .then(function () {
+                    console.log("Product deleted successfully");
+                })
+                .catch(function (error) {
+                    console.error("Error deleting product: ", error);
+                });
+        }
+    }
 </script>
 
 <!-- Form for filtering data -->
 <form>
-  <label>
-    <input type="radio" name="filter" value="true" checked> Show Out of Stock
-  </label>
+    <label>
+        <input type="radio" name="filter" value="true" checked> Show Out of Stock
+    </label>
+    <label>
+        <input type="radio" name="filter" value="false"> Show In Stock
+    </label>
 </form>
 
-<!-- Display area for "url" and "outOfStock" field values -->
+<!-- Form for selecting search type -->
+<form>
+    <label>
+        <input type="radio" name="searchType" value="name" checked> Search by Name
+    </label>
+    <label>
+        <input type="radio" name="searchType" value="partyCode"> Search by Party Code
+    </label>
+</form>
+
+<!-- Input field for searching by name or party code -->
+<input type="text" id="search" placeholder="Search by name or party code" oninput="displayProductDetails(allData)">
+
+<!-- Display area for product details -->
 <div id="output"></div>
 
 </body>
