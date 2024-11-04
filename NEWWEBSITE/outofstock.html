@@ -19,11 +19,10 @@
             font-size: 24px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
         }
-        .tabs  {
-    text-align: center;
-    margin-top: -5px;
-    position: fixed;
-}
+        .tabs {
+            text-align: center;
+            margin: 15px 0;
+        }
         .tab-button {
             background-color: #fff; /* White tabs */
             color: #4CAF50; /* Green text */
@@ -40,7 +39,7 @@
         }
         .search-input {
             position: fixed; /* Fixed search bar */
-            top: 5px; /* Space from the top, below header */
+            top: 80px; /* Space from the top, below header */
             left: 20px; /* Space from the left */
             right: 20px; /* Space from the right */
             padding: 10px;
@@ -97,14 +96,17 @@
 </head>
 <body>
 
-<!-- Search Bar for Global Use -->
-<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
+<header>
+    Firebase Image CRUD with Stock Status
+</header>
+
 <div class="tabs">
     <button class="tab-button" onclick="showTab('inStock')">In Stock</button>
     <button class="tab-button" onclick="showTab('outOfStock')">Out of Stock</button>
 </div>
 
-
+<!-- Search Bar for Global Use -->
+<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
 
 <!-- In Stock Tab -->
 <div id="inStock" class="tabContent">
@@ -155,13 +157,12 @@
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
-                    
-                    <img src="${item.url}" style="max-width: 200px;" alt="${item.name}">
-					<p><strong>${item.name}</strong></p>
+                    <p><strong>${item.name}</strong></p>
                     <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
                     <p>Fetch Date: ${fetchDate}</p> <!-- Display Fetch Date -->
-                    <small>Last Modified: ${lastModifiedDate}</small> <!-- Display Last Modified Date -->
+                    <img src="${item.url}" style="max-width: 100px;" alt="${item.name}">
+                    <p>Last Modified: ${lastModifiedDate}</p> <!-- Display Last Modified Date -->
                 </div>
                 <div>
                     <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
@@ -171,7 +172,7 @@
             </div>
         `;
     }
-
+    
     function toggleStock(event, itemId, currentStatus) {
         event.stopPropagation(); // Prevent event bubbling
         const newStatus = !currentStatus; // Toggle the status
@@ -240,7 +241,10 @@
             // Sort items by fetch date in descending order for in-stock items
             const inStockItems = itemList.filter(item => !item.outOfStock)
                                          .sort((a, b) => new Date(b.date) - new Date(a.date));
-            const outOfStockItems = itemList.filter(item => item.outOfStock);
+
+            // Sort items by last modified date in descending order for out-of-stock items
+            const outOfStockItems = itemList.filter(item => item.outOfStock)
+                                             .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
 
             // Update the displayed HTML
             const inStockContainer = document.querySelector('.inStockContent');
