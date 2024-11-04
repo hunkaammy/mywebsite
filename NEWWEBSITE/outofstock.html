@@ -49,11 +49,11 @@
             font-size: 16px; /* Font size */
             z-index: 10; /* Keep it above other content */
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Shadow */
-            transition: border-color 0.3s; /* Smooth transition for border color */
+            transition: border-color 0.3s;
         }
         .search-input:focus {
-            outline: none; /* No outline on focus */
-            border-color: #45a049; /* Darker green on focus */
+            outline: none;
+            border-color: #45a049;
         }
         .tabContent {
             display: none; /* Start hidden */
@@ -106,7 +106,7 @@
 </div>
 
 <!-- Search Bar for Global Use -->
-<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name..." oninput="filterGlobal()">
+<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
 
 <!-- In Stock Tab -->
 <div id="inStock" class="tabContent">
@@ -156,65 +156,13 @@
         fetchImages(); // Refresh items when switching tabs
     }
 
-    function fetchImages() {
-        // Fetching data from Firebase
-        database.ref().orderByChild('date').on('value', (snapshot) => {
-            const inStockContainer = document.querySelector('.inStockContent');
-            const outOfStockContainer = document.querySelector('.outOfStockContent');
-            const outOfStockItems = []; // Temporary array for out of stock items
-
-            inStockContainer.innerHTML = ''; // Clear existing content
-            outOfStockContainer.innerHTML = ''; // Clear existing content
-
-            snapshot.forEach(childSnapshot => {
-                const imageUrl = childSnapshot.val().url;
-                const name = childSnapshot.val().name;
-                const price = childSnapshot.val().price;
-                const outOfStock = childSnapshot.val().outOfStock;
-                const lastModified = childSnapshot.val().lastModified || Date.now(); // Default to now if not set
-                const partyCode = childSnapshot.val().partyCode; // Fetch party code
-                const itemId = childSnapshot.key; // Get the item ID
-
-                // Create an item object
-                const item = {
-                    id: itemId,
-                    imageUrl,
-                    name,
-                    price,
-                    partyCode,
-                    outOfStock,
-                    lastModified: new Date(lastModified) // Convert to Date object
-                };
-
-                if (outOfStock) {
-                    outOfStockItems.push(item); // Add to the outOfStock array
-                } else {
-                    // Show in-stock item
-                    const itemHTML = createItemHTML(item);
-                    inStockContainer.innerHTML += itemHTML;
-                }
-            });
-
-            // Sort out of stock items by last modified date descending
-            outOfStockItems.sort((a, b) => b.lastModified - a.lastModified);
-
-            // Display the sorted out of stock items
-            outOfStockItems.forEach(item => {
-                const itemHTML = createItemHTML(item);
-                outOfStockContainer.innerHTML += itemHTML;
-            });
-        }, (error) => {
-            console.error("Error fetching data:", error);
-        });
-    }
-
     function createItemHTML(item) {
         const modifiedDate = item.lastModified.toLocaleString(); // Format the date
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
                     <p><strong>${item.name}</strong></p>
-                    <p>Price: $${item.price}</p>
+                    <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
                     <img src="${item.imageUrl}" style="max-width: 100px;" alt="${item.name}">
                     <p>Last Modified: ${modifiedDate}</p>
@@ -228,7 +176,6 @@
         `;
     }
 
-    // Function to toggle stock status and update last modified
     function toggleStock(itemId, currentStatus) {
         const newStatus = !currentStatus; // Toggle the status
         const timestamp = new Date().toISOString(); // Get current timestamp
@@ -246,17 +193,59 @@
         });
     }
 
-    // Global filter function
+    let debounceTimer;
     function filterGlobal() {
-        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
-        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])'); // Find the currently displayed tab
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchInput = document.getElementById('globalSearch').value.toLowerCase();
+            const currentTab = document.querySelector('.tabContent:not([style*="display: none"])'); // Find the currently displayed tab
 
-        const items = currentTab.querySelectorAll('.product-item'); // Only filter products in the currently visible tab
+            const items = currentTab.querySelectorAll('.product-item'); // Only filter products in the currently visible tab
 
-        items.forEach(item => {
-            const itemName = item.dataset.name; // Access the name from data attribute
-            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Show or hide
-        });
+            items.forEach(item => {
+                const itemName = item.dataset.name; // Access the name from data attribute
+                item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Show or hide
+            });
+        }, 300); // Adjust the debounce delay as necessary
+    }
+
+    function fetchImages() {
+        // Fetching data from Firebase
+        database.ref().orderByChild('date').once('value')
+        .then(snapshot => {
+            const inStockHTML = [];
+            const outOfStockItems = []; // Temporary array for out of stock items
+
+            snapshot.forEach(childSnapshot => {
+                const itemData = childSnapshot.val();
+                const item = {
+                    id: childSnapshot.key,
+                    imageUrl: itemData.url,
+                    name: itemData.name,
+                    price: itemData.price,
+                    partyCode: itemData.partyCode,
+                    outOfStock: itemData.outOfStock,
+                    lastModified: new Date(itemData.lastModified || Date.now())
+                };
+
+                if (item.outOfStock) {
+                    outOfStockItems.push(item);
+                } else {
+                    inStockHTML.push(createItemHTML(item));
+                }
+            });
+
+            // Render all in-stock items in one go
+            const inStockContainer = document.querySelector('.inStockContent');
+            inStockContainer.innerHTML = inStockHTML.join('');
+
+            // Sort and handle out-of-stock items as needed
+            outOfStockItems.sort((a, b) => b.lastModified - a.lastModified);
+            const outOfStockContainer = document.querySelector('.outOfStockContent');
+            outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
+
+        })
+        .catch(error => console.error("Error fetching data:", error));
     }
 
     // Call function to fetch images when the page loads

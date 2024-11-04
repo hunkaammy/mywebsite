@@ -48,12 +48,7 @@
             border-radius: 5px; /* Rounded corners */
             font-size: 16px; /* Font size */
             z-index: 10; /* Keep it above other content */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Shadow */
-            transition: border-color 0.3s; /* Smooth transition for border color */
-        }
-        .search-input:focus {
-            outline: none; /* No outline on focus */
-            border-color: #45a049; /* Darker green on focus */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow */
         }
         .tabContent {
             display: none; /* Start hidden */
@@ -106,7 +101,7 @@
 </div>
 
 <!-- Search Bar for Global Use -->
-<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name..." oninput="filterGlobal()">
+<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
 
 <!-- In Stock Tab -->
 <div id="inStock" class="tabContent">
@@ -123,6 +118,8 @@
         <!-- Out-of-stock items will be displayed here -->
     </div>
 </div>
+
+<button id="loadMore" onclick="fetchImages(true)" style="display: none;">Load More</button>
 
 <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
 <script>
@@ -142,70 +139,18 @@
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
+    let lastLoadedKey = null;
+    const limit = 10; // Number of items to load at a time
+
     function showTab(tabName) {
         const tabs = document.querySelectorAll('.tabContent');
-
         tabs.forEach(tab => {
             tab.style.display = 'none'; // Hide all tabs
         });
-
         document.getElementById(tabName).style.display = 'block'; // Show the selected tab
-
         // Reset the search bar whenever a new tab is shown
         document.getElementById('globalSearch').value = '';
         fetchImages(); // Refresh items when switching tabs
-    }
-
-    function fetchImages() {
-        // Fetching data from Firebase
-        database.ref().orderByChild('date').on('value', (snapshot) => {
-            const inStockContainer = document.querySelector('.inStockContent');
-            const outOfStockContainer = document.querySelector('.outOfStockContent');
-            const outOfStockItems = []; // Temporary array for out of stock items
-
-            inStockContainer.innerHTML = ''; // Clear existing content
-            outOfStockContainer.innerHTML = ''; // Clear existing content
-
-            snapshot.forEach(childSnapshot => {
-                const imageUrl = childSnapshot.val().url;
-                const name = childSnapshot.val().name;
-                const price = childSnapshot.val().price;
-                const outOfStock = childSnapshot.val().outOfStock;
-                const lastModified = childSnapshot.val().lastModified || Date.now(); // Default to now if not set
-                const partyCode = childSnapshot.val().partyCode; // Fetch party code
-                const itemId = childSnapshot.key; // Get the item ID
-
-                // Create an item object
-                const item = {
-                    id: itemId,
-                    imageUrl,
-                    name,
-                    price,
-                    partyCode,
-                    outOfStock,
-                    lastModified: new Date(lastModified) // Convert to Date object
-                };
-
-                if (outOfStock) {
-                    outOfStockItems.push(item); // Add to the outOfStock array
-                } else {
-                    // Show in-stock item
-                    const itemHTML = createItemHTML(item);
-                    inStockContainer.innerHTML += itemHTML;
-                }
-            });
-
-            // Sort out of stock items by last modified date descending
-            outOfStockItems.sort((a, b) => b.lastModified - a.lastModified);
-
-            // Display the sorted out of stock items
-            outOfStockItems.forEach(item => {
-                const itemHTML = createItemHTML(item);
-                outOfStockContainer.innerHTML += itemHTML;
-            });
-        }, (error) => {
-            console.error("Error fetching data:", error);
-        });
     }
 
     function createItemHTML(item) {
@@ -214,7 +159,7 @@
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
                     <p><strong>${item.name}</strong></p>
-                    <p>Price: $${item.price}</p>
+                    <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
                     <img src="${item.imageUrl}" style="max-width: 100px;" alt="${item.name}">
                     <p>Last Modified: ${modifiedDate}</p>
@@ -228,12 +173,78 @@
         `;
     }
 
-    // Function to toggle stock status and update last modified
+    function fetchImages(loadMore = false) {
+        let databaseRef = database.ref().orderByChild('date').limitToFirst(limit + 1);
+        if (lastLoadedKey) {
+            databaseRef = databaseRef.startAt(lastLoadedKey);
+        }
+
+        databaseRef.on('value', (snapshot) => {
+            const inStockContainer = document.querySelector('.inStockContent');
+            const outOfStockContainer = document.querySelector('.outOfStockContent');
+            const outOfStockItems = [];
+
+            let isLoadingMore = false;
+            if (loadMore) {
+                isLoadingMore = true; // Set the flag if loading more items
+            }
+
+            if (!isLoadingMore) {
+                inStockContainer.innerHTML = ''; // Clear existing content
+                outOfStockContainer.innerHTML = ''; // Clear existing content
+            }
+
+            snapshot.forEach(childSnapshot => {
+                const imageUrl = childSnapshot.val().url;
+                const name = childSnapshot.val().name;
+                const price = childSnapshot.val().price;
+                const outOfStock = childSnapshot.val().outOfStock;
+                const lastModified = childSnapshot.val().lastModified || Date.now();
+                const partyCode = childSnapshot.val().partyCode;
+                const itemId = childSnapshot.key;
+
+                const item = {
+                    id: itemId,
+                    imageUrl,
+                    name,
+                    price,
+                    partyCode,
+                    outOfStock,
+                    lastModified: new Date(lastModified)
+                };
+
+                if (outOfStock) {
+                    outOfStockItems.push(item);
+                } else {
+                    const itemHTML = createItemHTML(item);
+                    inStockContainer.innerHTML += itemHTML;
+                }
+
+                lastLoadedKey = itemId; // Keep track of last loaded key
+            });
+
+            // Handle out-of-stock items...
+            outOfStockItems.sort((a, b) => b.lastModified - a.lastModified);
+            outOfStockItems.forEach(item => {
+                const itemHTML = createItemHTML(item);
+                outOfStockContainer.innerHTML += itemHTML;
+            });
+
+            // Show load more button if there are more items to load
+            if (snapshot.numChildren() < limit + 1) {
+                document.getElementById('loadMore').style.display = 'none';
+            } else {
+                document.getElementById('loadMore').style.display = 'block';
+            }
+        }, (error) => {
+            console.error("Error fetching data:", error);
+        });
+    }
+
     function toggleStock(itemId, currentStatus) {
         const newStatus = !currentStatus; // Toggle the status
         const timestamp = new Date().toISOString(); // Get current timestamp
 
-        // Update the Firebase database with the new status and the last modified timestamp
         database.ref().child(itemId).update({ 
             outOfStock: newStatus,
             lastModified: timestamp 
@@ -246,11 +257,9 @@
         });
     }
 
-    // Global filter function
     function filterGlobal() {
         const searchInput = document.getElementById('globalSearch').value.toLowerCase();
         const currentTab = document.querySelector('.tabContent:not([style*="display: none"])'); // Find the currently displayed tab
-
         const items = currentTab.querySelectorAll('.product-item'); // Only filter products in the currently visible tab
 
         items.forEach(item => {
@@ -259,10 +268,15 @@
         });
     }
 
-    // Call function to fetch images when the page loads
     window.onload = () => {
         showTab('inStock'); // Default to show "In Stock" tab
         fetchImages(); // Load initial items
+    };
+
+    window.onscroll = () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            fetchImages(true); // Load more items as user scrolls
+        }
     };
 </script>
 
