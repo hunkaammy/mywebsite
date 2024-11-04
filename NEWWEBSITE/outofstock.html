@@ -155,12 +155,13 @@
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
-                    <p><strong>${item.name}</strong></p>
+                    
+                    <img src="${item.url}" style="max-width: 250px;" alt="${item.name}">
+					<p><strong>${item.name}</strong></p>
                     <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
                     <p>Fetch Date: ${fetchDate}</p> <!-- Display Fetch Date -->
-                    <img src="${item.url}" style="max-width: 100px;" alt="${item.name}">
-                    <p>Last Modified: ${lastModifiedDate}</p> <!-- Display Last Modified Date -->
+                    <small>Last Modified: ${lastModifiedDate}</small> <!-- Display Last Modified Date -->
                 </div>
                 <div>
                     <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
