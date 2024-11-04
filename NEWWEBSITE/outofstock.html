@@ -5,41 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Image CRUD with Stock Status</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8; /* Light background for contrast */
-            margin: 0;
-            padding: 0;
-        }
+        body{
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
         header {
-            background-color: #4CAF50; /* Greenish header */
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            font-size: 24px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
-        }
-        .tabs {
-            text-align: center;
-            margin: 15px 0;
-        }
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    top: 0px;
+    height: 69px;
+    width: 100%;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+        .tabs  {
+    text-align: center;
+    margin-top: -5px;
+    position: fixed;
+}
         .tab-button {
-            background-color: #fff; /* White tabs */
-            color: #4CAF50; /* Green text */
-            border: 2px solid #4CAF50; /* Green border */
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            margin: 0 5px; /* Space between buttons */
-        }
+    border: 2px solid #4CAF50;
+    background: #4CAF50;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 5px;
+}
         .tab-button:hover {
-            background-color: #4CAF50; /* Green background on hover */
-            color: white; /* White text on hover */
-        }
+    color: black;
+    background: white;
+}
         .search-input {
             position: fixed; /* Fixed search bar */
-            top: 80px; /* Space from the top, below header */
+            top: 5px; /* Space from the top, below header */
             left: 20px; /* Space from the left */
             right: 20px; /* Space from the right */
             padding: 10px;
@@ -92,7 +97,7 @@
         .toggle-button:hover {
             background-color: #45a049; /* Darker green on hover */
         }
-    </style>
+   </style>
 </head>
 <body>
 
@@ -157,12 +162,13 @@
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
-                    <p><strong>${item.name}</strong></p>
+                   
+                    <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
+					 <p><strong>${item.name}</strong></p>
                     <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
                     <p>Fetch Date: ${fetchDate}</p> <!-- Display Fetch Date -->
-                    <img src="${item.url}" style="max-width: 100px;" alt="${item.name}">
-                    <p>Last Modified: ${lastModifiedDate}</p> <!-- Display Last Modified Date -->
+                    <small>Last Modified: ${lastModifiedDate}</small> <!-- Display Last Modified Date -->
                 </div>
                 <div>
                     <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
