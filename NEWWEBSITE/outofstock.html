@@ -189,8 +189,8 @@
                 <div>
                     <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
                         ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                    </button>
-                    <button class="delete-button" onclick="deleteItem('${item.id}', '${item.url}')">Delete</button>
+                    </button> <br><br><br>
+                    <button class="delete-button" style=" background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
                 </div>
             </div>
         `;
