@@ -804,11 +804,11 @@ function scrollToTop() {
             WALKER
         </div>
         <div class="tab-item" ng-click="setTab('LUNCH BOX', 28)" ng-class="{ 'active': activeTab === 28 }">
-            <img src="path/to/lunch-box.jpg" alt="Lunch Box">
+            <img src="https://www.hindustantoys.in/images/lunchbox.jpeg" alt="Lunch Box">
             LUNCH BOX
         </div>
         <div class="tab-item" ng-click="setTab('PENCIL BOX', 27)" ng-class="{ 'active': activeTab === 27 }">
-            <img src="path/to/pencil-box.jpg" alt="Pencil Box">
+            <img src="https://firebasestorage.googleapis.com/v0/b/pagdi-6f8ce.appspot.com/o/2024-10-30T05%3A48%3A54.259Z_PENCIL%20BOX_IMG-20241029-WA0025.jpg?alt=media&token=66877a4b-771b-47bf-b591-b6a806cf74a9" alt="Pencil Box">
             PENCIL BOX
         </div>
         <div class="tab-item" ng-click="setTab('BOTTLE', 23)" ng-class="{ 'active': activeTab === 23 }">
@@ -1005,7 +1005,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
     $scope.dynamicField2Value = localStorage.getItem('name');
 
     var firebaseConfigFetch = {
-     apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+      apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
   authDomain: "htshop-e9c51.firebaseapp.com",
   databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
   projectId: "htshop-e9c51",
@@ -1013,8 +1013,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
   messagingSenderId: "653137640907",
   appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
   measurementId: "G-FJ4Q0FHBEG"
-};
-
+    };
 
     var firebaseConfigSubmit = {
         apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
@@ -1226,6 +1225,7 @@ $('document').ready(function(){
 </div>
 
 <script>
+
     var firebaseConfig = {
         apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
         authDomain: "shop-reminder-3ce10.firebaseapp.com",
@@ -1248,7 +1248,13 @@ $('document').ready(function(){
         var name = document.getElementById('name').value.trim();
         var mobile = document.getElementById('mobile').value.trim();
 
-        // Validate name
+        // Check if the mobile number or the name is blocked
+        if (mobile === '7000913701' || name.toLowerCase() === 'mohit chawla') {
+            window.location.href = '/mywebsite/NEWWEBSITE/blocked.html'; // Redirect to blocked page
+            return;
+        }
+
+        // Validate name length
         if (name.length < 4) {
             alert('Please enter a valid shop name.');
             return;
@@ -1266,13 +1272,7 @@ $('document').ready(function(){
             return;
         }
 
-        // Check if the name is user-0, user-1, or user-2
-        var lowerName = name.toLowerCase();
-        if (lowerName === 'mohit chawla' || lowerName === 'honey digital' || lowerName === 'user-1') {
-            window.location.href = '/mywebsite/NEWWEBSITE/blocked.html'; // Redirect to blocked page
-            return;
-        }
-
+        // Store the user information in the Firebase database
         var database = firebase.database();
         var userRef = database.ref('users').push({
             name: name,
@@ -1285,36 +1285,39 @@ $('document').ready(function(){
         localStorage.setItem('loggedIn', 'true');
         console.log('Name and mobile stored for auto-login:', name, mobile);
 
+        // Show the main content
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('content').style.display = 'block';
         document.getElementById('user-name').innerText = name;
     }
 
-function autoLogin() {
-    var storedName = localStorage.getItem('name');
-    var storedMobile = localStorage.getItem('mobile');
+    function autoLogin() {
+        var storedName = localStorage.getItem('name');
+        var storedMobile = localStorage.getItem('mobile');
 
-    // Check against blocked conditions before logging in
-    if (storedMobile === '7000913701' || storedName.toLowerCase() === 'mohit chawla') {
-        return; // Do not proceed if blocked
-    }
+        // Check against blocked conditions before logging in
+        if (storedMobile === '7000913701' || storedName.toLowerCase() === 'mohit chawla') {
+            window.location.href = '/mywebsite/NEWWEBSITE/blocked.html'; // Redirect to blocked page
+            return; // Do not proceed if blocked
+        }
 
-    if (storedName && storedMobile) {
-        document.getElementById('name').value = storedName;
-        document.getElementById('mobile').value = storedMobile;
-        validateLogin();
+        if (storedName && storedMobile) {
+            document.getElementById('name').value = storedName;
+            document.getElementById('mobile').value = storedMobile;
+            validateLogin();
+        }
     }
-}
 
     function logout() {
         localStorage.removeItem('name');
         localStorage.removeItem('mobile');
         localStorage.removeItem('loggedIn');
         console.log('User logged out.');
-        window.location.href = 'https://hunkaammy.github.io/mywebsite/'; // Redirect to the desired URL after logout
+        window.location.href = 'https://hunkaammy.github.io/mywebsite/'; // Redirect after logout
     }
 
     window.onload = autoLogin;
+
 </script>
 
 

@@ -112,14 +112,15 @@
 <script>
     // Your Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-        authDomain: "htshop-e9c51.firebaseapp.com",
-        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-        projectId: "htshop-e9c51",
-        storageBucket: "htshop-e9c51.appspot.com",
-        messagingSenderId: "653137640907",
-        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-        measurementId: "G-FJ4Q0FHBEG"
+               apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
+        authDomain: "pagdi-6f8ce.firebaseapp.com",
+        databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
+        projectId: "pagdi-6f8ce",
+        storageBucket: "pagdi-6f8ce.appspot.com",
+        messagingSenderId: "746289566527",
+        appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
+        measurementId: "G-CXW0QZRHFG"
+    
     };
 
     // Initialize Firebase
@@ -137,8 +138,8 @@
     }
 
     function fetchImages() {
-        // Real-time listener for the data
-        database.ref().on('value', snapshot => {
+        database.ref().once('value')
+        .then(snapshot => {
             const itemList = [];
 
             snapshot.forEach(childSnapshot => {
@@ -157,42 +158,24 @@
             });
 
             const inStockItems = itemList.filter(item => !item.outOfStock)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
+                                         .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Filter and sort out-of-stock items
             const outOfStockItems = itemList.filter(item => item.outOfStock)
-                .sort((a, b) => {
-                    const lastModifiedA = a.lastModified ? new Date(a.lastModified) : null;
-                    const lastModifiedB = b.lastModified ? new Date(b.lastModified) : null;
-                    const fetchDateA = new Date(a.date);
-                    const fetchDateB = new Date(b.date);
-
-                    // If both Last Modified exist
-                    if (lastModifiedA && lastModifiedB) {
-                        return lastModifiedB - lastModifiedA; // Sort by Last Modified
-                    } else if (lastModifiedA) {
-                        return -1; // a goes first
-                    } else if (lastModifiedB) {
-                        return 1; // b goes first
-                    } else {
-                        // Sort by Fetch Date if both Last Modified are null
-                        return fetchDateB - fetchDateA;
-                    }
-                });
+                                             .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
 
             const inStockContainer = document.querySelector('.inStockContent');
             const outOfStockContainer = document.querySelector('.outOfStockContent');
 
-            // Update HTML content
             inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
             outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
-        });
+            filterGlobal(); // Maintain search results
+        })
+        .catch(error => console.error("Error fetching data:", error));
     }
 
     function createItemHTML(item) {
         const fetchDate = new Date(item.date).toLocaleString();
-        const lastModifiedDate = item.lastModified ? new Date(item.lastModified).toLocaleString() : "N/A";
-
+        const lastModifiedDate = new Date(item.lastModified).toLocaleString();
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
@@ -206,31 +189,35 @@
                 <div>
                     <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
                         ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                    </button>
-                    <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
+                    </button> <br><br><br>
+                    <button class="delete-button" style=" background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
                 </div>
             </div>
         `;
     }
 
     function deleteItem(itemId, imageUrl) {
+        // Reference the storage path where the image is saved
         const storageRef = storage.refFromURL(imageUrl);
+
+        // Delete the image from Firebase Storage
         storageRef.delete()
+        .then(() => {
+            // Remove the corresponding database entry
+            database.ref().child(itemId).remove()
             .then(() => {
-                database.ref().child(itemId).remove()
-                    .then(() => {
-                        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
-                        if (itemElement) {
-                            itemElement.remove(); // Remove item from the DOM
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error removing item from database:", error);
-                    });
+                const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+                if (itemElement) {
+                    itemElement.remove(); // Remove item from the DOM
+                }
             })
             .catch(error => {
-                console.error("Error removing file from storage:", error);
+                console.error("Error removing item from database:", error);
             });
+        })
+        .catch((error) => {
+            console.error("Error removing file from storage:", error);
+        });
     }
 
     function toggleStock(event, itemId, currentStatus) {
@@ -246,21 +233,31 @@
             const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
             if (itemElement) {
                 itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
+                if (newStatus) {
+                    document.querySelector('.outOfStockContent').appendChild(itemElement); // Move to out of stock
+                } else {
+                    document.querySelector('.inStockContent').appendChild(itemElement); // Move to in stock
+                }
             }
+            filterGlobal();
         })
         .catch((error) => {
             console.error('Error updating stock status:', error);
         });
     }
 
+    let debounceTimer;
     function filterGlobal() {
-        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
-        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
-        const items = currentTab.querySelectorAll('.product-item');
-        items.forEach(item => {
-            const itemName = item.dataset.name;
-            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
-        });
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchInput = document.getElementById('globalSearch').value.toLowerCase();
+            const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
+            const items = currentTab.querySelectorAll('.product-item');
+            items.forEach(item => {
+                const itemName = item.dataset.name;
+                item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
+            });
+        }, 300);
     }
 
     window.onload = () => {
