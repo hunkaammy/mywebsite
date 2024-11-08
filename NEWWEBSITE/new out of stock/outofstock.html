@@ -89,167 +89,175 @@
     <button class="tab-button" onclick="showTab('outOfStock')">Out of Stock</button>
 </div>
 
+<!-- Search Bar for Global Use -->
 <input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
 
+<!-- In Stock Tab -->
 <div id="inStock" class="tabContent">
     <h2>In Stock</h2>
-    <div class="inStockContent"></div>
+    <div class="inStockContent">
+        <!-- In-stock items will be displayed here -->
+    </div>
 </div>
 
+<!-- Out of Stock Tab -->
 <div id="outOfStock" class="tabContent">
     <h2>Out of Stock</h2>
-    <div class="outOfStockContent"></div>
+    <div class="outOfStockContent">
+        <!-- Out-of-stock items will be displayed here -->
+    </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
 <script>
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-  authDomain: "htshop-e9c51.firebaseapp.com",
-  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-  projectId: "htshop-e9c51",
-  storageBucket: "htshop-e9c51.appspot.com",
-  messagingSenderId: "653137640907",
-  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-  measurementId: "G-FJ4Q0FHBEG"
-};
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+        authDomain: "htshop-e9c51.firebaseapp.com",
+        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+        projectId: "htshop-e9c51",
+        storageBucket: "htshop-e9c51.appspot.com",
+        messagingSenderId: "653137640907",
+        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+        measurementId: "G-FJ4Q0FHBEG"
+    };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const storage = firebase.storage();
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const storage = firebase.storage(); // Initialize Firebase Storage
 
-function showTab(tabName) {
-    const tabs = document.querySelectorAll('.tabContent');
-    tabs.forEach(tab => {
-        tab.style.display = 'none'; // Hide all tabs
-    });
-    document.getElementById(tabName).style.display = 'block'; // Show the selected tab
-    fetchImages(); // Fetch images to display in the active tab
-}
-
-function fetchImages() {
-    database.ref().once('value')
-    .then(snapshot => {
-        const itemList = [];
-
-        snapshot.forEach(childSnapshot => {
-            const itemData = childSnapshot.val();
-            // Ensure all expected properties exist
-            const item = {
-                id: childSnapshot.key,
-                url: itemData.url || '',
-                name: itemData.name || 'Unknown', // Provide a default value if name is missing
-                price: itemData.price || 0, // Default to 0 if price is missing
-                partyCode: itemData.partyCode || 'N/A', // Default to 'N/A' if not present
-                date: itemData.date || new Date().toISOString(),
-                lastModified: itemData.lastModified || new Date().toISOString(),
-                outOfStock: itemData.outOfStock || false // Default to false if missing
-            };
-            itemList.push(item);
+    function showTab(tabName) {
+        const tabs = document.querySelectorAll('.tabContent');
+        tabs.forEach(tab => {
+            tab.style.display = 'none'; // Hide all tabs
         });
+        document.getElementById(tabName).style.display = 'block'; // Show the selected tab
+        fetchImages(); // Fetch images to display in the active tab
+    }
 
-        const inStockItems = itemList.filter(item => !item.outOfStock)
-                                     .sort((a, b) => new Date(b.date) - new Date(a.date));
+    function fetchImages() {
+        database.ref().once('value')
+        .then(snapshot => {
+            const itemList = [];
 
-        const outOfStockItems = itemList.filter(item => item.outOfStock)
-                                         .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+            snapshot.forEach(childSnapshot => {
+                const itemData = childSnapshot.val();
+                const item = {
+                    id: childSnapshot.key,
+                    url: itemData.url,
+                    name: itemData.name,
+                    price: itemData.price,
+                    partyCode: itemData.partyCode,
+                    date: itemData.date,
+                    lastModified: itemData.lastModified,
+                    outOfStock: itemData.outOfStock
+                };
+                itemList.push(item);
+            });
 
-        const inStockContainer = document.querySelector('.inStockContent');
-        const outOfStockContainer = document.querySelector('.outOfStockContent');
+            const inStockItems = itemList.filter(item => !item.outOfStock)
+                                         .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
-        outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
-        filterGlobal(); // Maintain search results
-    })
-    .catch(error => console.error("Error fetching data:", error));
-}
+            // Sort Out of Stock items by last modified date - newest on top, filter out invalid dates
+            const outOfStockItems = itemList.filter(item => item.outOfStock && item.lastModified && !isNaN(new Date(item.lastModified)))
+                                             .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+            
+            // For any out of stock items without valid lastModified date, you can choose to handle them differently e.g., as special cases
+            const outOfStockInvalidItems = itemList.filter(item => item.outOfStock && (!item.lastModified || isNaN(new Date(item.lastModified))));
+            const outOfStockContainer = document.querySelector('.outOfStockContent');
 
-function createItemHTML(item) {
-    const fetchDate = new Date(item.date).toLocaleString();
-    const lastModifiedDate = new Date(item.lastModified).toLocaleString();
-    return `
-        <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
-            <div>
-                <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
-                <p><strong>${item.name}</strong></p>
-                <p>Price: $${item.price}</p>
-                <p>Party Code: ${item.partyCode}</p>
-                <p>Fetch Date: ${fetchDate}</p>
-                <small>Last Modified: ${lastModifiedDate}</small>
+            const inStockContainer = document.querySelector('.inStockContent');
+            inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
+            outOfStockContainer.innerHTML = [...outOfStockItems, ...outOfStockInvalidItems].map(createItemHTML).join('');
+            filterGlobal(); // Maintain search results
+        })
+        .catch(error => console.error("Error fetching data:", error));
+    }
+
+    function createItemHTML(item) {
+        const fetchDate = new Date(item.date).toLocaleString();
+        const lastModifiedDate = new Date(item.lastModified).toLocaleString();
+
+        return `
+            <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
+                <div>
+                    <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
+                    <p><strong>${item.name}</strong></p>
+                    <p>Price: ${item.price}</p>
+                    <p>Party Code: ${item.partyCode}</p>
+                    <p>Fetch Date: ${fetchDate}</p>
+                    <small>Last Modified: ${isNaN(new Date(item.lastModified)) ? "N/A" : lastModifiedDate}</small>
+                </div>
+                <div>
+                    <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
+                        ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
+                    </button>
+                    <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
+                </div>
             </div>
-            <div>
-                <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
-                    ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                </button>
-                <br><br><br>
-                <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
-            </div>
-        </div>
-    `;
-}
+        `;
+    }
 
-function deleteItem(itemId, imageUrl) {
-    const storageRef = storage.refFromURL(imageUrl);
-    storageRef.delete()
-    .then(() => {
-        database.ref().child(itemId).remove()
+    function deleteItem(itemId, imageUrl) {
+        const storageRef = storage.refFromURL(imageUrl);
+        storageRef.delete()
+        .then(() => {
+            database.ref().child(itemId).remove()
+            .then(() => {
+                const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+                if (itemElement) {
+                    itemElement.remove(); // Remove item from the DOM
+                }
+            })
+            .catch(error => {
+                console.error("Error removing item from database:", error);
+            });
+        })
+        .catch(error => {
+            console.error("Error removing file from storage:", error);
+        });
+    }
+
+    function toggleStock(event, itemId, currentStatus) {
+        event.stopPropagation();
+        const newStatus = !currentStatus;
+        const timestamp = new Date().toISOString();
+
+        database.ref().child(itemId).update({
+            outOfStock: newStatus,
+            lastModified: timestamp
+        })
         .then(() => {
             const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
             if (itemElement) {
-                itemElement.remove(); // remove item from UI
+                itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
+                // Further update UI if needed
             }
         })
-        .catch(error => {
-            console.error("Error removing item from database:", error);
+        .catch((error) => {
+            console.error('Error updating stock status:', error);
         });
-    })
-    .catch(error => {
-        console.error("Error removing file from storage:", error);
-    });
-}
+    }
 
-function toggleStock(event, itemId, currentStatus) {
-    event.stopPropagation();
-    const newStatus = !currentStatus;
-    const timestamp = new Date().toISOString();
-    database.ref().child(itemId).update({
-        outOfStock: newStatus,
-        lastModified: timestamp
-    })
-    .then(() => {
-        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
-        if (itemElement) {
-            itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
-        }
-    })
-    .catch(error => {
-        console.error('Error updating stock status:', error);
-    });
-}
+    let debounceTimer;
+    function filterGlobal() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchInput = document.getElementById('globalSearch').value.toLowerCase();
+            const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
+            const items = currentTab.querySelectorAll('.product-item');
+            items.forEach(item => {
+                const itemName = item.dataset.name;
+                item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
+            });
+        }, 300);
+    }
 
-let debounceTimer;
-function filterGlobal() {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
-        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
-        const items = currentTab.querySelectorAll('.product-item');
-        items.forEach(item => {
-            const itemName = item.dataset.name || '';
-            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
-        });
-    }, 300);
-}
-
-window.onload = () => {
-    showTab('inStock'); // Default to show In Stock tab
-    fetchImages(); // Load initial items
-};
+    window.onload = () => {
+        showTab('inStock'); // Default to show In Stock tab
+        fetchImages(); // Load initial items
+    };
 </script>
 
 </body>
