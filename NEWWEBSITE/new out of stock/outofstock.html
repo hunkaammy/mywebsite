@@ -7,93 +7,82 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8; /* Light background for contrast */
+            background-color: #f0f4f8;
             margin: 0;
             padding: 0;
-        }
-        header {
-            background-color: #4CAF50; /* Greenish header */
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            font-size: 24px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+            font-size: 13px;
         }
         .tabs {
             text-align: center;
-            margin: 15px 0;
+            margin-top: 20px;
+            position: fixed;
         }
         .tab-button {
-            background-color: #fff; /* White tabs */
-            color: #4CAF50; /* Green text */
-            border: 2px solid #4CAF50; /* Green border */
+            border: 2px solid #4CAF50;
+            background: #4CAF50;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
-            margin: 0 5px; /* Space between buttons */
+            margin: 0 5px;
         }
         .tab-button:hover {
-            background-color: #4CAF50; /* Green background on hover */
-            color: white; /* White text on hover */
+            color: black;
+            background: white;
         }
         .search-input {
-            position: fixed; /* Fixed search bar */
-            top: 80px; /* Space from the top, below header */
-            left: 20px; /* Space from the left */
-            right: 20px; /* Space from the right */
+            position: fixed; 
+            top: 5px; 
+            left: 20px; 
+            right: 20px; 
             padding: 10px;
             box-sizing: border-box;
-            border: 1px solid #4CAF50; /* Green border */
-            border-radius: 5px; /* Rounded corners */
-            font-size: 16px; /* Font size */
-            z-index: 10; /* Keep it above other content */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow */
+            border: 1px solid #4CAF50; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            z-index: 10; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .tabContent {
-            display: none; /* Start hidden */
-            margin-top: 60px; /* Prevent overlap with the search bar */
+            display: none; 
+            margin-top: 60px; 
             padding: 20px;
-            background-color: #ffffff; /* White background for tabs */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Tab shadow */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #ffffff; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            border-radius: 5px; 
         }
         h2 {
-            color: #333; /* Darker text for headings */
+            color: #333; 
         }
         .product-item {
-            border: 1px solid #ddd; /* Light grey border */
+            border: 1px solid #ddd; 
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: box-shadow 0.3s; /* Smooth transition for shadow */
-            background-color: #f9f9f9; /* Slightly different background for products */
+            transition: box-shadow 0.3s; 
+            background-color: #f9f9f9; 
         }
         .product-item:hover {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Darker shadow on hover */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
         }
-        .toggle-button {
-            background-color: #4CAF50; /* Green button to toggle stock */
-            color: white; /* White text */
+        .toggle-button, .delete-button {
+            background-color: #4CAF50;
+            color: white; 
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s; /* Smooth transition */
+            transition: background-color 0.3s; 
         }
-        .toggle-button:hover {
-            background-color: #45a049; /* Darker green on hover */
+        .toggle-button:hover, .delete-button:hover {
+            background-color: #45a049; 
         }
     </style>
 </head>
 <body>
-
-<header>
-    Firebase Image CRUD with Stock Status
-</header>
 
 <div class="tabs">
     <button class="tab-button" onclick="showTab('inStock')">In Stock</button>
@@ -119,28 +108,25 @@
     </div>
 </div>
 
-<button id="loadMore" onclick="fetchImages(true)" style="display: none;">Load More</button>
-
 <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
 <script>
-    // Your Firebase configuration.
+    // Your Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
-        authDomain: "pagdi-6f8ce.firebaseapp.com",
-        databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
-        projectId: "pagdi-6f8ce",
-        storageBucket: "pagdi-6f8ce.appspot.com",
-        messagingSenderId: "746289566527",
-        appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
-        measurementId: "G-CXW0QZRHFG"
+               apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+  authDomain: "htshop-e9c51.firebaseapp.com",
+  databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
+  projectId: "htshop-e9c51",
+  storageBucket: "htshop-e9c51.appspot.com",
+  messagingSenderId: "653137640907",
+  appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
+  measurementId: "G-FJ4Q0FHBEG"
+    
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
-
-    let lastLoadedKey = null;
-    const limit = 10; // Number of items to load at a time
+    const storage = firebase.storage(); // Initialize Firebase Storage
 
     function showTab(tabName) {
         const tabs = document.querySelectorAll('.tabContent');
@@ -148,135 +134,135 @@
             tab.style.display = 'none'; // Hide all tabs
         });
         document.getElementById(tabName).style.display = 'block'; // Show the selected tab
-        // Reset the search bar whenever a new tab is shown
-        document.getElementById('globalSearch').value = '';
-        fetchImages(); // Refresh items when switching tabs
+        fetchImages(); // Fetch images to display in the active tab
+    }
+
+    function fetchImages() {
+        database.ref().once('value')
+        .then(snapshot => {
+            const itemList = [];
+
+            snapshot.forEach(childSnapshot => {
+                const itemData = childSnapshot.val();
+                const item = {
+                    id: childSnapshot.key,
+                    url: itemData.url,
+                    name: itemData.name,
+                    price: itemData.price,
+                    partyCode: itemData.partyCode,
+                    date: itemData.date,
+                    lastModified: itemData.lastModified,
+                    outOfStock: itemData.outOfStock
+                };
+                itemList.push(item);
+            });
+
+            const inStockItems = itemList.filter(item => !item.outOfStock)
+                                         .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            const outOfStockItems = itemList.filter(item => item.outOfStock)
+                                             .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+
+            const inStockContainer = document.querySelector('.inStockContent');
+            const outOfStockContainer = document.querySelector('.outOfStockContent');
+
+            inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
+            outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
+            filterGlobal(); // Maintain search results
+        })
+        .catch(error => console.error("Error fetching data:", error));
     }
 
     function createItemHTML(item) {
-        const modifiedDate = item.lastModified.toLocaleString(); // Format the date
+        const fetchDate = new Date(item.date).toLocaleString();
+        const lastModifiedDate = new Date(item.lastModified).toLocaleString();
         return `
             <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
                 <div>
+                    <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
                     <p><strong>${item.name}</strong></p>
                     <p>Price: ${item.price}</p>
                     <p>Party Code: ${item.partyCode}</p>
-                    <img src="${item.imageUrl}" style="max-width: 100px;" alt="${item.name}">
-                    <p>Last Modified: ${modifiedDate}</p>
+                    <p>Fetch Date: ${fetchDate}</p>
+                    <small>Last Modified: ${lastModifiedDate}</small>
                 </div>
                 <div>
-                    <button class="toggle-button" onclick="toggleStock('${item.id}', ${item.outOfStock})">
+                    <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
                         ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                    </button>
+                    </button> <br><br><br>
+                    <button class="delete-button" style=" background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
                 </div>
             </div>
         `;
     }
 
-    function fetchImages(loadMore = false) {
-        let databaseRef = database.ref().orderByChild('date').limitToFirst(limit + 1);
-        if (lastLoadedKey) {
-            databaseRef = databaseRef.startAt(lastLoadedKey);
-        }
+    function deleteItem(itemId, imageUrl) {
+        // Reference the storage path where the image is saved
+        const storageRef = storage.refFromURL(imageUrl);
 
-        databaseRef.on('value', (snapshot) => {
-            const inStockContainer = document.querySelector('.inStockContent');
-            const outOfStockContainer = document.querySelector('.outOfStockContent');
-            const outOfStockItems = [];
-
-            let isLoadingMore = false;
-            if (loadMore) {
-                isLoadingMore = true; // Set the flag if loading more items
-            }
-
-            if (!isLoadingMore) {
-                inStockContainer.innerHTML = ''; // Clear existing content
-                outOfStockContainer.innerHTML = ''; // Clear existing content
-            }
-
-            snapshot.forEach(childSnapshot => {
-                const imageUrl = childSnapshot.val().url;
-                const name = childSnapshot.val().name;
-                const price = childSnapshot.val().price;
-                const outOfStock = childSnapshot.val().outOfStock;
-                const lastModified = childSnapshot.val().lastModified || Date.now();
-                const partyCode = childSnapshot.val().partyCode;
-                const itemId = childSnapshot.key;
-
-                const item = {
-                    id: itemId,
-                    imageUrl,
-                    name,
-                    price,
-                    partyCode,
-                    outOfStock,
-                    lastModified: new Date(lastModified)
-                };
-
-                if (outOfStock) {
-                    outOfStockItems.push(item);
-                } else {
-                    const itemHTML = createItemHTML(item);
-                    inStockContainer.innerHTML += itemHTML;
+        // Delete the image from Firebase Storage
+        storageRef.delete()
+        .then(() => {
+            // Remove the corresponding database entry
+            database.ref().child(itemId).remove()
+            .then(() => {
+                const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+                if (itemElement) {
+                    itemElement.remove(); // Remove item from the DOM
                 }
-
-                lastLoadedKey = itemId; // Keep track of last loaded key
+            })
+            .catch(error => {
+                console.error("Error removing item from database:", error);
             });
-
-            // Handle out-of-stock items...
-            outOfStockItems.sort((a, b) => b.lastModified - a.lastModified);
-            outOfStockItems.forEach(item => {
-                const itemHTML = createItemHTML(item);
-                outOfStockContainer.innerHTML += itemHTML;
-            });
-
-            // Show load more button if there are more items to load
-            if (snapshot.numChildren() < limit + 1) {
-                document.getElementById('loadMore').style.display = 'none';
-            } else {
-                document.getElementById('loadMore').style.display = 'block';
-            }
-        }, (error) => {
-            console.error("Error fetching data:", error);
+        })
+        .catch((error) => {
+            console.error("Error removing file from storage:", error);
         });
     }
 
-    function toggleStock(itemId, currentStatus) {
-        const newStatus = !currentStatus; // Toggle the status
-        const timestamp = new Date().toISOString(); // Get current timestamp
+    function toggleStock(event, itemId, currentStatus) {
+        event.stopPropagation();
+        const newStatus = !currentStatus;
+        const timestamp = new Date().toISOString();
 
-        database.ref().child(itemId).update({ 
+        database.ref().child(itemId).update({
             outOfStock: newStatus,
-            lastModified: timestamp 
+            lastModified: timestamp
         })
         .then(() => {
-            fetchImages(); // Refresh the displayed items
+            const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+            if (itemElement) {
+                itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
+                if (newStatus) {
+                    document.querySelector('.outOfStockContent').appendChild(itemElement); // Move to out of stock
+                } else {
+                    document.querySelector('.inStockContent').appendChild(itemElement); // Move to in stock
+                }
+            }
+            filterGlobal();
         })
         .catch((error) => {
             console.error('Error updating stock status:', error);
         });
     }
 
+    let debounceTimer;
     function filterGlobal() {
-        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
-        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])'); // Find the currently displayed tab
-        const items = currentTab.querySelectorAll('.product-item'); // Only filter products in the currently visible tab
-
-        items.forEach(item => {
-            const itemName = item.dataset.name; // Access the name from data attribute
-            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Show or hide
-        });
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchInput = document.getElementById('globalSearch').value.toLowerCase();
+            const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
+            const items = currentTab.querySelectorAll('.product-item');
+            items.forEach(item => {
+                const itemName = item.dataset.name;
+                item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
+            });
+        }, 300);
     }
 
     window.onload = () => {
-        showTab('inStock'); // Default to show "In Stock" tab
+        showTab('inStock'); // Default to show In Stock tab
         fetchImages(); // Load initial items
-    };
-
-    window.onscroll = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            fetchImages(true); // Load more items as user scrolls
-        }
     };
 </script>
 
