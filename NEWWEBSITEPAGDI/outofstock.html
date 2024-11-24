@@ -3,162 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Realtime Database Example</title>
-
-    <!-- Add Firebase to your web app -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <title>Firebase Image CRUD with Stock Status</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+        .tabs {
+            text-align: center;
+            margin-top: 20px;
+            position: fixed;
+        }
+        .tab-button {
+            border: 2px solid #4CAF50;
+            background: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 0 5px;
+        }
+        .tab-button:hover {
+            color: black;
+            background: white;
+        }
+        .search-input {
+            position: fixed; 
+            top: 5px; 
+            left: 20px; 
+            right: 20px; 
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #4CAF50; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            z-index: 10; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .tabContent {
+            display: none; 
+            margin-top: 60px; 
+            padding: 20px;
+            background-color: #ffffff; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            border-radius: 5px; 
+        }
+        h2 {
+            color: #333; 
+        }
+        .product-item {
+            border: 1px solid #ddd; 
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.3s; 
+            background-color: #f9f9f9; 
+        }
+        .product-item:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+        }
+        .toggle-button, .delete-button {
+            background-color: #4CAF50;
+            color: white; 
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; 
+        }
+        .toggle-button:hover, .delete-button:hover {
+            background-color: #45a049; 
+        }
+    </style>
 </head>
 <body>
 
-<script>
-    var allData = {}; // Global variable to hold the data
-    var selectedProductId = null; // Variable to hold the ID of the selected product
+<div class="tabs">
+    <button class="tab-button" onclick="showTab('inStock')">In Stock</button>
+    <button class="tab-button" onclick="showTab('outOfStock')">Out of Stock</button>
+</div>
 
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-        authDomain: "htshop-e9c51.firebaseapp.com",
-        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-        projectId: "htshop-e9c51",
-        storageBucket: "htshop-e9c51.appspot.com",
-        messagingSenderId: "653137640907",
-        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-        measurementId: "G-FJ4Q0FHBEG"
+<!-- Search Bar for Global Use -->
+<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
+
+<!-- In Stock Tab -->
+<div id="inStock" class="tabContent">
+    <h2>In Stock</h2>
+    <div class="inStockContent">
+        <!-- In-stock items will be displayed here -->
+    </div>
+</div>
+
+<!-- Out of Stock Tab -->
+<div id="outOfStock" class="tabContent">
+    <h2>Out of Stock</h2>
+    <div class="outOfStockContent">
+        <!-- Out-of-stock items will be displayed here -->
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBPc51z-pGrtKwtB5dKTMPei-fVRg4ePME",
+  authDomain: "pagdi-6f8ce.firebaseapp.com",
+  databaseURL: "https://pagdi-6f8ce-default-rtdb.firebaseio.com",
+  projectId: "pagdi-6f8ce",
+  storageBucket: "pagdi-6f8ce.appspot.com",
+  messagingSenderId: "746289566527",
+  appId: "1:746289566527:web:4c32c4fec73bb7e898798a",
+  measurementId: "G-CXW0QZRHFG"
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const storage = firebase.storage(); // Initialize Firebase Storage
 
-    // Reference to your database
-    var database = firebase.database();
-
-    // Fetch data from the root of the database
-    database.ref().on("value", function(snapshot) {
-        allData = snapshot.val() || {}; // Update the global variable
-        displayProductDetails(allData); // Refresh display
-    });
-
-    // Function to display product details
-    function displayProductDetails(data) {
-        var output = document.getElementById("output");
-        var html = "<h2>Product Details:</h2>";
-
-        var filterValue = document.querySelector('input[name="filter"]:checked').value;
-        var searchType = document.querySelector('input[name="searchType"]:checked').value;
-        var searchQuery = document.getElementById("search").value.trim().toLowerCase();
-
-        // Convert data object to an array for sorting and display
-        var dataArray = Object.keys(data).map(key => ({ key, ...data[key] }));
-
-        dataArray.sort((a, b) => new Date(b.date) - new Date(a.date));
-        var foundProduct = false;
-
-        dataArray.forEach(data => {
-            if (data.url && data.price && data.outOfStock !== undefined && data.name && data.date) {
-                var matchesSearch = (searchType === "name") ?
-                    data.name.toLowerCase().includes(searchQuery) :
-                    (data.partyCode && data.partyCode.toLowerCase() === searchQuery);
-
-                if (((filterValue === "true" && data.outOfStock) || (filterValue === "false" && !data.outOfStock)) &&
-                    (searchQuery === '' || matchesSearch)) {
-                    html += `<div class="product" id="${data.key}" onclick="selectProduct('${data.key}')"
-                        style="border: 1px solid #ccc; margin: 10px; padding: 10px;">`;
-                    html += `<img src="${data.url}" loading="lazy" alt="Product Image" width="100">`;
-                    html += `<p><strong>Name:</strong> ${data.name}</p>`;
-                    html += `<p><strong>Price:</strong> ${data.price} USD</p>`;
-                    html += `<p><strong>Party code:</strong> ${data.partyCode || 'N/A'}</p>`;
-                    html += `<p><strong>Out of Stock:</strong> ${data.outOfStock ? "Yes" : "No"}</p>`;
-                    html += `<p><strong>Date:</strong> ${new Date(data.date).toLocaleString()}</p>`;
-                    html += `<button onclick="deleteProduct('${data.key}')">Delete Product</button></div>`;
-                    foundProduct = true;
-                }
-            }
+    function showTab(tabName) {
+        const tabs = document.querySelectorAll('.tabContent');
+        tabs.forEach(tab => {
+            tab.style.display = 'none'; // Hide all tabs
         });
-
-        output.innerHTML = foundProduct ? html : "<p>No products found matching the search criteria.</p>";
+        document.getElementById(tabName).style.display = 'block'; // Show the selected tab
+        fetchImages(); // Fetch images to display in the active tab
     }
 
-    // Select a product
-    function selectProduct(productId) {
-        if (selectedProductId === null) {
-            selectedProductId = productId; // First selection
-            alert("Product selected: " + productId);
-        } else {
-            dropProduct(selectedProductId, productId); // Move product
-            selectedProductId = null; // Reset selection
-        }
-    }
+    function fetchImages() {
+        // Real-time listener for the data
+        database.ref().on('value', snapshot => {
+            const itemList = [];
 
-    // Move product to a new position
-    function dropProduct(selectedId, targetId) {
-        if (selectedId === targetId) return; // Prevent moving to the same position
+            snapshot.forEach(childSnapshot => {
+                const itemData = childSnapshot.val();
+                const item = {
+                    id: childSnapshot.key,
+                    url: itemData.url,
+                    name: itemData.name,
+                    price: itemData.price,
+                    partyCode: itemData.partyCode,
+                    date: itemData.date,
+                    lastModified: itemData.lastModified,
+                    outOfStock: itemData.outOfStock
+                };
+                itemList.push(item);
+            });
 
-        const selectedElement = allData[selectedId];
-        const targetElement = allData[targetId];
+            const inStockItems = itemList.filter(item => !item.outOfStock)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Validate both elements are defined
-        if (!selectedElement || !targetElement) {
-            console.error("Either selected or target element is undefined.");
-            return;
-        }
+            // Filter and sort out-of-stock items
+            const outOfStockItems = itemList.filter(item => item.outOfStock)
+                .sort((a, b) => {
+                    const lastModifiedA = a.lastModified ? new Date(a.lastModified) : null;
+                    const lastModifiedB = b.lastModified ? new Date(b.lastModified) : null;
+                    const fetchDateA = new Date(a.date);
+                    const fetchDateB = new Date(b.date);
 
-        // Create a new ordering
-        const newDataArray = Object.keys(allData).map(key => allData[key]);
-
-        const targetIndex = newDataArray.findIndex(item => item.key === targetId);
-        newDataArray.splice(targetIndex, 0, newDataArray.splice(newDataArray.findIndex(item => item.key === selectedId), 1)[0]);
-
-        // Update the database with new order
-        newDataArray.forEach((data, index) => {
-            const newDate = new Date();
-            database.ref(data.key).set({ ...data, date: newDate.toISOString() });
-        });
-
-        // Refresh displayed products
-        displayProductDetails(allData);
-    }
-
-    // Delete product function
-    function deleteProduct(key) {
-        var confirmDelete = confirm("Are you sure you want to delete this product?");
-        if (confirmDelete) {
-            database.ref(key).remove()
-                .then(function () {
-                    console.log("Product deleted successfully");
-                })
-                .catch(function (error) {
-                    console.error("Error deleting product: ", error);
+                    // If both Last Modified exist
+                    if (lastModifiedA && lastModifiedB) {
+                        return lastModifiedB - lastModifiedA; // Sort by Last Modified
+                    } else if (lastModifiedA) {
+                        return -1; // a goes first
+                    } else if (lastModifiedB) {
+                        return 1; // b goes first
+                    } else {
+                        // Sort by Fetch Date if both Last Modified are null
+                        return fetchDateB - fetchDateA;
+                    }
                 });
-        }
+
+            const inStockContainer = document.querySelector('.inStockContent');
+            const outOfStockContainer = document.querySelector('.outOfStockContent');
+
+            // Update HTML content
+            inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
+            outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
+        });
     }
+
+    function createItemHTML(item) {
+        const fetchDate = new Date(item.date).toLocaleString();
+        const lastModifiedDate = item.lastModified ? new Date(item.lastModified).toLocaleString() : "N/A";
+
+        return `
+            <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
+                <div>
+                    <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
+                    <p><strong>${item.name}</strong></p>
+                    <p>Price: ${item.price}</p>
+                    <p>Party Code: ${item.partyCode}</p>
+                    <p>Fetch Date: ${fetchDate}</p>
+                    <small>Last Modified: ${lastModifiedDate}</small>
+                </div>
+                <div>
+                    <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
+                        ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
+                    </button>
+                    <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function deleteItem(itemId, imageUrl) {
+        const storageRef = storage.refFromURL(imageUrl);
+        storageRef.delete()
+            .then(() => {
+                database.ref().child(itemId).remove()
+                    .then(() => {
+                        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+                        if (itemElement) {
+                            itemElement.remove(); // Remove item from the DOM
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error removing item from database:", error);
+                    });
+            })
+            .catch(error => {
+                console.error("Error removing file from storage:", error);
+            });
+    }
+
+   function toggleStock(event, itemId, currentStatus) {
+    event.stopPropagation();
+    const newStatus = !currentStatus;
+    const timestamp = new Date().toISOString();
+
+    database.ref().child(itemId).update({
+        outOfStock: newStatus,
+        lastModified: timestamp
+    })
+    .then(() => {
+        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
+        if (itemElement) {
+            itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
+        }
+        // Reapply the search filter
+        filterGlobal();
+    })
+    .catch((error) => {
+        console.error('Error updating stock status:', error);
+    });
+}
+
+    function filterGlobal() {
+        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
+        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
+        const items = currentTab.querySelectorAll('.product-item');
+        items.forEach(item => {
+            const itemName = item.dataset.name;
+            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
+        });
+    }
+
+    window.onload = () => {
+        showTab('inStock'); // Default to show In Stock tab
+        fetchImages(); // Load initial items
+    };
 </script>
-
-<!-- Form for filtering data -->
-<form>
-    <label>
-        <input type="radio" name="filter" value="true" checked> Show Out of Stock
-    </label>
-    <label>
-        <input type="radio" name="filter" value="false"> Show In Stock
-    </label>
-</form>
-
-<!-- Form for selecting search type -->
-<form>
-    <label>
-        <input type="radio" name="searchType" value="name" checked> Search by Name
-    </label>
-    <label>
-        <input type="radio" name="searchType" value="partyCode"> Search by Party Code
-    </label>
-</form>
-
-<!-- Input field for searching by name or party code -->
-<input type="text" id="search" placeholder="Search by name or party code" oninput="displayProductDetails(allData)">
-
-<!-- Display area for product details -->
-<div id="output"></div>
 
 </body>
 </html>
