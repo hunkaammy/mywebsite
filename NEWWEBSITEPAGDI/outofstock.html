@@ -189,29 +189,29 @@
         });
     }
 
-    function createItemHTML(item) {
-        const fetchDate = new Date(item.date).toLocaleString();
-        const lastModifiedDate = item.lastModified ? new Date(item.lastModified).toLocaleString() : "N/A";
+function createItemHTML(item) {
+    const fetchDate = new Date(item.date).toLocaleString();
+    const lastModifiedDate = item.lastModified ? new Date(item.lastModified).toLocaleString() : "N/A";
 
-        return `
-            <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
-                <div>
-                    <img src="${item.url}" style="max-width: 180px;" alt="${item.name}">
-                    <p><strong>${item.name}</strong></p>
-                    <p>Price: ${item.price}</p>
-                    <p>Party Code: ${item.partyCode}</p>
-                    <p>Fetch Date: ${fetchDate}</p>
-                    <small>Last Modified: ${lastModifiedDate}</small>
-                </div>
-                <div>
-                    <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
-                        ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                    </button>
-                    <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
-                </div>
+    return `
+        <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
+            <div>
+                <img src="${item.url}" loading="lazy" style="max-width: 180px;" alt="${item.name}">
+                <p><strong>${item.name}</strong></p>
+                <p>Price: ${item.price}</p>
+                <p>Party Code: ${item.partyCode}</p>
+                <p>Fetch Date: ${fetchDate}</p>
+                <small>Last Modified: ${lastModifiedDate}</small>
             </div>
-        `;
-    }
+            <div>
+                <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
+                    ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
+                </button>
+                <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
+            </div>
+        </div>
+    `;
+}
 
     function deleteItem(itemId, imageUrl) {
         const storageRef = storage.refFromURL(imageUrl);
