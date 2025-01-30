@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entry Form with Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-container {
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .form-container form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .form-container input,
+        .form-container select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            min-width: 100px;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .data-display {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .data-table th {
+            background-color: #f2f2f2;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .hidden {
+            display: none; /* Hide the content until PIN is verified */
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+
+<body onload="checkPin()">
+
+    <div id="content" class="hidden">
+        <div class="form-container">
+            <h2>Entry Form</h2>
+            <form id="myForm" onsubmit="saveFormData(event)">
+                <input type="number" id="lr" name="lr" placeholder="LR" required>
+                <input type="number" id="lot" name="lot" placeholder="LOT" required>
+                <input type="date" id="date" name="date" required>
+                <input type="text" id="partyName" name="partyName" placeholder="Party Name" required>
+                <input type="text" id="transport" name="transport" placeholder="Transport">
+                <select id="pk" name="pk">
+                    <option value="">None</option>
+                    <option value="P">P</option>
+                    <option value="K">K</option>
+                </select>
+                <input type="date" id="paymentDate" name="paymentDate">
+                <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Amount" step="0.01">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="data-display">
+            <h3>Saved Entries</h3>
+            <input type="text" id="searchInput" placeholder="Search by LR" oninput="filterByLR()">
+            <button id="toggleDisplayButton" onclick="toggleDisplay()">Show All</button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>LR</th>
+                        <th>LOT</th>
+                        <th>Date</th>
+                        <th>Party Name</th>
+                        <th>Transport</th>
+                        <th>P/K</th>
+                        <th>Payment Date</th>
+                        <th>Amount</th>
+                        <th>Action</th> <!-- Added Action column for delete -->
+                    </tr>
+                </thead>
+                <tbody id="dataBody">
+                    <!-- Entries will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDM7HUVDfdy_UXAaCx3kYWmDhxrF0y8jyA",
+            authDomain: "model-poses.firebaseapp.com",
+            databaseURL: "https://model-poses.firebaseio.com",
+            projectId: "model-poses",
+            storageBucket: "model-poses.firebasestorage.app",
+            messagingSenderId: "10510371385",
+            appId: "1:10510371385:web:1f93c15f032b729fe61be8"
+        };
+
+        // Initialize Firebase
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+
+            let entries = [];
+            let showAll = false;
+
+            function checkPin() {
+                const pin = prompt("Enter the PIN to access the page:");
+                if (pin === "9988") {
+                    document.getElementById("content").classList.remove("hidden");
+                    loadData();
+                } else {
+                    alert("Incorrect PIN. Please try again.");
+                    checkPin();
+                }
+            }
+
+            function loadData() {
+                const entriesRef = database.ref('entries');
+                entriesRef.on('value', (snapshot) => {
+                    entries = [];
+                    snapshot.forEach((childSnapshot) => {
+                        const childData = childSnapshot.val();
+                        childData.id = childSnapshot.key; // Store Firebase key
+                        entries.push(childData);
+                    });
+                    displaySavedData();
+                });
+            }
+
+            function saveFormData(event) {
+                event.preventDefault();
+
+                const formData = {
+                    lr: document.getElementById('lr').value,
+                    lot: document.getElementById('lot').value,
+                    date: document.getElementById('date').value,
+                    partyName: document.getElementById('partyName').value,
+                    transport: document.getElementById('transport').value,
+                    pk: document.getElementById('pk').value,
+                    paymentDate: document.getElementById('paymentDate').value,
+                    paymentAmount: document.getElementById('paymentAmount').value
+                };
+
+                const newEntryRef = database.ref('entries').push();
+                newEntryRef.set(formData)
+                    .then(() => {
+                        displaySavedData();
+                        event.target.reset();
+                        alert('Entry saved successfully!');
+                    })
+                    .catch((error) => {
+                        console.error('Error saving entry: ', error);
+                    });
+            }
+
+            function displaySavedData() {
+                const tbody = document.getElementById('dataBody');
+                tbody.innerHTML = '';
+
+                const limit = showAll ? entries.length : Math.min(20, entries.length);
+
+                entries.forEach((entry, i) => {
+                    if (i < limit) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td onclick="editCell(${i}, 'lr', this)">${entry.lr || '-'}</td>
+                            <td onclick="editCell(${i}, 'lot', this)">${entry.lot || '-'}</td>
+                            <td onclick="editDate(${i}, 'date', this)">${formatDate(entry.date) || '-'}</td>
+                            <td onclick="editCell(${i}, 'partyName', this)">${entry.partyName || '-'}</td>
+                            <td onclick="editCell(${i}, 'transport', this)">${entry.transport || '-'}</td>
+                            <td onclick="editCell(${i}, 'pk', this)">${entry.pk || '-'}</td>
+                            <td onclick="editDate(${i}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
+                            <td onclick="editCell(${i}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
+                            <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                        `;
+                        tbody.appendChild(row);
+                    }
+                });
+            }
+
+            function deleteEntry(entryId) {
+                if (confirm("Are you sure you want to delete this entry?")) {
+                    database.ref(`entries/${entryId}`).remove()
+                        .then(() => {
+                            alert('Entry deleted successfully!');
+                            loadData(); // Reload data after deletion
+                        })
+                        .catch((error) => {
+                            console.error('Error deleting entry: ', error);
+                        });
+                }
+            }
+
+            function filterByLR() {
+                const input = document.getElementById('searchInput').value.toLowerCase();
+                const tbody = document.getElementById('dataBody');
+
+                const filteredEntries = entries.filter(entry =>
+                    entry.lr.toString().toLowerCase().includes(input)
+                );
+
+                tbody.innerHTML = '';
+
+                const limit = showAll ? filteredEntries.length : Math.min(20, filteredEntries.length);
+
+                filteredEntries.forEach((entry, i) => {
+                    if (i < limit) {
+                        const row = document.createElement('tr');
+                        const originalIndex = entries.indexOf(entry);
+                        row.innerHTML = `
+                            <td onclick="editCell(${originalIndex}, 'lr', this)">${entry.lr || '-'}</td>
+                            <td onclick="editCell(${originalIndex}, 'lot', this)">${entry.lot || '-'}</td>
+                            <td onclick="editDate(${originalIndex}, 'date', this)">${formatDate(entry.date) || '-'}</td>
+                            <td onclick="editCell(${originalIndex}, 'partyName', this)">${entry.partyName || '-'}</td>
+                            <td onclick="editCell(${originalIndex}, 'transport', this)">${entry.transport || '-'}</td>
+                            <td onclick="editCell(${originalIndex}, 'pk', this)">${entry.pk || '-'}</td>
+                            <td onclick="editDate(${originalIndex}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
+                            <td onclick="editCell(${originalIndex}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
+                            <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                        `;
+                        tbody.appendChild(row);
+                    }
+                });
+            }
+
+            function toggleDisplay() {
+                showAll = !showAll;
+                const button = document.getElementById('toggleDisplayButton');
+                button.innerText = showAll ? 'Show Less' : 'Show All';
+                displaySavedData();
+            }
+
+            function formatDate(inputDate) {
+                if (!inputDate) return '';
+
+                const dateParts = inputDate.split('-'); // Split the date string by '-'
+                if (dateParts.length === 3) {
+                    const year = dateParts[0]; // YYYY
+                    const month = dateParts[1]; // MM
+                    const day = dateParts[2]; // DD
+                    return `${day}/${month}/${year}`; // Return in DD/MM/YYYY format
+                }
+                return inputDate; // Fallback to original date if format is unexpected
+            }
+
+            function editCell(rowIndex, field, cell) {
+                const input = document.createElement('input');
+
+                if (field === 'paymentAmount') {
+                    input.type = 'number';
+                    input.step = '0.01';
+                } else {
+                    input.type = 'text';
+                }
+
+                input.value = cell.innerText.replace('₹', '').trim();
+
+                input.onblur = () => {
+                    entries[rowIndex][field] = input.value;
+                    const entryKey = entries[rowIndex].id; // Get unique key
+                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]); // Update Firebase
+                    displaySavedData();
+                };
+
+                input.onkeydown = (e) => {
+                    if (e.key === 'Enter') {
+                        input.blur();
+                    }
+                };
+
+                cell.innerHTML = '';
+                cell.appendChild(input);
+                input.focus();
+            }
+
+            function editDate(rowIndex, field, cell) {
+                let dateInput = cell.querySelector('input[type="date"]');
+
+                if (!dateInput) {
+                    dateInput = document.createElement('input');
+                    dateInput.type = 'date';
+                    dateInput.value = cell.innerText.split('/').reverse().join('-'); // Reverse to YYYY-MM-DD
+
+                    cell.innerHTML = '';
+                    cell.appendChild(dateInput);
+                }
+
+                dateInput.focus();
+
+                dateInput.onblur = () => {
+                    entries[rowIndex][field] = dateInput.value; // Update entry with new date
+                    const entryKey = entries[rowIndex].id; // Get unique key
+                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]); // Update Firebase
+                    displaySavedData();
+                };
+
+                dateInput.onkeydown = (e) => {
+                    if (e.key === 'Enter') {
+                        dateInput.blur();
+                    }
+                };
+            }
+        } else {
+            console.error('Firebase SDK is not loaded correctly.');
+        }
+    </script>
+
+</body>
+
+</html>
