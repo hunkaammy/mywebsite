@@ -400,9 +400,8 @@
   });
 }
 
-function fetchImagesRealtime() {
-  // Fetch only the last 10 images ordered by date
-  database.ref().orderByChild('date').limitToLast(10).on('value', snapshot => {
+      function fetchImagesRealtime() {
+  database.ref().orderByChild('date').on('value', snapshot => {
     const images = [];
     snapshot.forEach(childSnapshot => {
       const imageUrl = childSnapshot.val().url;
@@ -417,7 +416,6 @@ function fetchImagesRealtime() {
 
     imageContainer.innerHTML = "";
 
-    // Reverse the array to display the latest images first
     for (let i = images.length - 1; i >= 0; i--) {
       displayImage(images[i].imageUrl, images[i].name, images[i].price, images[i].date, images[i].outOfStock, images[i].videourl, images[i].partyCode, images[i].key);
     }
