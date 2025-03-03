@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entry Form with Data Display</title>
     <style>
         body {
@@ -108,7 +108,7 @@
         <div class="data-display">
             <h3>Saved Entries</h3>
             <input type="text" id="searchInput" placeholder="Search by LR" oninput="filterByLR()">
-            <button id="toggleDisplayButton" onclick="toggleDisplay()">Show All</button>
+            <!-- Removed the toggle display button -->
             <table class="data-table">
                 <thead>
                     <tr>
@@ -131,7 +131,6 @@
     </div>
 
     <script>
-        // Your Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDM7HUVDfdy_UXAaCx3kYWmDhxrF0y8jyA",
             authDomain: "model-poses.firebaseapp.com",
@@ -142,13 +141,11 @@
             appId: "1:10510371385:web:1f93c15f032b729fe61be8"
         };
 
-        // Initialize Firebase
         if (typeof firebase !== 'undefined') {
             firebase.initializeApp(firebaseConfig);
             const database = firebase.database();
 
-            let entries = [];
-            let showAll = false;
+            let entries = []; // Stores the entries from Firebase
 
             function checkPin() {
                 const pin = prompt("Enter the PIN to access the page:");
@@ -204,24 +201,21 @@
                 const tbody = document.getElementById('dataBody');
                 tbody.innerHTML = '';
 
-                const limit = showAll ? entries.length : Math.min(20, entries.length);
-
-                entries.forEach((entry, i) => {
-                    if (i < limit) {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td onclick="editCell(${i}, 'lr', this)">${entry.lr || '-'}</td>
-                            <td onclick="editCell(${i}, 'lot', this)">${entry.lot || '-'}</td>
-                            <td onclick="editDate(${i}, 'date', this)">${formatDate(entry.date) || '-'}</td>
-                            <td onclick="editCell(${i}, 'partyName', this)">${entry.partyName || '-'}</td>
-                            <td onclick="editCell(${i}, 'transport', this)">${entry.transport || '-'}</td>
-                            <td onclick="editCell(${i}, 'pk', this)">${entry.pk || '-'}</td>
-                            <td onclick="editDate(${i}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
-                            <td onclick="editCell(${i}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                            <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
-                        `;
-                        tbody.appendChild(row);
-                    }
+                // Display all entries (remove showAll logic)
+                entries.forEach((entry) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'lr', this)">${entry.lr || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'lot', this)">${entry.lot || '-'}</td>
+                        <td onclick="editDate(${entries.indexOf(entry)}, 'date', this)">${formatDate(entry.date) || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'partyName', this)">${entry.partyName || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'transport', this)">${entry.transport || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
+                        <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
+                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                    `;
+                    tbody.appendChild(row);
                 });
             }
 
@@ -248,33 +242,21 @@
 
                 tbody.innerHTML = '';
 
-                const limit = showAll ? filteredEntries.length : Math.min(20, filteredEntries.length);
-
-                filteredEntries.forEach((entry, i) => {
-                    if (i < limit) {
-                        const row = document.createElement('tr');
-                        const originalIndex = entries.indexOf(entry);
-                        row.innerHTML = `
-                            <td onclick="editCell(${originalIndex}, 'lr', this)">${entry.lr || '-'}</td>
-                            <td onclick="editCell(${originalIndex}, 'lot', this)">${entry.lot || '-'}</td>
-                            <td onclick="editDate(${originalIndex}, 'date', this)">${formatDate(entry.date) || '-'}</td>
-                            <td onclick="editCell(${originalIndex}, 'partyName', this)">${entry.partyName || '-'}</td>
-                            <td onclick="editCell(${originalIndex}, 'transport', this)">${entry.transport || '-'}</td>
-                            <td onclick="editCell(${originalIndex}, 'pk', this)">${entry.pk || '-'}</td>
-                            <td onclick="editDate(${originalIndex}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
-                            <td onclick="editCell(${originalIndex}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                            <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
-                        `;
-                        tbody.appendChild(row);
-                    }
+                filteredEntries.forEach((entry) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'lr', this)">${entry.lr || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'lot', this)">${entry.lot || '-'}</td>
+                        <td onclick="editDate(${entries.indexOf(entry)}, 'date', this)">${formatDate(entry.date) || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'partyName', this)">${entry.partyName || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'transport', this)">${entry.transport || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
+                        <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
+                        <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
+                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                    `;
+                    tbody.appendChild(row);
                 });
-            }
-
-            function toggleDisplay() {
-                showAll = !showAll;
-                const button = document.getElementById('toggleDisplayButton');
-                button.innerText = showAll ? 'Show Less' : 'Show All';
-                displaySavedData();
             }
 
             function formatDate(inputDate) {
