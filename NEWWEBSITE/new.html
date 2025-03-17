@@ -58,7 +58,6 @@
 
 <h2>ORDER LISTS</h2>
 <div>
-  Grand Total: <h3>{{ grandTotal | currency:'':0 }}</h3>
   <button ng-click="toggleEditMode()" style="margin-left: 20px;">
     {{ editMode ? 'View Mode' : 'Edit Mode' }}
   </button>
@@ -292,7 +291,7 @@ function myFunction() {
   </body>
 </html>
 <!-- partial -->
-  // In the controller setup (modify both controller blocks)
+  // In the Angular controller section
   <script>  angular.module('app',["firebase" ])
   .controller('appCtrl',function($scope,$firebase){
   // Add at the beginning of controller
@@ -332,24 +331,21 @@ function myFunction() {
   // Initialize grand total
   $scope.grandTotal = 0;
 
-  // Calculate total function
+  // Update calculation to use filteredDB
   $scope.calculateTotal = function() {
-    // Use filteredDB instead of DB
     $scope.grandTotal = ($scope.filteredDB || []).reduce((total, item) => {
       return total + (item.field3 * item.productPrice || 0);
     }, 0);
   };
 
-  // Watch both DB and search changes
-  $scope.$watchGroup(['DB', 'search'], function() {
-    $scope.calculateTotal();
-  });
-
-  // Auto-update when data changes
-  $scope.$watch('DB', function() {
+  // Watch for changes in both data and filtering
+  $scope.$watch('filteredDB', function() {
     $scope.calculateTotal();
   }, true);
 
+  // Initial calculation
+  $scope.calculateTotal();
+  
   // Modify the updateQty function (line 324)
   $scope.updateQty = function(item, newQty) {
     if(newQty >= 0) {
@@ -397,3 +393,9 @@ for(var i = 0; i < hashParams.length; i++){
     </button>
   </div>
 </body>
+<div>
+  Grand Total: <h3>{{ grandTotal | currency:'':0 }}</h3>
+  <button ng-click="toggleEditMode()" style="margin-left: 20px;">
+    {{ editMode ? 'View Mode' : 'Edit Mode' }}
+  </button>
+</div>
