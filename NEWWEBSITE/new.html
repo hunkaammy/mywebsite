@@ -57,7 +57,7 @@
 <body>
 
 <h2>ORDER LISTS</h2> <div>
-  Grand Total: <h3><div id="grandTotal">0</div><h3>
+  Grand Total: <h3>{{ grandTotal | currency }}</h3>
 </div>
 <form>
 <input type="hidden" id="myInput" onkeyup="myFunction()"   placeholder="Search Order" title="Type in a name">
@@ -317,12 +317,25 @@ function myFunction() {
   
   
  
+  // Add this calculation function
+  $scope.calculateTotal = function() {
+    $scope.grandTotal = $scope.DB.reduce((acc, item) => {
+      return acc + (item.field3 * item.productPrice);
+    }, 0);
+  };
+
+  // Add this watch to auto-update
+  $scope.$watch('DB', function() {
+    $scope.calculateTotal();
+  }, true);
+
+  // Modify the updateQty function (line 324)
   $scope.updateQty = function(item, newQty) {
     if(newQty >= 0) {
       item.field3 = newQty;
       $scope.DB.$save(item).then(function() {
         console.log('Quantity updated successfully');
-        myFunction();
+        $scope.calculateTotal(); // Use Angular calculation instead of myFunction()
       });
     }
   };
