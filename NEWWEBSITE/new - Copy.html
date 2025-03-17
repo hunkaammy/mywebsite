@@ -313,16 +313,6 @@ function myFunction() {
   
   
  
-  // Add new update function
-  $scope.updateQty = function(item, newQty) {
-    if(newQty >= 0) {  // Prevent negative quantities
-      item.field3 = newQty;
-      $scope.DB.$save(item).then(function() {
-        console.log('Quantity updated successfully');
-        myFunction(); // Refresh the total calculation
-      });
-    }
-  };
 })</script>
 
 </body>
