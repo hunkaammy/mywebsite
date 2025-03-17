@@ -56,7 +56,8 @@
 </head>
 <body>
 
-<h2>ORDER LISTS</h2> <div>
+<h2>ORDER LISTS</h2>
+<div>
   Grand Total: <h3>{{ grandTotal | currency }}</h3>
 </div>
 <form>
@@ -119,7 +120,7 @@ $(document).ready(function(){
 
 
 <script>
-function myFunction() {
+function myFunction() { 
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -317,14 +318,17 @@ function myFunction() {
   
   
  
-  // Add this calculation function
+  // Initialize grand total
+  $scope.grandTotal = 0;
+
+  // Calculate total function
   $scope.calculateTotal = function() {
-    $scope.grandTotal = $scope.DB.reduce((acc, item) => {
-      return acc + (item.field3 * item.productPrice);
+    $scope.grandTotal = $scope.DB.reduce((total, item) => {
+      return total + (item.field3 * item.productPrice || 0);
     }, 0);
   };
 
-  // Add this watch to auto-update
+  // Auto-update when data changes
   $scope.$watch('DB', function() {
     $scope.calculateTotal();
   }, true);
