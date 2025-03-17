@@ -103,7 +103,11 @@ $(document).ready(function(){
   <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
     <td>{{value.field2}}</td>
     <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
-    <td>{{value.field3}}</td>
+    <td>
+      <input type="number" ng-model="value.field3" 
+             ng-change="updateQty(value, value.field3)" 
+             min="0" style="width: 60px;">
+    </td>
     <td>{{value.productPrice}}</td>
 	<td style="font-size: 7px;">{{value.submitDate}} {{value.submitTime}}</td>
    <td style="display: none;">{{value.field3 * value.productPrice}}</td>
@@ -313,13 +317,12 @@ function myFunction() {
   
   
  
-  // Add new update function
   $scope.updateQty = function(item, newQty) {
-    if(newQty >= 0) {  // Prevent negative quantities
+    if(newQty >= 0) {
       item.field3 = newQty;
       $scope.DB.$save(item).then(function() {
         console.log('Quantity updated successfully');
-        myFunction(); // Refresh the total calculation
+        myFunction();
       });
     }
   };
