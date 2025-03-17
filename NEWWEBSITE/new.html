@@ -56,11 +56,8 @@
 </head>
 <body>
 
-<h2>ORDER LISTS</h2>
-<div>
-  <button ng-click="toggleEditMode()" style="margin-left: 20px;">
-    {{ editMode ? 'View Mode' : 'Edit Mode' }}
-  </button>
+<h2>ORDER LISTS</h2> <div>
+  Grand Total: <h3><div id="grandTotal">0</div><h3>
 </div>
 <form>
 <input type="hidden" id="myInput" onkeyup="myFunction()"   placeholder="Search Order" title="Type in a name">
@@ -106,14 +103,7 @@ $(document).ready(function(){
   <tr class="item" ng-repeat="value in filteredDB = (DB | filter:search)">
     <td>{{value.field2}}</td>
     <td><img src="{{value.field1}}" alt="items" width="100" height="100"></td>
-    // In the quantity cell
-    <td>
-      <input type="number" ng-model="value.field3" 
-             ng-change="updateQty(value, value.field3)" 
-             min="0" style="width: 60px;" ng-if="editMode">
-      <span ng-if="!editMode">{{value.field3}}</span>
-    </td>
-
+    <td>{{value.field3}}</td>
     <td>{{value.productPrice}}</td>
 	<td style="font-size: 7px;">{{value.submitDate}} {{value.submitTime}}</td>
    <td style="display: none;">{{value.field3 * value.productPrice}}</td>
@@ -125,7 +115,7 @@ $(document).ready(function(){
 
 
 <script>
-function myFunction() { 
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -291,14 +281,9 @@ function myFunction() {
   </body>
 </html>
 <!-- partial -->
-  // In the Angular controller section
   <script>  angular.module('app',["firebase" ])
-  .controller('appCtrl',function($scope,$firebase){
-  // Add at the beginning of controller
-  $scope.editMode = false;
-  $scope.toggleEditMode = function() {
-    $scope.editMode = !$scope.editMode;
-  };
+.controller('appCtrl',function($scope,$firebase){
+  
   
   var ref = new Firebase("https://notes-12519-default-rtdb.firebaseio.com");
         var sync = $firebase(ref);
@@ -328,34 +313,6 @@ function myFunction() {
   
   
  
-  // Initialize grand total
-  $scope.grandTotal = 0;
-
-  // Update calculation to use filteredDB
-  $scope.calculateTotal = function() {
-    $scope.grandTotal = ($scope.filteredDB || []).reduce((total, item) => {
-      return total + (item.field3 * item.productPrice || 0);
-    }, 0);
-  };
-
-  // Watch for changes in both data and filtering
-  $scope.$watch('filteredDB', function() {
-    $scope.calculateTotal();
-  }, true);
-
-  // Initial calculation
-  $scope.calculateTotal();
-  
-  // Modify the updateQty function (line 324)
-  $scope.updateQty = function(item, newQty) {
-    if(newQty >= 0) {
-      item.field3 = newQty;
-      $scope.DB.$save(item).then(function() {
-        console.log('Quantity updated successfully');
-        $scope.calculateTotal(); // Use Angular calculation instead of myFunction()
-      });
-    }
-  };
 })</script>
 
 </body>
@@ -380,22 +337,3 @@ for(var i = 0; i < hashParams.length; i++){
 
 </body>
 </html>
-
-
-
-
-
-// Move the toggle button inside the controller's DOM scope
-<body ng-app="app" ng-controller="appCtrl">
-  <div style="margin: 20px 0;">
-    <button ng-click="toggleEditMode()" class="btn btn-primary">
-      {{editMode ? 'Exit Edit Mode' : 'Enter Edit Mode'}}
-    </button>
-  </div>
-</body>
-<div>
-  Grand Total: <h3>{{ grandTotal | currency:'':0 }}</h3>
-  <button ng-click="toggleEditMode()" style="margin-left: 20px;">
-    {{ editMode ? 'View Mode' : 'Edit Mode' }}
-  </button>
-</div>
