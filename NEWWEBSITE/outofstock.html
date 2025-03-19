@@ -199,6 +199,7 @@
                 <img src="${item.url}" loading="lazy" style="max-width: 180px;" alt="${item.name}">
                 <p><strong>${item.name}</strong></p>
                 <p>Price: ${item.price}</p>
+                <p class="stock-status" style="color: ${item.outOfStock ? 'red' : 'green'}; margin: 5px 0;">${item.outOfStock ? 'Out of Stock' : 'In Stock'}</p>
                 <p>Party Code: ${item.partyCode}</p>
                 <p>Fetch Date: ${fetchDate}</p>
                 <small>Last Modified: ${lastModifiedDate}</small>

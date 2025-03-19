@@ -902,6 +902,10 @@ function scrollToTop() {
     <div id="containers" ng-if="!image.outOfStock">
         <div class="card">
             <img src="{{image.url}}" alt="Sample Image" onclick="enlargeImage(this.src)" loading="lazy" width="350" height="350">
+            
+            <div class="stock-status" ng-class="{'out-of-stock': image.outOfStock}" style="text-align: center; padding: 5px; margin-top: 5px; font-weight: bold; color: red;">
+                <span ng-if="image.outOfStock">Out of Stock</span>
+            </div>
 
             <div id="enlarged-image-container" class="enlarged-image-container" style="display: none;">
                 <div class="enlarged-image">
@@ -1195,8 +1199,7 @@ app.controller('imagesController', function ($scope, $firebaseArray, $window, $l
 
 
 
-<script>
-$('document').ready(function(){
+<script>$('document').ready(function(){
   
   $('[data-login-button], [data-logout-button]').click(function(){
     $('[data-login-form], [data-login-user]').toggleClass('state-hidden');
@@ -1220,6 +1223,121 @@ $('document').ready(function(){
   </div>
 
    
+</body>
+</html>
+
+</div>
+
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        authDomain: "shop-reminder-3ce10.firebaseapp.com",
+        databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+        projectId: "shop-reminder-3ce10",
+        storageBucket: "shop-reminder-3ce10.appspot.com",
+        messagingSenderId: "555627569260",
+        appId: "1:555627569260:web:3948ae391eab6eb5ea7849",
+        measurementId: "G-BP5EYR6ET1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Array of blocked mobile numbers
+    var blockedNumbers = ['7000913701', '9876543210', '9123456789']; // Add more numbers here
+
+    // Function to validate login
+    function validateLogin() {
+        var name = document.getElementById('name').value.trim();
+        var mobile = document.getElementById('mobile').value.trim();
+
+        // Validate name
+        if (name.length < 4) {
+            alert('Please enter a valid shop name.');
+            return;
+        }
+
+        // Validate mobile number
+        if (!/^[6-9]\d{9}$/.test(mobile)) {
+            alert('Please enter a valid mobile number.');
+            return;
+        }
+
+        // Check if the mobile number is in the blocked list
+        if (blockedNumbers.includes(mobile)) {
+            window.location.href = '/mywebsite/NEWWEBSITE/blocked.html'; // Redirect to blocked page
+            return;
+        }
+
+        // Check if the name is user-0, user-1, or user-2
+        var lowerName = name.toLowerCase();
+        if (lowerName === 'mohit chawla' || lowerName === 'honey digital' || lowerName === 'user-1') {
+            window.location.href = '/mywebsite/NEWWEBSITE/blocked.html'; // Redirect to blocked page
+            return;
+        }
+
+        var database = firebase.database();
+        var userRef = database.ref('users').push({
+            name: name,
+            mobile: mobile,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
+
+        localStorage.setItem('name', name);
+        localStorage.setItem('mobile', mobile);
+        localStorage.setItem('loggedIn', 'true');
+        console.log('Name and mobile stored for auto-login:', name, mobile);
+
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('user-name').innerText = name;
+    }
+
+function autoLogin() {
+    var storedName = localStorage.getItem('name');
+    var storedMobile = localStorage.getItem('mobile');
+
+    // Check against blocked conditions before logging in
+    if (storedMobile === '7000913701' || storedName.toLowerCase() === 'mohit chawla') {
+        return; // Do not proceed if blocked
+    }
+
+    if (storedName && storedMobile) {
+        document.getElementById('name').value = storedName;
+        document.getElementById('mobile').value = storedMobile;
+        validateLogin();
+    }
+}
+
+    function logout() {
+        localStorage.removeItem('name');
+        localStorage.removeItem('mobile');
+        localStorage.removeItem('loggedIn');
+        console.log('User logged out.');
+        window.location.href = 'https://hunkaammy.github.io/mywebsite/'; // Redirect to the desired URL after logout
+    }
+
+    window.onload = autoLogin;
+</script>
+
+
+
+</body>
+</html>
+
+<style>
+.stock-status {
+    text-align: center;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.stock-status.out-of-stock {
+    color: #ff0000;
+    font-weight: bold;
+}
+</style>
 </body>
 </html>
 
