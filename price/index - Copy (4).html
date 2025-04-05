@@ -1,0 +1,597 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+
+</script>
+<body>
+
+<div ng-app="">
+ 
+<style>
+
+hr {
+    width: 100%;
+    margin-bottom: 53px;
+}
+
+.scrolling-box {
+  background-color: black;
+  display: block;
+  color:white;
+  width: 100%;
+  height: 105px;
+  padding: 0.1em;
+  padding-bottom: 2.1em;
+  position:fixed;
+  text-align: center;
+  margin-top:-38px
+  
+}
+
+.batteries {
+    position: fixed;
+    text-align: -webkit-center;
+    background: black;
+    color: white;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    height: 40px;
+    align-content: center;
+    right: 1px;
+}
+
+p  {
+
+    font-weight: bold;
+    display: block;
+    text-align: -webkit-left;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+
+input {
+    FONT-WEIGHT: unset;
+    border-radius: 20px;
+    border: black;
+    font-size: 22px;
+    width: 120px;
+    height: 39px;
+    writing-mode: horizontal-tb !important;
+    color: fieldtext;
+    text-transform: none;
+    text-align: start;
+    padding: 1px 5px;
+    border-width: 1px;
+    border-style: dashed;
+    margin-top: 10px;
+}
+user agent stylesheet
+input[type="number" i] {
+    padding: 1px 2px;
+}
+
+select {
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    background-color: field;
+    cursor: default;
+    margin: 0em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    border-radius: 0px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  MARGIN-TOP: -70PX;
+  }
+  
+  th, td {
+  padding: 5px;
+  text-align: center;
+}
+
+
+</style> <br>  <br>
+<div class="scrolling-box">
+
+
+
+
+
+<h1> {{+name * 0.60 * +qty  + +name1 * 0.60 * +qty1  + +name2 * 0.60 * +qty2  + +name3 * 0.60 * +qty3  + +name4 * 0.60 * +qty4  + +name5 * 0.60 * +qty5  + +name6 * 0.60 * +qty6  + +name7 * 0.60 * +qty7  + +name8 * 0.60 * +qty8  + +name9 * 0.60  * +qty9 + +name10 * 0.60 * +qty10  + +name11 * 0.60 * +qty11  + +name12 * 0.60 * +qty12  + +name13 * 0.60 * +qty13  + +name14 * 0.60 * +qty14  + +name15 * 0.60 * +qty15  + +name16 * 0.60 * +qty16  + +name17 * 0.60 * +qty17  + +name18 * 0.60  * +qty18 + +name19 * 0.60  * +qty19 + +name20 * 0.60 * +qty20  + +one100 + +names * +namesqty + +names1 * +namesqty1 + +names2 * +namesqty2 + +names3 * +namesqty3 + +names4 * +namesqty4 + +names5 * +namesqty5 + +names6 * +namesqty6 + +names7 * +namesqty7 + +names8 * +namesqty8 + +names9 * +namesqty9 + +names10 * +namesqty10 + +names11 * +namesqty11 + +names12 * +namesqty12 + +names13 * +namesqty13 + +names14 * +namesqty14 + +names15 * +namesqty15 + +names16 * +namesqty16 + +names17 * +namesqty17 + +names18 * +namesqty18 + +names19 * +namesqty19 + +names20 * +namesqty20    - 0   | currency:''  }} Rs. </h1> 
+
+<p>  <b>Customer paid  <input type="number" ng-model="change" placeholder="Enter amount">  </b></p>
+  
+<p>Change to return {{+name * 0.60 * +qty  + +name1 * 0.60 * +qty1  + +name2 * 0.60 * +qty2  + +name3 * 0.60 * +qty3  + +name4 * 0.60 * +qty4  + +name5 * 0.60 * +qty5  + +name6 * 0.60 * +qty6  + +name7 * 0.60 * +qty7  + +name8 * 0.60 * +qty8  + +name9 * 0.60  * +qty9 + +name10 * 0.60 * +qty10  + +name11 * 0.60 * +qty11  + +name12 * 0.60 * +qty12  + +name13 * 0.60 * +qty13  + +name14 * 0.60 * +qty14  + +name15 * 0.60 * +qty15  + +name16 * 0.60 * +qty16  + +name17 * 0.60 * +qty17  + +name18 * 0.60  * +qty18 + +name19 * 0.60  * +qty19 + +name20 * 0.60 * +qty20  + +one100 + +names * +namesqty + +names1 * +namesqty1 + +names2 * +namesqty2 + +names3 * +namesqty3 + +names4 * +namesqty4 + +names5 * +namesqty5 + +names6 * +namesqty6 + +names7 * +namesqty7 + +names8 * +namesqty8 + +names9 * +namesqty9 + +names10 * +namesqty10 + +names11 * +namesqty11 + +names12 * +namesqty12 + +names13 * +namesqty13 + +names14 * +namesqty14 + +names15 * +namesqty15 + +names16 * +namesqty16 + +names17 * +namesqty17 + +names18 * +namesqty18 + +names19 * +namesqty19 + +names20 * +namesqty20    - 0 - change  }} Rs. </p> 
+
+<div ng-app="">
+ 
+  
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+
+
+  
+  
+
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      
+      <div class="w3-container">
+   
+
+
+ 
+ 
+      </div>
+     
+    </div>
+  </div>
+</div>
+            
+</body>
+</html>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'></script><script  src="./qr.js"></script>
+
+</body>
+</html>
+
+
+</div>
+ <br> <br> <br> <br> <br> <br>
+
+
+<br> <br> <br>  <br> 
+  <table style="width:100%">
+  <tr>
+    <td>NUMBER</td> 
+    <td>DIRECT</td>
+    
+  </tr>
+  <tr>
+    <td>
+<p>  <b>1)  <input type="number" ng-model="name" placeholder="Enter item number">   <input type="number" class="qty" ng-model="qty" placeholder="Enter qty">  </b></p>  </b></p>
+<p>  {{+name * 0.60   }}  Rs.</p> <p> {{+name * 0.60 * +qty }}  Rs.</p>
+
+
+<hr>
+
+<p> <b>2) <input type="number" ng-model="name1" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty1" placeholder="Enter qty"></b></p>
+<p>{{+name1 * 0.60  }} Rs.</p> <p> {{+name1 * 0.60 * +qty1 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>3) <input type="number" ng-model="name2" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty2" placeholder="Enter qty"></b></p>
+<p>{{+name2 * 0.60  }} Rs.</p><p> {{+name2 * 0.60 * +qty2 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>4) <input type="number" ng-model="name3" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty3" placeholder="Enter qty"></b></p>
+<p>{{+name3 * 0.60  }} Rs.</p> <p> {{+name3 * 0.60 * +qty3 }}  Rs.</p>
+
+<hr/>
+
+
+<p> <b>5) <input type="number" ng-model="name4" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty4" placeholder="Enter qty"></b></p>
+<p>{{+name4 * 0.60  }} Rs.</p> <p> {{+name4 * 0.60 * +qty4 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>6) <input type="number" ng-model="name5" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty5" placeholder="Enter qty"></b></p>
+<p>{{+name5 * 0.60  }} Rs.</p> <p> {{+name5 * 0.60 * +qty5 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>7) <input type="number" ng-model="name6" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty6" placeholder="Enter qty"></b></p>
+<p>{{+name6 * 0.60  }} Rs.</p> <p> {{+name6 * 0.60 * +qty6 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>8) <input type="number" ng-model="name7" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty7" placeholder="Enter qty"></b></p>
+<p>{{+name7 * 0.60  }} Rs.</p> <p> {{+name7 * 0.60 * +qty7 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>9) <input type="number" ng-model="name8" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty8" placeholder="Enter qty"></b></p>
+<p>{{+name8 * 0.60  }} Rs.</p> <p> {{+name8 * 0.60 * +qty8 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>10) <input type="number" ng-model="name9" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty9" placeholder="Enter qty"></b></p>
+<p>{{+name9 * 0.60  }} Rs.</p> <p> {{+name9 * 0.60 * +qty9 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>11) <input type="number" ng-model="name10" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty10" placeholder="Enter qty"></b></p>
+<p>{{+name10 * 0.60  }} Rs.</p> <p> {{+name10 * 0.60 * +qty10 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>12) <input type="number" ng-model="name11" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty11" placeholder="Enter qty"></b></p>
+<p>{{+name11 * 0.60  }} Rs.</p> <p> {{+name11 * 0.60 * +qty11 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>13) <input type="number" ng-model="name12" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty12" placeholder="Enter qty"></b></p>
+<p>{{+name12 * 0.60  }} Rs.</p> <p> {{+name12 * 0.60 * +qty12 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>14) <input type="number" ng-model="name13" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty13" placeholder="Enter qty"></b></p>
+<p>{{+name13 * 0.60  }} Rs.</p> <p> {{+name13 * 0.60 * +qty13 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>15) <input type="number" ng-model="name14" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty14" placeholder="Enter qty"></b></p>
+<p>{{+name14 * 0.60  }} Rs.</p> <p> {{+name14 * 0.60 * +qty14 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>16) <input type="number" ng-model="name15" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty15" placeholder="Enter qty"></b></p>
+<p>{{+name15 * 0.60  }} Rs.</p> <p> {{+name15 * 0.60 * +qty15 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>17) <input type="number" ng-model="name16" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty16" placeholder="Enter qty"></b></p>
+<p>{{+name16 * 0.60  }} Rs.</p> <p> {{+name16 * 0.60 * +qty16 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>18) <input type="number" ng-model="name17" placeholder="Enter item number"><input type="number" class="qty" ng-model="qty17" placeholder="Enter qty"></b></p>
+<p>{{+name17 * 0.60  }} Rs.</p> <p> {{+name17 * 0.60 * +qty17 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>19) <input type="number" ng-model="name18" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty18" placeholder="Enter qty"></b></p>
+<p>{{+name18 * 0.60  }} Rs.</p> <p> {{+name18 * 0.60 * +qty18 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>20) <input type="number" ng-model="name19" placeholder="Enter item number"> <input type="number" class="qty" ng-model="qty19" placeholder="Enter qty"></b></p>
+<p>{{+name19 * 0.60  }} Rs.</p> <p> {{+name19 * 0.60 * +qty19 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>21) <input type="number" ng-model="name20" placeholder="Enter item number"><input type="number" class="qty" ng-model="qty20" placeholder="Enter qty"></b></p>
+<p>{{+name20 * 0.60  }} Rs.</p> <p> {{+name20 * 0.60 * +qty20 }}  Rs.</p>
+
+<hr/>
+
+
+</td>
+    <td>
+
+	<p>  <b>1)  <input type="number" ng-model="names" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty" placeholder="Enter qty">  </b></p>  </b>  </b></p>
+<p> {{+names * 1  }}  Rs. </p> <p> {{+names * +namesqty }}  Rs.</p>
+
+
+<hr>
+
+<p> <b>2) <input type="number" ng-model="names1" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty1" placeholder="Enter qty"></b></p>
+<p>{{+names1 * 1  }} Rs.</p> <p> {{+names1 * +namesqty1 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>3) <input type="number" ng-model="names2" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty2" placeholder="Enter qty"></b></p>
+<p>{{+names2 * 1  }} Rs.</p> <p> {{+names2 * +namesqty2 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>4) <input type="number" ng-model="names3" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty3" placeholder="Enter qty"></b></p>
+<p>{{+names3 * 1  }} Rs.</p> <p> {{+names3 * +namesqty3 }}  Rs.</p>
+
+<hr/>
+
+
+<p> <b>5) <input type="number" ng-model="names4" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty4" placeholder="Enter qty"></b></p>
+<p>{{+names4 * 1  }} Rs.</p> <p> {{+names4 * +namesqty4 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>6) <input type="number" ng-model="names5" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty5" placeholder="Enter qty"></b></p>
+<p>{{+names5 * 1  }} Rs.</p> <p> {{+names5 * +namesqty5 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>7) <input type="number" ng-model="names6" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty6" placeholder="Enter qty"></b></p>
+<p>{{+names6 * 1  }} Rs.</p> <p> {{+names6 * +namesqty6 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>8) <input type="number" ng-model="names7" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty7" placeholder="Enter qty"></b></p>
+<p>{{+names7 * 1  }} Rs.</p> <p> {{+names7 * +namesqty7 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>9) <input type="number" ng-model="names8" placeholder="Enter item number"> <input type="number" class="qty" ng-model="namesqty8" placeholder="Enter qty"></b></p>
+<p>{{+names8 * 1  }} Rs.</p> <p> {{+names8 * +namesqty8 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>10) <input type="number" ng-model="names9" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty9" placeholder="Enter qty"></b></p>
+<p>{{+names9 * 1  }} Rs.</p> <p> {{+names9 * +namesqty9 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>11) <input type="number" ng-model="names10" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty10" placeholder="Enter qty"></b></p>
+<p>{{+names10 * 1  }} Rs.</p> <p> {{+names10 * +namesqty10 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>12) <input type="number" ng-model="names11" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty11" placeholder="Enter qty"></b></p>
+<p>{{+names11 * 1  }} Rs.</p> <p> {{+names11 * +namesqty11 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>13) <input type="number" ng-model="names12" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty12" placeholder="Enter qty"></b></p>
+<p>{{+names12 * 1  }} Rs.</p> <p> {{+names12 * +namesqty12 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>14) <input type="number" ng-model="names13" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty13" placeholder="Enter qty"></b></p>
+<p>{{+names13 * 1  }} Rs.</p> <p> {{+names13 * +namesqty13 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>15) <input type="number" ng-model="names14" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty14" placeholder="Enter qty"></b></p>
+<p>{{+names14 * 1  }} Rs.</p> <p> {{+names14 * +namesqty14 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>16) <input type="number" ng-model="names15" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty15" placeholder="Enter qty"></b></p>
+<p>{{+names15 * 1  }} Rs.</p> <p> {{+names15 * +namesqty15 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>17) <input type="number" ng-model="names16" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty16" placeholder="Enter qty"></b></p>
+<p>{{+names16 * 1  }} Rs.</p> <p> {{+names16 * +namesqty16 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>18) <input type="number" ng-model="names17" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty17" placeholder="Enter qty"></b></p>
+<p>{{+names17 * 1  }} Rs.</p> <p> {{+names17 * +namesqty17 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>19) <input type="number" ng-model="names18" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty18" placeholder="Enter qty"></b></p>
+<p>{{+names18 * 1  }} Rs.</p> <p> {{+names18 * +namesqty18 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>20) <input type="number" ng-model="names19" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty19" placeholder="Enter qty"></b></p>
+<p>{{+names19 * 1  }} Rs.</p> <p> {{+names19 * +namesqty19 }}  Rs.</p>
+
+<hr/>
+
+<p> <b>21) <input type="number" ng-model="names20" placeholder="Enter item number"><input type="number" class="qty" ng-model="namesqty20" placeholder="Enter qty"></b></p>
+<p>{{+names20 * 1  }} Rs.</p> <p> {{+names20 * +namesqty20 }}  Rs.</p>
+
+<hr/></td> </div>
+    
+  </tr>
+</table>
+
+
+<div  class="batteries">    
+   <lable> Batteries </lable>        &nbsp; <select name="cars" ng-model="one100" >
+  <option value="0">0</option>
+  <option value="7">1</option>
+  <option value="14">2</option>
+  <option value="21">3</option>
+  <option value="28">4</option>
+  <option value="35">5</option>
+  <option value="42">6</option>
+  <option value="49">7</option>
+  <option value="56">8</option>
+  <option value="63">9</option>
+  <option value="70">10</option>
+  <option value="77">11</option>
+  <option value="84">12</option>
+  <option value="91">13</option>
+  <option value="98">14</option>
+  <option value="105">15</option>
+  <option value="112">16</option>
+  <option value="119">17</option>
+  <option value="126">18</option>
+  <option value="133">19</option>
+  <option value="140">20</option>
+</select>  
+
+{{one100}} Rs.
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 100%;
+    height: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">PRINT</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+ 
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Price Filter</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="filter">
+  <p>Min Price</p>
+  <input type="number" id="minPrice" value="1">
+  <p>Max Price</p>
+  <input type="text" id="maxPrice" value="100000000"> 
+ 
+</div>
+
+<div class="container">
+  <div class="item">
+    <p id="price">{{+name * 0.60  }}</p>
+  </div>
+  <div class="item">
+    <p id="price">{{+name1 * 0.60  }}</p>
+  </div>
+  <div class="item">
+    <p id="price">{{+name2 * 0.60  }}</p>
+  </div>
+
+  
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
+
+
+ 
+
+ 
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
+</div>
+
+</body>
+</html>
