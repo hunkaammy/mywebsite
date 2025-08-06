@@ -3,31 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>	Hindustan toys order portal</title>
+    <title>User Device Details</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh; /* Full viewport height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0; /* Light gray background */
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
         }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #ddd; /* Light border */
-            border-top: 5px solid #3498db; /* Blue top for spinning effect */
-            border-radius: 50%;
-            animation: spin 1s linear infinite; /* Continuous spinning */
+        #output {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        h1 {
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+        #locationPrompt {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="spinner"></div>
+    <h1>User Device Details</h1>
+    <div id="locationPrompt">
+        <p>Please allow location access to display your geolocation.</p>
+        <button onclick="requestLocation()">Allow Location Access</button>
+    </div>
+    <div id="output">
+        <p><strong>User Agent:</strong> <span id="userAgent"></span></p>
+        <p><strong>Platform:</strong> <span id="platform"></span></p>
+        <p><strong>Browser:</strong> <span id="browser"></span></p>
+        <p><strong>Screen Resolution:</strong> <span id="screenResolution"></span></p>
+        <p><strong>Language:</strong> <span id="language"></span></p>
+        <p><strong>Time Zone:</strong> <span id="timeZone"></span></p>
+        <p><strong>Connection Type:</strong> <span id="connectionType"></span></p>
+        <p><strong>Battery Level:</strong> <span id="batteryLevel">Checking...</span></p>
+        <p><strong>Charging Status:</strong> <span id="chargingStatus">Checking...</span></p>
+        <p><strong>Location:</strong> <span id="location">Not yet requested</span></p>
+        <p><strong>Location Error Details:</strong> <span id="locationError">None</span></p>
+    </div>
+
+    <script>
+        // Function to display device details
+        function displayDeviceDetails() {
+            document.getElementById('userAgent').textContent = navigator.userAgent || 'Not available';
+            document.getElementById('platform').textContent = navigator.platform || 'Not available';
+            document.getElementById('browser').textContent = getBrowserInfo();
+            document.getElementById('screenResolution').textContent = `${window.screen.width}x${window.screen.height}`;
+            document.getElementById('language').textContent = navigator.language || 'Not available';
+            document.getElementById('timeZone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Not available';
+            document.getElementById('connectionType').textContent = getConnectionType();
+        }
+
+        // Function to detect browser info
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browser = 'Unknown';
+            if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Google Chrome';
+            else if (ua.includes('Firefox')) browser = 'Mozilla Firefox';
+            else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Apple Safari';
+            else if (ua.includes('Edg')) browser = 'Microsoft Edge';
+            return browser;
+        }
+
+        // Function to get connection type
+        function getConnectionType() {
+            if (navigator.connection) {
+                return navigator.connection.effectiveType || 'Not available';
+            }
+            return 'Not supported';
+        }
+
+        // Function to get battery information
+        function getBatteryInfo() {
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    updateBatteryStatus(battery);
+                    battery.addEventListener('levelchange', () => updateBatteryStatus(battery));
+                    battery.addEventListener('chargingchange', () => updateBatteryStatus(battery));
+                }).catch(err => {
+                    document.getElementById('batteryLevel').textContent = 'Not available';
+                    document.getElementById('chargingStatus').textContent = 'Not available';
+                    console.error('Battery API error:', err.message);
+                });
+            } else {
+                document.getElementById('batteryLevel').textContent = 'Battery API not supported';
+                document.getElementById('chargingStatus').textContent = 'Battery API not supported';
+            }
+        }
+
+        function updateBatteryStatus(battery) {
+            document.getElementById('batteryLevel').textContent = `${(battery.level * 100).toFixed(0)}%`;
+            document.getElementById('chargingStatus').textContent = battery.charging ? 'Charging' : 'Not charging';
+        }
+
+        // Function to request and get geolocation
+        function requestLocation() {
+            const locationDisplay = document.getElementById('location');
+            const locationError = document.getElementById('locationError');
+            const promptDiv = document.getElementById('locationPrompt');
+
+            if ('geolocation' in navigator) {
+                locationDisplay.textContent = 'Requesting location...';
+                locationError.textContent = 'None';
+
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude, accuracy } = position.coords;
+                        locationDisplay.textContent = `Latitude: ${latitude.toFixed(4)}, Longitude: ${longitude.toFixed(4)}, Accuracy: ${accuracy.toFixed(0)} meters`;
+                        locationError.textContent = 'None';
+                        promptDiv.style.display = 'none'; // Hide prompt after success
+                    },
+                    error => {
+                        let errorMessage = 'Unknown error';
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = 'Permission denied by user';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = 'Location information unavailable';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = 'Request timed out';
+                                break;
+                            default:
+                                errorMessage = `Error code ${error.code}: ${error.message}`;
+                        }
+                        locationDisplay.textContent = 'Unable to retrieve location';
+                        locationError.textContent = errorMessage;
+                        promptDiv.innerHTML = `<p class="error">Location access failed: ${errorMessage}. <button onclick="requestLocation()">Try Again</button></p>`;
+                        console.error('Geolocation error:', errorMessage, 'Code:', error.code);
+                    },
+                    {
+                        timeout: 15000, // Increased timeout
+                        enableHighAccuracy: true, // High accuracy for better results
+                        maximumAge: 0 // Prevent cached position
+                    }
+                );
+
+                // Optional: Watch position for updates (if needed)
+                const watchId = navigator.geolocation.watchPosition(
+                    position => {
+                        const { latitude, longitude, accuracy } = position.coords;
+                        locationDisplay.textContent = `Latitude: ${latitude.toFixed(4)}, Longitude: ${longitude.toFixed(4)}, Accuracy: ${accuracy.toFixed(0)} meters`;
+                        locationError.textContent = 'None';
+                    },
+                    error => {
+                        console.error('WatchPosition error:', error.message, 'Code:', error.code);
+                    },
+                    { timeout: 15000, enableHighAccuracy: true }
+                );
+
+                // Clean up watchPosition after 30 seconds to avoid unnecessary resource use
+                setTimeout(() => navigator.geolocation.clearWatch(watchId), 30000);
+            } else {
+                locationDisplay.textContent = 'Geolocation not supported';
+                locationError.textContent = 'Browser does not support geolocation';
+                promptDiv.innerHTML = '<p class="error">Geolocation is not supported by your browser.</p>';
+            }
+        }
+
+        // Initialize on page load
+        window.onload = () => {
+            displayDeviceDetails();
+            getBatteryInfo();
+            // Location is not requested automatically; user must click the button
+        };
+    </script>
 </body>
 </html>
