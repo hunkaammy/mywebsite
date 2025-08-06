@@ -21,18 +21,6 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
         #location {
             margin-top: 20px;
             font-size: 18px;
@@ -42,18 +30,17 @@
 <body>
     <div class="container">
         <h1>Your Location</h1>
-        <button onclick="getLocation()">Get My Location</button>
-        <div id="location">Click the button to see your city and area</div>
+        <div id="location">Fetching your location...</div>
     </div>
 
     <script>
-        function getLocation() {
+        window.onload = function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(fetchCityArea, showError);
             } else {
                 document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
             }
-        }
+        };
 
         async function fetchCityArea(position) {
             const { latitude, longitude } = position.coords;
@@ -68,6 +55,28 @@
             } catch (error) {
                 document.getElementById("location").innerText = "Unable to fetch location details.";
                 console.error("Error fetching location:", error);
+            }
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("location").innerText = "Permission denied. Please allow location access.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("location").innerText = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("location").innerText = "The request to get location timed out.";
+                    break;
+                default:
+                    document.getElementById("location").innerText = "An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>                console.error("Error fetching location:", error);
             }
         }
 
