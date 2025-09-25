@@ -122,16 +122,7 @@
                     <option value="K">K</option>
                 </select>
                 <input type="date" id="paymentDate" name="paymentDate">
-                <div class="amount-container">
-                    <button type="button" onclick="decrementAmount()">-</button>
-                    <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Amount" step="0.01" value="0" required>
-                    <button type="button" onclick="incrementAmount()">+</button>
-                </div>
-                <div class="amount-container">
-                    <button type="button" onclick="decrementOpen()">-</button>
-                    <input type="number" id="open" name="open" placeholder="Open" step="1" value="0">
-                    <button type="button" onclick="incrementOpen()">+</button>
-                </div>
+                <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Amount" step="0.01">
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -208,34 +199,6 @@
                 }
             }
 
-            function incrementAmount() {
-                const input = document.getElementById('paymentAmount');
-                let value = parseFloat(input.value) || 0;
-                input.value = (value + 0.01).toFixed(2);
-            }
-
-            function decrementAmount() {
-                const input = document.getElementById('paymentAmount');
-                let value = parseFloat(input.value) || 0;
-                if (value >= 0.01) {
-                    input.value = (value - 0.01).toFixed(2);
-                }
-            }
-
-            function incrementOpen() {
-                const input = document.getElementById('open');
-                let value = parseInt(input.value) || 0;
-                input.value = value + 1;
-            }
-
-            function decrementOpen() {
-                const input = document.getElementById('open');
-                let value = parseInt(input.value) || 0;
-                if (value >= 1) {
-                    input.value = value - 1;
-                }
-            }
-
             function incrementTableOpen(entryId) {
                 const entry = entries.find(e => e.id === entryId);
                 if (entry) {
@@ -285,7 +248,7 @@
                     pk: document.getElementById('pk').value,
                     paymentDate: document.getElementById('paymentDate').value,
                     paymentAmount: document.getElementById('paymentAmount').value,
-                    open: document.getElementById('open').value || '0' // Default to 0 if not provided
+                    open: '0' // Default to 0 for new entries
                 };
 
                 const newEntryRef = database.ref('entries').push();
@@ -293,8 +256,6 @@
                     .then(() => {
                         displaySavedData();
                         event.target.reset();
-                        document.getElementById('paymentAmount').value = '0'; // Reset to default
-                        document.getElementById('open').value = '0'; // Reset to default
                         alert('Entry saved successfully!');
                     })
                     .catch((error) => {
