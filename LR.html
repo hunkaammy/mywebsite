@@ -64,7 +64,6 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-            cursor: pointer;
         }
 
         .data-table th {
@@ -75,8 +74,31 @@
             background-color: #f9f9f9;
         }
 
+        .data-table tfoot {
+            font-weight: bold;
+            background-color: #e8e8e8;
+        }
+
         .hidden {
             display: none; /* Hide the content until PIN is verified */
+        }
+
+        .amount-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .amount-container button {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .amount-container button:hover {
+            background-color: #e0e0e0;
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -100,7 +122,16 @@
                     <option value="K">K</option>
                 </select>
                 <input type="date" id="paymentDate" name="paymentDate">
-                <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Amount" step="0.01">
+                <div class="amount-container">
+                    <button type="button" onclick="decrementAmount()">-</button>
+                    <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Amount" step="0.01" value="0" required>
+                    <button type="button" onclick="incrementAmount()">+</button>
+                </div>
+                <div class="amount-container">
+                    <button type="button" onclick="decrementOpen()">-</button>
+                    <input type="number" id="open" name="open" placeholder="Open" step="1" value="0">
+                    <button type="button" onclick="incrementOpen()">+</button>
+                </div>
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -108,7 +139,6 @@
         <div class="data-display">
             <h3>Saved Entries</h3>
             <input type="text" id="searchInput" placeholder="Search by LR" oninput="filterByLR()">
-            <!-- Removed the toggle display button -->
             <table class="data-table">
                 <thead>
                     <tr>
@@ -120,12 +150,20 @@
                         <th>P/K</th>
                         <th>Payment Date</th>
                         <th>Amount</th>
-                        <th>Action</th> <!-- Added Action column for delete -->
+                        <th>Open</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="dataBody">
                     <!-- Entries will be displayed here -->
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7"></td>
+                        <td colspan="2">Total: <span id="totalBalance"></span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -146,15 +184,79 @@
             const database = firebase.database();
 
             let entries = []; // Stores the entries from Firebase
+            let pinAttempts = 0; // Track PIN attempts
+            const maxPinAttempts = 3; // Maximum allowed attempts
 
             function checkPin() {
+                if (pinAttempts >= maxPinAttempts) {
+                    alert("Maximum PIN attempts exceeded. Please try again later.");
+                    return;
+                }
+
                 const pin = prompt("Enter the PIN to access the page:");
                 if (pin === "9988") {
                     document.getElementById("content").classList.remove("hidden");
                     loadData();
                 } else {
-                    alert("Incorrect PIN. Please try again.");
-                    checkPin();
+                    pinAttempts++;
+                    alert(`Incorrect PIN. ${maxPinAttempts - pinAttempts} attempts remaining.`);
+                    if (pinAttempts < maxPinAttempts) {
+                        checkPin(); // Allow retry only if attempts are left
+                    } else {
+                        alert("Access denied. Too many incorrect attempts.");
+                    }
+                }
+            }
+
+            function incrementAmount() {
+                const input = document.getElementById('paymentAmount');
+                let value = parseFloat(input.value) || 0;
+                input.value = (value + 0.01).toFixed(2);
+            }
+
+            function decrementAmount() {
+                const input = document.getElementById('paymentAmount');
+                let value = parseFloat(input.value) || 0;
+                if (value >= 0.01) {
+                    input.value = (value - 0.01).toFixed(2);
+                }
+            }
+
+            function incrementOpen() {
+                const input = document.getElementById('open');
+                let value = parseInt(input.value) || 0;
+                input.value = value + 1;
+            }
+
+            function decrementOpen() {
+                const input = document.getElementById('open');
+                let value = parseInt(input.value) || 0;
+                if (value >= 1) {
+                    input.value = value - 1;
+                }
+            }
+
+            function incrementTableOpen(entryId) {
+                const entry = entries.find(e => e.id === entryId);
+                if (entry) {
+                    let value = parseInt(entry.open) || 0;
+                    entry.open = (value + 1).toString();
+                    database.ref(`entries/${entryId}`).set(entry)
+                        .then(() => displaySavedData())
+                        .catch(error => console.error('Error updating open: ', error));
+                }
+            }
+
+            function decrementTableOpen(entryId) {
+                const entry = entries.find(e => e.id === entryId);
+                if (entry) {
+                    let value = parseInt(entry.open) || 0;
+                    if (value >= 1) {
+                        entry.open = (value - 1).toString();
+                        database.ref(`entries/${entryId}`).set(entry)
+                            .then(() => displaySavedData())
+                            .catch(error => console.error('Error updating open: ', error));
+                    }
                 }
             }
 
@@ -182,7 +284,8 @@
                     transport: document.getElementById('transport').value,
                     pk: document.getElementById('pk').value,
                     paymentDate: document.getElementById('paymentDate').value,
-                    paymentAmount: document.getElementById('paymentAmount').value
+                    paymentAmount: document.getElementById('paymentAmount').value,
+                    open: document.getElementById('open').value || '0' // Default to 0 if not provided
                 };
 
                 const newEntryRef = database.ref('entries').push();
@@ -190,6 +293,8 @@
                     .then(() => {
                         displaySavedData();
                         event.target.reset();
+                        document.getElementById('paymentAmount').value = '0'; // Reset to default
+                        document.getElementById('open').value = '0'; // Reset to default
                         alert('Entry saved successfully!');
                     })
                     .catch((error) => {
@@ -201,7 +306,6 @@
                 const tbody = document.getElementById('dataBody');
                 tbody.innerHTML = '';
 
-                // Display all entries (remove showAll logic)
                 entries.forEach((entry) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -213,10 +317,23 @@
                         <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
                         <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
                         <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                        <td>
+                            <div class="amount-container">
+                                <button onclick="decrementTableOpen('${entry.id}')">-</button>
+                                <span onclick="editCell(${entries.indexOf(entry)}, 'open', this)">${entry.open || '0'}</span>
+                                <button onclick="incrementTableOpen('${entry.id}')">+</button>
+                            </div>
+                        </td>
+                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td>
                     `;
                     tbody.appendChild(row);
                 });
+
+                // Calculate and display total balance
+                const lotSum = entries.reduce((sum, entry) => sum + (parseInt(entry.lot) || 0), 0);
+                const openSum = entries.reduce((sum, entry) => sum + (parseInt(entry.open) || 0), 0);
+                const totalBalance = lotSum - openSum;
+                document.getElementById('totalBalance').textContent = totalBalance;
             }
 
             function deleteEntry(entryId) {
@@ -224,7 +341,7 @@
                     database.ref(`entries/${entryId}`).remove()
                         .then(() => {
                             alert('Entry deleted successfully!');
-                            loadData(); // Reload data after deletion
+                            loadData();
                         })
                         .catch((error) => {
                             console.error('Error deleting entry: ', error);
@@ -253,23 +370,36 @@
                         <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
                         <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
                         <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td> <!-- Delete button -->
+                        <td>
+                            <div class="amount-container">
+                                <button onclick="decrementTableOpen('${entry.id}')">-</button>
+                                <span onclick="editCell(${entries.indexOf(entry)}, 'open', this)">${entry.open || '0'}</span>
+                                <button onclick="incrementTableOpen('${entry.id}')">+</button>
+                            </div>
+                        </td>
+                        <td><button onclick="deleteEntry('${entry.id}')">Delete</button></td>
                     `;
                     tbody.appendChild(row);
                 });
+
+                // Calculate and display total balance for filtered entries
+                const lotSum = filteredEntries.reduce((sum, entry) => sum + (parseInt(entry.lot) || 0), 0);
+                const openSum = filteredEntries.reduce((sum, entry) => sum + (parseInt(entry.open) || 0), 0);
+                const totalBalance = lotSum - openSum;
+                document.getElementById('totalBalance').textContent = totalBalance;
             }
 
             function formatDate(inputDate) {
                 if (!inputDate) return '';
 
-                const dateParts = inputDate.split('-'); // Split the date string by '-'
+                const dateParts = inputDate.split('-');
                 if (dateParts.length === 3) {
-                    const year = dateParts[0]; // YYYY
-                    const month = dateParts[1]; // MM
-                    const day = dateParts[2]; // DD
-                    return `${day}/${month}/${year}`; // Return in DD/MM/YYYY format
+                    const year = dateParts[0];
+                    const month = dateParts[1];
+                    const day = dateParts[2];
+                    return `${day}/${month}/${year}`;
                 }
-                return inputDate; // Fallback to original date if format is unexpected
+                return inputDate;
             }
 
             function editCell(rowIndex, field, cell) {
@@ -278,16 +408,19 @@
                 if (field === 'paymentAmount') {
                     input.type = 'number';
                     input.step = '0.01';
+                } else if (field === 'open' || field === 'lot') {
+                    input.type = 'number';
+                    input.step = '1';
                 } else {
                     input.type = 'text';
                 }
 
-                input.value = cell.innerText.replace('₹', '').trim();
+                input.value = cell.innerText.trim();
 
                 input.onblur = () => {
                     entries[rowIndex][field] = input.value;
-                    const entryKey = entries[rowIndex].id; // Get unique key
-                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]); // Update Firebase
+                    const entryKey = entries[rowIndex].id;
+                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]);
                     displaySavedData();
                 };
 
@@ -308,7 +441,7 @@
                 if (!dateInput) {
                     dateInput = document.createElement('input');
                     dateInput.type = 'date';
-                    dateInput.value = cell.innerText.split('/').reverse().join('-'); // Reverse to YYYY-MM-DD
+                    dateInput.value = cell.innerText.split('/').reverse().join('-');
 
                     cell.innerHTML = '';
                     cell.appendChild(dateInput);
@@ -317,9 +450,9 @@
                 dateInput.focus();
 
                 dateInput.onblur = () => {
-                    entries[rowIndex][field] = dateInput.value; // Update entry with new date
-                    const entryKey = entries[rowIndex].id; // Get unique key
-                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]); // Update Firebase
+                    entries[rowIndex][field] = dateInput.value;
+                    const entryKey = entries[rowIndex].id;
+                    database.ref(`entries/${entryKey}`).set(entries[rowIndex]);
                     displaySavedData();
                 };
 
