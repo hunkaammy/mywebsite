@@ -100,6 +100,10 @@
         .amount-container button:hover {
             background-color: #e0e0e0;
         }
+
+        .highlight-green {
+            background-color: #ccffcc; /* Green highlight for Open cell when equal to LOT */
+        }
     </style>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -268,6 +272,7 @@
                 tbody.innerHTML = '';
 
                 entries.forEach((entry) => {
+                    const isOpenEqualToLot = parseInt(entry.open) === parseInt(entry.lot) && entry.open !== undefined && entry.lot !== undefined;
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td onclick="editCell(${entries.indexOf(entry)}, 'lr', this)">${entry.lr || '-'}</td>
@@ -278,7 +283,7 @@
                         <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
                         <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
                         <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                        <td>
+                        <td class="${isOpenEqualToLot ? 'highlight-green' : ''}">
                             <div class="amount-container">
                                 <button onclick="decrementTableOpen('${entry.id}')">-</button>
                                 <span onclick="editCell(${entries.indexOf(entry)}, 'open', this)">${entry.open || '0'}</span>
@@ -321,6 +326,7 @@
                 tbody.innerHTML = '';
 
                 filteredEntries.forEach((entry) => {
+                    const isOpenEqualToLot = parseInt(entry.open) === parseInt(entry.lot) && entry.open !== undefined && entry.lot !== undefined;
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td onclick="editCell(${entries.indexOf(entry)}, 'lr', this)">${entry.lr || '-'}</td>
@@ -331,7 +337,7 @@
                         <td onclick="editCell(${entries.indexOf(entry)}, 'pk', this)">${entry.pk || '-'}</td>
                         <td onclick="editDate(${entries.indexOf(entry)}, 'paymentDate', this)">${formatDate(entry.paymentDate) || '-'}</td>
                         <td onclick="editCell(${entries.indexOf(entry)}, 'paymentAmount', this)">${entry.paymentAmount ? '₹' + parseFloat(entry.paymentAmount).toFixed(2) : '-'}</td>
-                        <td>
+                        <td class="${isOpenEqualToLot ? 'highlight-green' : ''}">
                             <div class="amount-container">
                                 <button onclick="decrementTableOpen('${entry.id}')">-</button>
                                 <span onclick="editCell(${entries.indexOf(entry)}, 'open', this)">${entry.open || '0'}</span>
