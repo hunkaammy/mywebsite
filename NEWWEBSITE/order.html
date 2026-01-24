@@ -1,192 +1,626 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" ng-app="adminApp">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodePen - Upload Images to Firebase 3</title>
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/bootstrap-material-design.css'>
-<link rel='stylesheet' href='https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hindustan Admin Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  
+  <style>
+    :root {
+      --primary: #00bf63; /* Fresh Green */
+      --primary-dark: #009e52;
+      --bg: #f4f7f6;
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --danger: #ef4444;
+      --safe-area-bottom: env(safe-area-inset-bottom);
+    }
 
+    body {
+      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    [ng-cloak] { display: none !important; }
+
+    /* --- 1. Sticky Header --- */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .app-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .search-box {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .search-box:focus {
+      background: #fff;
+      box-shadow: 0 0 0 2px var(--primary);
+      outline: none;
+    }
+
+    /* --- 2. Custom Tabs --- */
+    .switch-tabs {
+      background: #e5e7eb;
+      padding: 4px;
+      border-radius: 12px;
+      display: flex;
+      margin-top: 10px;
+    }
+    .switch-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .switch-btn.active {
+      background: #fff;
+      color: var(--text-main);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* --- 3. Customer List Cards --- */
+    .customer-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 16px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.1s;
+      cursor: pointer;
+    }
+    .customer-card:active { transform: scale(0.98); background: #fafafa; }
+
+    .c-avatar {
+      width: 48px; height: 48px;
+      background: #e0f2fe;
+      color: #0284c7;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+    .c-info h4 { font-size: 16px; font-weight: 700; margin: 0 0 4px 0; }
+    .c-info p { font-size: 12px; color: var(--text-muted); margin: 0; }
+    .c-price { text-align: right; }
+    .c-price .amount { font-size: 16px; font-weight: 700; color: var(--primary); display: block; }
+    .c-price .count { font-size: 11px; color: var(--text-muted); background: #f3f4f6; padding: 2px 8px; border-radius: 10px; }
+
+    /* --- 4. Single Order Page --- */
+    .single-view {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg);
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 40px;
+    }
+    
+    .sv-header {
+      background: #fff;
+      padding: 16px;
+      position: sticky; top: 0; z-index: 10;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 15px;
+    }
+    .btn-back { border: none; background: #f3f4f6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin: 24px 16px 8px;
+    }
+
+    .product-item {
+      background: #fff;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    /* BIGGER IMAGES STYLE */
+    .p-img-container {
+      position: relative;
+    }
+    .p-img { 
+      width: 80px; 
+      height: 80px; 
+      border-radius: 12px; 
+      object-fit: cover; 
+      background: #eee;
+      border: 1px solid #eee;
+      cursor: zoom-in;
+    }
+    .zoom-icon {
+        position: absolute;
+        bottom: 5px; right: 5px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        border-radius: 4px;
+        padding: 2px 4px;
+        font-size: 10px;
+        pointer-events: none;
+    }
+
+    .p-details { flex: 1; align-self: center; }
+    .p-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+    .p-meta { font-size: 13px; color: var(--text-muted); }
+    
+    /* Action Buttons Container */
+    .action-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        align-self: center;
+    }
+
+    /* Main Toggle Button */
+    .btn-toggle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    .btn-toggle.done { background: var(--bg); color: #ccc; border: 2px solid #ddd; }
+    .btn-toggle.done:active { background: var(--primary); border-color: var(--primary); color: white; }
+    
+    .btn-toggle.undo { background: #e0f2fe; color: #0284c7; }
+
+    /* New Delete Button */
+    .btn-delete-mini {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: #fee2e2;
+        color: #ef4444;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px;
+    }
+    
+    /* Completed State Visuals */
+    .item-completed .p-name { text-decoration: line-through; color: #aaa; }
+    .item-completed .p-img { filter: grayscale(1); opacity: 0.7; }
+
+    /* --- 5. Toast Notification --- */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 50px;
+      padding: 12px;
+      position: fixed;
+      z-index: 3000;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+    .empty-state i { font-size: 40px; margin-bottom: 10px; color: #ddd; }
+
+    /* --- 6. Full Screen Image Modal --- */
+    .image-modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 5000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.2s;
+    }
+    .image-modal img {
+        max-width: 95%;
+        max-height: 90%;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .close-modal-btn {
+        position: absolute;
+        top: 20px; right: 20px;
+        color: white;
+        font-size: 30px;
+        background: rgba(255,255,255,0.1);
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  </style>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html ng-app="myApp">
+<body ng-controller="adminController" ng-cloak>
 
-<head>
-    <title>Dynamically Submit Form</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
-</head>
-
-<body ng-controller="imagesController as vm">
-
-    <br><br>
-
-    <div ng-repeat="image in vm.images | orderBy: '-date'" >
-        {{$index}}
-        <input type="text" id="{{'inputa' + $index}}" ng-model="image.url">
-        <input type="text" id="{{'inputb' + $index}}" placeholder="Field 2" ng-model="image.field2">
-        <input type="text" id="{{'inputc' + $index}}" placeholder="Field 3" ng-model="image.field3">
-        <button id="submitButton" ng-click="submitData(image, $index)">Submit</button> <br><br>
-    </div>
-
-    <div ng-repeat="submittedData in vm.submittedData">
-	<table>
-  <thead>
-    <tr>
-      <th>{{submittedData.field2}}</th>
-      <th><img src="{{submittedData.field1}}"alt="Girl in a jacket" width="150" height="150">
-</th>
-      <th>{{submittedData.field3}}</th>
-	   <th>&nbsp;&nbsp;&nbsp;({{submittedData.submitDate
-}})</th>
-      <th><button ng-click="deleteData(submittedData.$id)">Delete</button></th>
-	    <th><a href="https://hunkaammy.github.io/mywebsite/NEWWEBSITE/new#myInput={{submittedData.field2}}" target="_blank">This is a link</a></th>
-    </tr> <br>
-        </thead>
-  <tbody>
-    <tr>
-	
-	 <td></td>
-    </tr>
-    <tr>
-      <td></td>
-    </tr>
-    <tr>
-      <td> </td>
-    </tr>
-	   <tr>
-      <td>   <br></td>
-    </tr>
-  </tbody>
-</table>
-	   
-	   
+  <div ng-show="viewMode === 'dashboard'">
+    
+    <div class="app-header">
+      <div class="header-top">
+        <h1 class="app-title"><i class="fas fa-boxes-stacked" style="color:var(--primary);"></i> Admin Panel</h1>
+        <span class="badge bg-light text-dark border">{{pendingCustomers.length}} Orders</span>
+      </div>
       
+      <input type="text" class="search-box" placeholder="Search customer, mobile..." ng-model="searchQuery">
+
+      <div class="switch-tabs">
+        <button class="switch-btn" ng-class="{'active': currentTab === 'pending'}" ng-click="currentTab = 'pending'">
+          Pending Items
+        </button>
+        <button class="switch-btn" ng-class="{'active': currentTab === 'completed'}" ng-click="currentTab = 'completed'">
+          Order History
+        </button>
+      </div>
     </div>
 
-    <script>
-        var app = angular.module('myApp', ['firebase']);
+    <div ng-if="currentTab === 'pending'">
+      <div class="empty-state" ng-if="pendingCustomers.length === 0">
+        <i class="fas fa-check-circle"></i>
+        <p>No pending orders. Good job!</p>
+      </div>
 
-        app.controller('imagesController', function ($scope, $firebaseArray) {
-            $scope.vm = this;
-            $scope.vm.images = [];
-            $scope.vm.submittedData = [];
+      <div class="customer-card" 
+           ng-repeat="customer in pendingCustomers | filter:searchQuery | orderBy:'-lastActiveTime'"
+           ng-click="openSingleView(customer)">
+        <div style="display:flex; align-items:center;">
+          <div class="c-avatar">{{customer.name.charAt(0).toUpperCase()}}</div>
+          <div class="c-info">
+            <h4>{{customer.name}}</h4>
+            <p>{{customer.items.length}} items • {{customer.lastDate}} at {{customer.lastTime}}</p>
+          </div>
+        </div>
+        <div class="c-price">
+          <span class="amount">{{customer.totalAmount | currency:"₹":0}}</span>
+          <span class="count">Pending</span>
+        </div>
+      </div>
+    </div>
 
-            var firebaseConfigSubmit = {
-    apiKey: "AIzaSyAMFjDnZaszneoR6nO8bmXUxwZJplLvNfU",
-  authDomain: "notes-12519.firebaseapp.com",
-  databaseURL: "https://notes-12519-default-rtdb.firebaseio.com",
-  projectId: "notes-12519",
-  storageBucket: "notes-12519.appspot.com",
-  messagingSenderId: "1073774450189",
-  appId: "1:1073774450189:web:0b6d4a9f95823abbf36744",
-  measurementId: "G-GZXYCJ33TR"
-};
-            
+    <div ng-if="currentTab === 'completed'">
+      <div class="empty-state" ng-if="completedCustomers.length === 0">
+        <i class="fas fa-history"></i>
+        <p>No history available.</p>
+      </div>
 
-            var firebaseSubmit = firebase.initializeApp(firebaseConfigSubmit, 'submitApp');
+      <div class="customer-card" 
+           ng-repeat="customer in completedCustomers | filter:searchQuery | orderBy:'-lastActiveTime'"
+           ng-click="openSingleView(customer)"
+           style="opacity: 0.8;">
+        <div style="display:flex; align-items:center;">
+          <div class="c-avatar" style="background:#f3f4f6; color:#9ca3af;">
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="c-info">
+            <h4 style="text-decoration:line-through;">{{customer.name}}</h4>
+            <p>Completed on {{customer.lastDate}} at {{customer.lastTime}}</p>
+          </div>
+        </div>
+        <div class="c-price">
+          <span class="amount text-muted">{{customer.totalAmount | currency:"₹":0}}</span>
+        </div>
+      </div>
+    </div>
 
-            var databaseSubmit = firebaseSubmit.database().ref();
-            var listSubmit = $firebaseArray(databaseSubmit);
+  </div>
 
-            $scope.vm.submitData = function (image, index) {
-                var inputa = image.url;
-                var inputb = image.field2;
-                var inputc = image.field3;
-				var inputd = image.submitDate
-;
 
-                var newDataKey = databaseSubmit.push().key;
+  <div class="single-view" ng-if="viewMode === 'single'">
+    
+    <div class="sv-header">
+      <button class="btn-back" ng-click="closeSingleView()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div style="flex:1;">
+        <h5 style="margin:0; font-weight:700;">{{singleCustomer.name}}</h5>
+        <small style="color:var(--text-muted);">{{singleCustomer.items.length}} Items Total</small>
+      </div>
+      <div style="text-align:right;">
+        <span style="display:block; font-weight:700; color:var(--primary); font-size:16px;">
+          {{singleCustomer.pendingTotal | currency:"₹":0}}
+        </span>
+        <span style="display:block; font-size:9px; color:#999; text-transform:uppercase;">Pending Amount</span>
+      </div>
+    </div>
 
-                databaseSubmit.child(newDataKey).set({
-                    field1: inputa,
-                    field2: inputb,
-                    field3: inputc,
-					field4: inputd
-                });
+    <div ng-if="(singleCustomer.items | filter:{status: '!completed'}).length > 0">
+      <div class="section-title">Pending Items ({{ (singleCustomer.items | filter:{status: '!completed'}).length }})</div>
+      
+      <div class="product-item" ng-repeat="item in singleCustomer.items | filter:{status: '!completed'}">
+        <div class="p-img-container" ng-click="showEnlarged(item.field1)">
+            <img ng-src="{{item.field1}}" class="p-img">
+            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
 
-                // Clear input fields after submission
-                image.url = '';
-                image.field2 = '';
-                image.field3 = '';
-				 image.field4 = '';
-            };
+        <div class="p-details">
+          <div class="p-name">{{item.productName}}</div>
+          <div class="p-meta">
+            <span class="text-dark fw-bold">{{item.field3}} x {{item.productPrice}}</span> 
+            = ₹{{item.productPrice * item.field3}}
+          </div>
+          <div class="p-meta" style="font-size:10px; margin-top:2px;">
+             <i class="far fa-clock"></i> Ordered: {{item.submitDate}} {{item.submitTime}}
+          </div>
+        </div>
+        
+        <div class="action-group">
+            <button class="btn-toggle done" ng-click="setItemStatus(item, 'completed')">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn-delete-mini" ng-click="deleteItem(item)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+      </div>
+    </div>
 
-            // Fetch submitted data
-            listSubmit.$loaded().then(function (data) {
-                $scope.vm.submittedData = data;
-            });
+    <div ng-if="(singleCustomer.items | filter:{status: 'completed'}).length > 0">
+      <div class="section-title" style="margin-top:30px;">Completed Items</div>
+      
+      <div class="product-item item-completed" ng-repeat="item in singleCustomer.items | filter:{status: 'completed'}">
+        <div class="p-img-container" ng-click="showEnlarged(item.field1)">
+            <img ng-src="{{item.field1}}" class="p-img">
+            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
 
-            $scope.deleteData = function (dataId) {
-                databaseSubmit.child(dataId).remove();
-            };
+        <div class="p-details">
+          <div class="p-name">{{item.productName}}</div>
+          <div class="p-meta">Total: ₹{{item.productPrice * item.field3}}</div>
+          
+          <div class="p-meta" style="font-size:10px; margin-top:2px; color: #888;">
+             <i class="far fa-clock"></i> Ordered: {{item.submitDate}} {{item.submitTime}}
+          </div>
+          
+          <div class="p-meta" style="font-size:10px; margin-top:1px; color: var(--primary-dark); font-weight: 600;">
+             <i class="fas fa-check-double"></i> Done: {{item.completedDate || 'Just now'}} {{item.completedTime || ''}}
+          </div>
+        </div>
 
-            $scope.image = function (event) {
-                event.preventDefault();
-                var file = event.target.files[0];
-                uploadImage(file);
-            };
+        <div class="action-group">
+            <button class="btn-toggle undo" ng-click="setItemStatus(item, null)">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="btn-delete-mini" ng-click="deleteItem(item)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
 
-            function uploadImage(file) {
-                var random = parseInt(Math.random() * 1000000);
-                var refStorageSubmit = storageServiceSubmit.ref('uploads').child(random.toString()).child(file.name);
-                var uploadTask = refStorageSubmit.put(file);
+  <div class="image-modal" ng-if="enlargedImgSrc" ng-click="closeEnlarged()">
+      <div class="close-modal-btn">&times;</div>
+      <img ng-src="{{enlargedImgSrc}}" ng-click="$event.stopPropagation()">
+  </div>
 
-                uploadTask.on('state_changed', null, function (error) {
-                    console.error('Upload error:', error);
-                }, function () {
-                    var imageData = {
-                        url: uploadTask.snapshot.ref.getDownloadURL(),
-                        bytes: uploadTask.snapshot.totalBytes,
-                        name: uploadTask.snapshot.metadata.name,
-                        path: uploadTask.snapshot.ref.fullPath,
-                        date: uploadTask.snapshot.metadata.timeCreated
-                    };
+  <div id="toast"><i class="fas fa-check-circle me-2"></i><span id="toast-msg">Saved</span></div>
 
-                    listSubmit.$add(imageData).then(function (ref) {
-                        swal("Success", "Your image has been uploaded", "success");
-                    });
-                });
-            }
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+  <script>
+    var app = angular.module('adminApp', ['firebase']);
+
+    app.controller('adminController', ['$scope', '$timeout', function($scope, $timeout) {
+      
+      var config = { databaseURL: "https://notes-12519-default-rtdb.firebaseio.com" };
+      try { firebase.initializeApp(config); } catch (e) {}
+      var dbRef = firebase.database().ref();
+
+      // Navigation Logic
+      var urlParams = new URLSearchParams(window.location.search);
+      var targetCustomer = urlParams.get('c');
+      
+      $scope.viewMode = targetCustomer ? 'single' : 'dashboard';
+      $scope.targetCustomerName = targetCustomer;
+      $scope.currentTab = 'pending';
+      $scope.searchQuery = '';
+      $scope.enlargedImgSrc = null;
+      
+      var allDataCache = []; // Store raw data
+
+      // --- 1. Real-time Listener ---
+      dbRef.on('value', function(snapshot) {
+        $timeout(function() {
+          allDataCache = [];
+          snapshot.forEach(function(child) {
+             var item = child.val();
+             item.$id = child.key;
+             item.productPrice = parseFloat(item.productPrice) || 0;
+             item.field3 = parseInt(item.field3) || 0;
+             allDataCache.push(item);
+          });
+          $scope.processData();
         });
-    </script>
+      });
 
-    <script>
-        (function () {
-            'use strict';
+      // --- 2. Process Data into Groups ---
+      $scope.processData = function() {
+          var pendingMap = {};
+          var completedMap = {};
+          
+          allDataCache.forEach(function(item) {
+             var cName = item.field2 || 'Unknown';
+             var isCompleted = (item.status === 'completed');
 
-            angular
-                .module('myApp')
-                .directive('customOnChange', customOnChange);
+             // Build Grouped Maps
+             var targetMap = isCompleted ? completedMap : pendingMap;
+             if (!targetMap[cName]) {
+                 targetMap[cName] = { 
+                     name: cName, items: [], totalAmount: 0, 
+                     lastTime: item.submitTime, 
+                     lastDate: item.submitDate, 
+                     lastActiveTime: item.serverTimestamp || 0 
+                 };
+             }
+             targetMap[cName].items.push(item);
+             targetMap[cName].totalAmount += (item.productPrice * item.field3);
+             
+             if (item.serverTimestamp > targetMap[cName].lastActiveTime) {
+                 targetMap[cName].lastActiveTime = item.serverTimestamp;
+                 targetMap[cName].lastTime = item.submitTime;
+                 targetMap[cName].lastDate = item.submitDate; 
+             }
+          });
 
-            function customOnChange() {
-                return {
-                    restrict: 'A',
-                    link: function (scope, element, attrs) {
-                        var onChangeHandler = scope.$eval(attrs.customOnChange);
-                        element.bind('change', onChangeHandler);
-                    }
-                };
-            }
-        })();
-    </script>
+          $scope.pendingCustomers = Object.values(pendingMap);
+          $scope.completedCustomers = Object.values(completedMap);
+          
+          // Re-generate Single Customer Data if open
+          if ($scope.targetCustomerName) {
+              $scope.singleCustomer = $scope.getFullCustomerData($scope.targetCustomerName);
+          }
+      };
 
-</body>
+      // --- 3. Single View Helpers ---
+      $scope.getFullCustomerData = function(name) {
+          // MODIFIED: Calculates pendingTotal separately
+          var cust = { name: name, items: [], totalAmount: 0, pendingTotal: 0 };
+          allDataCache.forEach(function(item) {
+              if (item.field2 === name) {
+                  cust.items.push(item);
+                  var lineTotal = (item.productPrice * item.field3);
+                  
+                  // Total of Everything
+                  cust.totalAmount += lineTotal;
+                  
+                  // Pending Only Total
+                  if (item.status !== 'completed') {
+                      cust.pendingTotal += lineTotal;
+                  }
+              }
+          });
+          return cust;
+      };
 
-</html>
-<!-- partial -->
-  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
-<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.min.js'></script>
-<script src='https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js'></script>
-<script src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js'></script>
-<script src='https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js'></script>
+      $scope.openSingleView = function(customer) {
+          window.history.pushState({}, '', '?c=' + customer.name);
+          $scope.targetCustomerName = customer.name;
+          $scope.singleCustomer = $scope.getFullCustomerData(customer.name);
+          $scope.viewMode = 'single';
+          window.scrollTo(0,0);
+      };
+
+      $scope.closeSingleView = function() {
+          window.history.pushState({}, '', 'admin.html');
+          $scope.viewMode = 'dashboard';
+          $scope.targetCustomerName = null;
+      };
+
+      // --- 4. IMAGE ENLARGE HELPERS ---
+      $scope.showEnlarged = function(src) {
+          $scope.enlargedImgSrc = src;
+      };
+      
+      $scope.closeEnlarged = function() {
+          $scope.enlargedImgSrc = null;
+      };
+
+      // --- 5. ACTIONS ---
+
+      // Mark Item Done/Pending
+      $scope.setItemStatus = function(item, status) {
+        if(!item.$id) return;
+        
+        var updates = {};
+        updates[item.$id + '/status'] = status;
+        
+        // Save current Date/Time when marking as completed
+        if(status === 'completed') {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-IN', {day: '2-digit', month: '2-digit', year: 'numeric'});
+            const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }).toUpperCase();
+            
+            updates[item.$id + '/completedDate'] = dateStr;
+            updates[item.$id + '/completedTime'] = timeStr;
+        }
+
+        dbRef.update(updates);
+        
+        var msg = status === 'completed' ? 'Marked as Done' : 'Moved to Pending';
+        $scope.showToast(msg);
+      };
+
+      // DELETE ACTION
+      $scope.deleteItem = function(item) {
+        if(confirm('Are you sure you want to delete this item permanently?')) {
+            dbRef.child(item.$id).remove();
+            $scope.showToast('Item Deleted');
+        }
+      };
+
+      // Toast UI Helper
+      $scope.showToast = function(message) {
+          var x = document.getElementById("toast");
+          document.getElementById("toast-msg").innerText = message;
+          x.className = "show";
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      };
+
+    }]);
+  </script>
 </body>
 </html>
