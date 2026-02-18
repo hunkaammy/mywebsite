@@ -18,6 +18,7 @@
       --text-muted: #6b7280;
       --border: #e5e7eb;
       --danger: #ef4444;
+      --whatsapp: #25D366;
     }
 
     body {
@@ -54,36 +55,77 @@
     }
     .switch-btn.active { background: #fff; color: var(--text-main); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
+    /* ===== CUSTOMER CARD ===== */
     .customer-card {
-      background: var(--card-bg); border-radius: 16px; padding: 16px; margin: 16px 16px 0;
+      background: var(--card-bg); border-radius: 16px; margin: 16px 16px 0;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      transition: transform 0.1s; cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.1s;
     }
-    .customer-card:active { transform: scale(0.98); background: #fafafa; }
+    .card-main {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; cursor: pointer;
+    }
+    .card-main:active { background: #fafafa; }
     .c-avatar {
       width: 48px; height: 48px; background: #e0f2fe; color: #0284c7;
       border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 18px; margin-right: 12px;
+      font-weight: 700; font-size: 18px; margin-right: 12px; flex-shrink: 0;
     }
-    .c-info h4 { font-size: 16px; font-weight: 700; margin: 0 0 4px 0; }
+    .c-info h4 { font-size: 16px; font-weight: 700; margin: 0 0 2px 0; }
     .c-info p { font-size: 12px; color: var(--text-muted); margin: 0; }
-    .c-price { text-align: right; }
+    .c-price { text-align: right; flex-shrink: 0; }
     .c-price .amount { font-size: 16px; font-weight: 700; color: var(--primary); display: block; }
     .c-price .count { font-size: 11px; color: var(--text-muted); background: #f3f4f6; padding: 2px 8px; border-radius: 10px; }
 
+    /* ===== ACTION BAR ===== */
+    .card-actions {
+      display: flex; border-top: 1px solid var(--border);
+    }
+    .card-action-btn {
+      flex: 1; border: none; background: transparent;
+      padding: 10px 8px; font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .card-action-btn:active { opacity: 0.75; }
+    .card-action-btn + .card-action-btn { border-left: 1px solid var(--border); }
+    .btn-call { color: #2563eb; }
+    .btn-call:active { background: #eff6ff; }
+    .btn-wa { color: var(--whatsapp); }
+    .btn-wa:active { background: #f0fdf4; }
+    .btn-view { color: var(--text-muted); }
+    .btn-view:active { background: #f9fafb; }
+
+    /* ===== SINGLE VIEW ===== */
     .single-view {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: var(--bg); z-index: 2000; overflow-y: auto; padding-bottom: 40px;
     }
     .sv-header {
       background: #fff; padding: 16px; position: sticky; top: 0; z-index: 10;
-      border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sv-header-top {
+      display: flex; align-items: center; gap: 15px; margin-bottom: 10px;
     }
     .btn-back {
       border: none; background: #f3f4f6; width: 40px; height: 40px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .sv-contact-btns {
+      display: flex; gap: 8px;
+    }
+    .sv-contact-btn {
+      flex: 1; border: none; border-radius: 10px;
+      padding: 9px 12px; font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .sv-call-btn { background: #eff6ff; color: #2563eb; }
+    .sv-call-btn:active { background: #dbeafe; }
+    .sv-wa-btn { background: #f0fdf4; color: #16a34a; }
+    .sv-wa-btn:active { background: #dcfce7; }
 
     .date-group { margin-top: 20px; }
     .date-group-header {
@@ -92,7 +134,7 @@
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
       font-size: 12px; font-weight: 700; color: var(--text-muted);
       text-transform: uppercase; letter-spacing: 0.8px;
-      position: sticky; top: 73px; z-index: 5;
+      position: sticky; top: 109px; z-index: 5;
     }
     .date-badge { background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 11px; }
     .item-count { margin-left: auto; background: #e5e7eb; padding: 2px 8px; border-radius: 20px; font-size: 11px; color: var(--text-muted); }
@@ -227,43 +269,78 @@
       </div>
     </div>
 
+    <!-- PENDING TAB -->
     <div ng-if="currentTab === 'pending'">
       <div class="empty-state" ng-if="pendingCustomers.length === 0">
         <i class="fas fa-check-circle"></i><p>No pending orders. Good job!</p>
       </div>
       <div class="customer-card"
-           ng-repeat="customer in pendingCustomers | filter:searchQuery | orderBy:'-lastActiveTime'"
-           ng-click="openSingleView(customer)">
-        <div style="display:flex; align-items:center;">
-          <div class="c-avatar">{{customer.name.charAt(0).toUpperCase()}}</div>
-          <div class="c-info">
-            <h4>{{customer.name}}</h4>
-            <p>{{customer.items.length}} items • {{customer.lastDate}} at {{customer.lastTime}}</p>
+           ng-repeat="customer in pendingCustomers | filter:searchQuery | orderBy:'-lastActiveTime'">
+        <!-- Top: click to open -->
+        <div class="card-main" ng-click="openSingleView(customer)">
+          <div style="display:flex; align-items:center; flex:1; min-width:0;">
+            <div class="c-avatar">{{customer.name.charAt(0).toUpperCase()}}</div>
+            <div class="c-info">
+              <h4>{{customer.name}}</h4>
+              <p>{{customer.items.length}} items • {{customer.lastDate}} at {{customer.lastTime}}</p>
+              <p ng-if="customer.mobile" style="color:#2563eb; font-size:11px; margin-top:2px;">
+                <i class="fas fa-phone" style="font-size:9px;"></i> {{customer.mobile}}
+              </p>
+            </div>
+          </div>
+          <div class="c-price">
+            <span class="amount">{{customer.totalAmount | currency:"₹":0}}</span>
+            <span class="count">Pending</span>
           </div>
         </div>
-        <div class="c-price">
-          <span class="amount">{{customer.totalAmount | currency:"₹":0}}</span>
-          <span class="count">Pending</span>
+        <!-- Bottom: action buttons -->
+        <div class="card-actions">
+          <button class="card-action-btn btn-call" ng-click="callCustomer(customer, $event)">
+            <i class="fas fa-phone"></i> Call
+          </button>
+          <button class="card-action-btn btn-wa" ng-click="whatsappCustomer(customer, $event)">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </button>
+          <button class="card-action-btn btn-view" ng-click="openSingleView(customer)">
+            <i class="fas fa-eye"></i> View Order
+          </button>
         </div>
       </div>
     </div>
 
+    <!-- COMPLETED TAB -->
     <div ng-if="currentTab === 'completed'">
       <div class="empty-state" ng-if="completedCustomers.length === 0">
         <i class="fas fa-history"></i><p>No history available.</p>
       </div>
       <div class="customer-card"
            ng-repeat="customer in completedCustomers | filter:searchQuery | orderBy:'-lastActiveTime'"
-           ng-click="openSingleView(customer)" style="opacity:0.8;">
-        <div style="display:flex; align-items:center;">
-          <div class="c-avatar" style="background:#f3f4f6; color:#9ca3af;"><i class="fas fa-check"></i></div>
-          <div class="c-info">
-            <h4 style="text-decoration:line-through;">{{customer.name}}</h4>
-            <p>Completed on {{customer.lastDate}} at {{customer.lastTime}}</p>
+           style="opacity:0.85;">
+        <div class="card-main" ng-click="openSingleView(customer)">
+          <div style="display:flex; align-items:center; flex:1; min-width:0;">
+            <div class="c-avatar" style="background:#f3f4f6; color:#9ca3af;"><i class="fas fa-check"></i></div>
+            <div class="c-info">
+              <h4 style="text-decoration:line-through;">{{customer.name}}</h4>
+              <p>Completed on {{customer.lastDate}} at {{customer.lastTime}}</p>
+              <p ng-if="customer.mobile" style="color:#2563eb; font-size:11px; margin-top:2px;">
+                <i class="fas fa-phone" style="font-size:9px;"></i> {{customer.mobile}}
+              </p>
+            </div>
+          </div>
+          <div class="c-price">
+            <span class="amount text-muted">{{customer.totalAmount | currency:"₹":0}}</span>
           </div>
         </div>
-        <div class="c-price">
-          <span class="amount text-muted">{{customer.totalAmount | currency:"₹":0}}</span>
+        <div class="card-actions">
+          <button class="card-action-btn btn-call" ng-click="callCustomer(customer, $event)">
+            <i class="fas fa-phone"></i> Call
+          </button>
+          <button class="card-action-btn btn-wa" ng-click="whatsappCustomer(customer, $event)">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </button>
+          <button class="card-action-btn btn-view" ng-click="openSingleView(customer)">
+            <i class="fas fa-eye"></i> View Order
+          </button>
         </div>
       </div>
     </div>
@@ -273,16 +350,30 @@
   <!-- ===== SINGLE CUSTOMER VIEW ===== -->
   <div class="single-view" ng-if="viewMode === 'single'">
     <div class="sv-header">
-      <button class="btn-back" ng-click="closeSingleView()"><i class="fas fa-arrow-left"></i></button>
-      <div style="flex:1;">
-        <h5 style="margin:0; font-weight:700;">{{singleCustomer.name}}</h5>
-        <small style="color:var(--text-muted);">{{singleCustomer.items.length}} Items Total</small>
+      <div class="sv-header-top">
+        <button class="btn-back" ng-click="closeSingleView()"><i class="fas fa-arrow-left"></i></button>
+        <div style="flex:1;">
+          <h5 style="margin:0; font-weight:700;">{{singleCustomer.name}}</h5>
+          <small style="color:var(--text-muted);">{{singleCustomer.items.length}} Items Total</small>
+        </div>
+        <div style="text-align:right;">
+          <span style="display:block; font-weight:700; color:var(--primary); font-size:16px;">
+            {{singleCustomer.pendingTotal | currency:"₹":0}}
+          </span>
+          <span style="display:block; font-size:9px; color:#999; text-transform:uppercase;">Pending Amount</span>
+        </div>
       </div>
-      <div style="text-align:right;">
-        <span style="display:block; font-weight:700; color:var(--primary); font-size:16px;">
-          {{singleCustomer.pendingTotal | currency:"₹":0}}
-        </span>
-        <span style="display:block; font-size:9px; color:#999; text-transform:uppercase;">Pending Amount</span>
+      <!-- Call & WhatsApp buttons in single view -->
+      <div class="sv-contact-btns" ng-if="singleCustomer.mobile">
+        <a class="sv-contact-btn sv-call-btn" ng-href="tel:{{singleCustomer.mobile}}">
+          <i class="fas fa-phone"></i> Call {{singleCustomer.mobile}}
+        </a>
+        <a class="sv-contact-btn sv-wa-btn" ng-href="https://wa.me/91{{singleCustomer.mobile}}" target="_blank">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+      <div ng-if="!singleCustomer.mobile" style="font-size:12px; color:#bbb; margin-top:4px;">
+        <i class="fas fa-phone-slash"></i> No mobile number on file
       </div>
     </div>
 
@@ -407,9 +498,58 @@
 
     app.controller('adminController', ['$scope', '$timeout', function($scope, $timeout) {
 
+      // ── Firebase App 1: Orders DB ──
       var config = { databaseURL: "https://notes-12519-default-rtdb.firebaseio.com" };
       try { firebase.initializeApp(config); } catch(e) {}
       var dbRef = firebase.database().ref();
+
+      // ── Firebase App 2: Users/Contacts DB ──
+      var usersConfig = {
+        apiKey: "AIzaSyAr8dYBz_D1DVnGfT_fQhTwD1YmtTvuzMk",
+        authDomain: "shop-reminder-3ce10.firebaseapp.com",
+        databaseURL: "https://shop-reminder-3ce10-default-rtdb.firebaseio.com",
+        projectId: "shop-reminder-3ce10",
+        storageBucket: "shop-reminder-3ce10.appspot.com",
+        messagingSenderId: "555627569260",
+        appId: "1:555627569260:web:3948ae391eab6eb5ea7849"
+      };
+      var usersApp;
+      try { usersApp = firebase.app('usersApp'); } catch(e) { usersApp = firebase.initializeApp(usersConfig, 'usersApp'); }
+      var usersDb = usersApp.database().ref('users');
+
+      // mobileLookup cache: lowercase name → 10-digit mobile
+      var mobileLookup = {};
+
+      // Listen to users DB and build lookup table
+      usersDb.on('value', function(snapshot) {
+        $timeout(function() {
+          mobileLookup = {};
+          snapshot.forEach(function(child) {
+            var u = child.val();
+            if (u && u.name && u.mobile) {
+              var key = String(u.name).trim().toLowerCase();
+              mobileLookup[key] = String(u.mobile).replace(/\D/g, '').slice(-10);
+            }
+          });
+          // Refresh mobile on all already-loaded customers
+          if ($scope.pendingCustomers) {
+            $scope.pendingCustomers.forEach(function(c) { c.mobile = getMobile(c.name); });
+          }
+          if ($scope.completedCustomers) {
+            $scope.completedCustomers.forEach(function(c) { c.mobile = getMobile(c.name); });
+          }
+          if ($scope.singleCustomer) {
+            $scope.singleCustomer.mobile = getMobile($scope.singleCustomer.name);
+          }
+        });
+      });
+
+      // Exact name match lookup from users DB
+      function getMobile(customerName) {
+        if (!customerName) return null;
+        var key = String(customerName).trim().toLowerCase();
+        return mobileLookup[key] || null;
+      }
 
       var urlParams = new URLSearchParams(window.location.search);
       var targetCustomer = urlParams.get('c');
@@ -449,7 +589,8 @@
             targetMap[cName] = {
               name: cName, items: [], totalAmount: 0,
               lastTime: item.submitTime, lastDate: item.submitDate,
-              lastActiveTime: item.serverTimestamp || 0
+              lastActiveTime: item.serverTimestamp || 0,
+              mobile: null
             };
           }
           targetMap[cName].items.push(item);
@@ -461,6 +602,10 @@
           }
         });
 
+        // Attach mobile numbers by matching customer name via field5 → customerphone
+        Object.values(pendingMap).forEach(function(c) { c.mobile = getMobile(c.name); });
+        Object.values(completedMap).forEach(function(c) { c.mobile = getMobile(c.name); });
+
         $scope.pendingCustomers = Object.values(pendingMap);
         $scope.completedCustomers = Object.values(completedMap);
 
@@ -470,7 +615,7 @@
       };
 
       $scope.getFullCustomerData = function(name) {
-        var cust = { name: name, items: [], totalAmount: 0, pendingTotal: 0, dateGroups: [] };
+        var cust = { name: name, items: [], totalAmount: 0, pendingTotal: 0, dateGroups: [], mobile: null };
 
         allDataCache.forEach(function(item) {
           if (item.field2 === name) {
@@ -480,6 +625,8 @@
             if (item.status !== 'completed') cust.pendingTotal += lineTotal;
           }
         });
+
+        cust.mobile = getMobile(name);
 
         var dateMap = {};
         cust.items.forEach(function(item) {
@@ -495,6 +642,37 @@
 
         cust.dateGroups = Object.values(dateMap).sort(function(a, b) { return b._ts - a._ts; });
         return cust;
+      };
+
+      // ===== CALL & WHATSAPP =====
+      $scope.callCustomer = function(customer, $event) {
+        $event.stopPropagation();
+        if (!customer.mobile) {
+          $scope.showToast('No mobile number found');
+          return;
+        }
+        window.location.href = 'tel:' + customer.mobile;
+      };
+
+      $scope.whatsappCustomer = function(customer, $event) {
+        $event.stopPropagation();
+        if (!customer.mobile) {
+          $scope.showToast('No mobile number found');
+          return;
+        }
+        // Build a summary message
+        var msg = 'Hello ' + customer.name + '! 👋\n';
+        msg += 'Your order summary:\n\n';
+        if (customer.items && customer.items.length > 0) {
+          customer.items.forEach(function(item) {
+            if (item.status !== 'completed') {
+              msg += '• ' + item.productName + ' x' + item.field3 + ' = ₹' + (item.productPrice * item.field3) + '\n';
+            }
+          });
+          msg += '\n💰 Pending Total: ₹' + (customer.totalAmount || '0');
+        }
+        var encoded = encodeURIComponent(msg);
+        window.open('https://wa.me/91' + customer.mobile + '?text=' + encoded, '_blank');
       };
 
       $scope.openSingleView = function(customer) {
