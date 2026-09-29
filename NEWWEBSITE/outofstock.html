@@ -1,276 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Image CRUD with Stock Status</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            font-size: 13px;
-        }
-        .tabs {
-            text-align: center;
-            margin-top: 20px;
-            position: fixed;
-        }
-        .tab-button {
-            border: 2px solid #4CAF50;
-            background: #4CAF50;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            margin: 0 5px;
-        }
-        .tab-button:hover {
-            color: black;
-            background: white;
-        }
-        .search-input {
-            position: fixed; 
-            top: 5px; 
-            left: 20px; 
-            right: 20px; 
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #4CAF50; 
-            border-radius: 5px; 
-            font-size: 16px; 
-            z-index: 10; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .tabContent {
-            display: none; 
-            margin-top: 60px; 
-            padding: 20px;
-            background-color: #ffffff; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-            border-radius: 5px; 
-        }
-        h2 {
-            color: #333; 
-        }
-        .product-item {
-            border: 1px solid #ddd; 
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: box-shadow 0.3s; 
-            background-color: #f9f9f9; 
-        }
-        .product-item:hover {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-        }
-        .toggle-button, .delete-button {
-            background-color: #4CAF50;
-            color: white; 
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s; 
-        }
-        .toggle-button:hover, .delete-button:hover {
-            background-color: #45a049; 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hindustan Toys - Product Manager</title>
+<style>
+:root{--brand:#5A55A3;--brand-d:#47428d;--amber:#f59e0b;--amber-d:#d97706;--green:#16a34a;--red:#dc2626;--bg:#f4f6f8;--line:#e5e7eb;--ink:#222;--mute:#777}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;font:13px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);overscroll-behavior-y:contain}
+button{font:inherit;touch-action:manipulation;cursor:pointer;border:0}
+
+/* Header (no blur = no scroll lag) */
+.top{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 14px 0}
+.wrap{max-width:1200px;margin:auto}
+.row{display:flex;align-items:center;gap:12px}
+.brand{font-size:19px;font-weight:900;color:var(--brand);white-space:nowrap}
+.search{flex:1;height:42px;padding:0 14px;border:1px solid #d8dce2;border-radius:12px;background:#f8fafc;font-size:15px;outline:none}
+.search:focus{background:#fff;border-color:var(--brand);box-shadow:0 0 0 3px rgba(90,85,163,.12)}
+.tabs{display:flex;gap:8px;padding:10px 0}
+.tab{flex:1;max-width:190px;padding:10px 8px;border-radius:10px;background:#e9ebef;color:#555;font-weight:800;font-size:12px;white-space:nowrap}
+.tab:active{transform:scale(.97)}
+.tab.on{background:var(--brand);color:#fff}
+.tab.get{color:#b45309}
+.tab.get.on{background:var(--amber);color:#fff}
+
+/* Content */
+main{max-width:1200px;margin:auto;padding:6px 14px 40px}
+.head{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
+.head h2{margin:0;font-size:19px}
+.head span{color:var(--mute);font-size:12px;font-weight:600}
+#list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+
+/* Tab filtering + ordering happen in CSS: switching tabs = 1 attribute change */
+#list[data-tab=in] .card[data-out="1"],
+#list[data-tab=out] .card[data-out="0"],
+#list[data-tab=get] .card[data-get="0"],
+.card.hide{display:none}
+#list[data-tab=in] .card{order:var(--n,0)}
+#list:not([data-tab=in]) .card{order:var(--m,0)}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:auto 330px}
+.card[data-get="1"]{border-color:rgba(245,158,11,.7)}
+.img{position:relative;height:180px;background:#f3f4f6;border-bottom:1px solid #eee}
+.img img{width:100%;height:100%;object-fit:contain;padding:8px;display:block;opacity:0;transition:opacity .2s}
+.img img.ok{opacity:1}
+.img img.bad{opacity:.15}
+.badge{position:absolute;left:8px;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:900;z-index:2}
+.b-stock{top:8px}
+.b-in{background:#dcfce7;color:#15803d}
+.b-out{background:#fee2e2;color:var(--red)}
+.b-get{top:34px;background:#fef3c7;color:#b45309}
+.card[data-out="1"] .b-in,.card[data-out="0"] .b-out,.card[data-get="0"] .b-get{display:none}
+.del{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:#fff;color:#ef4444;font-size:18px;line-height:1;box-shadow:0 1px 6px rgba(0,0,0,.15);z-index:2}
+.del:active{background:#ef4444;color:#fff}
+.info{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.name{margin:0;font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{font-size:16px;font-weight:900;color:var(--brand)}
+.meta{display:grid;gap:4px}
+.meta div{display:flex;justify-content:space-between;gap:6px;background:#f7f8fa;border-radius:8px;padding:5px 8px;font-size:10px}
+.meta b{font-weight:700;color:#333;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta i{font-style:normal;color:#888}
+.acts{display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.btn{height:38px;border-radius:9px;color:#fff;font-size:11px;font-weight:800;width:100%}
+.btn:active{transform:scale(.96)}
+.b1{background:var(--brand)}
+.card[data-out="1"] .b1{background:var(--green)}
+.b2{background:var(--amber)}
+.card[data-get="1"] .b2{background:#6b7280}
+
+.img img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top,0) 12px env(safe-area-inset-bottom,0);cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:82vh;object-fit:contain;touch-action:pinch-zoom;background:#fff;border-radius:8px}
+.lb-cap{color:#fff;font-weight:700;font-size:14px;margin-top:12px;text-align:center;max-width:90%}
+.lb-x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:26px;line-height:1}
+.empty{display:none;text-align:center;padding:50px 20px;background:#fff;border:1px dashed #d5d8dd;border-radius:14px;color:#888}
+.empty.show{display:block}
+.empty h3{margin:6px 0 4px;color:#444}
+.empty p{margin:0}
+
+@media(hover:hover){.card:hover{border-color:#cfd3da;box-shadow:0 8px 22px rgba(0,0,0,.08)}.btn:hover{filter:brightness(.92)}}
+@media(min-width:701px){
+ #list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+ .img{height:250px}
+ .name{font-size:16px}.price{font-size:18px}.meta div{font-size:11px}
+ .btn{font-size:12px;height:40px}
+ .acts{flex-direction:row}
+}
+@media(min-width:1000px){#list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:700px){.brand{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
-<div class="tabs">
-    <button class="tab-button" onclick="showTab('inStock')">In Stock</button>
-    <button class="tab-button" onclick="showTab('outOfStock')">Out of Stock</button>
+<header class="top">
+ <div class="wrap">
+  <div class="row">
+   <div class="brand">HINDUSTAN TOYS</div>
+   <input id="q" class="search" type="search" placeholder="Search products by name..." autocomplete="off">
+  </div>
+  <nav class="tabs">
+   <button class="tab on" data-tab="in">✓ In Stock <span id="cIn"></span></button>
+   <button class="tab" data-tab="out">✕ Out of Stock <span id="cOut"></span></button>
+   <button class="tab get" data-tab="get">🛒 To Get <span id="cGet"></span></button>
+  </nav>
+ </div>
+</header>
+
+<main>
+ <div class="head"><h2 id="title">In Stock</h2><span id="count">0 products</span></div>
+ <div id="list" data-tab="in"></div>
+ <div id="empty" class="empty show"><div style="font-size:40px">📦</div><h3 id="eTitle">Loading products…</h3><p id="eMsg"></p></div>
+</main>
+
+<div id="lb" class="lb" role="dialog" aria-modal="true" aria-label="Enlarged product image">
+ <button class="lb-x" aria-label="Close">×</button>
+ <img id="lbImg" alt="">
+ <div id="lbCap" class="lb-cap"></div>
 </div>
 
-<!-- Search Bar for Global Use -->
-<input type="text" class="search-input" id="globalSearch" placeholder="Search products by name." oninput="filterGlobal()">
+<template id="tpl">
+ <article class="card" data-out="0" data-get="0">
+  <div class="img">
+   <span class="badge b-stock b-in">IN STOCK</span>
+   <span class="badge b-stock b-out">OUT OF STOCK</span>
+   <span class="badge b-get">🛒 TO GET</span>
+   <button class="del" data-a="del" title="Delete product" aria-label="Delete product">×</button>
+   <img decoding="async" loading="lazy" alt="">
+  </div>
+  <div class="info">
+   <h3 class="name"></h3>
+   <div class="price"></div>
+   <div class="meta">
+    <div><i>Party Code</i><b class="m-code"></b></div>
+    <div><i>Added</i><b class="m-add"></b></div>
+    <div><i>Modified</i><b class="m-mod"></b></div>
+   </div>
+   <div class="acts">
+    <button class="btn b1" data-a="stock"></button>
+    <button class="btn b2" data-a="get"></button>
+   </div>
+  </div>
+ </article>
+</template>
 
-<!-- In Stock Tab -->
-<div id="inStock" class="tabContent">
-    <h2>In Stock</h2>
-    <div class="inStockContent">
-        <!-- In-stock items will be displayed here -->
-    </div>
-</div>
-
-<!-- Out of Stock Tab -->
-<div id="outOfStock" class="tabContent">
-    <h2>Out of Stock</h2>
-    <div class="outOfStockContent">
-        <!-- Out-of-stock items will be displayed here -->
-    </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script>
-    // Your Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
-        authDomain: "htshop-e9c51.firebaseapp.com",
-        databaseURL: "https://htshop-e9c51-default-rtdb.firebaseio.com",
-        projectId: "htshop-e9c51",
-        storageBucket: "htshop-e9c51.appspot.com",
-        messagingSenderId: "653137640907",
-        appId: "1:653137640907:web:672fd6a9e85ca448a70a4e",
-        measurementId: "G-FJ4Q0FHBEG"
-    };
+firebase.initializeApp({
+  apiKey:"AIzaSyAvlig_xWJNP1hFsl4qfisC01VTkOAVhT8",
+  authDomain:"htshop-e9c51.firebaseapp.com",
+  databaseURL:"https://htshop-e9c51-default-rtdb.firebaseio.com",
+  projectId:"htshop-e9c51",
+  storageBucket:"htshop-e9c51.appspot.com",
+  messagingSenderId:"653137640907",
+  appId:"1:653137640907:web:672fd6a9e85ca448a70a4e",
+  measurementId:"G-FJ4Q0FHBEG"
+});
+const db = firebase.database().ref();
+const storage = firebase.storage();
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    const storage = firebase.storage(); // Initialize Firebase Storage
+/* ---------- State ---------- */
+const $ = id => document.getElementById(id);
+const list = $('list'), qEl = $('q'), tpl = $('tpl').content.firstElementChild;
+const items = new Map();          // id -> {d: data, el, r: refs}
+const TITLES = {in:'In Stock', out:'Out of Stock', get:'🛒 To Get'};
+const EMPTY = {
+  in:['No products available','There are currently no in-stock products.'],
+  out:['No out-of-stock products','All products are currently available.'],
+  get:['Nothing to get','Products marked for procurement will appear here.']
+};
+let tab = 'in', query = '', loaded = false, raf = 0;
 
-    function showTab(tabName) {
-        const tabs = document.querySelectorAll('.tabContent');
-        tabs.forEach(tab => {
-            tab.style.display = 'none'; // Hide all tabs
-        });
-        document.getElementById(tabName).style.display = 'block'; // Show the selected tab
-        fetchImages(); // Fetch images to display in the active tab
-    }
+const fmt = v => v ? new Date(v).toLocaleString([], {dateStyle:'medium', timeStyle:'short'}) : 'N/A';
+const ts  = v => {
+  if (!v) return 0;
+  if (typeof v === 'number') return v;
+  if (/^\d{10,}$/.test(v)) return Number(v);   // epoch milliseconds stored as text
+  return Date.parse(v) || 0;
+};
+const setText = (el, v) => { if (el.textContent !== v) el.textContent = v; };
 
-    function fetchImages() {
-        // Real-time listener for the data
-        database.ref().on('value', snapshot => {
-            const itemList = [];
-
-            snapshot.forEach(childSnapshot => {
-                const itemData = childSnapshot.val();
-                const item = {
-                    id: childSnapshot.key,
-                    url: itemData.url,
-                    name: itemData.name,
-                    price: itemData.price,
-                    partyCode: itemData.partyCode,
-                    date: itemData.date,
-                    lastModified: itemData.lastModified,
-                    outOfStock: itemData.outOfStock
-                };
-                itemList.push(item);
-            });
-
-            const inStockItems = itemList.filter(item => !item.outOfStock)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Filter and sort out-of-stock items
-            const outOfStockItems = itemList.filter(item => item.outOfStock)
-                .sort((a, b) => {
-                    const lastModifiedA = a.lastModified ? new Date(a.lastModified) : null;
-                    const lastModifiedB = b.lastModified ? new Date(b.lastModified) : null;
-                    const fetchDateA = new Date(a.date);
-                    const fetchDateB = new Date(b.date);
-
-                    // If both Last Modified exist
-                    if (lastModifiedA && lastModifiedB) {
-                        return lastModifiedB - lastModifiedA; // Sort by Last Modified
-                    } else if (lastModifiedA) {
-                        return -1; // a goes first
-                    } else if (lastModifiedB) {
-                        return 1; // b goes first
-                    } else {
-                        // Sort by Fetch Date if both Last Modified are null
-                        return fetchDateB - fetchDateA;
-                    }
-                });
-
-            const inStockContainer = document.querySelector('.inStockContent');
-            const outOfStockContainer = document.querySelector('.outOfStockContent');
-
-            // Update HTML content
-            inStockContainer.innerHTML = inStockItems.map(createItemHTML).join('');
-            outOfStockContainer.innerHTML = outOfStockItems.map(createItemHTML).join('');
-        });
-    }
-
-   function createItemHTML(item) {
-    const fetchDate = new Date(item.date).toLocaleString();
-    const lastModifiedDate = item.lastModified ? new Date(item.lastModified).toLocaleString() : "N/A";
-
-    return `
-        <div class="product-item" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
-            <div>
-                <img src="${item.url}" loading="lazy" style="max-width: 180px;" alt="${item.name}">
-                <p><strong>${item.name}</strong></p>
-                <p>Price: ${item.price}</p>
-                <p class="stock-status" style="color: ${item.outOfStock ? 'red' : 'green'}; margin: 5px 0;">${item.outOfStock ? 'Out of Stock' : 'In Stock'}</p>
-                <p>Party Code: ${item.partyCode}</p>
-                <p>Fetch Date: ${fetchDate}</p>
-                <small>Last Modified: ${lastModifiedDate}</small>
-            </div>
-            <div>
-                <button class="toggle-button" onclick="toggleStock(event, '${item.id}', ${item.outOfStock})">
-                    ${item.outOfStock ? 'Make Available' : 'Make Out of Stock'}
-                </button>
-                <button class="delete-button" style="background: red;" onclick="deleteItem('${item.id}', '${item.url}')">x</button>
-            </div>
-        </div>
-    `;
+/* ---------- Card build / patch (in place, never re-render everything) ---------- */
+function normalize(id, x){
+  return {
+    id, url:x.url||'', name:x.name||'Unnamed Product', price:x.price ?? '',
+    code:x.partyCode||'', date:x.date||'', mod:x.lastModified||'',
+    out:x.outOfStock===true, get:x.toGet===true
+  };
 }
 
-    function deleteItem(itemId, imageUrl) {
-        const storageRef = storage.refFromURL(imageUrl);
-        storageRef.delete()
-            .then(() => {
-                database.ref().child(itemId).remove()
-                    .then(() => {
-                        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
-                        if (itemElement) {
-                            itemElement.remove(); // Remove item from the DOM
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error removing item from database:", error);
-                    });
-            })
-            .catch(error => {
-                console.error("Error removing file from storage:", error);
-            });
-    }
-
-   function toggleStock(event, itemId, currentStatus) {
-    event.stopPropagation();
-    const newStatus = !currentStatus;
-    const timestamp = new Date().toISOString();
-
-    database.ref().child(itemId).update({
-        outOfStock: newStatus,
-        lastModified: timestamp
-    })
-    .then(() => {
-        const itemElement = document.querySelector(`.product-item[data-id="${itemId}"]`);
-        if (itemElement) {
-            itemElement.querySelector('.toggle-button').textContent = newStatus ? 'Make Available' : 'Make Out of Stock';
-        }
-        // Reapply the search filter
-        filterGlobal();
-    })
-    .catch((error) => {
-        console.error('Error updating stock status:', error);
-    });
+function patch(p){
+  const d = p.d, r = p.r, el = p.el;
+  el.dataset.out = d.out ? '1' : '0';
+  el.dataset.get = d.get ? '1' : '0';
+  setText(r.name, d.name);
+  setText(r.price, '₹ ' + d.price);
+  setText(r.code, String(d.code || '-'));
+  setText(r.add, fmt(d.date));
+  setText(r.mod, fmt(d.mod));
+  setText(r.b1, d.out ? '✓ Make Available' : 'Make Out of Stock');
+  setText(r.b2, d.get ? '✓ Got It / Remove' : '🛒 Add to Get');
+  r.img.alt = d.name;
+  if (r.img.dataset.src !== d.url){
+    r.img.dataset.src = d.url;
+    r.img.classList.remove('ok','bad');
+    if (d.url) r.img.src = d.url;
+  }
+  p.lname = d.name.toLowerCase();
+  p.ds = ts(d.date);
+  p.ms = ts(d.mod || d.date);
+  p.hidden = false;
 }
 
-    function filterGlobal() {
-        const searchInput = document.getElementById('globalSearch').value.toLowerCase();
-        const currentTab = document.querySelector('.tabContent:not([style*="display: none"])');
-        const items = currentTab.querySelectorAll('.product-item');
-        items.forEach(item => {
-            const itemName = item.dataset.name;
-            item.style.display = itemName.includes(searchInput) ? 'flex' : 'none'; // Filter items
-        });
-    }
+function upsert(id, raw){
+  if (!raw || typeof raw !== 'object') return;
+  const d = normalize(id, raw);
+  let p = items.get(id);
+  if (!p){
+    const el = tpl.cloneNode(true);
+    el.dataset.id = id;
+    const q = s => el.querySelector(s);
+    const img = q('img');
+    img.addEventListener('load', () => img.classList.add('ok'));
+    img.addEventListener('error', () => img.classList.add('bad'));
+    p = {d, el, n:-1, m:-1, r:{
+      name:q('.name'), price:q('.price'), code:q('.m-code'), add:q('.m-add'),
+      mod:q('.m-mod'), b1:q('.b1'), b2:q('.b2'), img
+    }};
+    items.set(id, p);
+    patch(p);
+    list.appendChild(el);
+  } else {
+    p.d = d;
+    patch(p);
+  }
+  schedule();
+}
 
-    window.onload = () => {
-        showTab('inStock'); // Default to show In Stock tab
-        fetchImages(); // Load initial items
-    };
+function remove(id){
+  const p = items.get(id);
+  if (!p) return;
+  p.el.remove();
+  items.delete(id);
+  schedule();
+}
+
+/* ---------- View update: one pass, batched per frame ---------- */
+function schedule(){ if (!raf) raf = requestAnimationFrame(view); }
+
+function view(){
+  raf = 0;
+  const all = [...items.values()];
+  let cIn = 0, cOut = 0, cGet = 0, visible = 0;
+
+  for (const p of all){
+    if (p.d.out) cOut++; else cIn++;
+    if (p.d.get) cGet++;
+
+    const match = !query || p.lname.includes(query);
+    if (p.hidden === match){ p.hidden = !match; p.el.classList.toggle('hide', !match); }
+
+    if (match && (tab === 'in' ? !p.d.out : tab === 'out' ? p.d.out : p.d.get)) visible++;
+  }
+
+  // ranks (only touch DOM when a rank changes)
+  all.sort((a,b) => b.ds - a.ds).forEach((p,i) => { if (p.n !== i){ p.n = i; p.el.style.setProperty('--n', i); } });
+  all.sort((a,b) => (b.ms - a.ms) || (b.ds - a.ds)).forEach((p,i) => { if (p.m !== i){ p.m = i; p.el.style.setProperty('--m', i); } });
+
+  setText($('cIn'), '(' + cIn + ')');
+  setText($('cOut'), '(' + cOut + ')');
+  setText($('cGet'), '(' + cGet + ')');
+  setText($('count'), (tab === 'in' ? cIn : tab === 'out' ? cOut : cGet) + ' products');
+  setText($('title'), TITLES[tab]);
+
+  const empty = $('empty');
+  empty.classList.toggle('show', visible === 0);
+  if (visible === 0){
+    if (!loaded){ setText($('eTitle'), 'Loading products…'); setText($('eMsg'), ''); }
+    else if (query){ setText($('eTitle'), 'No matches'); setText($('eMsg'), 'Nothing found for "' + qEl.value.trim() + '".'); }
+    else { setText($('eTitle'), EMPTY[tab][0]); setText($('eMsg'), EMPTY[tab][1]); }
+  }
+}
+
+/* ---------- Tabs (instant: attribute swap only) ---------- */
+document.querySelector('.tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab');
+  if (!b || b.dataset.tab === tab) return;
+  document.querySelector('.tab.on').classList.remove('on');
+  b.classList.add('on');
+  tab = b.dataset.tab;
+  list.dataset.tab = tab;
+  window.scrollTo(0, 0);
+  view();
+});
+
+/* ---------- Search ---------- */
+qEl.addEventListener('input', () => { query = qEl.value.toLowerCase().trim(); schedule(); });
+
+/* ---------- Image lightbox ---------- */
+const lb = $('lb'), lbImg = $('lbImg'), lbCap = $('lbCap');
+let lbOpen = false;
+function openLB(src, name){
+  lbImg.src = src;
+  lbCap.textContent = name || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!lbOpen){ history.pushState({lb:1}, ''); lbOpen = true; }
+}
+function closeLB(fromPop){
+  if (!lbOpen) return;
+  lb.classList.remove('open');
+  lbImg.removeAttribute('src');
+  document.body.style.overflow = '';
+  lbOpen = false;
+  if (!fromPop && history.state && history.state.lb) history.back();
+}
+lb.addEventListener('click', e => { if (e.target !== lbImg) closeLB(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+window.addEventListener('popstate', () => closeLB(true));
+
+/* ---------- Actions (event delegation, optimistic UI) ---------- */
+list.addEventListener('click', e => {
+  const im = e.target.closest('.img img');
+  if (im && im.src){ openLB(im.src, im.alt); return; }
+  const b = e.target.closest('button[data-a]');
+  if (!b) return;
+  const id = b.closest('.card').dataset.id;
+  const p = items.get(id);
+  if (!p) return;
+  const a = b.dataset.a;
+  if (a === 'stock') toggleStock(p);
+  else if (a === 'get') toggleGet(p);
+  else if (a === 'del') del(p);
+});
+
+function toggleGet(p){
+  const old = p.d.get;
+  p.d.get = !old;
+  patch(p); schedule();
+  db.child(p.d.id).update({toGet: p.d.get}).catch(err => {
+    console.error(err);
+    p.d.get = old; patch(p); schedule();
+    alert('Could not update. Please try again.');
+  });
+}
+
+function toggleStock(p){
+  const oldOut = p.d.out, oldMod = p.d.mod;
+  const now = new Date().toISOString();
+  p.d.out = !oldOut; p.d.mod = now;
+  patch(p); schedule();
+  db.child(p.d.id).update({outOfStock: p.d.out, lastModified: now}).catch(err => {
+    console.error(err);
+    p.d.out = oldOut; p.d.mod = oldMod; patch(p); schedule();
+    alert('Could not update stock status.');
+  });
+}
+
+function del(p){
+  if (!confirm('Are you sure you want to delete this product?')) return;
+  const d = p.d;
+  const backup = {url:d.url, name:d.name, price:d.price, partyCode:d.code, date:d.date,
+                  lastModified:d.mod, outOfStock:d.out, toGet:d.get};
+  remove(d.id);
+  if (d.url){
+    try { storage.refFromURL(d.url).delete().catch(e => console.warn('Image not deleted:', e)); }
+    catch (e) { console.warn('Invalid storage URL:', e); }
+  }
+  db.child(d.id).remove().catch(err => {
+    console.error(err);
+    upsert(d.id, backup);
+    alert('Could not delete product.');
+  });
+}
+
+/* ---------- Firebase: incremental listeners (only changed items are touched) ---------- */
+db.on('child_added',   s => upsert(s.key, s.val()));
+db.on('child_changed', s => upsert(s.key, s.val()));
+db.on('child_removed', s => remove(s.key));
+db.once('value').then(() => { loaded = true; schedule(); }).catch(err => {
+  console.error(err);
+  loaded = true;
+  setText($('eTitle'), 'Could not load products');
+  setText($('eMsg'), 'Check your connection and reload the page.');
+});
 </script>
-
 </body>
 </html>
