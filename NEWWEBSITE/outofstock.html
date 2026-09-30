@@ -106,7 +106,7 @@ main{max-width:1200px;margin:auto;padding:6px 14px 40px}
  <div class="wrap">
   <div class="row">
    <div class="brand">HINDUSTAN TOYS</div>
-   <input id="q" class="search" type="search" placeholder="Search products by name..." autocomplete="off">
+   <input id="q" class="search" type="search" placeholder="Search by name or party code..." autocomplete="off">
   </div>
   <nav class="tabs">
    <button class="tab on" data-tab="in">✓ In Stock <span id="cIn"></span></button>
@@ -223,6 +223,7 @@ function patch(p){
     if (d.url) r.img.src = d.url;
   }
   p.lname = d.name.toLowerCase();
+  p.lcode = String(d.code).trim().toLowerCase();
   p.ds = ts(d.date);
   p.ms = ts(d.mod || d.date);
   p.os = ts(d.oat) || p.ms;
@@ -269,13 +270,15 @@ function view(){
   raf = 0;
   const all = [...items.values()];
   let cIn = 0, cOut = 0, cGet = 0, cOrd = 0, visible = 0;
+  // If the text exactly matches a party code (e.g. "4" or "14"), show only that party code; otherwise search by name
+  const codeMode = !!query && all.some(p => p.lcode === query);
 
   for (const p of all){
     if (p.d.out) cOut++; else cIn++;
     if (p.d.get) cGet++;
     if (p.d.ord) cOrd++;
 
-    const match = !query || p.lname.includes(query);
+    const match = !query || (codeMode ? p.lcode === query : p.lname.includes(query));
     if (p.hidden === match){ p.hidden = !match; p.el.classList.toggle('hide', !match); }
 
     if (match && (tab === 'in' ? !p.d.out : tab === 'out' ? p.d.out : tab === 'get' ? p.d.get : p.d.ord)) visible++;
